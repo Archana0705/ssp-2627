@@ -1037,14 +1037,14 @@
                 </div>
               </div>
               <div class="meta-bar info-box navy">
-                <span><b>Department:</b> Adi Dravidar And Tribal Welfare Dept</span>
+                <span id="departmentMetaValue"><b>Department:</b> Adi Dravidar And Tribal Welfare Dept</span>
               </div>
               
               <div class="row d-flex no-wrap mb-3">
                 <div class="row ">
                   <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
                     <label class="form-label">Department<span style="color: red;">*</span></label>
-                    <input type="text" class="form-select" id="department" name="department" value="Adi Dravidar And Tribal Welfare Dept" disabled>
+                    <input type="text" class="form-select" id="department" name="department" value="" placeholder="Department will be auto-filled" disabled>
                     <!-- <select class="form-select" id="department" name="department" required>
                       <option value="2">--Select--</option> -->
                     </select>
@@ -3071,11 +3071,42 @@ $('#save_scheme_setup').on('click', function (e) {
 
 
     });
+    function getLoggedInUserDetails() {
+      const userDetailsEncrypted = sessionStorage.getItem('user_details');
+      const encryptionKey = sessionStorage.getItem('encryption_key');
+      if (!userDetailsEncrypted || !encryptionKey || typeof SecureAPI === 'undefined') {
+        return null;
+      }
 
+      try {
+        const decrypted = SecureAPI.decrypt(userDetailsEncrypted, encryptionKey);
+        return JSON.parse(decrypted);
+      } catch (err) {
+        console.warn('Unable to parse user details from session storage.', err);
+        return null;
+      }
+    }
 
+    function getDepartmentFromUserDetails(userDetails) {
+      if (!userDetails || typeof userDetails !== 'object') return '';
+      return (
+        userDetails.department_name ||
+        userDetails.department ||
+        userDetails.dept_name ||
+        userDetails.dept ||
+        ''
+      );
+    }
+
+    const defaultDepartmentName = "Adi Dravidar And Tribal Welfare Dept";
+    const loggedInUserDetails = getLoggedInUserDetails();
+    const loggedInDepartmentName = getDepartmentFromUserDetails(loggedInUserDetails) || defaultDepartmentName;
+
+    $('#department').val(loggedInDepartmentName);
+    $('#departmentMetaValue').html(`<b>Department:</b> ${loggedInDepartmentName}`);
 
     const saveParams = {
-      'department': "Adi Dravidar And Tribal Welfare Dept",
+      'department': loggedInDepartmentName,
       'subdepartment': "Adi Dravidar Welfare",
       'schemename': "Post Matric Scholarship for SC Students",
       'schemecode': "ADW-PMS-2026"
