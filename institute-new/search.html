@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>TN State Scholarship Portal</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <!-- Favicons -->
+    <link href="../institute/assets/img/tn_logo.png" rel="icon">
+    <link href="../institute/assets/img/tn_logo.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/aos/aos-min.css">
+    <link rel="stylesheet" href="assets/css/header_style.css">
+    <link rel="stylesheet" href="assets/common-style/style.css">
+    <!-- ...existing head content... -->
+    <style>
+      @media (max-width: 768px) {
+      .toggle-sidebar .sidebar {
+      top: 50px !important;
+      }
+      }
+      #studentDetailsAppliedModal .modal.fade .modal-dialog {
+      transform: scale(0.9);
+      opacity: 0;
+      transition: var(--transition);
+      }
+      #studentDetailsAppliedModal .modal.show .modal-dialog {
+      transform: scale(1);
+      opacity: 1;
+      }
+      #studentDetailsAppliedModal .modal-content {
+      border: none;
+      border-radius: 12px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow), var(--glow);
+      overflow: hidden;
+      font-size: clamp(0.85rem, 2.5vw, 0.9rem);
+      font-family: 'Inter', system-ui, sans-serif;
+      }
+      #studentDetailsAppliedModal .modal-header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 0.75rem 1rem;
+      border-bottom: none;
+      display: flex;
+      align-items: center;
+      position: relative;
+      }
+      #studentDetailsAppliedModal .modal-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-color), transparent);
+      }
+      #studentDetailsAppliedModal .modal-title {
+      font-size: clamp(1.1rem, 3vw, 1.2rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      }
+      #studentDetailsAppliedModal .btn-close {
+      background: transparent;
+      color: white;
+      opacity: 0.8;
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      transition: var(--transition);
+      }
+      #studentDetailsAppliedModal .btn-close:hover {
+      opacity: 1;
+      transform: scale(1.2);
+      }
+      #studentDetailsAppliedModal .modal-body {
+      padding: clamp(0.75rem, 2vw, 1rem);
+      background: var(--background-color);
+      }
+      #studentDetailsAppliedModal .section-title {
+      font-size: clamp(0.95rem, 2.5vw, 1rem);
+      font-weight: 600;
+      color: var(--primary-color);
+      margin: 0.5rem 0 0.25rem;
+      padding-bottom: 0.2rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      }
+      #studentDetailsAppliedModal .section-title::before {
+      content: '•';
+      color: var(--accent-color);
+      font-size: 1.2rem;
+      }
+      #studentDetailsAppliedModal .detail-card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid transparent;
+      background-clip: padding-box;
+      transition: var(--transition);
+      }
+      #studentDetailsAppliedModal .detail-card:hover {
+      border-image: linear-gradient(135deg, var(--primary-color), var(--accent-color)) 1;
+      box-shadow: var(--shadow), var(--glow);
+      transform: translateY(-2px);
+      }
+      #studentDetailsAppliedModal .student-details-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 0rem;
+      background: white;
+      }
+      #studentDetailsAppliedModal .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      /* padding: 0.5rem 0.25rem; */
+      min-height: 2rem;
+      transition: var(--transition);
+      }
+      #studentDetailsAppliedModal .detail-row:hover {
+      background: #f8fafc;
+      border-radius: 4px;
+      }
+      #studentDetailsAppliedModal .detail-label {
+      font-weight: 500;
+      color: var(--text-color);
+      flex: 0 0 40%;
+      text-align: left;
+      padding-right: 0.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      }
+      #studentDetailsAppliedModal .detail-value {
+      color: var(--text-color);
+      flex: 1;
+      text-align: left;
+      font-weight: 400;
+      padding-left: 0.5rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      }
+      #studentDetailsAppliedModal .table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: clamp(0.8rem, 2vw, 0.85rem);
+      }
+      #studentDetailsAppliedModal .table th {
+      background: var(--primary-color);
+      color: white;
+      padding: 0.5rem;
+      font-weight: 500;
+      text-align: left;
+      white-space: nowrap;
+      }
+      #studentDetailsAppliedModal .table td {
+      padding: 0.5rem;
+      border-bottom: 1px solid #e5e7eb;
+      color: var(--text-color);
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      }
+      #studentDetailsAppliedModal .table tbody tr:nth-child(odd) {
+      background: #f9fafb;
+      }
+      #studentDetailsAppliedModal .table tbody tr:hover {
+      background: #e0e7ff;
+      }
+      #studentDetailsAppliedModal .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      }
+      #studentDetailsAppliedModal .modal-footer {
+      border-top: none;
+      padding: 0.5rem;
+      background: var(--background-color);
+      display: flex;
+      gap: 0.4rem;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      }
+      #studentDetailsAppliedModal .btn {
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      font-size: clamp(0.8rem, 2vw, 0.85rem);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      line-height: 1.2;
+      box-shadow: var(--shadow);
+      }
+      #studentDetailsAppliedModal .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow), var(--glow);
+      }
+      #studentDetailsAppliedModal .btn-primary {
+      background: var(--primary-color);
+      color: white;
+      }
+      #studentDetailsAppliedModal .btn-info {
+      background: var(--accent-color);
+      color: white;
+      }
+      #studentDetailsAppliedModal .btn-secondary {
+      background: #6b7280;
+      color: white;
+      }
+      #studentDetailsAppliedModal .card {
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 0.75rem;
+      background: var(--card-bg);
+      border: 1px solid transparent;
+      transition: var(--transition);
+      }
+      #studentDetailsAppliedModal .card:hover {
+      border-image: linear-gradient(135deg, var(--primary-color), var(--accent-color)) 1;
+      }
+      #studentDetailsAppliedModal .card-title {
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      }
+      #studentDetailsAppliedModal .fees_amount {
+      background: #f8fafc;
+      padding: 0.5rem;
+      border-radius: 6px;
+      font-size: clamp(0.8rem, 2vw, 0.85rem);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      }
+      #studentDetailsAppliedModal .sectionSeparate h6 {
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+      }
+      #studentDetailsAppliedModal .table-bordered {
+      border: 1px solid #e5e7eb;
+      }
+      #studentDetailsAppliedModal .table-bordered th,
+      #studentDetailsAppliedModal .table-bordered td {
+      border: 1px solid #e5e7eb;
+      }
+      /* HEADER */
+      .fees-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:15px;
+      }
+      .fees-title{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      }
+      .icon-box{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      background:linear-gradient(135deg,#6366f1,#8b5cf6);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      }
+      /* FILTER BUTTON */
+      .btn-filter{
+      background:#6366f1;
+      color:#fff;
+      border:none;
+      padding:8px 14px;
+      border-radius:8px;
+      display:flex;
+      align-items:center;
+      gap:5px;
+      }
+      /* FILTER PANEL */
+      .filter-accordion{
+      background:#fff;
+      border-radius:14px;
+      padding:15px;
+      margin-bottom:15px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.05);
+      transition:all 0.3s ease;
+      }
+      .filter-accordion.collapsed{
+      max-height:0;
+      overflow:hidden;
+      padding:0;
+      }
+      /* GRID */
+      .filter-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:15px;
+      }
+      /* INPUT */
+      .form-select{
+      border-radius:8px;
+      padding:8px;
+      }
+      /* TABLE CARD */
+      .fees-table-card{
+      background:#fff;
+      border-radius:16px;
+      padding:15px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.05);
+      }
+      /* TOP BAR */
+      .table-topbar{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:10px;
+      }
+      /* SEARCH */
+      .search-box{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      background:#f3f4f6;
+      padding:6px 10px;
+      border-radius:8px;
+      }
+      /* ACTIONS */
+      .table-actions button{
+      border:1px solid #ddd;
+      background:#fff;
+      padding:6px 10px;
+      border-radius:8px;
+      margin-left:5px;
+      }
+      .table-actions .primary{
+      background:#6366f1;
+      color:#fff;
+      }
+      /* TABLE */
+      .custom-table thead{
+      background:#f9fafb;
+      }
+      .custom-table th{
+      color:#6366f1;
+      }
+      .filter-canvas{
+      width:380px;
+      }
+      /* GRID */
+      .filter-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+      }
+      /* LABEL */
+      .form-group label{
+      font-size:13px;
+      color:#6b7280;
+      }
+      /* SELECT */
+      .form-select{
+      border-radius:10px;
+      padding:8px;
+      /*      background:#f9fafb;*/
+      }
+      /* ACCORDION */
+      .accordion-button{
+      font-weight:500;
+      }
+      .accordion-button:not(.collapsed){
+      background:#eef2ff;
+      color:#4f46e5;
+      }
+      /* FOOTER */
+      .filter-footer{
+      position:sticky;
+      bottom:0;
+      background:#fff;
+      padding:10px;
+      border-top:1px solid #eee;
+      }
+      .btn-submit{
+      width:100%;
+      background:#2563eb;
+      color:#fff;
+      padding:10px;
+      border-radius:10px;
+      border:none;
+      font-weight:500;
+      }
+      .active-filters{
+      background:#fff;
+      padding:12px;
+      border-radius:12px;
+      margin-bottom:7px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.05);
+      }
+      /*.filter-group{
+      margin-bottom:10px;
+      }*/   
+      .filter-group h6{
+      font-size:13px;
+      color:#6b7280;
+      margin-bottom:6px;
+      }
+      .filter-chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      }
+      /* CHIP */
+      .filter-chip{
+      background:#eef2ff;
+      color:#4f46e5;
+      padding:6px 10px;
+      border-radius:20px;
+      font-size:12px;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      transition:0.2s;
+      border: 1px solid #4f46e5;
+      }
+      .filter-chip i{
+      cursor:pointer;
+      font-size:12px;
+      }
+      .filter-chip:hover{
+      background:#e0e7ff;
+      }
+      .clear-btn{
+      width:100%;
+      margin-top:8px;
+      background:#f3f4f6;
+      border:none;
+      padding:10px;
+      border-radius:10px;
+      font-weight:500;
+      }
+      .form-group label{
+      font-size:13px;
+      font-weight:500;
+      color:#6b7280;
+      margin-bottom:4px;
+      display:block;
+      }
+      .form-select{
+      border-radius:10px;
+      padding:8px;
+      /*  background:#f9fafb;*/
+      border:1px solid #e5e7eb;
+      }
+      .form-select:focus{
+      border-color:#6366f1;
+      box-shadow:0 0 0 2px rgba(99,102,241,0.2);
+      }
+      .card-transparent {
+      justify-content: space-between;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      padding: 5px !important;
+      }
+      .section-header-card .title-grid {
+      display: flex;
+      }
+      .active-filters{
+      transition: all 0.3s ease;
+      } 
+      .filter-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 5px;
+      margin-bottom: 10px;
+      background: #fff;
+      border-radius: 0.8rem;
+      box-shadow: 0 2px 12px 0 rgba(31, 38, 135, 0.07);
+      border: none;
+      margin-bottom: 15px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 15px;
+      } 
+      .filter-item{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:#fff;
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid #e5e7eb;
+      transition:0.2s;
+      }
+      .filter-item:hover{
+      box-shadow:0 4px 12px rgba(0,0,0,0.05);
+      }
+      /* LEFT */
+      .filter-item .left{
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      /*      font-size: 13px;*/
+      font-weight: 600;
+      color: #6859b0;     
+      }
+      .filter-item i{
+      color:#6366f1;
+      font-size:16px;
+      }
+      /* VALUE */
+      .filter-item .value{
+      font-weight:600;
+      font-size:14px;
+      color:#111827;
+      }
+      /* LONG TEXT */
+      .filter-item .value.long{
+      /*      max-width:220px;*/
+      max-width:310px; 
+      text-align:right;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      }
+      .label-flat {
+      flex-direction: column !important;
+      align-items: normal !important; 
+      }
+      #searchSummaryWrap .alert {
+      background: #f8f9ff;
+      border-radius: 8px;
+      }
+      .fade-slide {
+      animation: fadeSlide 0.3s ease;
+      }
+      @keyframes fadeSlide {
+      from {
+      opacity: 0;
+      transform: translateY(10px);
+      }
+      to {
+      opacity: 1;
+      transform: translateY(0);
+      }
+      }
+      #searchFormWrap, #eligFormWrap {
+      background: #fff;
+      border-radius: 0.8rem;
+      box-shadow: 0 2px 12px 0 rgba(31, 38, 135, 0.07);
+      border: none;
+      margin-bottom: 15px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 15px;
+      }
+      /* ---------- SOFT HEADER ---------- */
+      .custom-header {
+      background: #f5f7ff;
+      color: #3f51b5;
+      font-weight: 600;
+      border-bottom: 1px solid #e0e3ff;
+      }
+      /* ---------- CARD IMPROVEMENT ---------- */
+      .card {
+      border-radius: 12px;
+      border: 1px solid #f1f1f1;
+      }
+      .card-body {
+      padding: 20px;
+      }
+      /* ---------- FILTER GRID IMPROVEMENT ---------- */
+      .filter-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      }
+      .filter-item {
+      background: #fafbff;
+      border: 1px solid #eef0ff;
+      border-radius: 10px;
+      padding: 12px;
+      transition: 0.2s;
+      }
+      .filter-item:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      }
+      .filter-item .left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #6b7280;
+      }
+      .filter-item .value {
+      font-weight: 600;
+      color: #111827;
+      margin-top: 4px;
+      }
+      /* ---------- TIMELINE (MODERN) ---------- */
+      .timeline {
+      position: relative;
+      padding-left: 25px;
+      border-left: 2px dashed #d1d5db;
+      }
+      .timeline-item {
+      position: relative;
+      margin-bottom: 25px;
+      }
+      .timeline-icon {
+      position: absolute;
+      left: -45px;
+      top: 0;
+      width: 30px;
+      height: 30px;
+      background: #eef2ff;
+      border: 2px solid #6366f1;
+      color: #6366f1;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      }
+      /* ---------- TIMELINE CONTENT ---------- */
+      .timeline-content {
+      background: #fafbff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #eef0ff;
+      }
+      .timeline-content h6 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      }
+      .timeline-content p {
+      margin: 2px 0;
+      font-size: 13px;
+      color: #374151;
+      }
+      .timeline-content small {
+      color: #9ca3af;
+      font-size: 12px;
+      }
+      /* ---------- STATUS COLORS (READY FOR FUTURE) ---------- */
+      .status-success { color: #10b981; }
+      .status-pending { color: #f59e0b; }
+      .status-failed  { color: #ef4444; }
+    </style>
+  </head>
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="app-header fixed-top">
+      <div class="header-left d-flex align-items-center gap-2">
+        <div class="sidebar-toggle" id="sidebarToggle">
+          <i class="bi bi-list"></i>
+        </div>
+        <a href="#" class="logo d-flex align-items-center">
+          <img src="assets/img/tn_logo.png" class="logo_header">
+          <div class="ms-2">
+            <div class="title">Tamil Nadu Integrated State Scholarship Portal</div>
+            <small class="subtitle">Government of Tamil Nadu</small>
+          </div>
+        </a>
+      </div>
+      <div class="header-right">
+        <div class="header-tools">
+          <!-- Accessibility Controls -->
+          <div class="font-controls">
+            <button class="btn-font increase">A+</button>
+            <button class="btn-font reset">A</button>
+            <button class="btn-font decrease">A-</button>
+          </div>
+          <!-- Language Switch -->
+          <div class="lang-switch" onclick="switchLang()">
+            <i class="bi bi-translate"></i>
+            <span>தமிழ்</span>
+          </div>
+          <!-- Date Time -->
+          <div class="header-time">
+            <i class="bi bi-clock"></i>
+            <span id="dateTimeLink">13/03/2026 14:31:15</span>
+          </div>
+          <!-- Profile -->
+          <div class="profile-menu">
+            <div class="profile-trigger">
+              <div class="avatar">
+                <i class="bi bi-person"></i>
+              </div>
+              <span id="stud_name">M SAM</span>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+            <div class="profile-dropdown">
+              <a href="#"><i class="bi bi-person"></i> Profile</a>
+              <a href="#"><i class="bi bi-gear"></i> Settings</a>
+              <a href="#"><i class="bi bi-box-arrow-right"></i> Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- End Header -->
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="app-sidebar">
+      <ul class="sidebar-nav">
+        <li class="nav-item">
+          <a class="nav-link " href="index.html" id="dashboard-link">
+          <i class="bi bi-house-door"></i>
+          <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="applied_schemes.html" id="applied-schemes-link">
+          <i class="bi bi-card-checklist"></i>
+          <span>Applied Schemes</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="all_schemes.html" id="all-schemes-link">
+          <i class="bi bi-grid"></i>
+          <span>All Schemes</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <main id="main" class="main">
+
+
+
+
+      <section>
+
+
+        <div class="announcement-bar" id="announcementBar">
+
+  <!-- ICON -->
+  <div class="announce-icon">
+    <i class="bi bi-megaphone-fill"></i>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrapper">
+    <div class="marquee-content">
+
+      <div class="notice-text">
+        <b>Important Announcement:</b>
+        The last date to apply for the
+        <b>PM YASASVI 2025–2026 Post Matric Scholarship Scheme (BCs / MBCs / DNCs)</b>
+        has been extended to
+        <span class="date">21-01-2026</span>.
+        ❗ No further applications will be accepted after this date.
+      </div>
+
+      <!-- duplicate for smooth loop -->
+      <div class="notice-text ms-5">
+        <b>Important Announcement:</b>
+        The last date to apply for the
+        <b>PM YASASVI 2025–2026 Post Matric Scholarship Scheme (BCs / MBCs / DNCs)</b>
+        has been extended to
+        <span class="date">21-01-2026</span>.
+        ❗ No further applications will be accepted after this date.
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CLOSE BUTTON -->
+  <button class="close-announcement" id="closeAnnouncement">
+    <i class="bi bi-x-lg"></i>
+  </button>
+
+</div>
+
+        <div class="fees-container">
+        <div class="section-header-card card-transparent">
+          <div class="title-grid mb-3">
+            <div class="section-icon">
+              <i class="bi bi-grid"></i>
+            </div>
+            <div>
+  <h5>Application Tracking</h5>
+  <p>Search and track your scholarship application status and eligibility</p>
+</div>
+          </div>
+        </div>
+        <div id="activeFilters" class="active-filters d-none">
+          <div class="filter-group">
+            <h6><i class="bi bi-book me-1"></i> Course Filters</h6>
+            <div id="courseChips" class="filter-chips"></div>
+          </div>
+        </div>
+        <div class="status-tabs d-flex gap-3 mb-3">
+          <div class="status-tab active" data-tab="status">
+            <i class="bi bi-clipboard-check"></i>
+            <span>Application Status</span>
+          </div>
+          <div class="status-tab" data-tab="eligibility">
+            <i class="bi bi-search"></i>
+            <span>Check Scheme Eligibility</span>
+          </div>
+        </div>
+        <div class="tab-content-wrapper">
+          <!-- APPLICATION STATUS (DEFAULT) -->
+          <div class="tab-content active" id="status">
+            <!-- FORM WRAP -->
+            <div id="searchFormWrap">
+              <div class="row g-3 align-items-end mb-2">
+                <div class="col-md-3">
+                  <label>Choose Search Option</label>
+                  <select class="form-select" id="searchType">
+                    <option value="">--Select--</option>
+                    <option value="UMIS Id">UMIS Id</option>
+                    <option value="Aadhar Number">Aadhar Number</option>
+                    <option value="Application Id">Application Id</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Enter Search Id *</label>
+                  <input type="text" class="form-control" id="searchValue" placeholder="Search...">
+                </div>
+                <div class="col-md-2">
+                  <button class="btn btn-primary w-100" id="submitSearch">
+                  <i class="bi bi-check-circle me-1"></i> Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- SUMMARY WRAP -->
+            <div id="searchSummaryWrap" class="d-none">
+              <div class="alert alert-light border d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>Search By:</strong> <span id="summaryType"></span> |
+                  <strong>Value:</strong> <span id="summaryValue"></span>
+                </div>
+                <button class="btn btn-sm btn-outline-danger" id="clearSearch">
+                <i class="bi bi-x-circle"></i> Clear
+                </button>
+              </div>
+            </div>
+            <!-- status -->
+            <div class="app-status-wrap d-none">
+              <div class="filter-summary-grid">
+                <h6 class="mb-2">
+                  <i class="bi bi-patch-check text-success me-1"></i>
+                  Student Details
+                </h6>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-person"></i>
+                    <span>Name</span>
+                  </div>
+                  <div class="value">SIVABALA S</div>
+                </div>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-gender-ambiguous"></i>
+                    <span>Gender</span>
+                  </div>
+                  <div class="value">Female</div>
+                </div>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-globe"></i>
+                    <span>Religion</span>
+                  </div>
+                  <div class="value">Hindu</div>
+                </div>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-diagram-3"></i>
+                    <span>Community</span>
+                  </div>
+                  <div class="value">DNC/DNT</div>
+                </div>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-people"></i>
+                    <span>Caste</span>
+                  </div>
+                  <div class="value">Ambalakkarar</div>
+                </div>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-award"></i>
+                    <span>First Graduate</span>
+                  </div>
+                  <div class="value">No</div>
+                </div>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-cash-stack"></i>
+                    <span>Family Income</span>
+                  </div>
+                  <div class="value">48000</div>
+                </div>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-universal-access"></i>
+                    <span>Disability</span>
+                  </div>
+                  <div class="value">No</div>
+                </div>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-telephone"></i>
+                    <span>Phone No</span>
+                  </div>
+                  <div class="value">6383780134</div>
+                </div>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-credit-card"></i>
+                    <span>Aadhar No</span>
+                  </div>
+                  <div class="value">90XXXXXXXX61</div>
+                </div>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-hash"></i>
+                    <span>UMIS ID</span>
+                  </div>
+                  <div class="value">9000798582</div>
+                </div>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-hash"></i>
+                    <span>EMIS ID</span>
+                  </div>
+                  <div class="value">1018707457</div>
+                </div>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-house"></i>
+                    <span>Residential Status</span>
+                  </div>
+                  <div class="value">Hosteller</div>
+                </div>
+                <div class="filter-item label-flat">
+                  <div class="left">
+                    <i class="bi bi-building"></i>
+                    <span>Current Institute Name</span>
+                  </div>
+                  <div class="value">
+                    DR MGR FISHERIES COLLEGE AND RESEARCH INSTITUTE, THALAINAYERU
+                  </div>
+                </div>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-mortarboard"></i>
+                    <span>Course</span>
+                  </div>
+                  <div class="value">B.F.Sc</div>
+                </div>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-diagram-2"></i>
+                    <span>Course Branch</span>
+                  </div>
+                  <div class="value">Fisheries Science</div>
+                </div>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-calendar3"></i>
+                    <span>Course Year</span>
+                  </div>
+                  <div class="value">4</div>
+                </div>
+                <div class="filter-item">
+                  <div class="left">
+                    <i class="bi bi-calendar-event"></i>
+                    <span>Academic Year</span>
+                  </div>
+                  <div class="value">2025-2026</div>
+                </div>
+              </div>
+              <!-- TABLE CARD -->
+              <div class="fees-table-card">
+                <!-- TOP BAR -->
+                <div class="table-topbar">
+                  <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Search courses..." />
+                  </div>
+                  <div class="table-actions">
+                    <button><i class="bi bi-file-earmark-excel"></i> Excel</button>
+                    <button><i class="bi bi-file-earmark-pdf"></i> PDF</button>
+                    <button><i class="bi bi-printer"></i> Print</button>
+                    <button class="primary"><i class="bi bi-layout-three-columns"></i> Columns</button>
+                  </div>
+                </div>
+                <!-- TABLE -->
+                <table class="table custom-table">
+                  <thead>
+                    <tr>
+                      <th>S.No</th>
+                      <th>Application Id</th>
+                      <th>Scheme Name</th>
+                      <th>Sub Scheme Name</th>
+                      <th>Applied On</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>789546123</td>
+                      <td>BC -FREE EDUCATIONAL PROFESSIONAL COURSES</td>
+                      <td>BC -FREE EDUCATIONAL PROFESSIONAL COURSES</td>
+                      <td>06/04/2025</td>
+                      <td>Eligible</td>
+                      <td>
+                        <!-- <button class="btn btn-primary btn-sm">
+                          <i class="bi bi-eye"></i> view
+                          </button> -->
+                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#applicationViewModal">
+                        <i class="bi bi-eye"></i> View
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- status -->
+          </div>
+          <!-- ELIGIBILITY -->
+          <div class="tab-content" id="eligibility">
+            <!-- <div class="row g-3 align-items-end">
+              <div class="col-md-3">
+                <label>Department *</label>
+                <select class="form-select">
+                  <option>All</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label>Scheme Name *</label>
+                <select class="form-select">
+                  <option>All</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label>Choose Search Option</label>
+                <select class="form-select">
+                  <option>--Select--</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <label>Enter Search Id *</label>
+                <input type="text" class="form-control" placeholder="Choose Search Option...">
+              </div>
+              <div class="col-md-1">
+                <button class="btn btn-primary w-100">
+                <i class="bi bi-check-circle"></i>
+                </button>
+              </div>
+              </div> -->
+            <!-- FORM WRAP -->
+            <div id="eligFormWrap">
+              <div class="row g-3 align-items-end">
+                <div class="col-md-3">
+                  <label>Department *</label>
+                  <select class="form-select" id="eligDept">
+                    <option value="">All</option>
+                    <option>Higher Education</option>
+                    <option>School Education</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Scheme Name *</label>
+                  <select class="form-select" id="eligScheme">
+                    <option value="">All</option>
+                    <option>Scholarship A</option>
+                    <option>Scholarship B</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <label>Choose Search Option</label>
+                  <select class="form-select" id="eligType">
+                    <option value="">--Select--</option>
+                    <option value="UMIS Id">UMIS Id</option>
+                    <option value="Aadhar Number">Aadhar Number</option>
+                    <option value="Application Id">Application Id</option>
+                  </select>
+                </div>
+                <div class="col-md-2">
+                  <label>Enter Search Id *</label>
+                  <input type="text" class="form-control" id="eligValue" placeholder="Choose Search Option...">
+                </div>
+                <div class="col-md-1">
+                  <button class="btn btn-primary w-100" id="eligSubmit">
+                  <i class="bi bi-check-circle"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- SUMMARY WRAP -->
+            <div id="eligSummaryWrap" class="d-none mt-2">
+              <div class="alert alert-light border d-flex justify-content-between align-items-center">
+                <div>
+                  <strong>Dept:</strong> <span id="sumDept"></span> |
+                  <strong>Scheme:</strong> <span id="sumScheme"></span> |
+                  <strong>Type:</strong> <span id="sumType"></span> |
+                  <strong>Value:</strong> <span id="sumValue"></span>
+                </div>
+                <button class="btn btn-sm btn-outline-danger" id="eligClear">
+                <i class="bi bi-x-circle"></i> Clear
+                </button>
+              </div>
+            </div>
+            <!-- RESULT CARD -->
+            <div id="eligResultWrap" class="d-none mt-2">
+              <div class="card shadow-sm border-0 p-3 fade-slide">
+                <h6 class="mb-2">
+                  <i class="bi bi-patch-check text-success me-1"></i>
+                  Student Details
+                </h6>
+                <div class="checkScheme-wrap">
+                  <div class="filter-summary-grid">
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-person"></i>
+                        <span>Name</span>
+                      </div>
+                      <div class="value">SIVABALA S</div>
+                    </div>
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-gender-ambiguous"></i>
+                        <span>Gender</span>
+                      </div>
+                      <div class="value">Female</div>
+                    </div>
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-globe"></i>
+                        <span>Religion</span>
+                      </div>
+                      <div class="value">Hindu</div>
+                    </div>
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-diagram-3"></i>
+                        <span>Community</span>
+                      </div>
+                      <div class="value">DNC/DNT</div>
+                    </div>
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-people"></i>
+                        <span>Caste</span>
+                      </div>
+                      <div class="value">Ambalakkarar</div>
+                    </div>
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-award"></i>
+                        <span>First Graduate</span>
+                      </div>
+                      <div class="value">No</div>
+                    </div>
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-cash-stack"></i>
+                        <span>Family Income</span>
+                      </div>
+                      <div class="value">48000</div>
+                    </div>
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-universal-access"></i>
+                        <span>Disability</span>
+                      </div>
+                      <div class="value">No</div>
+                    </div>
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-telephone"></i>
+                        <span>Phone No</span>
+                      </div>
+                      <div class="value">6383780134</div>
+                    </div>
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-credit-card"></i>
+                        <span>Aadhar No</span>
+                      </div>
+                      <div class="value">90XXXXXXXX61</div>
+                    </div>
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-hash"></i>
+                        <span>UMIS ID</span>
+                      </div>
+                      <div class="value">9000798582</div>
+                    </div>
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-hash"></i>
+                        <span>EMIS ID</span>
+                      </div>
+                      <div class="value">1018707457</div>
+                    </div>
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-house"></i>
+                        <span>Residential Status</span>
+                      </div>
+                      <div class="value">Hosteller</div>
+                    </div>
+                    <div class="filter-item label-flat">
+                      <div class="left">
+                        <i class="bi bi-building"></i>
+                        <span>Current Institute Name</span>
+                      </div>
+                      <div class="value">
+                        DR MGR FISHERIES COLLEGE AND RESEARCH INSTITUTE, THALAINAYERU
+                      </div>
+                    </div>
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-mortarboard"></i>
+                        <span>Course</span>
+                      </div>
+                      <div class="value">B.F.Sc</div>
+                    </div>
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-diagram-2"></i>
+                        <span>Course Branch</span>
+                      </div>
+                      <div class="value">Fisheries Science</div>
+                    </div>
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-calendar3"></i>
+                        <span>Course Year</span>
+                      </div>
+                      <div class="value">4</div>
+                    </div>
+                    <div class="filter-item">
+                      <div class="left">
+                        <i class="bi bi-calendar-event"></i>
+                        <span>Academic Year</span>
+                      </div>
+                      <div class="value">2025-2026</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- .................... -->
+      <footer id="footer" class="app-footer">
+        <div class="footer-left">
+          <span class="footer-copy">
+          <i class="bi bi-shield-check"></i>
+          © 2026 Tamil Nadu e-Governance Agency (TNeGA)
+          </span>
+        </div>
+        <div class="footer-right">
+          <a href="https://tnega.tn.gov.in/" target="_blank" class="footer-link">
+          <i class="bi bi-globe"></i>
+          TNeGA
+          </a>
+        </div>
+      </footer>
+    </main>
+    <!-- End #main -->
+    <!-- End Footer -->
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+    <!-- application view -->
+    <div class="modal fade custom-modal" id="applicationViewModal">
+      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <!-- HEADER -->
+          <div class="modal-header border-0 py-2">
+            <h5 class="modal-title">
+              <i class="bi bi-file-earmark-text me-2 text-primary"></i>
+              Application Id : -
+            </h5>
+            <button class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <!-- BODY -->
+          <div class="modal-body">
+            <!-- SCHEME DETAILS -->
+            <div class="custom-tab-wrapper">
+              <ul class="nav nav-pills custom-tabs mb-1" id="detailsTab" role="tablist">
+                <li class="nav-item">
+                  <button 
+  class="nav-link active"
+  id="scheme-tab"
+  data-bs-toggle="pill"
+  data-bs-target="#schemeTab"
+  type="button"
+  role="tab"
+  aria-controls="schemeTab"
+  aria-selected="true">
+  <i class="bi bi-file-earmark-text me-1"></i> Scheme Details
+</button>
+</li>
+
+<li class="nav-item mx-2">
+  <button 
+    class="nav-link"
+    id="payment-tab"
+    data-bs-toggle="pill"
+    data-bs-target="#paymentTab"
+    type="button"
+    role="tab"
+    aria-controls="paymentTab"
+    aria-selected="false">
+    <i class="bi bi-cash-stack me-1"></i> Payment Details
+  </button>
+                </li>
+              </ul>
+              <div class="tab-content" id="detailsTabContent">
+                <!-- SCHEME -->
+                <div class="tab-pane fade show active" id="schemeTab" role="tabpanel">
+                  <!-- scheme content -->
+                  <!-- Scheme Card -->
+                  <!-- <div class="card shadow-sm mb-3">
+                    <div class="card-body"> -->
+                      <div class="filter-summary-grid">
+                        <div class="filter-item">
+                          <div class="left">
+                            <i class="bi bi-award"></i>
+                            <span>Scheme Name</span>
+                          </div>
+                          <div class="value">BC - FREE EDUCATIONAL PROFESSIONAL COURSES</div>
+                        </div>
+                        <div class="filter-item">
+                          <div class="left">
+                            <i class="bi bi-calendar-event"></i>
+                            <span>Frequency</span>
+                          </div>
+                          <div class="value">Yearly</div>
+                        </div>
+                        <div class="filter-item">
+                          <div class="left">
+                            <i class="bi bi-building"></i>
+                            <span>Department</span>
+                          </div>
+                          <div class="value">BC, MBC Dept</div>
+                        </div>
+                        <div class="filter-item">
+                          <div class="left">
+                            <i class="bi bi-diagram-3"></i>
+                            <span>Sub Department</span>
+                          </div>
+                          <div class="value">BC Welfare</div>
+                        </div>
+                        <div class="filter-item">
+                          <div class="left">
+                            <i class="bi bi-upc-scan"></i>
+                            <span>Scheme Code</span>
+                          </div>
+                          <div class="value">TN262</div>
+                        </div>
+                        <div class="filter-item">
+                          <div class="left">
+                            <i class="bi bi-tag"></i>
+                            <span>Category</span>
+                          </div>
+                          <div class="value">Exclusive</div>
+                        </div>
+                      </div>
+                    <!-- </div>
+                  </div> -->
+                  <!-- Timeline -->
+                  <div class="card shadow-sm">
+                    <div class="card-header custom-header">
+                      <i class="bi bi-diagram-3 me-1"></i> Approval Timeline
+                    </div>
+                    <div class="card-body">
+                      <!-- reuse your timeline-modern here -->
+                      <div class="timeline-modern">
+                        <!-- STEP -->
+                        <div class="timeline-step completed">
+                          <div class="timeline-icon">
+                            <i class="bi bi-person"></i>
+                          </div>
+                          <div class="timeline-body">
+                            <div class="timeline-title">Student</div>
+                            <div class="timeline-meta">
+                              Status: <span class="status success">Completed</span>
+                            </div>
+                            <div class="timeline-date">Updated: 12 Mar 2026</div>
+                          </div>
+                        </div>
+                        <div class="timeline-step completed">
+                          <div class="timeline-icon">
+                            <i class="bi bi-building"></i>
+                          </div>
+                          <div class="timeline-body">
+                            <div class="timeline-title">Institute</div>
+                            <div class="timeline-meta">
+                              Status: <span class="status success">Approved</span>
+                            </div>
+                            <div class="timeline-date">Updated: 13 Mar 2026</div>
+                          </div>
+                        </div>
+                        <div class="timeline-step active">
+                          <div class="timeline-icon">
+                            <i class="bi bi-geo-alt"></i>
+                          </div>
+                          <div class="timeline-body">
+                            <div class="timeline-title">District (Department)</div>
+                            <div class="timeline-meta">
+                              Status: <span class="status pending">In Progress</span>
+                            </div>
+                            <div class="timeline-date">Updated: -</div>
+                          </div>
+                        </div>
+                        <div class="timeline-step">
+                          <div class="timeline-icon">
+                            <i class="bi bi-globe"></i>
+                          </div>
+                          <div class="timeline-body">
+                            <div class="timeline-title">State (Department)</div>
+                            <div class="timeline-meta">
+                              Status: <span class="status muted">Pending</span>
+                            </div>
+                            <div class="timeline-date">Updated: -</div>
+                          </div>
+                        </div>
+                        <div class="timeline-step">
+                          <div class="timeline-icon">
+                            <i class="bi bi-person-check"></i>
+                          </div>
+                          <div class="timeline-body">
+                            <div class="timeline-title">DBT Registration</div>
+                            <div class="timeline-meta">
+                              Status: <span class="status muted">Pending</span>
+                            </div>
+                            <div class="timeline-date">Updated: -</div>
+                          </div>
+                        </div>
+                        <div class="timeline-step">
+                          <div class="timeline-icon">
+                            <i class="bi bi-cash"></i>
+                          </div>
+                          <div class="timeline-body">
+                            <div class="timeline-title">DBT Payment</div>
+                            <div class="timeline-meta">
+                              Status: <span class="status muted">Pending</span>
+                            </div>
+                            <div class="timeline-date">Updated: -</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- PAYMENT -->
+                <div class="tab-pane fade" id="paymentTab" role="tabpanel">
+                  <!-- payment content -->
+
+                      <div class="filter-summary-grid">
+
+  <div class="filter-item label-flat">
+    <div class="left">
+      <i class="bi bi-award"></i>
+      <span>Scheme Name</span>
+    </div>
+    <div class="value">BC -FREE EDUCATIONAL PROFESSIONAL COURSES</div>
+  </div>
+
+  <div class="filter-item">
+    <div class="left">
+      <i class="bi bi-arrow-repeat"></i>
+      <span>Frequency</span>
+    </div>
+    <div class="value">Yearly</div>
+  </div>
+
+  <div class="filter-item label-flat">
+    <div class="left">
+      <i class="bi bi-building"></i>
+      <span>Department Name</span>
+    </div>
+    <div class="value">BC, MBC and Minorities Welfare Department</div>
+  </div>
+
+  <div class="filter-item label-flat">
+    <div class="left">
+      <i class="bi bi-diagram-3"></i>
+      <span>Subdepartment Name</span>
+    </div>
+    <div class="value">BC Welfare Department</div>
+  </div>
+
+  <div class="filter-item">
+    <div class="left">
+      <i class="bi bi-upc-scan"></i>
+      <span>Scheme Code</span>
+    </div>
+    <div class="value">TN262</div>
+  </div>
+
+  <div class="filter-item">
+    <div class="left">
+      <i class="bi bi-tag"></i>
+      <span>Scheme Category</span>
+    </div>
+    <div class="value">Exclusive</div>
+  </div>
+
+  <div class="filter-item">
+    <div class="left">
+      <i class="bi bi-stars"></i>
+      <span>Exclusive Scheme Name</span>
+    </div>
+    <div class="value">Exclusive Name</div>
+  </div>
+
+</div>
+
+                      <div class="table-responsive mt-2">
+                        <table class="table custom-table">
+                          <thead>
+                            <tr>
+                              <th>S.No</th>
+                              <th>Payment Mode</th>
+                              <th>Installment</th>
+                              <th>Percentage(100%)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>1</td>
+                              <td>PFMS</td>
+                              <td>1</td>
+                              <td>
+                                <div class="progress custom-progress">
+                                  <div class="progress-bar" data-value="100">100%</div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- FOOTER -->
+          <div class="modal-footer border-0">
+            <button class="btn btn-light btn-sm" data-bs-dismiss="modal">
+            <i class="bi bi-x-circle"></i> Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- application view -->
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/aos/aos-min.js"></script>
+    <script>
+      // Initialize AOS
+      AOS.init();
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+      
+        /* ================================
+           SIDEBAR TOGGLE
+        ================================= */
+      
+        const sidebarToggle = document.getElementById("sidebarToggle");
+        const sidebarIcon = sidebarToggle?.querySelector("i");
+      
+        if (sidebarToggle) {
+          sidebarToggle.addEventListener("click", function () {
+      
+            console.log("clicked"); // ✅ debug
+      
+            document.body.classList.toggle("sidebar-expanded");
+      
+            sidebarIcon?.classList.toggle("bi-list");
+            sidebarIcon?.classList.toggle("bi-x-lg");
+      
+          });
+        }
+      
+      
+        /* ================================
+           PROFILE DROPDOWN
+        ================================= */
+      
+        const trigger = document.getElementById("profileTrigger");
+        const dropdown = document.getElementById("profileDropdown");
+      
+        trigger?.addEventListener("click", function (e) {
+          e.stopPropagation();
+          dropdown.classList.toggle("show");
+        });
+      
+        dropdown?.addEventListener("click", function (e) {
+          e.stopPropagation();
+        });
+      
+        document.addEventListener("click", function () {
+          dropdown?.classList.remove("show");
+        });
+      
+      });
+      
+    </script>
+    <!-- refresh loader -->
+    <script>
+      $('.refresh_submit').on('click', function () {
+      
+      let loader = $('#modalLoader');
+      let progressBar = $('#progressBar');
+      let success = $('#modalSuccess');
+      
+      loader.addClass('active');
+      
+      let progress = 0;
+      
+      let interval = setInterval(() => {
+      
+      progress += Math.floor(Math.random() * 10) + 5; // smooth random speed
+      
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+      
+        // complete progress
+        progressBar.css('width', '100%').text('100%');
+      
+        // show success
+        setTimeout(() => {
+          loader.removeClass('active');
+          success.addClass('show');
+      
+          // hide success + close modal
+          setTimeout(() => {
+            success.removeClass('show');
+            $('#refreshModal').modal('hide');
+          }, 1500);
+      
+        }, 500);
+      
+      } else {
+        progressBar.css('width', progress + '%').text(progress + '%');
+      }
+      
+      }, 200);
+      
+      });
+    </script>
+    <!-- refersh laoder -->
+    <!-- ripple bnt -->
+    <script>
+      $(document).on('click', '.ripple', function (e) {
+      
+      let $this = $(this);
+      
+      let offset = $this.offset();
+      let x = e.pageX - offset.left;
+      let y = e.pageY - offset.top;
+      
+      let ripple = $('<span class="ripple-effect"></span>');
+      
+      ripple.css({
+      top: y + 'px',
+      left: x + 'px',
+      width: '20px',
+      height: '20px'
+      });
+      
+      $this.append(ripple);
+      
+      setTimeout(() => {
+      ripple.remove();
+      }, 600);
+      
+      });
+      
+      $(document).on('click', '.nav-link.ripple', function () {
+      
+      let $this = $(this);
+      let ripple = $('<span class="ripple-effect"></span>');
+      
+      ripple.css({
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%) scale(0)'
+      });
+      
+      $this.append(ripple);
+      
+      setTimeout(() => ripple.remove(), 600);
+      
+      });
+    </script>
+    <!-- ripple btn -->
+    <!-- accordion -->
+    <script>
+      const toggleBtn = document.getElementById("toggleFilter");
+      const panel = document.getElementById("filterPanel");
+      
+      toggleBtn.addEventListener("click", () => {
+        panel.classList.toggle("collapsed");
+      
+        toggleBtn.querySelector(".bi-chevron-down")
+          .classList.toggle("rotate");
+      });
+    </script>
+    <!-- accordion -->
+    <!-- filter -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function(){
+      
+        document.querySelector(".btn-submit")?.addEventListener("click", applyFilters);
+        document.querySelector(".clear-btn")?.addEventListener("click", clearAllFilters);
+      
+      });
+      
+      /* =========================
+         GET VALUE
+      ========================= */
+      function getValue(id){
+        return document.getElementById(id)?.value || "";
+      }
+      
+      /* =========================
+         CREATE CHIP
+      ========================= */
+      function createChip(label, value, container, fieldId){
+      
+        if(!value || value.toLowerCase().includes("select") || value === "All") return;
+      
+        const chip = document.createElement("div");
+        chip.className = "filter-chip";
+      
+        chip.innerHTML = `
+          ${label}: ${value}
+          <i class="bi bi-x"></i>
+        `;
+      
+        chip.querySelector("i").addEventListener("click", () => {
+          chip.remove();
+          document.getElementById(fieldId).selectedIndex = 0;
+      
+          toggleFilterCardVisibility();
+        });
+      
+        container.appendChild(chip);
+      }
+      
+      /* =========================
+         APPLY FILTER
+      ========================= */
+      function applyFilters(){
+      
+        const courseChips = document.getElementById("courseChips");
+      
+        if(!courseChips) return;
+      
+        courseChips.innerHTML = "";
+      
+        createChip("Fee Status", getValue("feeStatus"), courseChips, "feeStatus");
+        createChip("Stream", getValue("stream"), courseChips, "stream");
+        createChip("Course Type", getValue("courseType"), courseChips, "courseType");
+        createChip("Category", getValue("courseCategory"), courseChips, "courseCategory");
+        createChip("Course", getValue("course"), courseChips, "course");
+        createChip("Branch", getValue("courseBranch"), courseChips, "courseBranch");
+        createChip("Year", getValue("courseYear"), courseChips, "courseYear");
+        createChip("Shift", getValue("shiftTiming"), courseChips, "shiftTiming");
+        createChip("Medium", getValue("medium"), courseChips, "medium");
+      
+        toggleFilterCardVisibility();
+      
+        // CLOSE OFFCANVAS
+        const canvas = document.getElementById("filterCanvas");
+        if(canvas){
+          const instance = bootstrap.Offcanvas.getInstance(canvas)
+            || new bootstrap.Offcanvas(canvas);
+          instance.hide();
+        }
+      
+      }
+      
+      /* =========================
+         CLEAR ALL
+      ========================= */
+      function clearAllFilters(){
+      
+        document.querySelectorAll("#filterCanvas select").forEach(sel=>{
+          sel.selectedIndex = 0;
+        });
+      
+        document.getElementById("courseChips").innerHTML = "";
+      
+        toggleFilterCardVisibility();
+      }
+      
+      /* =========================
+         TOGGLE CARD VISIBILITY
+      ========================= */
+      function toggleFilterCardVisibility(){
+      
+        const container = document.getElementById("courseChips");
+        const wrapper = document.getElementById("activeFilters");
+      
+        if(!container || !wrapper) return;
+      
+        if(container.children.length === 0){
+          wrapper.classList.add("d-none");
+        }else{
+          wrapper.classList.remove("d-none");
+        }
+      
+      }
+      
+    </script>
+    <!-- filter -->
+    <!-- tab -->
+    <script>
+      $(document).ready(function () {
+      
+        $('.status-tab').on('click', function () {
+      
+          const tab = $(this).data('tab');
+      
+          // Active tab switch
+          $('.status-tab').removeClass('active');
+          $(this).addClass('active');
+      
+          // Show content
+          $('.tab-content').removeClass('active');
+          $('#' + tab).addClass('active');
+      
+        });
+      
+      }); 
+    </script>
+    <!-- tab -->
+    <!-- application status -->
+    <script>
+      $(document).ready(function () {
+      
+      // SUBMIT
+      $('#submitSearch').on('click', function (e) {
+      e.preventDefault();
+      
+      const type = $('#searchType').val();
+      const value = $('#searchValue').val().trim();
+      
+      if (!type || !value) {
+        alert("Please select option and enter value");
+        return;
+      }
+      
+      // Set summary
+      $('#summaryType').text(type);
+      $('#summaryValue').text(value);
+      
+      // Hide form
+      $('#searchFormWrap').addClass('d-none');
+      
+      // Show summary
+      $('#searchSummaryWrap')
+        .removeClass('d-none')
+        .addClass('fade-slide');
+      
+      // Show result section
+      $('.app-status-wrap')
+        .removeClass('d-none')
+        .addClass('fade-slide');
+      
+      });
+      
+      
+      // RESET / CLEAR
+      $('#clearSearch').on('click', function () {
+      
+      // Reset inputs
+      $('#searchType').val('');
+      $('#searchValue').val('');
+      
+      // Hide summary
+      $('#searchSummaryWrap').addClass('d-none');
+      
+      // Hide result section
+      $('.app-status-wrap').addClass('d-none');
+      
+      // Show form again
+      $('#searchFormWrap').removeClass('d-none');
+      
+      });
+      
+      });
+    </script>
+    <!-- application status -->
+    <!-- check scheme -->
+    <script>
+      $(document).ready(function () {
+      
+      // SUBMIT
+      $('#eligSubmit').on('click', function (e) {
+      e.preventDefault();
+      
+      const dept = $('#eligDept').val();
+      const scheme = $('#eligScheme').val();
+      const type = $('#eligType').val();
+      const value = $('#eligValue').val().trim();
+      
+      if (!type || !value) {
+      alert("Please select search option and enter value");
+      return;
+      }
+      
+      // Set summary
+      $('#sumDept').text(dept || 'All');
+      $('#sumScheme').text(scheme || 'All');
+      $('#sumType').text(type);
+      $('#sumValue').text(value);
+      
+      // Hide form
+      $('#eligFormWrap').addClass('d-none');
+      
+      // Show summary
+      $('#eligSummaryWrap')
+      .removeClass('d-none')
+      .addClass('fade-slide');
+      
+      // Show result card
+      $('#eligResultWrap')
+      .removeClass('d-none')
+      .addClass('fade-slide');
+      
+      });
+      
+      
+      // CLEAR
+      $('#eligClear').on('click', function () {
+      
+      // Reset fields
+      $('#eligDept').val('');
+      $('#eligScheme').val('');
+      $('#eligType').val('');
+      $('#eligValue').val('');
+      
+      // Hide summary + result
+      $('#eligSummaryWrap').addClass('d-none');
+      $('#eligResultWrap').addClass('d-none');
+      
+      // Show form again
+      $('#eligFormWrap').removeClass('d-none');
+      
+      });
+      
+      });
+    </script>
+    <!-- check scheme -->
+
+    <!-- progress -->
+    <script>
+      $(document).ready(function () {
+
+  $('.progress-bar').each(function () {
+    const value = $(this).data('value');
+
+    setTimeout(() => {
+      $(this).css('width', value + '%');
+    }, 200);
+
+  });
+
+});
+    </script>
+    <!-- progress -->
+
+
+    <!-- marquee -->
+    <script>
+      $(document).ready(function () {
+
+  // // Hide if already closed
+  // if (localStorage.getItem("announcementClosed") === "true") {
+  //   $('#announcementBar').hide();
+  // }
+
+  // Close action
+  $('#closeAnnouncement').on('click', function () {
+    $('#announcementBar').slideUp(200);
+    localStorage.setItem("announcementClosed", "true");
+  });
+
+});
+    </script>
+    <!-- marquee -->
+
+  </body>
+</html>

@@ -1,0 +1,3145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>TN State Scholarship Portal</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <!-- Favicons -->
+  <link href="assets/img/tn_logo.png" rel="icon">
+  <link href="assets/img/tn_logo.png" rel="apple-touch-icon">
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="../assets/aos/aos-min.css"> -->
+
+  <link rel="stylesheet" href="assets/css/header_style.css">
+  <link rel="stylesheet" href="assets/common-style/v3.css">
+  <link rel="stylesheet" href="assets/common-style/style.css">
+  <style>
+    .modal-loader {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+
+      opacity: 0;
+      pointer-events: none;
+      transition: all .3s ease;
+    }
+
+    .chip {
+      cursor: pointer;
+    }
+
+
+    /* mini toggle */
+    .mini-switch {
+      position: relative;
+      display: inline-block;
+      width: 28px;
+      height: 14px;
+    }
+
+    .mini-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .mini-slider {
+      position: absolute;
+      cursor: pointer;
+      background-color: #ccc;
+      border-radius: 20px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transition: 0.3s;
+    }
+
+    .mini-slider:before {
+      position: absolute;
+      content: "";
+      height: 10px;
+      width: 10px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.3s;
+    }
+
+    .mini-switch input:checked+.mini-slider {
+      background-color: #ffffff6e;
+      /* transparent ON */
+    }
+
+    .mini-switch input:checked+.mini-slider:before {
+      transform: translateX(14px);
+    }
+
+    .disabled-section .chip {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .disabled-section select,
+    .disabled-section input:not(.exclusive-toggle) {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background-color: #f5f5f5;
+    }
+
+    .disabled-section .chip.disabled-chip {
+      pointer-events: none;
+    }
+
+
+    .select2-container {
+      box-sizing: border-box;
+      display: inline-block;
+      margin: 0;
+      position: relative;
+      vertical-align: middle;
+    }
+
+    .select2-container {
+      /* width: 318.328px !important; */
+      width: 230px !important;
+    }
+
+    .select2-container .select2-selection--multiple {
+      border: 0.2px solid #e1e0e5 !important;
+    }
+
+    li.select2-selection__choice {
+      font-size: 10px;
+      background: #c6cedc !important;
+    }
+
+
+
+    .modal-loader.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* loader card */
+    .loader-card {
+      background: #fff;
+      padding: 24px 30px;
+      border-radius: 14px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 260px;
+    }
+
+    /* spinning icon */
+    .loader-icon {
+      font-size: 26px;
+      color: #5b5fc7;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+
+    /* SUCCESS TOAST */
+    .modal-success {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+
+      background: #10b981;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all .3s ease;
+    }
+
+    .modal-success.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /* MAIN CARD */
+
+    .student-premium-card {
+      background: linear-gradient(145deg, #ffffff, #f4f6fb);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+      transition: all .3s ease;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+
+
+    /* SECTION TITLE */
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #2c3e70;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      border-left: 4px solid #5b6cff;
+      padding-left: 12px;
+    }
+
+    .section-title i {
+      font-size: 22px;
+      color: #5b6cff;
+    }
+
+
+    /* PROFILE HEADER */
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 25px;
+    }
+
+
+    /* AVATAR */
+
+    .profile-avatar {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #5b6cff, #7a8cff);
+      box-shadow: 0 6px 18px rgba(91, 108, 255, 0.4);
+    }
+
+
+    /* PROFILE NAME */
+
+    .profile-info h4 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 600;
+      color: #2b2f4b;
+      margin-bottom: 6px;
+    }
+
+
+    /* BADGES */
+
+    .profile-info .badge {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-right: 4px;
+      letter-spacing: .3px;
+    }
+
+
+    /* DETAILS GRID */
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 15px;
+    }
+
+
+    /* DETAIL ITEM */
+
+    .details-grid div {
+      background: white;
+      border-radius: 10px;
+      padding: 8px 14px;
+      border: 1px solid #e4ebff;
+      transition: all .25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+
+    .details-grid div:hover {
+      background: #f9faff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+    }
+
+
+    /* LABEL */
+
+    .details-label {
+      font-weight: 600;
+      color: #4a4f6d;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+
+    /* ICON */
+
+    .details-label i {
+      color: #5b6cff;
+      font-size: 15px;
+    }
+
+
+    /* VALUE */
+
+    .details-value {
+      font-weight: 500;
+      color: #2b2f4b;
+      font-size: 14px;
+      margin-left: 6px;
+    }
+
+
+    /* VERIFIED ICON */
+
+    .bi-patch-check-fill {
+      font-size: 16px;
+    }
+
+    .bi-x-circle-fill {
+      font-size: 16px;
+    }
+
+
+    /* MOBILE RESPONSIVE */
+
+    @media(max-width:768px) {
+
+      .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .profile-avatar {
+        width: 55px;
+        height: 55px;
+        font-size: 20px;
+      }
+
+      .details-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+    .student-premium-card {
+      animation: fadeStudent .5s ease;
+    }
+
+    @keyframes fadeStudent {
+
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+    }
+
+    /* HEADER ALIGNMENT */
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+
+    /* NAME */
+
+    .student-name-row h4 {
+      font-size: 19px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #2c3553;
+    }
+
+
+    /* META ROW */
+
+    .student-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+
+    /* BADGE IMPROVEMENTS */
+
+    .student-meta .badge {
+      font-size: 13px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+    }
+
+
+    /* PHONE BADGE */
+
+    .badge-phone {
+      background: #eef2ff;
+      color: #3949ab;
+      border: 1px solid #e0e6ff;
+    }
+
+
+    /* ICON INSIDE BADGE */
+
+    .student-meta i {
+      font-size: 13px;
+    }
+
+
+    /* AVATAR IMPROVEMENT */
+
+    .profile-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      box-shadow: 0 6px 15px rgba(79, 70, 229, .35);
+    }
+
+    .badge-phone i:last-child {
+      font-size: 14px;
+      margin-left: 3px;
+    }
+
+    ul#student_info_update {
+      border-bottom: 0;
+    }
+
+    #student_info_update button.nav-link.active {
+      border-radius: 4px 7px;
+      box-shadow: 1px 5px 10px rgb(0 0 0 / 20%) !important;
+    }
+
+    #student_info_update button.nav-link {
+      border: 1px solid #6859b0;
+      border-radius: 4px 7px;
+      color: #33208c;
+      font-size: 14px;
+    }
+
+    #student_info_update button.nav-link:hover {
+      background: #6859b0;
+      color: #fff;
+      transition: 0.3 all;
+    }
+
+    .text-view {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .details-label i {
+      color: #6859b0 !important;
+      margin-right: 6px;
+    }
+
+    /* modal surface */
+    .custom-modal .modal-content {
+      border-radius: 16px;
+      border: none;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      padding: 10px;
+    }
+
+    /* cards */
+    .refresh-card {
+      background: #fff;
+      border: 1px solid #eef1f6;
+      border-radius: 12px;
+      padding: 16px;
+      transition: all .25s ease;
+    }
+
+    .refresh-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+      border-color: #dbe2ff;
+    }
+
+    /* header inside card */
+    .refresh-card .card-header {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .refresh-card .card-header i {
+      font-size: 20px;
+      color: #5b5fc7;
+      background: #eef0ff;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    /* title */
+    .refresh-card h6 {
+      margin: 0;
+      font-weight: 600;
+    }
+
+    /* subtitle */
+    .refresh-card p {
+      margin: 0;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    /* checkbox spacing */
+    .form-check {
+      cursor: pointer;
+    }
+
+    .modal.fade .modal-dialog {
+      transform: translateY(20px) scale(.98);
+      transition: all .25s ease;
+    }
+
+    .modal.show .modal-dialog {
+      transform: translateY(0) scale(1);
+    }
+
+
+
+    .custom-modal-width {
+      max-width: 50% !important;
+      /* Adjust percentage as needed */
+    }
+
+    .otp-field input {
+      display: inline-block !important;
+      width: 15% !important;
+    }
+
+    #scheme_details_length .custom-select.custom-select-sm.form-control.form-control-sm {
+      margin: 0px 6px;
+      font-size: 12px !important;
+      padding: 0 10px;
+      min-height: calc(0.5em + 0.5em + 2px) !important;
+      font-weight: 600;
+    }
+
+    .tab-title {
+      background-color: #301d92;
+      color: white;
+    }
+
+    .parameter-list {
+      list-style: none;
+      margin: 0;
+      padding: 0px 1px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .parameter-items {
+      background: #e4f1ff;
+      padding: 2px 4px;
+      border-radius: 5px;
+      list-style: none;
+      width: max-content;
+      margin: 3px;
+    }
+
+    .modal-header {
+      padding: 10px 20px;
+      box-shadow: none !important;
+    }
+
+    /* .progress {
+      --bs-progress-height: 1.00rem !important;
+    } */
+
+    .applyCancleCta .btn:disabled {
+      background-color: grey;
+      /* Change to your preferred grey color */
+      color: white;
+      /* Change text color if needed */
+      cursor: not-allowed;
+      /* Optional: Change cursor style */
+      opacity: 0.6;
+      /* Optional: Make it look faded */
+    }
+
+    .custom-checkbox .form-check-input {
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .custom-checkbox .form-check-label {
+      font-size: 12px;
+      color: #495057;
+      line-height: 1.5;
+    }
+
+    .form-check.custom-checkbox:hover .form-check-input {
+      background-color: #33208c;
+      border-color: #33208c;
+    }
+
+    .form-check.custom-checkbox:focus-within .form-check-input {
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .hover-shadow-lg:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-check.custom-checkbox input:checked {
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+
+    .form-check.custom-checkbox input:checked+.form-check-label {
+      color: #28a745;
+    }
+
+    .resend-button {
+      background: #33208c;
+      /* Blue background */
+      border: none;
+      color: white;
+      font-size: 12px;
+      /* padding: 8px 12px; */
+      border-radius: 10%;
+      /* display: flex; */
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .resend-button i {
+      font-size: 1.2em;
+    }
+
+    .resend-button:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      background: #0056b3;
+      /* Darker blue on hover */
+    }
+
+    .resend-button:active {
+      transform: scale(0.95);
+    }
+
+    .parameters {
+      max-height: 20vh;
+    }
+
+    #scheme_info .over-scroll-down {
+      overflow-y: scroll !important;
+    }
+
+    #check_scheme_eligibility {
+      margin-bottom: 77px;
+    }
+
+    #scheme_eligibility {
+      margin-bottom: 77px;
+    }
+
+    #studentTableBody td:nth-child(2) {
+      word-break: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+    }
+
+    #schemeTableBody td:nth-child(2) {
+      word-break: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+    }
+
+    .table td {
+      max-height: 50px;
+      /* Set a maximum height */
+      overflow: hidden;
+      /* Hide overflow */
+      text-overflow: ellipsis;
+      /* Add ellipsis for overflow */
+      white-space: nowrap;
+      /* Prevent wrapping */
+      line-height: 1.2;
+      /* Set line height for readability */
+    }
+
+    #check_scheme_content td:nth-child(2) {
+      height: 150px;
+      overflow-y: auto;
+      word-break: break-all !important;
+      white-space: break-spaces;
+      display: block;
+    }
+
+    /* Add these styles in the existing style block */
+    .student-details-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .scheme-table th {
+      /* background: #f8f9fa; */
+      font-weight: 600;
+    }
+
+    .scheme-checkbox {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .apply-button {
+      min-width: 120px;
+      transition: all 0.3s ease;
+    }
+
+    .apply-button:disabled {
+      background-color: #6c757d;
+      border-color: #6c757d;
+      opacity: 0.65;
+    }
+
+    .file-input {
+      display: none;
+      /* hide default input */
+    }
+
+    .file-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .file-label:hover {
+      background: #f5f5f5;
+    }
+
+
+/* Toast Notifications */    
+#simpleToastContainer {
+    position: fixed !important;
+    top: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 999999;
+}
+
+.simple-toast {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    color: #f1f5f9;
+    padding: 14px 24px;
+    margin-top: 12px;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 280px;
+    text-align: center;
+    letter-spacing: 0.2px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    
+    /* Orbital shadow animation */
+    animation: orbitalShadow 3s ease-in-out infinite;
+}
+
+.simple-toast.success { 
+    background: linear-gradient(135deg, #059669, #047857);
+    border-bottom-color: #34d399;
+}
+.simple-toast.error { 
+    background: linear-gradient(135deg, #dc2626, #b91c1c);
+    border-bottom-color: #f87171;
+}
+.simple-toast.warning { 
+    background: linear-gradient(135deg, #d97706, #b45309);
+    color: #fef3c7;
+    border-bottom-color: #fbbf24;
+}
+.simple-toast.info { 
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    border-bottom-color: #60a5fa;
+}
+
+/* Orbital shadow moving animation */
+@keyframes orbitalShadow {
+    0% {
+        box-shadow: 
+            0 4px 10px rgba(0, 0, 0, 0.3),
+            0 0 0 0 rgba(255, 255, 255, 0),
+            inset 0 0 0 rgba(0, 0, 0, 0);
+    }
+    25% {
+        box-shadow: 
+            0 6px 18px rgba(0, 0, 0, 0.4),
+            0 0 0 3px rgba(255, 255, 255, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+    50% {
+        box-shadow: 
+            0 10px 30px rgba(0, 0, 0, 0.5),
+            0 0 0 6px rgba(255, 255, 255, 0.05),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+    75% {
+        box-shadow: 
+            0 6px 18px rgba(0, 0, 0, 0.4),
+            0 0 0 3px rgba(255, 255, 255, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+    100% {
+        box-shadow: 
+            0 4px 10px rgba(0, 0, 0, 0.3),
+            0 0 0 0 rgba(255, 255, 255, 0),
+            inset 0 0 0 rgba(0, 0, 0, 0);
+    }
+}
+  </style>
+</head>
+
+<body>
+
+
+  <header id="header" class="app-header fixed-top">
+    <div class="header-left d-flex align-items-center gap-2">
+
+      <div class="sidebar-toggle" id="sidebarToggle">
+        <i class="bi bi-list"></i>
+      </div>
+
+      <a href="#" class="logo d-flex align-items-center">
+        <img src="assets/img/tn_logo.png" class="logo_header">
+        <div class="ms-2">
+          <div class="title">Tamil Nadu Integrated State Scholarship Portal</div>
+          <small class="subtitle">Government of Tamil Nadu</small>
+        </div>
+      </a>
+
+    </div>
+
+
+    <div class="header-right">
+
+      <div class="header-tools">
+
+        <!-- Accessibility Controls -->
+        <div class="font-controls">
+          <button class="btn-font increase">A+</button>
+          <button class="btn-font reset">A</button>
+          <button class="btn-font decrease">A-</button>
+        </div>
+
+
+        <!-- Date Time -->
+        <div class="header-time">
+          <i class="bi bi-clock"></i>
+          <span id="dateTimeLink">13/03/2026 14:31:15</span>
+        </div>
+
+        <!-- Profile -->
+        <div class="profile-menu">
+
+          <div class="profile-trigger">
+            <div class="avatar">
+              <i class="bi bi-person"></i>
+            </div>
+
+            <span id="stud_name">M SAM</span>
+            <i class="bi bi-chevron-down"></i>
+          </div>
+
+          <div class="profile-dropdown">
+            <a href="#"><i class="bi bi-person"></i> Profile</a>
+            <a href="#"><i class="bi bi-gear"></i> Settings</a>
+            <a href="#"><i class="bi bi-box-arrow-right"></i> Logout</a>
+          </div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+  </header>
+  <aside id="sidebar" class="app-sidebar">
+
+    <ul class="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link" href="dashboard.html" id="dashboard-link">
+          <i class="bi bi-house-door"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link active" href="index.html" id="applied-schemes-link">
+          <i class="bi bi-plus-square"></i>
+          <span>Add Scheme</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="schemes.html" id="all-schemes-link">
+          <i class="bi bi-journal-text"></i>
+          <span>Registered Schemes</span>
+        </a>
+      </li>
+
+    </ul>
+
+  </aside>
+
+  <!-- <div id="preloader"></div> -->
+  <!-- End Sidebar-->
+   <div id="simpleToastContainer"></div>
+  <main id="main" class="main">
+    <div class="card-header stick-top">
+      <div class="progress-bar">
+        <button type="button" class="prog-step tab-btn active" data-tab="scheme-tab1">
+          <div class="step-num">1</div>
+          <div class="step-label">Scheme Setup<div class="step-sub">Basic details</div>
+          </div>
+        </button>
+        <button type="button" class="prog-step tab-btn" data-tab="scheme-tab2">
+          <div class="step-num">2</div>
+          <div class="step-label">Eligibility<div class="step-sub">Eligibility Criterias</div>
+          </div>
+        </button>
+        <button type="button" class="prog-step tab-btn" data-tab="scheme-tab3">
+          <div class="step-num">3</div>
+          <div class="step-label">Scholarship Fee<div class="step-sub">Amount rules</div>
+          </div>
+        </button>
+        <button type="button" class="prog-step tab-btn" data-tab="scheme-tab4">
+          <div class="step-num">4</div>
+          <div class="step-label">Maintenance Fee<div class="step-sub">Accomodation & other expenses.</div>
+          </div>
+        </button>
+        <button type="button" class="prog-step tab-btn" data-tab="scheme-tab5">
+          <div class="step-num">5</div>
+          <div class="step-label">Payment &amp; Structure<div class="step-sub">Scholarship pay-out.</div>
+          </div>
+        </button>
+        <button type="button" class="prog-step tab-btn" data-tab="scheme-tab6">
+          <div class="step-num">6</div>
+          <div class="step-label">Work flow Configuration<div class="step-sub">Heirarchy </div>
+          </div>
+        </button>
+        <button type="button" class="prog-step tab-btn" data-tab="scheme-tab7">
+          <div class="step-num">7</div>
+          <div class="step-label">Review &amp; Approve<div class="step-sub">Final Confirmation</div>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <div class="container-fluid" id="add-scheme">
+      <div class="card">
+        <div class="card-body">
+          <!-- Tab Content -->
+          <div class="main-tab-content">
+            <div class="tab-pane tab-section active" id="scheme-tab1">
+              <div class="d-flex justify-content-between  ">
+                <div>
+                  <div class="card-title">🏛️ Scheme Identity</div>
+                  <div class="card-subtitle">Core details of the scheme. Department is pre-filled from your login.</div>
+                </div>
+                <div class="d-flex gap-2">
+                  <div>
+                      <button type="button" class="btn text-white bg-primary btn-sm" id="addNewScheme" disabled>
+                        <i class="bi bi-plus"></i> Add New Scheme
+                      </button>
+                    </div>
+
+                    <div>
+                      <button type="button" class="btn text-white bg-primary btn-sm" id="editExistingScheme">
+                        <i class="bi bi-pencil"></i> Edit Scheme
+                      </button>
+                    </div>
+                </div>
+              </div>
+              <div class="meta-bar info-box navy">
+                <span><b>Department:</b> Adi Dravidar And Tribal Welfare Dept</span>
+              </div>
+              
+              <div class="row d-flex no-wrap mb-3">
+                <div class="row ">
+                  <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
+                    <label class="form-label">Department<span style="color: red;">*</span></label>
+                    <input type="text" class="form-select" id="department" name="department" value="Adi Dravidar And Tribal Welfare Dept" disabled>
+                    <!-- <select class="form-select" id="department" name="department" required>
+                      <option value="2">--Select--</option> -->
+                    </select>
+                  </div>
+                  <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
+                    <label class="form-label">Sub Department</label>
+                    <select class="form-select" id="sub_department" name="sub_department" required>
+                      <option value="0">--Select--</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
+                    <label class="form-label">Scheme Name<span style="color: red;">*</span></label>
+                    <input type="text" class="form-select" id="scheme_name" name="scheme_name" scheme-input-id=""
+                      placeholder="Enter scheme name">
+                  </div>
+                  <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
+                    <label class="form-label">Scheme Code<span style="color: red;">*</span></label>
+                    <input type="text" class="form-select" maxlength="10" id="scheme_code" name="scheme_code"
+                      scheme-input-code="" placeholder="Enter scheme code">
+                  </div>
+                  <div class="col-sm-4 my-2 benefits-input-div" data-aos="zoom-out" data-aos-duration="1500">
+                    <label class="form-label">Benefits</label>
+                    <input type="text" class="form-select" id="benefits" name="benefits" placeholder="Enter Benefits">
+                  </div>
+                  <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
+                    <label class="form-label">Scheme Type <span class="req">*</span></label>
+                    <select class="form-select" id="scheme_type" name="scheme_type">
+                      <option value="5">Scholarships</option>
+                      <option value="6">Incentive</option>
+                      <option value="7">Benefits</option>
+                      <option value="8">Other</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
+                    <label class="form-label">Scheme Category <span class="req">*</span></label>
+                    <select class="form-select" id="scheme_category" name="scheme_category">
+                      <option value="1">Inclusive</option>
+                      <option value="2">Exclusive</option>
+                      <option value="3">Exclusive with Exceptions</option>
+                    </select>
+                  </div>
+
+                  <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
+                    <label class="form-label">Academic Year <span class="req">*</span></label>
+                    <select class="form-select" id="accademic_year" name="accademic_year">
+                      <option value="0">2025 - 2026</option>
+                      <option value="1">2024 - 2025</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
+                    <label class="form-label">GO Reference Number <span class="req">*</span></label>
+                    <input class="form-select" id="go_reference_no" placeholder="e.g. G.O.(Ms) No.42"
+                      value="G.O.(Ms) No.42">
+
+                  </div>
+                  <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
+                    <label class="form-label">GO Document Upload <span class="req">*</span></label>
+                    <div class="upload-area mb-4">
+
+                      <div class="upload-text">
+                        <span class="upload-icon">📎</span>
+                        <div class="file-name" id="go_file_name_display">No file chosen</div>
+                        <div class="upload-status" id="go_upload_status"></div>
+                      </div>
+
+                      <label class="upload-btn">
+                        Choose File
+                        <input type="file" class="file-input" id="go_file_upload" onchange="updateFileName(this)">
+                      </label>
+                    </div>
+
+                  </div>
+                </div>
+
+
+                <div class="col-sm-12 my-2 scheme-ids-container">
+                  <div class="card-title">🏛️ Financial Details</div>
+                  <div class="card-subtitle">Details of the financial details and scheme codes.</div>
+                  <label class="form-label">FINANCIAL DETAILS<span style="color: red;">*</span><span
+                      class="note-bar">(Minimum 1 registration ID from the below is required)</span></label>
+
+                  <div class="form-grid px-2">
+                    <div class="col-sm my-2 g-2 float-div" data-aos="zoom-out" data-aos-duration="1500">
+                      <label class="form-label" style="color: rgb(0, 132, 194);">PFMS</label>
+                      <input type="text" class="form-select mt-2" maxlength="10" id="pfms_schemeid" name="pfms_schemeid"
+                        placeholder="PFMS scheme id">
+                      <input type="text" class="form-select mt-2" maxlength="10" id="pfms_center_authorityid"
+                        name="pfms_center_authorityid" placeholder="PFMS Center Authority code">
+                    </div>
+                    <div class="col-sm my-2 float-div" data-aos="zoom-out" data-aos-duration="1500">
+                      <label class="form-label" style="color: rgb(224, 183, 0);">State DBT</label>
+                      <input type="text" class="form-select" maxlength="10" id="dbt_schemeid" name="dbt_schemeid"
+                        placeholder="Enter DBT code">
+                    </div>
+                    <div class="col-sm my-2 float-div" data-aos="zoom-out" data-aos-duration="1500">
+                      <label class="form-label" style="color: rgb(0, 141, 75);">GBM</label>
+                      <input type="text" class="form-input gbm mt-2" maxlength="10" id="gbm_id" name="gbm_id"
+                        placeholder="Enter GBM code">
+                      <input type="text" class="form-input gbm mt-2" maxlength="10" id="fto_id" name="fto_id"
+                        placeholder="FTO code">
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="form-grid px-2">
+
+                    <div class="col-sm my-2" data-aos="zoom-out" data-aos-duration="1500">
+                      <label class="form-label">Head of Accounts<span style="color: red;">*</span></label>
+                      <input type="text" class="form-select" maxlength="10" id="head_account" name="head_account"
+                        placeholder="Enter scheme code">
+
+                    </div>
+                    <div class="col-sm my-2" data-aos="zoom-out" data-aos-duration="1500">
+                      <label class="form-label">Budget Code<span style="color: red;">*</span></label>
+                      <input type="text" class="form-select" maxlength="10" id="budget_code" name="budget_code"
+                        placeholder="Enter Budget code">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="w-100 d-flex flex-row justify-content-end">
+                <button type="button" class="btn text-center btn-next" id="save_scheme_setup"> Continue <i class="bi bi-arrow-right-circle"></i>
+                  Eligibility</button>
+              </div>
+            </div>
+            <div class="tab-pane tab-section d-none" id="scheme-tab2">
+              <div class="card-title">📝 Add Eligibility Criteria — ✅ Eligibility</div>
+              <div class="card-subtitle"> Define eligibility criteria conditions based on beneficiary qualified for the
+                scheme.</div>
+
+
+              <div class="meta-bar info-box navy referenceSchemeDetails"></div>
+
+              <div class="subscheme-layout">
+
+                <div class="subscheme-main">
+                  <div class="card" style="margin-bottom:12px;">
+                    <div class="form-grid-3" style="margin-bottom:12px;">
+                      <div class="form-group">
+                        <label class="form-label">Eligibility Criteria Name <span class="req">*</span></label>
+                        <input class="form-input" id="eligibleCriteriaName" placeholder='Enter the Criteria Name' />
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">📑 Copy Eligibility From</label>
+                        <div class="d-flex flex-row">
+                          <select class="form-select" id="eligibleRefCopy">
+                            <option value="">— Reference another Eligibility Criteria—</option>
+                            <option>SC Girl Students – PG (current)</option>
+                            <option>SC Boy Students – UG</option>
+                          </select>
+                          <button class="btn btn-success mx-2">copy</button>
+                        </div>
+                      </div>
+                    
+                    </div>
+                  </div>
+                  <div class="info-box amber" style="margin-bottom:12px;">
+                    <span>💡</span>
+                    <div>
+                      Select one or more parameters (Student, Institute, or Course).
+                      Click a parameter below to configure it and add the rule.
+                    </div>
+                  </div>
+                  <form id="msform">
+                    <!-- field-progressbar -->
+                    <ul id="field-progressbar">
+                      <li class="active" data-step="1">
+                        <span class="emoji">🎓</span>
+                        <span>Student Parameters</span>
+                      </li>
+
+                      <li data-step="2">
+                        <span class="emoji">🏛️</span>
+                        <span>Institute Parameters</span>
+                      </li>
+
+                      <li data-step="3">
+                        <span class="emoji">📘</span>
+                        <span>Course Parameters</span>
+                      </li>
+                    </ul>
+                    <!-- fieldsets -->
+                    <fieldset>
+
+                      <div class="circle-body d-flex flex-row g-2">
+                        <div class="incl-excl form-grid-2 p-2" data-tab="eligibility" data-step="student">
+                          <h4 class="inc">Inclusive</h4>
+                          <div class="form-group mt-2">
+                            <label class="form-label">Community</label>
+                            <div id="eligibleinclusivecommunity"></div>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Caste</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="einccast"
+                              data-val="caste">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Religion</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="eincreligion"
+                              data-val="religion">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Gender</label>
+                            <div id="eligibleinclusivegender"></div>
+
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Income Per Annum (₹)</label>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                              <select class="cond-select op" id="eligibleincincomeRange"></select>
+                              <input class="form-input d-none" id="inincomeValue" style="width:120px;height:34px;">
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="form-label">Quota</label>
+                            <div id="eligibleinclusivequota"></div>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Residential Status</label>
+
+                            <div id="eligibleinclusiveresidential"></div>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Special Category </label>
+
+                            <div id="eligibleinclusivespecialcategory"></div>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Is First Graduate</label>
+
+                            <div id="eligibleinclusivefirstgraduate"></div>
+                          </div>
+
+                        </div>
+
+                        <div class="incl-excl form-grid-2 p-2" data-tab="eligibility" data-step="student">
+                          <h4 class="excl d-flex justify-content-center align-items-center">Exclusive <label
+                              class="mini-switch ms-1">
+                              <input type="checkbox" class="exclusive-toggle">
+                              <span class="mini-slider"></span>
+                            </label></h4>
+
+
+                          <div class="form-group mt-2">
+                            <label class="form-label">Community</label>
+                            <div id="eligibleexclusivecommuntiy"></div>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Caste</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="eexccast"
+                              data-val="caste">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Religion</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="eexcreligion"
+                              data-val="religion">
+                              <option>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Gender</label>
+                            <div id="eligibleexclusivegender"></div>
+
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Income Per Annum (₹)</label>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                              <select class="cond-select op" id="eligibleexcincomeRange"></select>
+                              <input class="form-input d-none" id="exincomeValue" style="width:120px;height:34px;" value="">
+                            </div>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="form-label">Quota</label>
+                            <div id="eligibleexclusivequota"></div>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Residential Status</label>
+                            <div id="eligibleexclusiveresidential"></div>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Special Category </label>
+                            <div id="eligibleexclusivespecialcategory"></div>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Is First Graduate</label>
+                            <div id="eligibleexclusivefirstgraduate"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                    </fieldset>
+                    <fieldset>
+
+                      <div class="circle-body d-flex flex-row g-2">
+                        <div class="incl-excl form-grid-2" data-tab="eligibility" data-step="institute">
+                          <h4 class="inc">Inclusive</h4>
+                          <div class="form-group">
+                            <label class="form-label">Institute Ownership</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="eincinstituteownership"  data-val="ownership">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">University Type</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="eincuniversitytype"  data-val="universityType">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">University</label>
+                           <select class="form-select js-example-basic-multiple" multiple id="eincuniversity"  data-val="university">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Institute Category</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="eincinstitutecategory"  data-val="instituteCategory">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Institute name</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="eincinstitutename"  data-val="instituteName">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="incl-excl form-grid-2" data-tab="eligibility" data-step="institute">
+                          <h4 class="excl d-flex justify-content-center align-items-center">Exclusive <label
+                              class="mini-switch ms-1">
+                              <input type="checkbox" class="exclusive-toggle">
+                              <span class="mini-slider"></span>
+                            </label></h4>
+                          <div class="form-group">
+                            <label class="form-label">Institute Ownership</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="eexcinstituteownership"  data-val="ownership">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">University Type</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="eexcuniversitytype"  data-val="universityType">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">University</label>
+                           <select class="form-select js-example-basic-multiple" multiple id="eexcuniversity"  data-val="university">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Institute Category</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="eexcinstitutecategory"  data-val="instituteCategory">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Institute name</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="eexcinstitutename"  data-val="instituteName">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                    </fieldset>
+                    <fieldset>
+
+                      <div class="circle-body d-flex flex-row g-2">
+                        <div class="incl-excl form-grid-2" data-tab="eligibility" data-step="course">
+
+                          <h4 class="inc">Inclusive</h4>
+                          <div class="form-group">
+                            <label class="form-label">Stream</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="eincstream"  data-val="stream">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Course Type</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="einccoursetype"  data-val="courseType">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Course Category</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="einccoursecategory"  data-val="courseCategory">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Course</label>
+                             <select class="form-select js-example-basic-multiple" multiple id="einccourse"  data-val="course">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Course Branch</label>
+                             <select class="form-select js-example-basic-multiple" multiple id="einccoursebranch"  data-val="courseBranch">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="form-label">Course Year</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="einccourseyear"  data-val="courseYear">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="incl-excl form-grid-2" data-tab="eligibility" data-step="course">
+
+                          <h4 class="excl d-flex justify-content-center align-items-center">Exclusive <label
+                              class="mini-switch ms-1">
+                              <input type="checkbox" class="exclusive-toggle">
+                              <span class="mini-slider"></span>
+                            </label></h4>
+                          <div class="form-group">
+                            <label class="form-label">Stream</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="eexcstream"  data-val="stream">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Course Type</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="eexccoursetype"  data-val="courseType">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Course Category</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="eexccoursecategory"  data-val="courseCategory">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Course</label>
+                             <select class="form-select js-example-basic-multiple" multiple id="eexccourse"  data-val="course">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Course Branch</label>
+                             <select class="form-select js-example-basic-multiple" multiple id="eexccoursebranch"  data-val="courseBranch">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="form-label">Course Year</label>
+                            <select class="form-select js-example-basic-multiple" multiple id="eexccourseyear"  data-val="courseYear">
+                              <option value="-1" selected>Not Applicable</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </form>
+
+
+                  <div class="d-flex justify-content-between action-bar">
+                    <div class="action-bar-left"><span class="draft-dot"></span> Scheme: Post Matric Scholarship for SC
+                      Students</div>
+                    <div class="action-bar-right">
+                      <button class="btn btn-primary" id="add_eligibility"><i class="bi bi-plus-square"></i> Add Eligibility Criterias</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- inner tab buttons -->
+
+                <div class="inner-tab-bar">
+
+                  <div class="section-label">📋Added Eligibility Criteria <span class="count-notification">2</span>
+                  </div>
+                  <a class="sub-scheme-card" data-tab="fee-tab1">
+                    <div class="sub-scheme-card-name">
+                      SC Girl Students – PG <span> ADW-PMS-2026-EC001 </span>
+                    </div>
+                    <!-- Action buttons -->
+                    <div class="card-actions">
+                      <button class="preview-btn" data-bs-toggle="modal" data-bs-target="#add_fee">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                      <button class="delete-btn">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </a>
+                  <a class="sub-scheme-card" data-tab="fee-tab1">
+                    <div class="sub-scheme-card-name">
+                      SC Boy Students – PG <span> ADW-PMS-2026-EC002 </span>
+                    </div>
+                    <!-- Action buttons -->
+                    <div class="card-actions">
+                      <button class="preview-btn" data-bs-toggle="modal" data-bs-target="#add_fee">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                      <button class="delete-btn">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </a>
+                  <button class="btn btn-primary d-flex flex-row justify-content-center"
+                    onclick="saveEligibility()">Continue <i class="bi bi-arrow-right-circle"></i> Scholarship
+                    Fee</button>
+                </div>
+
+
+
+
+
+              </div>
+            </div>
+
+            <div class="tab-pane tab-section d-none" id="scheme-tab3">
+
+              <div class="card-title">🎓Scholarship Amount — 💸Fee</div>
+              <div class="card-subtitle">setting up Scholarship Amount by Choosing fee type, entering Maintenance Fee
+              </div>
+
+
+              <div class="meta-bar info-box navy referenceSchemeDetails"></div>
+              <div class="subscheme-layout">
+                <div class="subscheme-main">
+                  <div class="card">
+                    <div class="step-divider">
+                      <div class="section-label p-ab" style="margin-bottom:8px;">Step <i class="bi bi-1-circle"></i> —
+                        Give a name to this fee rule</div>
+                      <div class="d-flex justify-content-between g-5">
+                        <div class="form-group" style="min-width: 400px;margin-bottom:16px;">
+                          <label class="form-label">Fee Rule Name <span class="req">*</span></label>
+                          <input id="scholarshipFeeName" class="form-input" placeholder="e.g. Private College Students" value="">
+                        </div>
+
+                        <div class="form-group" style="min-width: 400px;margin-bottom:16px;">
+                          <label class="form-label">Eligibility Rules<span class="req">*</span></label>
+                          <select class="form-select js-example-basic-multiple" multiple id="eligibilityCriteriaList" style="max-width:300px;" aria-placeholder="Select Eligibility Rules">
+                            <option>Select all</option>
+                            <option>BC-MBC Private Fees</option>
+                            <option>7.5% Govt/Govt Aided</option>
+                            <option>7.5% Private Unaided</option>
+                            <option>Anna University</option>
+                            <option>Govt Aided Arts &amp; Science SF/SS</option>
+                          </select>
+                        </div>
+
+                      </div>
+
+
+                    </div>
+
+                    <!-- Step 2: Fee Type -->
+                    <div class="step-divider">
+                      <div class="scheme-group section-label p-ab" style="margin-bottom:8px;">Step <i
+                          class="bi bi-2-circle"></i> — Select fee type</div>
+                      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;">
+                        <button type="button" class="sub-scheme-card active" data-type="fixed" style="cursor:pointer;">
+                          <div style="font-weight:700;color:var(--navy);margin-bottom:4px;">💰 Fixed Amount</div>
+                          <div style="font-size:11.5px;color:var(--text-muted);">All students get the same flat ₹ amount
+                          </div>
+                        </button>
+                        <button type="button" id="componentBasedFeeCard" class="sub-scheme-card" data-type="component" style="cursor:pointer;">
+                          <div style="font-weight:700;color:var(--navy);margin-bottom:4px;">📄 Component Based</div>
+                          <div style="font-size:11.5px;color:var(--text-muted);">Based on UMIS fee components (tuition,
+                            exam fee etc.)</div>
+                        </button>
+                        <button  data-bs-toggle="modal" data-bs-target="#custom-table-fee-rule" type="button" class="sub-scheme-card" style="cursor:pointer;">
+                          <div style="font-weight:700;color:var(--navy);margin-bottom:4px;">📊 Customised Table</div>
+                          <div style="font-size:11.5px;color:var(--text-muted);">Select or build a fee table with
+                            IF/THEN rules</div>
+                        </button>
+
+                      </div>
+                      
+
+                      <div id="fixed_fee" data-type="fixed">
+                        <div class="section-label" style="margin-bottom:8px;">Enter Fee Amount</div>
+                        <div
+                          style="display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap; max-width:300px">
+                          <input type="number" id="scholarshipFixedFee" class="scheme_fee form-select" width="500px" aria-label="Scheme Fee" placeholder="eg: 100000" data-val="FixedFee" />
+                        </div>
+                      </div>
+
+                      <!-- Customised Table selection -->
+                      <div id="custom_fee" data-type="custom" class="d-none">
+                        <div class="section-label" style="margin-bottom:8px;">Select a fee table</div>
+                        <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap;">
+                          <select class="form-select" style="max-width:300px;">
+                            <option>— Select existing tables —</option>
+                            <option selected>BC-MBC Private Fees</option>
+                            <option>7.5% Govt/Govt Aided</option>
+                            <option>7.5% Private Unaided</option>
+                            <option>Anna University</option>
+                            <option>Govt Aided Arts &amp; Science SF/SS</option>
+                          </select>
+
+                        </div>
+                      </div>
+                      <div class="d-none" id="componentBasedFeeInput" data-type="component"></div>
+                    </div>
+
+
+                    <!-- Step 3: Student Subset Filters -->
+                    <div class="step-divider">
+                      <div class="section-label p-ab" style="margin-bottom:4px;">Step <i class="bi bi-3-circle"></i> —
+                        Which eligible students does this rule apply to?</div>
+                      <div class="info-box amber" style="margin-bottom:12px;">
+                        <span>💡</span>
+                        <div>
+                          Select one or more parameters (Student, Institute, or Course).
+                          Click a parameter below to configure it and add the rule.
+                        </div>
+                      </div>
+                      <form id="ssform">
+                        <!-- field-progressbar -->
+                        <ul id="field-progressbar1">
+                          <li class="active" data-step="1">
+                            <span class="emoji">🎓</span>
+                            <span>Student Parameters</span>
+                          </li>
+
+                          <li data-step="2">
+                            <span class="emoji">🏛️</span>
+                            <span>Institute Parameters</span>
+                          </li>
+
+                          <li data-step="3">
+                            <span class="emoji">📘</span>
+                            <span>Course Parameters</span>
+                          </li>
+                        </ul>
+                        <!-- fieldsets -->
+                        <fieldset>
+
+                          <div class="circle-body d-flex flex-row g-2">
+                            <div class="incl-excl form-grid-2 p-2" data-tab="scholarship" data-step="student">
+                              <h4 class="inc">Inclusive</h4>
+                              <div class="form-group mt-2">
+                                <label class="form-label">Community</label>
+                                <div id="scholarshipinclusivecommunity"></div>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Caste</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sinccast"
+                                  data-val="caste">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Religion</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sincreligion"
+                                  data-val="religion">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Gender</label>
+                                <div id="scholarshipinclusivegender"></div>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Quota</label>
+                                <div id="scholarshipinclusivequota"></div>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Residential Status</label>
+                                <div id="scholarshipinclusiveresidential"></div>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Special Category </label>
+
+                                <div id="scholarshipinclusivespecialcategory"></div>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Is First Graduate</label>
+
+                                <div id="scholarshipinclusivefirstgraduate"></div>
+                              </div>
+
+                            </div>
+                            <div class="incl-excl form-grid-2 p-2" data-tab="scholarship" data-step="student">
+                              <h4 class="excl d-flex justify-content-center align-items-center">Exclusive <label
+                                  class="mini-switch ms-1">
+                                  <input type="checkbox" class="exclusive-toggle">
+                                  <span class="mini-slider"></span>
+                                </label></h4>
+                              <div class="form-group mt-2">
+                                <label class="form-label">Community</label>
+                                <div id="scholarshipexclusivecommunity"></div>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Caste</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sexccast"
+                                  data-val="caste">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Religion</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sexcreligion"
+                                  data-val="religion">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Gender</label>
+                                <div id="scholarshipexclusivegender"></div>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Quota</label>
+                                <div id="scholarshipexclusivequota"></div>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Residential Status</label>
+                                <div id="scholarshipexclusiveresidential"></div>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Special Category </label>
+
+                                <div id="scholarshipexclusivespecialcategory"></div>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Is First Graduate</label>
+
+                                <div id="scholarshipexclusivefirstgraduate"></div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </fieldset>
+                        <fieldset>
+                          <div class="circle-body d-flex flex-row g-2">
+                            <div class="incl-excl form-grid-2" data-tab="scholarship" data-step="institute">
+                              <h4 class="inc">Inclusive</h4>
+                              <div class="form-group">
+                                <label class="form-label">Institute Ownership</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sincinstituteownership"  data-val="ownership">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">University Type</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sincuniversitytype"  data-val="universityType">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">University</label>
+                              <select class="form-select js-example-basic-multiple" multiple id="sincuniversity"  data-val="university">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Institute Category</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sincinstitutecategory"  data-val="instituteCategory">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Institute name</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sincinstitutename"  data-val="instituteName">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="incl-excl form-grid-2" data-tab="scholarship" data-step="institute">
+                              <h4 class="excl d-flex justify-content-center align-items-center">Exclusive <label
+                                  class="mini-switch ms-1">
+                                  <input type="checkbox" class="exclusive-toggle">
+                                  <span class="mini-slider"></span>
+                                </label></h4>
+                              <div class="form-group">
+                                <label class="form-label">Institute Ownership</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sexcinstituteownership"  data-val="ownership">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">University Type</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sexcuniversitytype"  data-val="universityType">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">University</label>
+                              <select class="form-select js-example-basic-multiple" multiple id="sexcuniversity"  data-val="university">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Institute Category</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sexcinstitutecategory"  data-val="instituteCategory">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Institute name</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sexcinstitutename"  data-val="instituteName">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                        </fieldset>
+                        <fieldset>
+
+                          <div class="circle-body d-flex flex-row g-2">
+                            <div class="incl-excl form-grid-2">
+
+                              <h4 class="inc">Inclusive</h4>
+                              <div class="form-group">
+                                <label class="form-label">Stream</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sincstream"  data-val="stream">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Course Type</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sinccoursetype"  data-val="courseType">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Course Category</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sinccoursecategory"  data-val="courseCategory">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Course</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sinccourse"  data-val="course">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Course Branch</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sinccoursebranch"  data-val="courseBranch">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+
+                              <div class="form-group">
+                                <label class="form-label">Course Year</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sinccourseyear"  data-val="courseYear">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="incl-excl form-grid-2">
+
+                              <h4 class="excl d-flex justify-content-center align-items-center">Exclusive <label
+                                  class="mini-switch ms-1">
+                                  <input type="checkbox" class="exclusive-toggle">
+                                  <span class="mini-slider"></span>
+                                </label></h4>
+                              <div class="form-group">
+                                <label class="form-label">Stream</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sexcstream"  data-val="stream">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Course Type</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sexccoursetype"  data-val="courseType">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Course Category</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sexccoursecategory"  data-val="courseCategory">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Course</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sexccourse"  data-val="course">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label class="form-label">Course Branch</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sexccoursebranch"  data-val="courseBranch">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+
+                              <div class="form-group">
+                                <label class="form-label">Course Year</label>
+                                <select class="form-select js-example-basic-multiple" multiple id="sexccourseyear"  data-val="courseYear">
+                                  <option value="-1" selected>Not Applicable</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+
+                        </fieldset>
+                      </form>
+
+
+                    </div>
+
+                    <div class="d-flex justify-content-between action-bar">
+                      <div class="action-bar-left"><span class="draft-dot"></span> Eligibility Criteria: SC Girl
+                        Students – PG</div>
+                      <div class="action-bar-right">
+                        <button class="btn btn-primary" id="saveFeeRule"><i class="bi bi-plus-square"></i> Add Fee Rule</button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="inner-tab-bar">
+
+                  <div class="section-label">Added Fee Rules <span class="count-notification">2</span></div>
+                  <a class="sub-scheme-card" data-tab="fee-tab1">
+                    <div class="sub-scheme-card-name">
+                      Govt & Aided Colleges <span> ADW-PMS-2026-FR001 </span>
+                    </div>
+                    <!-- Action buttons -->
+                    <div class="card-actions">
+                      <button class="preview-btn" data-bs-toggle="modal" data-bs-target="#add_fee">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                      <button class="delete-btn">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </a>
+                  <a class="sub-scheme-card" data-tab="fee-tab1">
+                    <div class="sub-scheme-card-name">
+                      Govt & Aided Colleges <span> ADW-PMS-2026-FR002 </span>
+                    </div>
+                    <!-- Action buttons -->
+                    <div class="card-actions">
+                      <button class="preview-btn" data-bs-toggle="modal" data-bs-target="#add_fee">
+                        <i class="bi bi-eye"></i>
+                      </button>
+                      <button class="delete-btn">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </a>
+
+
+
+                  <button class="btn btn-primary d-flex flex-row justify-content-center"
+                    onclick="saveEligibility()">Continue <i class="bi bi-arrow-right-circle"></i> Payment &
+                    Structure</button>
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+
+              </div>
+            </div>
+
+
+            <div class="tab-pane tab-section d-none" id="scheme-tab4">
+              <!-- <div class="d-flex w-100 flex-row justify-content-between mb-2"><button class="btn btn-ghost btn-sm"
+          onclick="goToScreen('s2')">← Back</button><button class="btn btn-primary d-flex flex-row justify-content-center"
+          onclick="saveEligibility()">Move to <i class="bi bi-arrow-right-circle"></i> Review</button></div> -->
+              <div class="card-title">📊 Maintenance Fee</div>
+              <div class="card-subtitle">Setting up Maintenance fee for applicant - Travel, Accomodation, Food and other
+                expenses.</div>
+              <div class="meta-bar info-box navy referenceSchemeDetails"></div>
+              <div class="TabFieldsStyles MaintanenceFeeRow padBtm-10 MaintanenceFeeFields">
+                <div class="separateComp mainComp row pb-1 px-2 bg-wrap-blue">
+                  <div class="col-md-6 my-4">
+                    <label for="maintenanceSave" class="form-label lbl-font"> Enter Maintanence
+                      Reference Fee Name <span style="color: red;">*</span>
+                    </label>
+                    <input type="text" class="form-control" id="MaintenanceSaveName"
+                      placeholder="Enter Maintanence Reference Fee">
+                    <input type="hidden" id="parentSchemeId" value="" />
+                    <div class="text-danger" id="maintenanceSaveError"></div>
+                  </div>
+                  <div class="col-md-6 my-4">
+                    <div class="instituteApproveRejectForm mainCompForm">
+                      <label for="maintenance_amount" class="form-label lbl-font">Maintenance
+                        Amount - (In Rupees
+                        ₹)</label>
+                      <div class="input-group">
+                        <input type="text" id="maintenance_amount" class="form-control" placeholder="Enter Amount"
+                          inputmode="numeric" pattern="[0-9]*" data-val="MaintanenceAmount" />
+                      </div>
+                      <div class="text-danger" id="maintenanceAmountError"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-4 mb-4">
+                    <div class="form-group">
+                      <label class="form-label">Residential Status</label>
+                      <div id="maintenanceresidential"></div>  
+                    </div>
+                  </div>
+
+
+                  <div class="col-md-4 mb-4" id="add_field_hostel_type">
+                    <div class="form-group">
+                        <label class="form-label">Hostel Type</label>
+                        <select class="form-select js-example-basic-multiple" multiple id="mhosteltype"  data-val="hostelType">
+                          <option value="-1" selected>Not Applicable</option>
+                        </select>
+                    </div>
+                    <div class="text-danger" id="hosterTypeError"></div>
+                  </div>
+
+
+                  <div class="col-md-4 mb-4">
+                    <div class="form-group">
+                      <label class="form-label">Maintenance Course Group</label>
+                      <select class="form-select" id="mgroupcode"  data-val="groupCode">
+                          <option value="-1" selected>--Select--</option>
+                        </select>
+                    </div>
+                    <div class="text-danger" id="maintenanceodeError"></div>
+                  </div>
+
+
+                  <div class="col-md-3 mb-4">
+                    <div class="form-group">
+                      <label class="form-label">Disability Status</label>
+                      <div id="mdisabilitystatus"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-4 d-none" id="add_field_disability_category">
+                    <div class="instituteApproveRejectForm mainCompForm">
+                      <label class="form-label">Disability Category</label>
+                        <select class="form-select js-example-basic-multiple" multiple id="mdisabilitycategory"  data-val="disabilitycategory">
+                          <option value="-1" selected>Not Applicable</option>
+                        </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3 mb-4 d-none" id="add_field_disability_amount">
+                    <div class="instituteApproveRejectForm mainCompForm">
+                      <label for="disability_amount" class="form-label lbl-font">Disability Amount - (In Rupees ₹)</label>
+                      <div class="input-group">
+                        <input type="text" id="disability_amount" class="form-control" aria-label="Selected income" placeholder="Eg: Enter Amount" data-val="DisabilityFee" />
+                      </div>
+                      <div class="text-danger" id="disabilityAmountError"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane tab-section d-none" id="scheme-tab5">
+              <div class="card-title">⚙️ Payment setup</div>
+              <div class="card-subtitle">Setting up payment transactions. Installment wise payment setup.</div>
+              <div class="meta-bar info-box navy referenceSchemeDetails"></div>
+
+              <div class="d-flex w-100 flex-row justify-content-between mb-2"></div>
+              <div class="form-grid">
+                <div class="form-group" data-aos="zoom-out" data-aos-duration="1500">
+                  <label class="form-label">Frequency<span style="color: red;">*</span></label>
+                  <select class="form-select" id="frequency-filter" name="frequency-filter">
+                    <option value="" disabled selected hidden class="muted-option">Select frequency
+                    </option>
+                    <option value="1">Half-Yearly</option>
+                    <option value="2">Monthly</option>
+                    <option value="3">Quarterly</option>
+                    <option value="4">Yearly</option>
+                  </select>
+                </div>
+                <div class="form-group" data-aos="zoom-out" data-aos-duration="1500">
+                  <label class="form-label">Skip Rule Engine<span style="color: red;">*</span></label>
+                  <select class="form-select" id="skip-rule-engine-filter" name="skip-rule-engine-filter">
+                    <option value="" disabled selected hidden class="muted-option">Select rule
+                      engine</option>
+                    <option value="1">Yes</option>
+                    <option value="2">No</option>
+                  </select>
+                </div>
+                <div class="form-group" data-aos="zoom-out" data-aos-duration="1500">
+                  <label class="form-label">DBT Scheme ID
+                    <span style="color: red;">*</span></label>
+                  <input type="number" class="form-select" id="dbt-scheme-id-filter" name="dbt-scheme-id-filter"
+                    placeholder="Enter DBT scheme id">
+                </div>
+                <div id="shared-dbt-scheme-id-input" style="display: none;">
+                  <div class="col-sm-4 my-2">
+                    <label class="form-label">DBT Scheme ID <span style="color: red;">*</span></label>
+                    <input type="number" class="form-select" id="dbt-scheme-id-filter" name="dbt-scheme-id-filter"
+                      placeholder="Enter DBT scheme id">
+                  </div>
+                </div>
+                <div class="form-group installmentHide" data-aos="zoom-out" data-aos-duration="1500">
+                  <label class="form-label">Installments<span style="color: red;">*</span></label>
+                  <select class="form-select" id="instSelect" onchange="renderInstalments()">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
+                </div>
+
+                <div class="form-group" id="schemecopyid" data-aos="zoom-out" data-aos-duration="1500">
+                  <label class="form-label">Scheme Copy</label>
+                  <select class="form-select" id="scheme-copy" name="scheme-copy">
+                    <option value="" disabled selected hidden class="muted-option">Select scheme
+                    </option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Installment Split type</label>
+                  <div class="chip-select multi-select" data-name="stage_filter">
+                    <label class="chip">
+                      <input type="checkbox" value="rupee" hidden>
+                      <span>₹</span>
+                    </label>
+                    <label class="chip">
+                      <input type="checkbox" value="%" hidden>
+                      <span>%</span>
+                    </label>
+                  </div>
+                </div>
+
+
+              </div>
+              <div style="margin-top:14px;" id="instalmentRows">
+                <div class="section-label">Instalment Payment Details</div>
+                <div class="instalment-row">
+                  <div class="inst-label">Instalment 1</div>
+                  <div class="form-group">
+                    <label class="form-label" style="font-size:11px;">Payment % <span class="req">*</span></label>
+                    <input class="form-input" type="number" value="100" style="width:100px;">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" style="font-size:11px;">Payment Mode <span class="req">*</span></label>
+                    <select class="form-select">
+                      <option>NSP</option>
+                      <option>DBT</option>
+                      <option>PFMS</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" style="font-size:11px;">Bank Name<span class="req">*</span></label>
+                    <select class="form-select">
+                      <option>Bank of India</option>
+                      <option>State Bank of India</option>
+                      <option>Indian Bank</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" style="font-size:11px;">File Transfer mode<span
+                        class="req">*</span></label>
+                    <select class="form-select" onchange="toggleFTP(this)">
+                      <option value="">Select</option>
+                      <option value="FTP">FTP</option>
+                      <option value="API">API Gateway</option>
+                    </select>
+                  </div>
+
+
+                </div>
+
+              </div>
+
+            </div>
+            <div class="tab-pane tab-section d-none" id="scheme-tab6">
+              <!-- <div class="d-flex w-100 flex-row justify-content-between mb-2"><button class="btn btn-ghost btn-sm"
+          onclick="goToScreen('s2')">← Back</button><button class="btn btn-primary d-flex flex-row justify-content-center"
+          onclick="saveEligibility()">Move to <i class="bi bi-arrow-right-circle"></i> Review</button></div> -->
+              <div class="card-title">🛂Work Flow Configurations</div>
+              <div class="card-subtitle">Setting up Stage wise approval - select your approvals required in the flow
+                process of this scheme.</div>
+              <div class="meta-bar info-box amber justify-content-center">
+                <span><b>Select the stages required for approval of an application for this scheme</b></span>
+              </div>
+
+              <div class="d-flex flex-column justify-content-center align-items-center">
+                <div class="form-group align-items-center">
+
+                  <label class="form-label text-center">
+                    Level 0 <span>Applied by</span>
+                  </label>
+
+                  <div class="chip-select multi-select" data-name="stage_filter">
+                    <label class="chip">
+                      <input type="checkbox" value="Student" hidden>
+                      <span>Student</span>
+                    </label>
+                    <label class="chip">
+                      <input type="checkbox" value="Institute" hidden>
+                      <span>Institute</span>
+                    </label>
+                  </div>
+                  <script>
+
+                  </script>
+                </div>
+                <i class="bi bi-arrow-down-circle"></i>
+                <div class="form-group align-items-center">
+                  <label class="form-label text-center">Level 1 <span>Approval</span></label>
+                  <div class="chip-select multi-select" data-name="stage_filter">
+
+                    <label class="chip">
+                      <input type="checkbox" value="Institute" hidden>
+                      <span>Institute</span>
+                    </label>
+                  </div>
+                </div>
+                <i class="bi bi-arrow-down-circle"></i>
+                <div class="form-group align-items-center">
+                  <label class="form-label text-center">Level 2 <span>Approval</span></label>
+                  <div class="chip-select multi-select" data-name="stage_filter">
+
+                    <label class="chip">
+                      <input type="checkbox" value="District" hidden>
+                      <span>District</span>
+                    </label>
+                  </div>
+                </div>
+                <i class="bi bi-arrow-down-circle"></i>
+                <div class="form-group align-items-center">
+                  <label class="form-label text-center">Level 3 <span>Final Approval</span></label>
+                  <div class="chip-select multi-select" data-name="stage_filter">
+                    <label class="chip">
+                      <input type="checkbox" value="State" hidden>
+                      <span>State / Department</span>
+                    </label>
+                  </div>
+                </div>
+
+
+              </div>
+
+
+            </div>
+            <div class="tab-pane tab-section d-none" id="scheme-tab7">
+
+              <div class="card-title"><i class="bi bi-clipboard-check"></i> Current Registered Data</div>
+              <div class="card-subtitle">Review the Gathered information and confirm to proceed the Scheme.</div>
+              
+              <div class="preview-grid-3">
+                <h6 class="preview-title card-title"><i class="bi bi-bank2"></i> Scheme Identity</h6>
+
+                <!-- 🏛️ Scheme Identity -->
+                <div class="preview-item">
+                  <label class="preview-label">Department : <span class="preview-value">Adi Dravidar And Tribal Welfare Dept</span></label>    
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Sub Department: <span class="preview-value">Adi Dravidar Welfare</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Scheme Name :  <span class="preview-value">Post Matric Scholarship for SC Students</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Scheme Code : <span class="preview-value">ADW-PMS-2026</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Scheme Type : <span class="preview-value">Scholarships</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Scheme Category : <span class="preview-value">Inclusive</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Academic Year : <span class="preview-value">2025 - 2026</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">GO Reference No : <span class="preview-value">GO_Ms_42_ADW_2026</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Scheme ID Type : <span class="preview-value">PFMS</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Head of Account : <span class="preview-value">--</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Budget Code : <span class="preview-value">--</span></label>
+                </div>
+              </div>
+
+              <div class="preview-grid-3">
+                <h6 class="preview-title card-title"><i class="bi bi-journal-check"></i> Eligibility Criteria(Eligibility) - Exclusive</h6>
+                <!-- 👤 Eligibility Criteria-->
+                <div class="preview-item">
+                  <label class="preview-label">Eligibility Criteria : <span class="preview-value">SC Girl Students – PG</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Community :  <span class="preview-value">SC</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Gender : <span class="preview-value">Female</span></label> 
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Income : <span class="preview-value">≤</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Residential Status : <span class="preview-value">Hosteller</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Quota : <span class="preview-value">7.5% Quota</span></label> 
+                </div>
+
+
+                <!-- 🏫 Institution -->
+                <div class="preview-item">
+                  <label class="preview-label">Institute Ownership : <span class="preview-value">Government</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">University Type : <span class="preview-value">State University</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Institute Category : <span class="preview-value">Arts & Science</span></label>
+                </div>
+
+
+                <!-- 📚 Course -->
+                <div class="preview-item">
+                  <label class="preview-label">Course Type : <span class="preview-value">PG</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Course Category : <span class="preview-value">Professional</span></label>
+                </div>
+              </div>
+
+              <div class="preview-grid-3">
+                <h6 class="preview-title card-title"><i class="bi bi-journal-check"></i> Eligibility Criteria(Eligibility) - Inclusive</h6>
+                <!-- 👤 Eligibility Criteria-->
+                <div class="preview-item">
+                  <label class="preview-label">Eligibility Criteria : <span class="preview-value">SC Girl Students – PG</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Community :  <span class="preview-value">SC</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Gender : <span class="preview-value">Female</span></label> 
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Income : <span class="preview-value">≤</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Residential Status : <span class="preview-value">Hosteller</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Quota : <span class="preview-value">7.5% Quota</span></label> 
+                </div>
+
+
+                <!-- 🏫 Institution -->
+                <div class="preview-item">
+                  <label class="preview-label">Institute Ownership : <span class="preview-value">Government</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">University Type : <span class="preview-value">State University</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Institute Category : <span class="preview-value">Arts & Science</span></label>
+                </div>
+
+
+                <!-- 📚 Course -->
+                <div class="preview-item">
+                  <label class="preview-label">Course Type : <span class="preview-value">PG</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Course Category : <span class="preview-value">Professional</span></label>
+                </div>
+              </div>
+
+              <div class="preview-grid-3">
+                <h6 class="preview-title card-title"><i class="bi bi-card-list"></i> Scholarship Fee (Fee Rule) - Exclusive</h6>
+                <!-- 💰 Fee Rule -->
+                <div class="preview-item">
+                  <label class="preview-label">Fee Rule Name : <span class="preview-value">Private Un-aided Colleges</span></label>
+                  
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Fee Type : <span class="preview-value">Customised Table</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Fee Table : <span class="preview-value">BC-MBC Private Fees</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Accreditation : <span class="preview-value">Accredited</span></label>
+                </div>
+              </div>
+
+              <div class="preview-grid-3">
+                <h6 class="preview-title card-title"><i class="bi bi-card-list"></i> Scholarship Fee (Fee Rule) - Inclusive</h6>
+                <!-- 💰 Fee Rule -->
+                <div class="preview-item">
+                  <label class="preview-label">Fee Rule Name : <span class="preview-value">Private Un-aided Colleges</span></label>
+                  
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Fee Type : <span class="preview-value">Customised Table</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Fee Table : <span class="preview-value">BC-MBC Private Fees</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Accreditation : <span class="preview-value">Accredited</span></label>
+                </div>
+              </div>
+
+              <div class="preview-grid-3">
+                <h6 class="preview-title card-title"><i class="bi bi-currency-rupee"></i> Payment & Structure</h6>
+                <!-- ⚙️ Payment -->
+                <div class="preview-item">
+                  <label class="preview-label">Frequency : <span class="preview-value">Half-Yearly</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Skip Rule Engine : <span class="preview-value">No</span></label>
+                </div>
+
+                <div class="preview-item">
+                  <label class="preview-label">Installments : <span class="preview-value">3</span></label>
+                </div>
+
+
+                <!-- 💳 Instalment 1 -->
+                <div class="preview-item ins">
+                  <label class="preview-label">Instalment 1 % : <span class="preview-value">33.3%</span></label>
+                  
+                  <hr>
+                  <label class="preview-label">Payment Mode : <span class="preview-value">DBT</span></label>
+                  
+                  <hr>
+                  <label class="preview-label">Bank :  <span class="preview-value">State Bank of India</span></label>
+                 
+                  <hr>
+                  <label class="preview-label">Transfer Mode :  <span class="preview-value">API Gateway</span></label>
+                </div>
+                <div class="preview-item ins">
+                  <label class="preview-label">Instalment 2 % : <span class="preview-value">33.3%</span></label>
+                  
+                  <hr>
+                  <label class="preview-label">Payment Mode : <span class="preview-value">DBT</span></label>
+                  
+                  <hr>
+                  <label class="preview-label">Bank : <span class="preview-value">State Bank of India</span></label>
+                  
+                  <hr>
+                  <label class="preview-label">Transfer Mode : <span class="preview-value">API Gateway</span></label>
+                  
+                </div>
+                <div class="preview-item ins">
+
+                  <label class="preview-label">Instalment 2 % : <span class="preview-value">33.3%</span></label>
+                  
+                  <hr>
+                  <label class="preview-label">Payment Mode : <span class="preview-value">DBT</span></label>
+                  
+                  <hr>
+                  <label class="preview-label">Bank : <span class="preview-value">State Bank of India</span></label>
+                  
+                  <hr>
+                  <label class="preview-label">Transfer Mode : <span class="preview-value">API Gateway</span></label>
+                  
+                </div>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    </div>
+  </main>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="add_fee" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title fs-5" id="add_fee_modalLabel">Govt & Aided Colleges
+          </h4>
+          <button class="btn btn-danger" data-bs-dismiss="modal">close</button>
+        </div>
+        <div class="modal-body">
+          <div class="preview-grid">
+            <div class="preview-item">
+              <label for="" class="preview-label">Fee Rule Name</label>
+              <span for="" class="preview-value">Private Un-aided Colleges</span>
+            </div>
+            <div class="preview-item">
+              <label for="" class="preview-label">Fee type: </label>
+              <span for="" class="preview-value">Fixed Amount</span>
+            </div>
+            <div class="preview-item">
+              <label for="" class="preview-label">Fee Table: </label>
+              <span for="" class="preview-value">7.5% Govt/Govt Aided</span>
+            </div>
+            <div class="preview-item">
+              <label for="" class="preview-label">Institute Ownership: </label>
+              <span for="" class="preview-value">Government</span>
+            </div>
+            <div class="preview-item">
+              <label for="" class="preview-label">University Type: </label>
+              <span for="" class="preview-value">State University</span>
+            </div>
+            <div class="preview-item">
+              <label for="" class="preview-label">Accreditation Status: </label>
+              <span for="" class="preview-value">Accredited</span>
+            </div>
+            <div class="preview-item">
+              <label for="" class="preview-label">Course Type: </label>
+              <span for="" class="preview-value">PG</span>
+            </div>
+            <div class="preview-item">
+              <label for="" class="preview-label">Course Category: </label>
+              <span for="" class="preview-value">Professional</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div style="margin-top:16px;display:flex;gap:10px;">
+            <!-- <button class="btn btn-success edit-btn"><i class="bi bi-pencil-square"></i> Edit</button> -->
+            <!-- <button class="btn btn-danger delete-btn"><i class="bi bi-trash"></i> Delete</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+                            <!-- Modal cust-fee-rule -->
+  <div class="modal fade" id="custom-table-fee-rule" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title fs-5" id="custom-table-fee-rulelabel">Customise Fee list
+          </h4>
+          <button class="btn btn-danger" data-bs-dismiss="modal">close</button>
+        </div>
+        <div class="modal-body">
+        <div id="govt_aidedviewTable_wrapper" class="dataTables_wrapper no-footer">
+    
+   
+    <table id="govt_aidedviewTable" class="table display nowrap dataTable no-footer" style="width: 100%;"
+        aria-describedby="govt_aidedviewTable_info">
+        <thead>
+            <tr>
+                <th class="sorting sorting_asc" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 36px;" aria-sort="ascending" aria-label="S.No.: activate to sort column descending">
+                    S.No.</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 302px;" aria-label="HOD: activate to sort column ascending">HOD</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 108px;" aria-label="Ownership: activate to sort column ascending">Ownership</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 110px;" aria-label="District: activate to sort column ascending">District</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 236px;" aria-label="University Type: activate to sort column ascending">University
+                    Type</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 589px;" aria-label="University: activate to sort column ascending">University</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 141px;" aria-label="Institution Catgeory: activate to sort column ascending">
+                    Institution Catgeory</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 414px;" aria-label="Institution: activate to sort column ascending">Institution</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 60px;" aria-label="AISHE ID: activate to sort column ascending">AISHE ID</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 169px;" aria-label="Stream Name: activate to sort column ascending">Stream Name</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 49px;" aria-label="Course: activate to sort column ascending">Course</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 102px;" aria-label="Course Branch: activate to sort column ascending">Course Branch
+                </th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 414px;" aria-label="Regular Institution: activate to sort column ascending">Regular
+                    Institution</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 106px;" aria-label="Regular Course: activate to sort column ascending">Regular Course
+                </th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 290px;" aria-label="Regular Course Branch: activate to sort column ascending">Regular
+                    Course Branch</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 134px;" aria-label="Regular Course Fee: activate to sort column ascending">Regular
+                    Course Fee</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 151px;" aria-label="Regular Year of Study: activate to sort column ascending">Regular
+                    Year of Study</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 110px;" aria-label="Regular District: activate to sort column ascending">Regular
+                    District</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 343px;" aria-label="Match Priority: activate to sort column ascending">Match Priority
+                </th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 82px;" aria-label="Verification: activate to sort column ascending">Status</th>
+                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                    style="width: 82px;" aria-label="Verification: activate to sort column ascending">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr class="odd">
+            <td class="sorting_1">1</td>
+            <td>DIRECTORATE OF COLLEGIATE EDUCATION (DCE)</td>
+            <td>Government Aided</td>
+            <td>COIMBATORE</td><td>State Public University</td><td>BHARATHIAR UNIVERSITY</td>
+            <td>Arts and Science</td><td>PSG COLLEGE OF ARTS &amp; SCIENCE, COIMBATORE</td>
+            <td>C-41124</td><td>ARTS &amp; SCIENCE</td><td>PhD</td><td>Self Finance</td>
+            <td>ANNAMALAI UNIVERSITY,  ANNAMALAI NAGAR, CUDDALORE</td>
+            <td>PhD</td>
+            <td>Department of Legal Studies</td>
+            <td>0</td>
+            <td>1</td><td>CUDDALORE</td><td>Matched with different district and same course</td>
+            <td><span class="badge bg-success">Verified</span></td>
+            <td><span class="d-flex justify-flex-start gap-2"><button class="btn btn-sm badge bg-primary">Edit</button><button class="btn btn-sm badge bg-danger">Del</button></span></td>
+          </tr>
+          <tr class="even">
+            <td class="sorting_1">2</td>
+            <td>DIRECTORATE OF COLLEGIATE EDUCATION (DCE)</td>
+            <td>Government Aided</td><td>COIMBATORE</td>
+            <td>State Public University</td>
+            <td>BHARATHIAR UNIVERSITY</td>
+            <td>Arts and Science</td>
+            <td>PSG COLLEGE OF ARTS &amp; SCIENCE, COIMBATORE</td>
+            <td>C-41124</td>
+            <td>ARTS &amp; SCIENCE</td>
+            <td>PhD</td>
+            <td>Self Finance</td>
+            <td>ANNAMALAI UNIVERSITY,  ANNAMALAI NAGAR, CUDDALORE</td>
+            <td>PhD</td><td>Department of Legal Studies</td>
+            <td>0</td>
+            <td>2</td>
+            <td>CUDDALORE</td>
+            <td>Matched with different district and same course</td>
+            <td><span class="badge bg-success">Verified</span></td>
+            <td><span class="d-flex justify-flex-start gap-2"><button class="btn btn-sm badge bg-primary">Edit</button><button class="btn btn-sm badge bg-danger">Del</button></span></td>
+          </tr>
+        </tbody>
+    </table>
+    
+</div>
+        </div>
+        <div class="modal-footer">
+          <div style="margin-top:16px;display:flex;gap:10px;">
+            <!-- <button class="btn btn-success edit-btn"><i class="bi bi-pencil-square"></i> Edit</button> -->
+            <!-- <button class="btn btn-danger delete-btn"><i class="bi bi-trash"></i> Delete</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- End Footer -->
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+
+  <script src="assets/js/add.js"></script>
+  <script>
+    tabToggle();
+    innerTabToggle();
+    renderInstalments();
+  </script>
+
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/vendor/select2/js/select2.min.js"></script>
+  <link href="../../assets/vendor/select2/css/select2.min.css" rel="stylesheet">
+
+  <script src="assets/js/trump.js"></script>
+  <script src="assets/js/global.js"></script>
+  <script src="assets/js/helper.js"></script>
+  <script src="assets/js/utility.js"></script>
+  <script src="assets/js/dropdown.js"></script>
+
+
+  <script>
+    function updateFileName(input) {
+      const file = input.files[0];
+
+      if (file) {
+        document.getElementById("go_file_name").innerText = file.name;
+        document.getElementById("go_upload_status").innerText =
+          "✓ Uploaded · " + (file.size / 1024 / 1024).toFixed(2) + " MB";
+      }
+    }
+
+
+$(document).ready(function () {
+
+      applyInputValidation('inincomeValue', [1]);
+      applyInputValidation('exincomeValue', [1]);
+      dropdowns.forEach(handleChange);
+    
+    
+    
+    
+$('#componentBasedFeeCard').on('click', function (e) {
+    e.preventDefault();
+    // Usage:
+     
+    const params = {
+        components: [
+            { id: 1, component_name: 'Tuition Fee' },
+            { id: 2, component_name: 'Computer Fee' },
+            { id: 3, component_name: 'Library Fee' },
+            { id: 4, component_name: 'Lab Fee' },
+            { id: 5, component_name: 'Others' },
+            { id: 6, component_name: 'Special Fee' },
+            { id: 7, component_name: 'Sports Fee' },
+            { id: 8, component_name: 'Enrollment Fee' },
+            { id: 9, component_name: 'Examination Fee' }
+        ]
+    };
+    componentBasedFeeEnter(params);
+    $('#componentBasedFeeInput').removeClass("d-none");
+    
+});
+
+$('#saveFeeRule').on('click', function (e) {
+    e.preventDefault();
+   const data = collectComponentBasedFeeData();
+    console.log(data);
+});
+
+
+
+$('#save_scheme_setup').on('click', function (e) {
+    e.preventDefault();
+
+    const gv = getValueSchemeSetUpTab();
+
+    if (!gv.schemecategory) {
+        showToast('Please select scheme category', 'error');
+        $('#scheme_category').focus();
+        return;
+    }
+
+    if (!gv.schemetype) {
+        showToast('Please select scheme type', 'error');
+        $('#scheme_type').focus();
+        return;
+    }
+
+    if (!gv.schemename) {
+        showToast('Please enter Scheme Name', 'error');
+        $('#scheme_name').focus();
+        return;
+    }
+
+    if (!gv.schemecode) {
+        showToast('Please enter Scheme Code', 'error');
+        $('#scheme_code').focus();
+        return;
+    }
+
+    if (!gv.academicyear) {
+        showToast('Please select Academic Year', 'error');
+        $('#accademic_year').focus();
+        return;
+    }
+    if (!gv.pfmsschemeid && !gv.dbtschemeid && !gv.gbmid) {
+        showToast('Enter pfms/dbt/gbm id', 'error');
+        return;
+    }
+    if (!gv.headaccount) {
+        showToast('Enter the Head Account', 'error');
+        $('#head_account').focus();
+        return;
+    }
+    if (!gv.budgetcode) {
+        showToast('Enter the Budget Code', 'error');
+        $('#budget_code').focus();
+        return;
+    }
+    try {
+        showToast('Saved locally', 'success');
+    } catch (err) {
+        console.error(err);
+        showToast('Failed to save data', 'error');
+    }
+});
+
+      getReligion($('#eincreligion'));
+      getIncomeRange($('#eligibleincincomeRange'));
+
+      getReligion($('#eexcreligion'));
+      getIncomeRange($('#eligibleexcincomeRange'));
+
+      getReligion($('#sincreligion'));
+      getReligion($('#sexcreligion'));
+      
+     
+      // Initialize Community chips
+
+        $('#eligibleincincomeRange').on('change', function() {
+            inputShowHide($(this), $('#inincomeValue'));
+        });
+        $('#eligibleexcincomeRange').on('change', function() {
+            inputShowHide($(this), $('#exincomeValue'));
+        });
+
+      renderChipDropdown({
+        field: 'community',
+        selector: '#eligibleinclusivecommunity',
+        constraint: 'inclusive'
+      });
+      renderChipDropdown({
+        field: 'community',
+        selector: '#eligibleexclusivecommuntiy',
+        constraint: 'exclusive'
+      });
+
+      renderChipDropdown({
+        field: 'gender',
+        selector: '#eligibleinclusivegender',
+        constraint: 'inclusive'
+      });
+      renderChipDropdown({
+        field: 'gender',
+        selector: '#eligibleexclusivegender',
+        constraint: 'exclusive'
+      });
+
+      renderChipDropdown({
+        field: 'quota',
+        selector: '#eligibleinclusivequota',
+        constraint: 'inclusive'
+      });
+      renderChipDropdown({
+        field: 'quota',
+        selector: '#eligibleexclusivequota',
+        constraint: 'exclusive'
+      });
+
+      renderChipDropdown({
+        field: 'residential_status',
+        selector: '#eligibleinclusiveresidential',
+        constraint: 'inclusive'
+      });
+      renderChipDropdown({
+        field: 'residential_status',
+        selector: '#eligibleexclusiveresidential',
+        constraint: 'exclusive'
+      });
+
+      renderChipDropdown({
+        field: 'special_category',
+        selector: '#eligibleinclusivespecialcategory',
+        constraint: 'inclusive'
+      });
+      renderChipDropdown({
+        field: 'special_category',
+        selector: '#eligibleexclusivespecialcategory',
+        constraint: 'exclusive'
+      });
+
+      renderChipDropdown({
+        field: 'first_graduate',
+        selector: '#eligibleinclusivefirstgraduate',
+        constraint: 'inclusive'
+      });
+      renderChipDropdown({
+        field: 'first_graduate',
+        selector: '#eligibleexclusivefirstgraduate',
+        constraint: 'exclusive'
+      });
+
+
+      // =============================
+      // 
+      // =============================
+
+       renderChipDropdown({
+        field: 'community',
+        selector: '#scholarshipinclusivecommunity',
+        constraint: 'inclusive'
+      });
+      renderChipDropdown({
+        field: 'community',
+        selector: '#scholarshipexclusivecommunity',
+        constraint: 'exclusive'
+      });
+
+      // Initialize Gender chips
+      renderChipDropdown({
+        field: 'gender',
+        selector: '#scholarshipinclusivegender',
+        constraint: 'inclusive'
+      });
+      renderChipDropdown({
+        field: 'gender',
+        selector: '#scholarshipexclusivegender',
+        constraint: 'exclusive'
+      });
+
+      // Initialize Quota chips
+      renderChipDropdown({
+        field: 'quota',
+        selector: '#scholarshipinclusivequota',
+        constraint: 'inclusive'
+      });
+      renderChipDropdown({
+        field: 'quota',
+        selector: '#scholarshipexclusivequota',
+        constraint: 'exclusive'
+      });
+
+      // Initialize Residential Status chips
+      renderChipDropdown({
+        field: 'residential_status',
+        selector: '#scholarshipinclusiveresidential',
+        constraint: 'inclusive'
+      });
+      renderChipDropdown({
+        field: 'residential_status',
+        selector: '#scholarshipexclusiveresidential',
+        constraint: 'exclusive'
+      });
+      
+
+      // Initialize Special Category chips
+      renderChipDropdown({
+        field: 'special_category',
+        selector: '#scholarshipinclusivespecialcategory',
+        constraint: 'inclusive'
+      });
+      renderChipDropdown({
+        field: 'special_category',
+        selector: '#scholarshipexclusivespecialcategory',
+        constraint: 'exclusive'
+      });
+
+      // Initialize First Graduate chips
+      renderChipDropdown({
+        field: 'first_graduate',
+        selector: '#scholarshipinclusivefirstgraduate',
+        constraint: 'inclusive'
+      });
+      renderChipDropdown({
+        field: 'first_graduate',
+        selector: '#scholarshipexclusivefirstgraduate',
+        constraint: 'exclusive'
+      });
+      renderChipDropdown({
+        field: 'residential_status',
+        selector: '#maintenanceresidential',
+        constraint: 'inclusive'
+      })
+      renderChipDropdown({
+        field: 'special_category',
+        selector: '#mdisabilitystatus',
+        constraint: 'inclusive'
+      })
+    });
+
+
+    $('#add_eligibility').on('click', function (e) {
+      e.preventDefault();
+
+      let eligibleCriteriaName = $('#eligibleCriteriaName').val();
+      if(!eligibleCriteriaName){
+        alert('Enter the Eligibility Criteria Name')  
+        return;
+      }
+
+      const allValues = getAllParameterValues();
+      console.log('Detailed Values:', allValues);
+      console.log('Student Inclusive religion:', allValues.student.inclusive.religion);
+      console.log('Student Exclusive Enabled:', allValues.student.exclusive.enabled);
+      console.log('Institute Inclusive Ownership:', allValues.institute.inclusive.institute_ownership);
+      return allValues;
+      
+      
+
+
+    });
+
+
+
+    const saveParams = {
+      'department': "Adi Dravidar And Tribal Welfare Dept",
+      'subdepartment': "Adi Dravidar Welfare",
+      'schemename': "Post Matric Scholarship for SC Students",
+      'schemecode': "ADW-PMS-2026"
+    }
+    function getSchemeIdentityRegisterReference(saveParams) {
+
+      let savedSchemeRef = `
+        <span><b>Department:</b> ${saveParams.department || '-'}</span>
+        <span><b>Sub Dept:</b> ${saveParams.subdepartment || '-'}</span>
+        <span><b>Scheme:</b> ${saveParams.schemename || '-'}</span>
+        <span><b>Code:</b> ${saveParams.schemecode || '-'}</span>
+    `;
+      // $('#registeredSchemeName').val(saveParams.schemename);
+      // ✅ Find currently visible tab
+      const $activeTab = $('.tab-section').not('.d-none');
+
+      if ($activeTab.length) {
+        $activeTab.find('.referenceSchemeDetails').html(savedSchemeRef);
+      } else {
+        console.warn('No active tab found');
+      }
+    }
+
+   
+
+    $(document).ready(function () {
+
+      const $wrapper = $('.step-divider');
+
+      $wrapper.on('click', '.sub-scheme-card', function () {
+
+        const $currentActiveBtn = $wrapper.find('.sub-scheme-card.active');
+        const currentType = $currentActiveBtn.data('type');
+
+        const newType = $(this).data('type');
+
+        // ✅ same click → ignore
+        if (newType === currentType) return;
+
+        // ✅ ALWAYS check current active section
+        const hasValue = hasSectionValues(currentType);
+
+        if (hasValue) {
+          const confirmSwitch = confirm("⚠️ Changing fee type will reset current values. Continue?");
+          if (!confirmSwitch) return;
+
+          resetSection(currentType);
+        }
+
+        // ✅ switch active button
+        $wrapper.find('.sub-scheme-card').removeClass('active');
+        $(this).addClass('active');
+
+        // ✅ hide only sections (NOT buttons)
+        $wrapper.find('> div[data-type]').addClass('d-none');
+
+        // ✅ show selected section
+        $wrapper.find(`> div[data-type="${newType}"]`).removeClass('d-none');
+
+      });
+
+    });
+
+  </script>
+</body>
+
+</html>

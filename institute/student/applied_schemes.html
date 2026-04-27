@@ -1,0 +1,3522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>TN State Scholarship Portal</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <!-- Favicons -->
+  <link href="../institute/assets/img/tn_logo.png" rel="icon">
+  <link href="../institute/assets/img/tn_logo.png" rel="apple-touch-icon">
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="../institute/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../institute/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/header_style.css">
+
+
+  <link rel="stylesheet" href="../institute/assets/aos/aos-min.css">
+  <link rel="stylesheet" href="../assets/common-style/style.css">
+  <!-- <link href="../institute/assets/css/style.css" rel="stylesheet"> -->
+  <!-- <link rel="stylesheet" href="../institute/assets/vendor/datatable/dataTables.bootstrap5.min.css"> -->
+
+  <link href="../institute/assets/vendor/datatables-new/css/buttons.dataTables.css" rel="stylesheet">
+  <link href="../institute/assets/vendor/datatables-new/css/dataTables.dataTables.css" rel="stylesheet">
+  <link href="../institute/assets/vendor/datatables-new/css/responsive.dataTables.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-buttons-bs5/3.1.2/buttons.bootstrap5.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-buttons-dt/3.1.2/buttons.dataTables.css">
+  <script src="../components/view-scheme-component.js" type="text/javascript" defer></script>
+  <!-- ...existing head content... -->
+  <!-- <style>
+    p,
+    a,
+    li,
+    div,
+    span,
+    label,
+    section,
+    th,
+    td,
+    button,
+    i,
+    input {
+      /* font-size: 12px !important; */
+    }
+
+    .header .toggle-sidebar-btn {
+      font-size: 32px !important;
+    }
+
+    .filter-john {
+      position: absolute;
+      display: flex;
+      width: max-content;
+      top: 5px;
+    }
+
+    .table-responsive {
+      position: relative;
+    }
+
+    .dataTables_wrapper .dataTables_filter label {
+      width: 100%;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .filter-john select {
+      width: 100%;
+      padding: 0px 40px 0px 15px !important;
+      margin: 0px 10px;
+      text-wrap: nowrap;
+    }
+
+    .filter-john label {
+      width: 100%;
+      text-wrap: nowrap;
+    }
+
+    /* Custom CSS for DataTable */
+    .dataTables_wrapper .dataTables_filter {
+      text-align: right;
+      /* Align search box to the right */
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+      width: auto;
+      /* Adjust width if necessary */
+      display: inline-block;
+      /* Make sure it's inline */
+      margin: 0;
+      /* Remove default margins */
+    }
+
+    .dataTables_wrapper .dataTables_filter label {
+      display: inline;
+      /* Make sure label is inline */
+    }
+
+    .dataTables_wrapper .dataTables_length label {
+      display: inline-flex;
+      margin: 0;
+    }
+
+    #scheme_list_length .custom-select.custom-select-sm.form-control.form-control-sm {
+      margin: 0px 6px;
+      font-size: 12px !important;
+      padding: 0 10px;
+      min-height: calc(0.5em + 0.5em + 2px) !important;
+      font-weight: 600;
+    }
+
+    /* Optional: Remove the default padding/margins around the table */
+    .dataTables_wrapper .dataTables_wrapper {
+      margin: 0;
+    }
+
+    .min-filter-drops {
+      border-radius: 20px;
+      width: 20%;
+    }
+
+    .head-label {
+      text-align: center;
+      color: #301d92;
+      font-weight: 800;
+      font-family: 'Nunito';
+    }
+
+    #scheme_info .form-label {
+      color: var(--shade1) !important;
+      font-weight: 800;
+      text-wrap: nowrap;
+
+    }
+
+    #scheme_info .card-body {
+      padding: 5px !important;
+    }
+
+    #scheme_info .card-body {
+      text-align: start;
+      margin-left: 5px;
+      padding: 10px !important;
+    }
+
+    #applied_info .form-label {
+      color: var(--shade1) !important;
+      font-weight: 800;
+      text-wrap: nowrap;
+
+    }
+
+    #applied_info .card-body {
+      padding: 5px !important;
+    }
+
+    #applied_info .card-body {
+      text-align: start;
+      margin-left: 5px;
+      padding: 10px !important;
+    }
+
+    .applyScreen .sectionSeparate {
+      border: 1px solid #331f8e;
+      border-radius: 5px;
+      margin-bottom: 3rem !important;
+      margin-bottom: 1rem;
+      /* padding: 1rem; */
+    }
+
+    .applyScreen .sectionSeparate h6 {
+      padding: .5rem;
+      text-align: left;
+      color: whitesmoke;
+      font-weight: bolder;
+      background: var(--shade1);
+
+    }
+
+    /* 
+    #scheme_info .applyScreen .sectionSeparate h6 {
+      padding: .5rem;
+      text-align: left;
+      color: #ffffff;
+      font-weight: bolder;
+      background: #ffffff;
+
+    } */
+    #scheme_info .applyScreen .sectionSeparate h6 {
+      padding: .5rem;
+      text-align: left;
+      color: rgb(0, 0, 0);
+      font-weight: bolder;
+      background: #ffffff;
+
+    }
+
+    #scheme_info .card-body h6 {
+      padding: .5rem !important;
+      text-align: left !important;
+      /* Uncomment and adjust the color if needed */
+      color: rgb(0, 0, 0);
+      font-weight: bold !important;
+      /* Changed from 'bolder' to 'bold' */
+      /* Uncomment and adjust the background if needed */
+      background: #ffffff;
+    }
+
+    #scheme_info h6 {
+      font-weight: 800;
+      color: #331f8e;
+    }
+
+    .tab-title {
+      background-color: #301d92 !important;
+      color: white !important;
+    }
+
+    #scheme_info .form-label {
+      color: var(--shade1) !important;
+      font-weight: 800;
+      text-wrap: nowrap;
+
+    }
+
+    #scheme_info .card-body {
+      padding: 5px !important;
+    }
+
+
+    /* Ensure buttons in the action column are centered */
+    .table .action-buttons {
+      text-align: center;
+    }
+
+    /* Style buttons within the action column */
+    .table .action-buttons .btn {
+      margin: 0 5px;
+      /* Space between buttons */
+    }
+
+    /* Optional: Adjust the size or padding of the buttons */
+    .table .action-buttons .btn i {
+      margin-right: 5px;
+      /* Space between icon and text */
+    }
+
+    .tab-pane.active.show {
+      display: block !important;
+    }
+
+    .tab-pane {
+      display: none !important;
+    }
+
+    .modal-body {
+      height: max-content;
+      overflow-y: scroll;
+    }
+
+    .parameter-list {
+      list-style: none;
+      margin: 0;
+      padding: 0px 1px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .parameter-items {
+      background: #e4f1ff;
+      padding: 2px 4px;
+      border-radius: 5px;
+      list-style: none;
+      width: max-content;
+      margin: 3px;
+    }
+
+    .parameters {
+      max-height: 20vh;
+    }
+
+    #scheme_info .over-scroll-down {
+      overflow-y: scroll !important;
+    }
+  </style> -->
+
+  <style>
+    @media (max-width: 768px) {
+      .toggle-sidebar .sidebar {
+        top: 50px !important;
+      }
+    }
+
+    #studentDetailsAppliedModal .modal.fade .modal-dialog {
+      transform: scale(0.9);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    #studentDetailsAppliedModal .modal.show .modal-dialog {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    #studentDetailsAppliedModal .modal-content {
+      border: none;
+      border-radius: 12px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow), var(--glow);
+      overflow: hidden;
+      font-size: clamp(0.85rem, 2.5vw, 0.9rem);
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    #studentDetailsAppliedModal .modal-header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 0.75rem 1rem;
+      border-bottom: none;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    #studentDetailsAppliedModal .modal-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-color), transparent);
+    }
+
+    #studentDetailsAppliedModal .modal-title {
+      font-size: clamp(1.1rem, 3vw, 1.2rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    #studentDetailsAppliedModal .btn-close {
+      background: transparent;
+      color: white;
+      opacity: 0.8;
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      transition: var(--transition);
+    }
+
+    #studentDetailsAppliedModal .btn-close:hover {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+
+    #studentDetailsAppliedModal .modal-body {
+      padding: clamp(0.75rem, 2vw, 1rem);
+      background: var(--background-color);
+    }
+
+    #studentDetailsAppliedModal .section-title {
+      font-size: clamp(0.95rem, 2.5vw, 1rem);
+      font-weight: 600;
+      color: var(--primary-color);
+      margin: 0.5rem 0 0.25rem;
+      padding-bottom: 0.2rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    #studentDetailsAppliedModal .section-title::before {
+      content: '•';
+      color: var(--accent-color);
+      font-size: 1.2rem;
+    }
+
+    #studentDetailsAppliedModal .detail-card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid transparent;
+      background-clip: padding-box;
+      transition: var(--transition);
+    }
+
+    #studentDetailsAppliedModal .detail-card:hover {
+      border-image: linear-gradient(135deg, var(--primary-color), var(--accent-color)) 1;
+      box-shadow: var(--shadow), var(--glow);
+      transform: translateY(-2px);
+    }
+
+    #studentDetailsAppliedModal .student-details-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 0rem;
+      background: white;
+    }
+
+    #studentDetailsAppliedModal .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      /* padding: 0.5rem 0.25rem; */
+      min-height: 2rem;
+      transition: var(--transition);
+    }
+
+    #studentDetailsAppliedModal .detail-row:hover {
+      background: #f8fafc;
+      border-radius: 4px;
+    }
+
+    #studentDetailsAppliedModal .detail-label {
+      font-weight: 500;
+      color: var(--text-color);
+      flex: 0 0 40%;
+      text-align: left;
+      padding-right: 0.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #studentDetailsAppliedModal .detail-value {
+      color: var(--text-color);
+      flex: 1;
+      text-align: left;
+      font-weight: 400;
+      padding-left: 0.5rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #studentDetailsAppliedModal .table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: clamp(0.8rem, 2vw, 0.85rem);
+    }
+
+    #studentDetailsAppliedModal .table th {
+      background: var(--primary-color);
+      color: white;
+      padding: 0.5rem;
+      font-weight: 500;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    #studentDetailsAppliedModal .table td {
+      padding: 0.5rem;
+      border-bottom: 1px solid #e5e7eb;
+      color: var(--text-color);
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    #studentDetailsAppliedModal .table tbody tr:nth-child(odd) {
+      background: #f9fafb;
+    }
+
+    #studentDetailsAppliedModal .table tbody tr:hover {
+      background: #e0e7ff;
+    }
+
+    #studentDetailsAppliedModal .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    #studentDetailsAppliedModal .modal-footer {
+      border-top: none;
+      padding: 0.5rem;
+      background: var(--background-color);
+      display: flex;
+      gap: 0.4rem;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+
+    #studentDetailsAppliedModal .btn {
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      font-size: clamp(0.8rem, 2vw, 0.85rem);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      line-height: 1.2;
+      box-shadow: var(--shadow);
+    }
+
+    #studentDetailsAppliedModal .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow), var(--glow);
+    }
+
+    #studentDetailsAppliedModal .btn-primary {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    #studentDetailsAppliedModal .btn-info {
+      background: var(--accent-color);
+      color: white;
+    }
+
+    #studentDetailsAppliedModal .btn-secondary {
+      background: #6b7280;
+      color: white;
+    }
+
+    #studentDetailsAppliedModal .card {
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 0.75rem;
+      background: var(--card-bg);
+      border: 1px solid transparent;
+      transition: var(--transition);
+    }
+
+    #studentDetailsAppliedModal .card:hover {
+      border-image: linear-gradient(135deg, var(--primary-color), var(--accent-color)) 1;
+    }
+
+    #studentDetailsAppliedModal .card-title {
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    #studentDetailsAppliedModal .fees_amount {
+      background: #f8fafc;
+      padding: 0.5rem;
+      border-radius: 6px;
+      font-size: clamp(0.8rem, 2vw, 0.85rem);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    #studentDetailsAppliedModal .sectionSeparate h6 {
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    #studentDetailsAppliedModal .table-bordered {
+      border: 1px solid #e5e7eb;
+    }
+
+    #studentDetailsAppliedModal .table-bordered th,
+    #studentDetailsAppliedModal .table-bordered td {
+      border: 1px solid #e5e7eb;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+
+  <header id="header" class="app-header fixed-top">
+
+    <div class="header-left d-flex align-items-center gap-2">
+
+  <div class="sidebar-toggle" id="sidebarToggle">
+    <i class="bi bi-list"></i>
+  </div>
+
+  <a href="#" class="logo d-flex align-items-center">
+    <img src="../assets/img/tn_logo.png" class="logo_header">
+    <div class="ms-2">
+      <div class="title">Tamil Nadu Integrated State Scholarship Portal</div>
+      <small class="subtitle">Government of Tamil Nadu</small>
+    </div>
+  </a>
+
+</div>
+
+
+  <div class="header-right">
+
+<div class="header-tools">
+
+  <!-- Accessibility Controls -->
+  <div class="font-controls">
+    <button class="btn-font increase">A+</button>
+    <button class="btn-font reset">A</button>
+    <button class="btn-font decrease">A-</button>
+  </div>
+
+  <!-- Language Switch -->
+  <div class="lang-switch" onclick="switchLang()">
+    <i class="bi bi-translate"></i>
+    <span>தமிழ்</span>
+  </div>
+
+  <!-- Date Time -->
+<div class="header-time">
+      <i class="bi bi-clock"></i>
+      <span id="dateTimeLink">13/03/2026 14:31:15</span>
+    </div>
+
+  <!-- Profile -->
+  <div class="profile-menu">
+
+    <div class="profile-trigger">
+      <div class="avatar">
+        <i class="bi bi-person"></i>
+      </div>
+
+      <span id="stud_name">M SAM</span>
+      <i class="bi bi-chevron-down"></i>
+    </div>
+
+    <div class="profile-dropdown">
+      <a href="#"><i class="bi bi-person"></i> Profile</a>
+      <a href="#"><i class="bi bi-gear"></i> Settings</a>
+      <a href="#"><i class="bi bi-box-arrow-right"></i> Logout</a>
+    </div>
+
+  </div>
+
+</div>
+
+
+  </div>
+
+</header>
+
+
+  <!-- End Header -->
+  <!-- ======= Sidebar ======= -->
+  
+  <aside id="sidebar" class="app-sidebar">
+
+  <ul class="sidebar-nav">
+
+    <li class="nav-item">
+      <a class="nav-link " href="#" id="dashboard-link">
+        <i class="bi bi-house-door"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link active" href="#" id="applied-schemes-link">
+        <i class="bi bi-card-checklist"></i>
+        <span>Applied Schemes</span>
+      </a>
+    </li>
+
+    <li class="nav-item">         
+      <a class="nav-link" href="#" id="all-schemes-link">
+        <i class="bi bi-grid"></i>
+        <span>All Schemes</span>
+      </a>
+    </li>
+
+  </ul>
+
+</aside>
+
+  <!-- End Sidebar-->
+  <!-- <div id="preloader"></div> -->
+  <!-- End Sidebar-->
+
+
+  <main id="main" class="main">
+    <!-- Dashboard view starts -->
+    <!-- <section>
+      <div class="add-btn-area">
+        <header class="pt-0 pb-0 mb-0" id="backtotop">
+          <h5 class="title"><span data-i18n="applied-schemes-list">&nbsp;&nbsp;&nbsp;Applied Schemes List</span></h5>
+        </header>
+      </div>
+      <div class="card">
+        <div class="container-fluid mt-4">
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered" id="scheme_list" style="width: 100%!important;">
+              <thead>
+                <tr>
+                  <th scope="col" data-aos="fade-up" data-aos-duration="100">S.no</th>
+                  <th scope="col" data-aos="fade-up" data-aos-duration="100">Application Id</th>
+                  <th scope="col" data-aos="fade-up" data-aos-duration="700">Scheme Name</th>
+                  <th scope="col" data-aos="fade-up" data-aos-duration="700">Sub Scheme Name</th>
+                  <th scope="col" data-aos="fade-up" data-aos-duration="750">Applied On</th>
+                  <th scope="col" data-aos="fade-up" data-aos-duration="850" class="text-center">Status</th>
+                  <th scope="col" data-aos="fade-up" data-aos-duration="1000" class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody id="scheme_list_body">
+              </tbody>
+            </table>
+          </div>
+        
+          <div class="modal fade" id="applied_info" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-fullscreen-xl-down modal-dialog-centered modal-dialog-scrollable"
+              role="document">
+              <div class="modal-content">
+                <div class="modal-header border-bottom-0 text-center">
+                  <h5 class="head-label w-100">Application Id: <span class="text-success" id="studentapplication_id"
+                      style="font-size: 16px !important; font-weight: 700 !important;">-</span>
+                  </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="applyScreen">
+                    <div class="container">
+                      <div class="justify-content-center row">
+                        <div class="">
+                          <form class="">
+                            <div class="card-body"></div>
+                            <div class="sectionSeparate row" style="border: 1px solid #33208c;">
+                              <h6 style="background-color: #33208c;">Scheme Details <i class="bi bi-info-circle-fill"
+                                  id="about_scheme" data-bs-toggle="tooltip" data-bs-placement="top" title=""></i></h6>
+                              <div class="row">
+                                <div class="mb-2 col-md-4">
+                                  <div>
+                                    <label class="d-block form-label" for="form-scheme_name">Scheme Name :</label>
+                                    <span class="d-block sd" id="form-scheme_name">-</span>
+                                  </div>
+                                </div>
+                                <div class="mb-2 col-md-4">
+                                  <div>
+                                    <label class="d-block form-label" for="form-frequency">Frequency :</label>
+                                    <span class="d-block sd" id="form-frequency">-</span>
+                                  </div>
+                                </div>
+                                <div class="mb-2 col-md-4">
+                                  <div>
+                                    <label class="d-block form-label" for="form-department_name">Department
+                                      Name:</label>
+                                    <span class="d-block sd" id="form-department_name">-</span>
+                                  </div>
+                                </div>
+                                <div class="mb-2 col-md-4">
+                                  <div>
+                                    <label class="d-block form-label" for="form-subdepartment_name">Subdepartment
+                                      Name:</label>
+                                    <span class="d-block sd" id="form-subdepartment_name">-</span>
+                                  </div>
+                                </div>
+                                <div class="mb-2 col-md-4">
+                                  <div>
+                                    <label class="d-block form-label" for="form-scheme_code">Scheme Code :</label>
+                                    <span class="d-block sd" id="form-scheme_code">-</span>
+                                  </div>
+                                </div>
+                                <div class="mb-2 col-md-4">
+                                  <div>
+                                    <label class="d-block form-label" for="form-scheme_category">Scheme
+                                      Category:</label>
+                                    <span class="d-block sd" id="form-scheme_category">-</span>
+                                  </div>
+                                </div>
+                                <div class="mb-2 col-md-4">
+                                  <div>
+                                    <label class="d-block form-label" for="form-scholarship_fee_type">Scholarship
+                                      Fee Type:</label>
+                                    <span class="d-block sd" id="form-scholarship_fee_type">-</span>
+                                  </div>
+                                </div>
+                                <div class="mb-2 col-md-4">
+                                  <div>
+                                    <label class="d-block form-label" for="form-scholarship_fee_amount">Scholarship
+                                      Fee Amount:</label>
+                                    <span class="d-block sd" id="form-scholarhip_fee_amount">-</span>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="sectionSeparate row " style="border: 1px solid #33208c;">
+                            <h6 style="background-color: #33208c;">Approval Status</h6>
+                            <div class="">
+                              <div class="table-responsive">
+                                <table class="table">
+                                  <thead>
+                                    <tr style="background-color: rgb(255 255 255);color: #33208c;">
+                                    </tr>
+                                    <th scope="col">S.no</th>
+                                    <th scope="col">Stages</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Updated On</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody style="font-weight: 800;"></tbody>
+                                  <tr class="">
+                                    <td scope="row">1.</td>
+                                    <td scope="row">Student</td>
+                                    <td id="form-student_approval_status">-</td>
+                                    <td id="form-student_approved_ts">-</td>
+                                  </tr>
+                                  <tr class="">
+                                    <td scope="row">2.</td>
+                                    <td scope="row">Institute</td>
+                                    <td id="form-institute_approval_status">-</td>
+                                    <td id="form-institute_approved_ts">-</td>
+                                  </tr>
+                                  <tr class="">
+                                    <td scope="row">3.</td>
+                                    <td scope="row">District (Department)</td>
+                                    <td id="form-department_verification_status">-
+                                    </td>
+                                    <td id="form-department_verification_ts">-</td>
+                                    </td>
+                                  </tr>
+                                  <tr class="">
+                                    <td scope="row">4.</td>
+                                    <td scope="row">State (Department)</td>
+                                    <td id="form-department_approval_status">-</td>
+                                    <td id="form-department_approved_ts">-</td>
+                                  </tr>
+                                  <tr class="">
+                                    <td scope="row">5.</td>
+                                    <td scope="row">DBT Registration
+                                      <span id="dbtregistercontainer"><a href="#"
+                                          class="dbtregisterlink">(Show)</a></span>
+                                    </td>
+                                    <td id="form-registration_approval_status">-
+                                    </td>
+                                    <td id="form-registration_approved_ts">-</td>
+                                  </tr>
+                                  <tr class="">
+                                    <td scope="row">6.</td>
+                                    <td scope="row">DBT Payment
+                                      <span id="detailsContainer"><a href="#" class="detailsLink">(Status)</a></span>
+                                    </td>
+                                    <td id="form-payment_approval_status">-</td>
+                                    <td id="form-payment_approved_ts">-</td>
+                                  </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+      <div id="paymentModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exclusiveModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content" style="width: fit-content !important;">
+            <div class="modal-header">
+              <h4 class="modal-title" id="exclusiveModalLabel">DBT Payment Details</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body payment">
+              <div class="table-responsive">
+                <table class="table" style="border-collapse: separate; border-spacing: 0px;">
+                  <thead>
+                    <tr style="background-color: rgb(255 255 255);color: #33208c;"></tr>
+                    <th scope="col" style="border: .5px solid #ccc;">Installment</th>
+                    <th scope="col" style="border: .5px solid #ccc;">Date of Submission</th>
+                    <th scope="col" style="border: .5px solid #ccc;">Amount</th>
+                    <th scope="col" style="border: .5px solid #ccc;">Status</th>
+                    <th scope="col" style="border: .5px solid #ccc;">Date of Payment</th>
+                    <th scope="col" style="border: .5px solid #ccc;">Bank Details</th>
+                    <th scope="col" style="border: .5px solid #ccc;">Remarks</th>
+                    </tr>
+                  </thead>
+                  <tbody style="font-weight: 800;"></tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="dbtregistrationModal" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="dbtregistrationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content" style="width: 800px !important;">
+            <div class="modal-header">
+              <h4 class="modal-title" id="dbtregistrationModalLabel">DBT Registration Details</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body register">
+              <div class="table-responsive">
+                <table class="table" id="dbtregistrationtable" style="border-collapse: separate; border-spacing: 0px;">
+                  <thead>
+                    <tr style="background-color: rgb(255 255 255);color: #33208c;"></tr>
+                    <th scope="col" style="border: .5px solid #ccc;">S.No.</th>
+                    <th scope="col" style="border: .5px solid #ccc;">Date of Registration</th>
+                    <th scope="col" style="border: .5px solid #ccc;">Status</th>
+                    <th scope="col" style="border: .5px solid #ccc;">Remarks</th>
+                    </tr>
+                  </thead>
+                  <tbody style="font-weight: 800;"></tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="paymentModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exclusiveModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content" style="width: fit-content !important;">
+            <div class="modal-header">
+              <h4 class="modal-title" id="exclusiveModalLabel">DBT Payment Details</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body payment">
+              <div class="table-responsive">
+                <table class="table" id="dbtpaymentstatus" style="border-collapse: separate; border-spacing: 0px;">
+                  <thead>
+                    <tr style="background-color: rgb(255 255 255);color: #33208c;"></tr>
+                    <th scope="col" style="border: .5px solid #ccc;">Installment</th>
+                    <th scope="col" style="border: .5px solid #ccc;">Date of Submission</th>
+                    <th scope="col" style="border: .5px solid #ccc;">Amount</th>
+                    <th scope="col" style="border: .5px solid #ccc;">Status</th>
+                    <th scope="col" style="border: .5px solid #ccc;">Date of Payment</th>
+                    <th scope="col" style="border: .5px solid #ccc;">Bank Details</th>
+                    <th scope="col" style="border: .5px solid #ccc;">Remarks</th>
+                    </tr>
+                  </thead>
+                  <tbody style="font-weight: 800;"></tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <view-scheme-component></view-scheme-component>
+      </div>
+      </div>
+      </div>
+    </section> -->
+
+
+
+
+
+    <section>
+
+     
+
+    
+
+    <!-- 3rd row -->
+    <div class="table-card px-3 mt-3">
+
+       <!-- 1st row -->
+    <div class="section-header-card mt-2 mb-3">
+      <div class="section-icon">
+        <i class="bi bi-grid"></i>
+      </div>
+
+      <div>
+        <h5>Applied Schemes List</h5>
+        <p>Browse and explore available scholarship schemes</p>
+      </div>
+    </div>
+    <!-- 1st row -->
+
+      <!-- 2nd row -->
+    <div class="table-toolbar mb-3 mt-2">
+
+      <!-- SEARCH --> 
+      <div class="search-box col-lg-2">
+        <i class="bi bi-search search-icon"></i>
+        <input type="text" class="w-100" placeholder="Search schemes..." id="schemeSearch">
+      </div>
+
+      <!-- ACTION BUTTONS -->
+      <div class="action-buttons">
+
+        <button class="btn-outline-action btn btn-sm ripple">
+          <i class="bi bi-file-earmark-excel"></i> Excel
+        </button>
+
+        <button class="btn-outline-action btn btn-sm ripple mx-2">
+          <i class="bi bi-file-earmark-pdf"></i> PDF
+        </button>
+
+        <button class="btn-outline-action btn btn-sm ripple">
+          <i class="bi bi-printer"></i> Print
+        </button>
+
+        <button class="btn-primary-action btn btn-indigo btn-sm ripple mx-2">
+          <i class="bi bi-layout-three-columns"></i> Columns
+        </button>
+
+      </div>
+
+    </div>
+    <!-- 2nd row -->
+
+  <div class="table-responsive">
+  <table class="table align-middle custom-table">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Application Id</th>
+        <th>Scheme Name</th>
+        <th>Sub Scheme Name</th>
+        <th>Applied On</th>
+        <th>Status</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr>
+        <td>1</td>
+        <td>TNISSP2026034200593126835550</td>
+        <td>BC- Free Educational 3 year Degree Courses in Govt And Govt Aided Colleges</td>
+        <td>BC-Free Educational 3 year Degree Courses in Govt And Govt Aided Colleges</td>
+        <td>2026-01-30T18:50</td>
+        <td><span class="badge badge-warning bg-warning nowrap">3. Department Pending</span></td>
+        <td>
+          <button class="btn btn-check-eligibility btn-sm ripple" data-bs-toggle="modal" data-bs-target=".eligibilityModal">
+            <i class="bi bi-info-circle"></i> Check Eligibility
+          </button>
+        </td>
+      </tr>
+
+      <!-- <tr>
+        <td>2</td>
+        <td>7.5% Scholarship</td>
+        <td>Higher Education Dept</td>
+        <td>DOTE</td>
+        <td>
+          <button class="btn btn-check-eligibility btn-sm ripple" data-bs-toggle="modal" data-bs-target=".eligibilityModal">
+            <i class="bi bi-info-circle"></i> Check Eligibility
+          </button>
+        </td>
+      </tr> -->
+
+    </tbody>
+  </table>
+</div>
+
+</div>
+    <!-- /3rd row -->
+
+
+  </section>
+
+
+  <footer id="footer" class="app-footer">
+    <div class="footer-left">
+      <span class="footer-copy">
+        <i class="bi bi-shield-check"></i>
+        © 2026 Tamil Nadu e-Governance Agency (TNeGA)
+      </span>
+    </div>
+    <div class="footer-right">
+      <a href="https://tnega.tn.gov.in/" target="_blank" class="footer-link">
+        <i class="bi bi-globe"></i>
+        TNeGA
+      </a>
+
+    </div>
+  </footer>
+
+
+  </main>
+
+
+
+
+  <!-- End #main -->
+  <!-- ======= Footer ======= -->
+  <!-- <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>TNeGA</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      Designed & Developed by <a href="https://tnega.tn.gov.in/" target="_blank">TNeGA</a>
+    </div>
+  </footer> -->
+
+
+  <!-- End Footer -->
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+
+
+
+<div class="modal fade custom-modal eligibilityModal">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <!-- HEADER -->
+      <div class="modal-header border-0 py-2">
+        <h5 class="modal-title"> 
+          <i class="bi bi-patch-check me-2 text-primary"></i>
+          Application ID : <span>TNISSP2026034200593126835550</span> 
+        </h5>
+
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- BODY -->
+     
+      <div class="modal-body py-2">
+
+  <!-- ================= STUDENT DETAILS ================= -->
+  <div class="section-header-card mt-3 mb-2">
+    <div class="section-icon">
+      <i class="bi bi-person"></i>
+    </div>
+    <div>
+      <h5>Student Details</h5>
+      <p>Personal & academic information</p>
+    </div>
+  </div>
+
+  <div class="details-grid">
+
+    <div class="details-card">
+      <div class="details-left"><i class="bi bi-person"></i><span>Name</span></div>
+      <div class="details-right">JANCYMARIYA</div>
+    </div>
+
+    <div class="details-card">
+      <div class="details-left"><i class="bi bi-gender-female"></i><span>Gender</span></div>
+      <div class="details-right">Female</div>
+    </div>
+
+    <div class="details-card">
+      <div class="details-left"><i class="bi bi-globe"></i><span>Religion</span></div>
+      <div class="details-right">Christian</div>
+    </div>
+
+    <div class="details-card">
+      <div class="details-left"><i class="bi bi-people"></i><span>Community</span></div>
+      <div class="details-right text-danger">
+        BC <i class="bi bi-x-circle-fill ms-1"></i>
+      </div>
+    </div>
+
+    <div class="details-card">
+      <div class="details-left"><i class="bi bi-person-badge"></i><span>Caste</span></div>
+      <div class="details-right">Vanniyar</div>
+    </div>
+
+    <div class="details-card">
+      <div class="details-left"><i class="bi bi-award"></i><span>First Graduate</span></div>
+      <div class="details-right">No</div>
+    </div>
+
+    <div class="details-card">
+      <div class="details-left"><i class="bi bi-currency-rupee"></i><span>Income</span></div>
+      <div class="details-right text-success">
+        ₹50400 <i class="bi bi-check-circle-fill ms-1"></i>
+      </div>
+    </div>
+
+    <div class="details-card">
+      <div class="details-left"><i class="bi bi-universal-access"></i><span>Disability</span></div>
+      <div class="details-right">No</div>
+    </div>
+
+    <div class="details-card">
+      <div class="details-left"><i class="bi bi-credit-card"></i><span>Aadhaar</span></div>
+      <div class="details-right text-success">
+        344430375685 <i class="bi bi-check-circle-fill ms-1"></i>
+      </div>
+    </div>
+
+    <div class="details-card">
+      <div class="details-left"><i class="bi bi-hash"></i><span>UMIS No</span></div>
+      <div class="details-right">9993884091</div>
+    </div>
+
+    <div class="details-card">
+      <div class="details-left"><i class="bi bi-hash"></i><span>EMIS No</span></div>
+      <div class="details-right">1014127848</div>
+    </div>
+
+    <div class="details-card">
+      <div class="details-left"><i class="bi bi-building"></i><span>Institute</span></div>
+      <div class="details-right long-text">
+        Government Arts and Science College, Jayankondam
+      </div>
+    </div>
+
+    <div class="details-card">
+      <div class="details-left"><i class="bi bi-book"></i><span>Course</span></div>
+      <div class="details-right">B.A</div>
+    </div>
+
+    <div class="details-card">
+      <div class="details-left"><i class="bi bi-diagram-3"></i><span>Branch</span></div>
+      <div class="details-right">English</div>
+    </div>
+
+    <div class="details-card">
+      <div class="details-left"><i class="bi bi-calendar"></i><span>Year</span></div>
+      <div class="details-right">1</div>
+    </div>
+
+    <div class="details-card">
+      <div class="details-left"><i class="bi bi-calendar-check"></i><span>Academic Year</span></div>
+      <div class="details-right">2025-2026</div>
+    </div>
+
+  </div>
+
+  <!-- ================= SCHEME DETAILS ================= -->
+  <div class="section-header-card mt-4 mb-2">
+    <div class="section-icon">
+      <i class="bi bi-journal-check"></i>
+    </div>
+    <div>
+      <h5>Scheme Details</h5>
+      <p>Selected scheme information</p>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <table class="table align-middle custom-table">
+      <thead>
+        <tr>
+          <th>Scheme Name</th>
+          <th>Scholarship Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>BC - Free Educational 3 year Degree Courses in Govt and Govt Aided Colleges</td>
+          <td>₹ -</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ================= APPROVAL STATUS ================= -->
+  <div class="section-header-card mt-4 mb-2">
+    <div class="section-icon">
+      <i class="bi bi-check2-circle"></i>
+    </div>
+    <div>
+      <h5>Approval Status</h5>
+      <p>Application workflow progress</p>
+    </div>
+  </div>
+
+  <div class="table-card">
+    <table class="table align-middle custom-table">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Stage</th>
+          <th>Status</th>
+          <th>Remarks</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Student</td><td>Applied</td><td>2026-01-30</td><td>-</td></tr>
+        <tr><td>2</td><td>Institute</td><td class="text-success">Approved</td><td>-</td><td>2026-01-30</td></tr>
+        <tr><td>3</td><td>District</td><td class="text-success">Approved</td><td>-</td><td>-</td></tr>
+        <tr><td>4</td><td>State</td><td class="text-warning">Pending</td><td>-</td><td>-</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ================= DBT STATUS ================= -->
+  <div class="section-header-card mt-4 mb-2">
+    <div class="section-icon">
+      <i class="bi bi-bank"></i>
+    </div>
+    <div>
+      <h5>DBT Registration</h5>
+      <p>Direct benefit transfer status</p>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end mb-2">
+    <button class="btn btn-primary btn-sm ripple">
+      <i class="bi bi-arrow-repeat me-1"></i> Fetch DBT Status
+    </button>
+  </div>
+
+  <div class="table-card">
+    <table class="table align-middle custom-table">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Status</th>
+          <th>Remarks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>-</td><td>-</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ================= PAYMENT ================= -->
+  <div class="section-header-card mt-4 mb-2">
+    <div class="section-icon">
+      <i class="bi bi-cash-stack"></i>
+    </div>
+    <div>
+      <h5>Payment Status</h5>
+      <p>Scholarship disbursement details</p>
+    </div>
+  </div>
+
+  <div class="alert alert-light border rounded">
+    <strong>Scholarship:</strong> ₹0 |
+    <strong>Maintenance:</strong> ₹0 |
+    <strong>Scheme:</strong> ₹2330 |
+    <strong>Disability:</strong> ₹0
+  </div>
+
+  <div class="table-card">
+    <table class="table align-middle custom-table">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Stage</th>
+          <th>Status</th>
+          <th>Amount</th>
+          <th>Remarks</th>
+          <th>View</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Installment 1</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+        <tr><td>2</td><td>Installment 2</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+        <tr><td>3</td><td>Installment 3</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="text-end fw-semibold mt-2">
+    Total Paid: ₹0
+  </div>
+
+</div>
+
+
+
+      <!-- FOOTER -->
+      <div class="modal-footer border-0">
+        <button class="btn btn-light btn-sm" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle me-1"></i> Close
+        </button>
+
+        <button class="btn btn-primary btn-sm ripple">
+          <i class="bi bi-arrow-repeat me-1"></i> Refresh
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+  <script src="../institute/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="../institute/assets/js/sweetalert2.all.min.js"></script>
+  <script src="../institute/assets/js/sweetalert.min.js"></script>
+  <script src="../institute/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../institute/assets/js/main.js"></script>
+  <script src="../institute/assets/aos/aos-min.js"></script>
+  <script src="../assets/js/crypto-js.min.js"></script>
+  <script src="../institute/assets/js/add.js"></script>
+  <script src="../institute/assets/js/global.js"></script>
+
+  <script src="../institute/assets/vendor/datatable/jquery.dataTables.min.js"></script>
+  <script src="../assets/language/language.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+  <script src="../institute/assets/vendor/datatables-buttons/js/jszip.min.js"></script>
+  <!-- <script src="../institute/assets/vendor/datatables-buttons/js/pdfmake.min.js"></script> -->
+  <script src="../institute/assets/vendor/DataTableNew/dataTables.buttons.min.js"></script>
+  <script src="../institute/assets/vendor/DataTableNew/buttons.flash.min.js"></script>
+  <script src="../institute/assets/vendor/DataTableNew/buttons.html5.min.js"></script>
+  <script src="../institute/assets/vendor/DataTableNew/buttons.print.min.js"></script>
+  <script src="../institute/assets/vendor/DataTableNew/buttons.colVis.min.js"></script>
+
+
+  <script>
+    // Initialize AOS
+    AOS.init();
+
+    $(document).on({
+      ajaxStart: function () {
+        $('#preloader').show();
+        $("body").addClass("user_loading");
+      },
+      ajaxStop: function () {
+        $('#preloader').hide();
+        $("body").removeClass("user_loading");
+      }
+    });
+    var schemesData = {};
+    var student_api_url = config.student_api_url;
+    var institute_api_url = config.institute_api_url;
+    var ssp_api_url = config.ssp_api_url;
+
+    var queryString = window.location.search;
+    var queryParams = queryString.split('?details');
+    var student_id = queryParams[1];
+    var dashboardHref = `index.html?details${student_id}`;
+    var appliedHref = `applied_schemes.html?details${student_id}`;
+    var allHref = `all_schemes.html?details${student_id}`;
+
+    var student_umis_id;
+
+    document.addEventListener("DOMContentLoaded", function () {
+      var dashboardLink = document.getElementById('dashboard-link');
+      if (dashboardLink) {
+        dashboardLink.href = dashboardHref; // Update the href for Dashboard
+      }
+
+      var appliedLink = document.getElementById('applied-schemes-link');
+      if (appliedLink) {
+        appliedLink.href = appliedHref; // Update the href for Applied Schemes
+      }
+
+      var allLink = document.getElementById('all-schemes-link');
+      if (allLink) {
+        allLink.href = allHref; // Update the href for All Schemes
+      }
+    });
+
+
+
+
+
+    $(document).ready(function () {
+      // Function to fetch customer details from the API
+
+      //   $.ajax({
+      //     url: student_api_url + "/get_student_detail",
+      //     method: "POST",
+      //     headers: { "X-APP-KEY": "te$t", "X-APP-NAME": "te$t" },
+      //     data: { student_details: student_id, type: 3 },
+      //     dataType: "json",
+      //     success: function (response) {
+      //       if (response.success == 1) {
+      //         const data = decryptData(response.data);
+      //         const $tbody = $('#scheme_list_body');
+      //         $tbody.empty();
+
+      //         data.student_details.forEach(function (student, idx) {
+      //           const row = `
+      //     <tr>
+      //       <td>${idx + 1}</td>
+      //       <td>${student.application_id || '-'}</td>
+      //       <td>${student.scheme_name || '-'}</td>
+      //       <td>${student.subscheme_name || '-'}</td>
+      //       <td>${student.applied_ts || '-'}</td>
+      //       <td>${student.currentstatus || '-'}</td>
+      //       <td></td>
+      //     </tr>
+      //   `;
+      //           $tbody.append(row);
+      //         });
+
+      //         // Initialize or re-initialize DataTable with serial number
+      //         if ($.fn.DataTable.isDataTable('#scheme_list')) {
+      //           $('#scheme_list').DataTable().destroy();
+      //         }
+      //         $('#scheme_list').DataTable({
+      //           "paging": true,
+      //           "lengthMenu": [10, 15, 20, 30],
+      //           "ordering": true,
+      //           "info": true,
+      //           "responsive": true,
+      //           "dom": 'Bfrtlip', // Add the buttons to the DOM
+      //           "buttons": [
+      //             {
+      //               extend: 'excelHtml5',
+      //               text: '<i class="bi bi-file-earmark-spreadsheet"> Excel</i>',
+      //               titleAttr: 'EXCEL',
+      //               className: 'btn btn-success',
+      //               exportOptions: {
+      //                 columns: ':visible' // Only export visible columns
+      //               }
+      //             },
+      //             {
+      //               extend: 'pdfHtml5',
+      //               orientation: 'Portrait',
+      //               pageSize: 'A4',
+      //               text: '<i class="bi bi-filetype-pdf"> PDF</i>',
+      //               titleAttr: 'PDF',
+      //               className: 'btn btn-danger',
+      //               exportOptions: {
+      //                 columns: ':visible' // Only export visible columns
+      //               },
+      //               customize: function (doc) {
+      //                 doc.defaultStyle = {
+      //                   font: 'Roboto' // Use Roboto as the default font
+      //                 };
+      //               }
+      //             },
+      //             {
+      //               extend: 'print',
+      //               text: '<i class="bi bi-printer"> Print</i>',
+      //               titleAttr: 'Print',
+      //               exportOptions: {
+      //                 columns: ':visible' // Only export visible columns
+      //               }
+      //             },
+      //             {
+      //               extend: 'colvis',  // Add column visibility button
+      //               text: '<i class="bi bi-eye"> Column Visibility</i>',
+      //               className: 'btn btn-info',
+      //               columns: ':not(.noVis)'  // Exclude columns with the class `noVis`
+      //             }
+      //           ],
+      //           "columnDefs": [
+      //             { "className": "dt-center", "targets": "_all" } // Center align all columns
+      //           ],
+      //         });
+      //       } else {
+      //         Swal.fire({
+      //           title: "info",
+      //           text: response.message,
+      //           icon: "info",
+      //           showConfirmButton: true,
+      //         });
+      //       }
+      //     },
+      //     error: function (xhr, status, error) {
+      //       Swal.fire({
+      //         title: "Error!",
+      //         text: `An error occurred: ${error}`,
+      //         icon: "error",
+      //         showConfirmButton: true,
+      //       });
+      //     },
+
+      //   });
+    });
+    const student_name_ = localStorage.getItem('student_name');
+    console.log(student_name_);
+    $('#stud_name').text(student_name_);
+    function initializeDataTable() {
+      if ($.fn.DataTable.isDataTable('#scheme_list')) {
+        // Destroy the existing DataTable instance
+        $('#scheme_list').DataTable().destroy();
+      }
+
+      $('#scheme_list').DataTable({
+        "paging": true,
+        "lengthMenu": [10, 15, 20, 30],
+        "ordering": true,
+        "info": true,
+        "responsive": true,
+        "dom": 'Bfrtlip',
+        "buttons": [
+          {
+            extend: 'excelHtml5',
+            text: '<i class="bi bi-file-earmark-spreadsheet"> Excel</i>',
+            titleAttr: 'EXCEL',
+            className: 'btn btn-success',
+            exportOptions: {
+              columns: ':visible'
+            }
+          },
+          {
+            extend: 'pdfHtml5',
+            orientation: 'Portrait',
+            pageSize: 'A4',
+            text: '<i class="bi bi-filetype-pdf"> PDF</i>',
+            titleAttr: 'PDF',
+            className: 'btn btn-danger',
+            exportOptions: {
+              columns: ':visible'
+            },
+            customize: function (doc) {
+              doc.defaultStyle = {
+                font: 'Roboto'
+              };
+            }
+          },
+          {
+            extend: 'print',
+            text: '<i class="bi bi-printer"> Print</i>',
+            titleAttr: 'Print',
+            exportOptions: {
+              columns: ':visible'
+            }
+          },
+          {
+            extend: 'colvis',
+            text: '<i class="bi bi-eye"> Column Visibility</i>',
+            className: 'btn btn-info',
+            columns: ':not(.noVis)'
+          }
+        ],
+        "columnDefs": [
+          { "className": "dt-center", "targets": "_all" }
+        ],
+        "ajax": {
+          "url": student_api_url + "/get_student_detail",
+          "type": "POST",
+          "headers": { 'X-APP-KEY': 'te$t', 'X-APP-NAME': 'te$t' },
+          "data": { student_details: student_id, type: 3 },
+          "dataSrc": function (response) {
+            if (response.success == 1) {
+              schemesData = {};
+
+              // Extract student_details array from decrypted data
+              const decryptedData = decryptData(response.data);
+              const studentDetails = decryptedData.student_details || [];
+
+              $.each(studentDetails, function (index, scheme) {
+                schemesData[scheme.scheme_id] = scheme; // Store scheme details by ID
+              });
+
+              student_umis_id = studentDetails[0] ? studentDetails[0].umis_no : null;
+              return studentDetails; // Return the student_details array for DataTable
+            } else {
+              return [];
+            }
+          },
+          "error": function (xhr, error, thrown) {
+            let message;
+            if (xhr.status === 400) {
+              message = 'Login is required. Please log in to continue.';
+            } else if (xhr.status === 500) {
+              message = 'Something went wrong on the server. Please try again later.';
+            } else {
+              message = 'An unexpected error occurred: ' + xhr.status + ' ' + xhr.statusText;
+            }
+            alert(message);
+            console.error('Error details:', xhr);
+          }
+        },
+        "columns": [
+          {
+            "data": null,
+            render: function (data, type, row, meta) {
+              return meta.row + meta.settings._iDisplayStart + 1;
+            }
+          },
+          {
+            "data": "application_id",
+            render: function (data) {
+              return data === null ? "Not Available" : data;
+            }
+          },
+          { "data": "scheme_name" },
+          { "data": "subscheme_name" },
+          {
+            "data": "applied_ts",
+            "render": function (data, type, row, meta) {
+              let applied_on = data ? data.split('.')[0].slice(0, 16) : '-';
+              return applied_on;
+            }
+          },
+          {
+            data: 'institute_approval_status',
+            render: function (data, type, row) {
+              let statusText = '1.Institute Pending';
+              let statusStyle = 'background-color: #ffc107; color: #212529;';
+
+              const instituteStatus = row.institute_approval_status;
+              const departmentStatus = row.department_verification_status;
+              const approvalStatus = row.department_approval_status;
+
+              if (instituteStatus === 'Approved') {
+                if (departmentStatus === 'Approved') {
+                  if (approvalStatus === 'Approved') {
+                    statusText = '3.Department Approved';
+                    statusStyle = 'background-color: #28a745; color: #fff;';
+                  } else if (approvalStatus === 'Rejected') {
+                    statusText = '3.Department Rejected';
+                    statusStyle = 'background-color: #dc3545; color: #fff;';
+                  } else {
+                    statusText = '3.Department Pending';
+                    statusStyle = 'background-color: #ffc107; color: #212529;';
+                  }
+                } else if (departmentStatus === 'Rejected') {
+                  statusText = '2.District Rejected';
+                  statusStyle = 'background-color: #dc3545; color: #fff;';
+                } else {
+                  statusText = '2.District Pending';
+                  statusStyle = 'background-color: #ffc107; color: #212529;';
+                }
+              } else if (instituteStatus === 'Rejected') {
+                statusText = '1.Institute Rejected';
+                statusStyle = 'background-color: #dc3545; color: #fff;';
+              }
+
+              return `<div class="action-buttons"><span style="${statusStyle}" class="btn viewbtn btn-sm">${statusText}</span></div>`;
+            }
+          },
+          {
+            data: 'application_id',
+            title: 'Details',
+            render: function (data, type, row) {
+              let rowDataStr = encodeURIComponent(JSON.stringify(row));
+              let pdfUrl = '';
+              if (row.pdf_url && typeof row.pdf_url === 'string' && row.pdf_url.trim() !== '') {
+                pdfUrl = row.pdf_url;
+              } else if (row.filepath && typeof row.filepath === 'string' && row.filepath.trim() !== '') {
+                pdfUrl = row.filepath;
+              } else {
+                pdfUrl = "";
+              }
+              return '<div class="action-buttons"><a class="btn add-btn application-id-link btn-sm" data-row="' + rowDataStr + '" data-filepath="' + encodeURIComponent(pdfUrl) + '" data-application-id="' + data + '" data-studentid="' + row.student_id + '" href="#"><i class="bi bi-eye"></i> View</a></div>';
+            }
+          }
+        ],
+        "language": {
+          "emptyTable": "No Schemes available in this table."
+        }
+      });
+    }
+
+    // Initialize the DataTable with the default academic year
+    initializeDataTable();
+
+
+
+
+    $('#scheme_list').off('click', '.application-id-link').on('click', '.application-id-link', function (e) {
+      e.preventDefault();
+      const applicationId = $(this).data('application-id');
+      const studentId = $(this).data('studentid');
+      // Fix: decode the filepath
+      const filepath = decodeURIComponent($(this).data('filepath'));
+      let rowData = {};
+      try {
+        rowData = JSON.parse(decodeURIComponent($(this).attr('data-row')));
+      } catch (err) {
+        console.error('Error parsing row data:', err);
+        rowData = {};
+      }
+      showApplicationIdModalWithTabs(applicationId, rowData, filepath, studentId);
+    });
+
+
+    function showApplicationIdModalWithTabs(applicationId, rowData, filepath, studentId) {
+      // Remove any existing modal
+      $('#applicationIdModal').remove();
+
+      // PDF URL - use the provided/fixed filepath
+      let pdfUrl = filepath || ''; // Ensure it's a string
+
+      // Freeship Card content (static HTML with placeholders)
+      let freeshipCardHtml = `
+                <div class="container">
+                <style>
+                    
+                #freeshipCard.card-wrapper {
+                background: #fff;
+                border: 1px solid #dee2e6;
+                border-radius: 8px;
+                padding: 25px 30px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                margin: 0 auto;
+                max-width: 826px;
+                aspect-ratio: 17/12;
+                }
+                #freeshipCard h5 {
+                font-size: 16px;
+                text-transform: uppercase;
+                border-bottom: 2px solid #000;
+                padding-bottom: 6px;
+                margin-bottom: 18px;
+                }
+                #freeshipCard h6 {
+                font-weight: bold;
+                margin-bottom: 1rem;
+                }
+                #freeshipCard p {
+                text-align: justify;
+                margin-bottom: 1rem;
+                line-height: 1.5;
+                }
+                #freeshipCard .section-title {
+                font-weight: bold;
+                margin-top: 20px;
+                margin-bottom: 8px;
+                font-size: 15px;
+                color: #333;
+                }
+                #freeshipCard .row.note {
+                gap: 5px;
+                }
+                #freeshipCard .row.note .col-sm {
+                background-color: rgb(226, 226, 226);
+                border-radius: 10px;
+                padding: 15px;
+                }
+                #freeshipCard .photo-box {
+                width: 100px;
+                height: 120px;
+                border: 1px solid #000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: auto;
+                border-radius: 5px;
+                background: #f2f2f2;
+                }
+                #freeshipCard .no-border {
+                border: none !important;
+                }
+                #freeshipCard #cert-logo {
+                width: 100px;
+                text-align: center;
+                margin-bottom: 10px;
+                }
+                #freeshipCard {
+                text-align: center;
+                }
+                #freeshipCard .btn-download {
+                margin-top: 25px;
+                padding: 8px 22px;
+                font-size: 15px;
+                border-radius: 6px;
+                }
+                </style>
+                <div class="card-wrapper" id="freeshipCard">
+                    <img src="assets/img/tn_logo.png" alt="" id="cert-logo">
+                    <h5 class="text-center fw-bold">GOVERNMENT OF TAMIL NADU</h5>
+                    <h6 class="text-center fw-bold mb-3">FREESHIP&nbsp;&nbsp;CARD CERTIFICATE&nbsp;&nbsp;(AY 2025–2026)</h6>
+                    <!-- <div class="text-center m-4">
+                    <div class="photo-box d-inline-block align-center">Recent Photo</div>
+                </div> -->
+
+
+                    <p>
+                    This is to certify that <strong><span id="studentName">[Name of the student]</span></strong>,
+                    bearing <strong>Application ID</strong> <span id="applicationId">[Application ID]</span> and
+                    <strong>Aadhaar Number</strong> <span id="aadhaarNo">[Aadhaar No]</span>, was born on
+                    <span id="dob">[Date of Birth]</span>. The student is the son/daughter of
+                    <strong><span id="fatherName">[Father’s Name]</span></strong> and
+                    <strong><span id="motherName">[Mother’s Name]</span></strong>, belonging to the
+                    <strong><span id="community">[Community]</span></strong> community.
+                    </p>
+
+                    <p>
+                    The annual family income of the applicant is
+                    <strong>₹<span id="annualIncome">[Annual Family Income]</span></strong>. The student is currently
+                    pursuing the <strong><span id="currentCourse">[Course & Subject]</span></strong> course at
+                    <strong><span id="institutionName">[Institution Name]</span></strong> through
+                    <strong><span id="admissionMode">[Admission Mode]</span></strong> mode of admission, and is in
+                    the <strong><span id="yearOfStudy">[Year of Study]</span></strong> year of study.
+                    </p>
+
+
+
+
+                    <p>
+                    The applicant has submitted all the required documents and uploaded the necessary certificates as per
+                    scheme guidelines. 
+                    </p>
+                
+
+
+                    <div class="row note">
+                    <div class="col-sm">
+                        <h6 class="section-title mt-3">Major Provisions of the Scheme</h6>
+                        <p>
+                            Under this scheme, compulsory non-refundable fees, including tuition fees as fixed by the <strong> Fee Fixation Committee / 
+                    State Government,</strong> will be given. As such compulsory non-refundable fees should not insisted from the student till
+                    the scholarship is credited to his/her account.
+                        </p>
+                    </div>
+                    <div class="col-sm">
+                        <h6 class="section-title mt-3">Instructions</h6>
+                        <p>
+                        This scheme covers courses and institutions under <strong>PMSS Guidelines</strong>, excluding
+                        <strong>Private Deemed Universities</strong>. Once the admission process is completed, the applicant
+                        must apply online through
+                        <a href="https://umisssp.tnega.org/" target="_blank">https://umisssp.tnega.org/</a> using the
+                        <strong>UMIS ID</strong> issued by the institution.
+                        </p>
+                    </div>
+                    <div class="col-sm-12">
+                        <h6 class="section-title mt-3">Undertaking</h6>
+                        <p>
+                        I, <span id="undertakingName">[Student Name]</span>, hereby undertake to reimburse the amount to institution within 7 days after receipt of Scholarship.
+                        
+                        </p>
+                        <p>If a student is found to have obtained a scholarship by false statements, his/ her scholarship will be cancelled forthwith and the amount of the scholarship paid will be recovered,
+                The student concerned will be blacklisted and debarred for scholarship in any scheme forever.
+                </p>
+                <p>
+                In case of renewal students, there shall be no need for fresh registration for the Freeship card and a card once issued to him/her shall be valid for the entire duration of the course.
+                </p>
+
+
+                    </div>
+                    </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-12 text-center">
+                                    <p class="text-muted"><small>This is a system generated Freeship Card. No signature required.</small></p>
+                                </div>
+                            </div>
+                             <button class='btn btn-primary btn-sm' id='getFreeshipCardPDF'  data-application_id=${applicationId}>
+                        </div>
+                </div>
+                `;
+
+      // Application History content (static HTML with placeholders - will be populated via API)
+      let appHistoryHtml = `
+                <div id="studentDetailsAppliedModal">
+                <div class="section-title"><i class="bi bi-person"></i> Student Details</div>
+                <div class="detail-card student-details-grid">
+                <style>
+                    .student-details-grid {
+                        display: grid;
+                        grid-template-columns: 1fr 2fr; /* Label | Value on desktop */
+                        gap: 10px;
+                        margin-bottom: 20px;
+                        }
+                    .detail-row {
+                        display: contents; /* Allows children to participate in grid */
+                    }
+                    .detail-label {
+                        font-weight: bold;
+                        color: #333;
+                        padding-right: 10px;
+                        text-align: right; /* Align labels to right on desktop */
+                    }
+                    .detail-value {
+                        color: #555;
+                    }
+                    /* Mobile responsiveness: Stack vertically below 768px */
+                    @media (max-width: 768px) {
+                        .student-details-grid {
+                            grid-template-columns: 1fr; /* Single column on mobile */
+                            gap: 5px;
+                        }
+                        .detail-label {
+                            text-align: left;
+                            padding-right: 0;
+                            margin-bottom: 2px;
+                            display: block; /* Block for better stacking */
+                        }
+                        .detail-value {
+                            display: block;
+                            font-weight: normal;
+                        }
+                    }
+                </style>
+                <div class="detail-row">
+                    <span class="detail-label">Name:</span>
+                    <span class="detail-value" id="cardmodal_student_name">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Gender:</span>
+                    <span class="detail-value" id="cardmodal_gender">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Religion:</span>
+                    <span class="detail-value" id="cardmodal_religion">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Community <i id="community_verify"></i>:</span>
+                    <span class="detail-value" id="cardmodal_community">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Caste:</span>
+                    <span class="detail-value" id="cardmodal_caste">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">First Graduate:</span>
+                    <span class="detail-value" id="cardmodal_first_graduate">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Income <i id="income_verify"></i>:</span>
+                    <span class="detail-value" id="cardmodal_income">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Disability:</span>
+                    <span class="detail-value" id="cardmodal_isdifferentlyabled">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Aadhaar <i id="aadhar_verify"></i>:</span>
+                    <span class="detail-value" id="cardmodal_aadhaar_no">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">EMIS No:</span>
+                    <span class="detail-value" id="cardmodal_emis_no">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">UMIS No:</span>
+                    <span class="detail-value" id="cardmodal_umis_no">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Institute:</span>
+                    <span class="detail-value" id="cardmodal_institution_name">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Course:</span>
+                    <span class="detail-value" id="cardmodal_course_name">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Branch:</span>
+                    <span class="detail-value" id="cardmodal_course_branch_name">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Year:</span>
+                    <span class="detail-value" id="cardmodal_studying_year">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Academic Year:</span>
+                    <span class="detail-value" id="cardmodal_accademic_year_id">-</span>
+                </div>
+                </div>
+                <div class="section-title"><i class="bi bi-file-text"></i> Scheme Details</div>
+                <div class="detail-card" id="scheme_details_card">
+                    <div class="sectionSeparate row">
+                        <h6>Selected Scheme</h6>
+                        <div id="apply_scheme_details">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Scheme Name</th>
+                                        <th>Scholarship Amount</th>
+                                    
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-title"><i class="bi bi-check-circle"></i> Approval Status</div>
+                <div class="detail-card" id="apporval_status">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Stage</th>
+                                    <th>Status</th>
+                                    <th>Remarks</th>
+                                    <th>Updated</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Student</td>
+                                    <td id="form-student_approval_status">-</td>
+                                    <td id="form-student_approved_ts">-</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Institute</td>
+                                    <td id="form-institute_approval_status">-</td>
+                                    <td id="form-institute_approval_remarks">-</td>
+                                    <td id="form-institute_approved_ts">-</td>
+
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>District</td>
+                                    <td id="form-department_verification_status">-</td>
+                                    <td id="form-department_verification_remarks">-</td>
+                                    <td id="form-department_verification_ts">-</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>State</td>
+                                    <td id="form-department_approval_status">-</td>
+                                    <td id="form-department_approval_remarks">-</td>
+                                    <td id="form-department_approved_ts">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="section-title d-flex justify-content-between align-items-center">
+                    <div class="section-title-text"><i class="bi bi-bank"> DBT Registration</i></div>
+                    <div class="section-title-action">
+                        <button type="button" class="btn btn-primary btn-sm" id="fetchDBTStatusBtn" data-student-id="${rowData.student_id}" data-application-id="${applicationId}" data-scheme_id="${rowData.scheme_id}" style="
+                    background: #33208c;
+                ">Fetch DBT Status</button>
+                    </div>
+                </div>
+                <div class="detail-card" id="DBT_registration">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Status</th>
+                                    <th>Remarks</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="s_no">1</td>
+                                    <td id="DBT_Status">-</td>
+                                    <td id="DBT_Remarks">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="section-title"><i class="bi bi-wallet2"></i> Payment Status </div>
+                <div class="card">
+
+                    <div class="card-body">
+                        <div class="fees_amount mb-2 ">
+                            <div><span>Scholarship Amount: <strong id="totalscholarship_amount">0</strong></span></div>
+                            <div class="mt-1">
+                                <span>Maintenance Amount: <strong id="maintenance_amt">0</strong></span> | 
+                                <span>Scheme Amount: <strong id="scheme_amt">0</strong></span> | 
+                                <span>Disability Amount: <strong id="disablity_amt">0</strong></span>
+                            </div>
+                        </div>
+                        <div>
+                        
+
+                            </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Stage</th>
+                                        <th>Status</th>
+                                        <th>Amount</th>
+                                        <th>Remarks</th>
+                                        <th>View</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="installmentDetails">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-2">
+                            <!-- Button to open payment history modal -->
+                        
+                        </div>
+                        <div class="mt-2">
+                            <p class="fw-bold">Total Paid: <span id="totalpaidamount">0</span></p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                `;
+
+      // PDF Tab content - handle empty URL
+      let pdfTabContent = pdfUrl ? `
+                <iframe src="${pdfUrl}" width="100%" height="500px" style="border:1px solid #ccc;" allowfullscreen></iframe>
+                <div class="mt-2">
+                    <a href="${pdfUrl}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Open PDF in new tab</a>
+                </div>
+                ` : `
+                <div class="text-center p-4">
+                    <p class="text-muted">No PDF available for this application.</p>
+                </div>
+                `;
+
+      // Modal HTML with tabs
+      const modalHtml = `
+                <div class="modal fade" id="applicationIdModal" tabindex="-1" aria-labelledby="applicationIdModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="applicationIdModalLabel">Application ID: ${$('<div>').text(applicationId).html()}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" style="max-height:70vh; overflow-y:auto;">
+                                <ul class="nav nav-tabs" id="appIdTab" role="tablist">
+                                
+                                
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="history-tab" data-bs-toggle="tab" data-bs-target="#historyTabPane" type="button" role="tab" aria-controls="historyTabPane" aria-selected="true">Application History</button>
+                                    </li>
+
+                                     <li class="nav-item" role="presentation">
+                        <button class="nav-link " id="freeship-tab" data-bs-toggle="tab" data-bs-target="#freeshipTabPane" type="button" role="tab" aria-controls="freeshipTabPane" aria-selected="false">Freeship Card</button>
+                    </li>
+                                </ul>
+                                <div class="tab-content mt-3" id="appIdTabContent">
+                                    <div class="tab-pane fade " id="pdfTabPane" role="tabpanel" aria-labelledby="pdf-tab" tabindex="0" style="min-height:400px;">
+                                        ${pdfTabContent}
+                                    </div>
+                                    <div class="tab-pane fade" id="freeshipTabPane" role="tabpanel" aria-labelledby="freeship-tab" tabindex="0">
+                                        ${freeshipCardHtml}
+                                    </div>
+                                    <div class="tab-pane fade show active " id="historyTabPane" role="tabpanel" aria-labelledby="history-tab" tabindex="0">
+                                        ${appHistoryHtml}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+      // Append modal to body
+      $('body').append(modalHtml);
+
+      // After modal is shown, fetch and fill in the Freeship Card fields and Application History
+      $('#applicationIdModal').on('shown.bs.modal', function () {
+        // Fetch Freeship Card data via AJAX
+
+
+        // Fetch Application History data via AJAX
+        const filterData = {
+          "typeid": 3,
+          "selected_columns": [
+            "scheme_departmentid",
+            "umis_no",
+            "emis_no",
+            "scheme_id",
+            "university_type",
+            "course_duration",
+            "is_accredited",
+            "student_id",
+            "aadhaar_no",
+            "income",
+            "isdifferentlyabled",
+            "is_first_graduate",
+            "studying_year",
+            "is_hosteler",
+            "medium",
+            "student_updatedts",
+            "studenteduction_updatedts",
+            "studentsplcategory_updatedts",
+            "departmentapprovedstatus",
+            "institutioncatgeory",
+            "education",
+            "district_name",
+            "university_typename",
+            "university_name",
+            "institution_name",
+            "ownership",
+            "subdepartment_name",
+            "stream_name",
+            "course_type",
+            "course_category_name",
+            "course_name",
+            "course_branch_name",
+            "student_name",
+            "gender",
+            "community",
+            "religion",
+            "caste",
+            "admission_type",
+            "aadhaar_verified",
+            "community_certificate_verified",
+            "income_certificate_verified",
+            "scheme_name",
+            "scholarshipamount",
+            "maintenanceamount",
+            "disabilityamout",
+            "applied_ts",
+            "institute_approval_status",
+            "institute_approval_remarks",
+            "scheme_amount",
+            "is_eligible",
+            "is_applied",
+            "specialcategoryname",
+            "quota",
+            "modeofstudy",
+            "disabilityname",
+            "scholarship_fee_type",
+            "application_id",
+            "academicyear",
+            "institution_categoryname",
+            "department_verification_status",
+            "department_verification_remarks",
+            "department_approval_status",
+            "department_approval_remarks",
+            'benificiaryregistration',
+            'installment1_amount',
+            'installment1_remarks',
+            'installment1_status',
+            'installment2_amount',
+            'installment2_remarks',
+            'installment2_status',
+            'installment3_amount',
+            'installment3_remarks',
+            'installment3_status',
+            'father_name',
+            'mother_name',
+            'dob',
+            'institute_approved_ts', 'department_approved_ts', 'department_verification_ts', 'failurereason'
+          ],
+          "filter_conditions": {
+            "application_id": applicationId,  // Fixed: Correct spelling and use parameter
+          },
+          "group_by_columns": [],
+          "sort_columns": {},
+          "count_columns": [
+            "umis_no"
+          ],
+          "sum_columns": [],
+          "limit_rows": 500,
+          "offset_rows": 0
+        };
+        let get_freeshipcard_file;
+
+        const encryptdata = {
+          action: "function_call",
+          function_name: "public.get_freeshipcard_file",
+          params: { application_id_input: applicationId } // e.g., "APP001"
+        };
+
+        $.ajax({
+          url: config.ssp_api_url + '/commonApi',
+          type: 'POST',
+          headers: {
+            'X-APP-KEY': 'te$t',
+            'X-APP-NAME': 'te$t'
+          },
+          data: { data: encryptData(encryptdata) },
+          success: function (response) {
+            try {
+              if (response.success == 1) {
+                // Step 1: Decrypt response data
+                const decrypted = decryptData(response.data);
+
+                // Step 2: Handle array response (first element)
+                const inner = decrypted[0];
+
+                // Step 3: Parse JSON string inside get_freeshipcard_file
+                get_freeshipcard_file = JSON.parse(inner.get_freeshipcard_file);
+
+                console.log("get_freeshipcard_file", get_freeshipcard_file);
+
+                // Step 4: Update the PDF button immediately if modal exists
+                const pdfButton = $('#getFreeshipCardPDF');
+                if (pdfButton.length && get_freeshipcard_file && get_freeshipcard_file.success && get_freeshipcard_file.file_path) {
+                  pdfButton
+                    .data('file_path', get_freeshipcard_file.file_path)
+                    .attr('data-file-path', get_freeshipcard_file.file_path)
+                    .text("View PDF");
+                  console.log("✅ File path set:", get_freeshipcard_file.file_path);
+                } else if (pdfButton.length) {
+                  pdfButton
+                    .data('file_path', '')
+                    .attr('data-file-path', '')
+                    .text("Generate PDF");
+                }
+              } else {
+                console.error("API returned success=0");
+              }
+            } catch (e) {
+              console.error("Error parsing response:", e);
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error("API error:", error);
+            alert("Something went wrong while fetching data.");
+          }
+        });
+
+
+
+        $.ajax({
+          url: ssp_api_url + '/get_generic_report1',
+          headers: { 'X-APP-KEY': 'te$t', 'X-APP-NAME': 'te$t' },
+          type: 'POST',
+          data: {
+            data: encryptData(filterData)
+          },
+          success: (response) => {
+            console.log("Raw History API response:", response);
+            if (response.success && response.data) {
+              let decryptedData;
+              try {
+                decryptedData = decryptData(response.data);
+                if (decryptedData && decryptedData[0]['scheme_departmentid'] == 1) {
+                  $('#freeship-tab').show();
+                }
+                else {
+                  $('#freeship-tab').hide();
+                }
+                console.log("Decrypted history response data:", decryptedData);
+              } catch (e) {
+                console.error("Error decrypting history data:", e);
+                decryptedData = response.data; // Fallback to raw if decryption fails
+              }
+
+              let parsedData = [];
+
+              try {
+                // Assume decryptedData is already an array; if it's a string, parse it
+                if (typeof decryptedData === 'string') {
+                  parsedData = JSON.parse(decryptedData);
+                } else {
+                  parsedData = decryptedData;
+                }
+              } catch (e) {
+                console.error("Error parsing history data:", e);
+                parsedData = [];
+              }
+              console.log("Parsed history data:", parsedData);
+
+              if (parsedData.length > 0) {
+                const studentData = parsedData[0];
+                const modal = document.getElementById('applicationIdModal');
+                if (!modal) {
+                  console.error("Modal element not found for history");
+                  return;
+                }
+                populateFreeshipCard(studentData, get_freeshipcard_file, applicationId);
+                // Ensure history tab is selected or just populate regardless
+                const historyTab = modal.querySelector('#historyTabPane');
+                if (historyTab) {
+                  // Update Student Details (scope to history tab)
+                  $('#cardmodal_student_name', historyTab).text(studentData.student_name || '-');
+                  $('#cardmodal_gender', historyTab).text(studentData.gender || '-');
+                  $('#cardmodal_religion', historyTab).text(studentData.religion || '-');
+                  $('#cardmodal_community', historyTab).text(studentData.community || '-');
+                  $('#cardmodal_caste', historyTab).text(studentData.caste || '-');
+                  $('#cardmodal_first_graduate', historyTab).text(studentData.is_first_graduate ? 'Yes' : 'No');
+                  $('#cardmodal_income', historyTab).text(studentData.income ? `₹${studentData.income}` : '-');
+                  $('#cardmodal_isdifferentlyabled', historyTab).text(studentData.isdifferentlyabled ? studentData.disabilityname : 'No');
+                  $('#cardmodal_aadhaar_no', historyTab).text(studentData.aadhaar_no || '-');
+                  $('#cardmodal_emis_no', historyTab).text(studentData.emis_no || '-');
+                  $('#cardmodal_umis_no', historyTab).text(studentData.umis_no || '-');
+                  $('#cardmodal_institution_name', historyTab).text(studentData.institution_name || '-');
+                  $('#cardmodal_course_name', historyTab).text(studentData.course_name || '-');
+                  $('#cardmodal_course_branch_name', historyTab).text(studentData.course_branch_name || '-');
+                  $('#cardmodal_studying_year', historyTab).text(studentData.studying_year || '-');
+                  $('#cardmodal_accademic_year_id', historyTab).text(studentData.academicyear || '-');
+
+                  // Update verification icons
+                  $('#community_verify', historyTab).html(studentData.community_certificate_verified ?
+                    '<i class="bi bi-check-circle-fill text-success"></i>' :
+                    '<i class="bi bi-x-circle-fill text-danger"></i>');
+                  $('#income_verify', historyTab).html(studentData.income_certificate_verified ?
+                    '<i class="bi bi-check-circle-fill text-success"></i>' :
+                    '<i class="bi bi-x-circle-fill text-danger"></i>');
+                  $('#aadhar_verify', historyTab).html(studentData.aadhaar_verified ?
+                    '<i class="bi bi-check-circle-fill text-success"></i>' :
+                    '<i class="bi bi-x-circle-fill text-danger"></i>');
+
+                  // Update Scheme Details
+                  $('#apply_scheme_details tbody', historyTab).html(`
+                                        <tr>
+                                            <td>${studentData.scheme_name || '-'}</td>
+                                            <td>${studentData.scholarshipamount ? `₹${studentData.scholarshipamount}` : '₹-'}</td>
+                                        </tr>
+                                    `);
+
+                  // Update Approval Status
+                  $('#form-student_approval_status', historyTab).text(studentData.is_applied ? 'Applied' : 'Not Applied');
+                  $('#form-student_approved_ts', historyTab).text(studentData.applied_ts || studentData.student_updatedts || '-');
+                  $('#form-institute_approval_status', historyTab).text(studentData.institute_approval_status || '-');
+                  $('#form-institute_approval_remarks', historyTab).text(studentData.institute_approval_remarks || '-');
+                  $('#form-institute_approved_ts', historyTab).text(studentData.institute_approved_ts || '-');
+                  $('#form-department_verification_status', historyTab).text(studentData.department_verification_status || '-');
+                  $('#form-department_verification_remarks', historyTab).text(studentData.department_verification_remarks || '-');
+                  $('#form-department_verification_ts', historyTab).text(studentData.department_verification_ts || '-');
+                  $('#form-department_approval_status', historyTab).text(studentData.department_approval_status || '-');
+                  $('#form-department_approval_remarks', historyTab).text(studentData.department_approval_remarks || '-');
+                  $('#form-department_approved_ts', historyTab).text(studentData.department_approved_ts || '-');
+
+                  // Fixed ID mismatch for DBT
+                  $('#DBT_Remarks', historyTab).text(studentData.failurereason || '-');
+                  $('#DBT_Status', historyTab).text(studentData.benificiaryregistration || '-');
+
+                  // Update Scholarship Amounts
+                  $('#totalscholarship_amount', historyTab).text(studentData.scholarshipamount || '0');
+                  $('#maintenance_amt', historyTab).text(studentData.maintenanceamount || '0');
+                  $('#scheme_amt', historyTab).text(studentData.scheme_amount || '0');
+                  $('#disablity_amt', historyTab).text(studentData.disabilityamout || '0');
+
+                  // Dynamically populate the Installment Details table
+                  $('#installmentDetails', historyTab).empty();
+
+                  // Helper to get value or fallback
+                  function getVal(val) {
+                    return (val !== undefined && val !== null && val !== '') ? val : '-';
+                  }
+
+                  // Prepare installment data from studentData fields
+                  const installments = [];
+                  for (let i = 1; i <= 3; i++) {
+                    const amount = studentData[`installment${i}_amount`];
+                    const remarks = studentData[`installment${i}_remarks`];
+                    const status = studentData[`installment${i}_status`];
+                    const installment_count = i;
+                    // Only push if at least one field is present (not all undefined/null/empty)
+                    if (amount !== undefined || remarks !== undefined || status !== undefined) {
+                      installments.push({
+                        stage: `Installment ${i}`,
+                        status: getVal(status),
+                        amount: amount ? `₹${amount}` : '-',
+                        remarks: getVal(remarks),
+                        count: i
+                      });
+                    }
+                  }
+
+                  // Calculate total paid
+                  let totalPaid = 0;
+                  installments.forEach(inst => {
+                    // Normalize status for reliable comparison (trim + lowercase)
+                    const statusNorm = (inst.status || '').toString().trim().toLowerCase();
+                    if (statusNorm === 'approved') {
+                      // inst.amount may be a string like '₹1,234.00' or '-' or a raw number
+                      let rawAmt = inst.amount;
+                      // If amount is exactly '-' or falsy, skip
+                      if (!rawAmt || rawAmt === '-') return;
+
+                      // If it's a number already, use it
+                      if (typeof rawAmt === 'number') {
+                        totalPaid += rawAmt;
+                        return;
+                      }
+
+                      // Otherwise it's a string: remove any currency symbols and commas
+                      const cleaned = rawAmt.toString().replace(/[^0-9.-]/g, '');
+                      const parsed = parseFloat(cleaned);
+                      if (!isNaN(parsed)) totalPaid += parsed;
+                    }
+                  });
+
+                  if (installments.length > 0) {
+                    installments.forEach((inst, idx) => {
+                      // Determine if we should show the View button
+                      const statusText = (inst.status || '').toString().trim();
+                      let viewCell = '<td>-</td>';
+                      if (statusText !== '-' && statusText !== '') {
+                        viewCell = `<td><button class="btn btn-sm btn-info view-installment-btn" data-application_id="${applicationId}" data-installment="${inst.count}" data-installment_status="${inst.status}" style="background: #33208c;">View</button></td>`;
+                      }
+
+                      $('#installmentDetails', historyTab).append(`
+                                <tr>
+                                    <td>${idx + 1}</td>
+                                    <td>${inst.stage}</td>
+                                    <td>${inst.status}</td>
+                                    <td>${inst.amount}</td>
+                                    <td>${inst.remarks}</td>
+                                    ${viewCell}
+                                </tr>
+                            `);
+                    });
+                    $('#totalpaidamount', historyTab).text(totalPaid ? `₹${totalPaid}` : '₹0');
+                  } else {
+                    // If no installments, show a placeholder row
+                    $('#installmentDetails', historyTab).append(`
+                            <tr>
+                                <td colspan="8" class="text-center">No Installment Details Available</td>
+                            </tr>
+                        `);
+                    $('#totalpaidamount', historyTab).text('₹0');
+                  }
+                }
+              } else {
+                console.warn("No data in parsed history response");
+                // Optional: Show fallback message in history tab
+                const historyTab = document.querySelector('#historyTabPane');
+                if (historyTab) {
+                  historyTab.innerHTML = '<div class="text-center p-4"><p class="text-muted">No application history data available.</p></div>';
+                }
+              }
+            } else {
+              console.warn("History API response not successful or no data");
+              // Optional: Show fallback message in history tab
+              const historyTab = document.querySelector('#historyTabPane');
+              if (historyTab) {
+                historyTab.innerHTML = '<div class="text-center p-4"><p class="text-muted">No application history data available.</p></div>';
+              }
+            }
+          },
+          error: (xhr, status, error) => {
+            console.error("History API request failed:", error);
+            // Fallback: Show error message in history tab
+            const historyTab = document.querySelector('#historyTabPane');
+            if (historyTab) {
+              historyTab.innerHTML = '<div class="text-center p-4"><p class="text-danger">Failed to load application history. Please try again.</p></div>';
+            }
+            // Fallback: Use rowData to populate history if possible
+            populateHistoryFallback(rowData);
+          }
+        });
+      });
+
+
+      // Ensure Get Payment History button has the correct application id
+      try {
+        $('#getPaymentHistoryBtn').attr('data-student_id', studentId);
+      } catch (err) {
+        console.warn('Could not set payment button application id', err);
+      }
+
+      $(document).off('click', '#getFreeshipCardPDF').on('click', '#getFreeshipCardPDF', function (e) {
+        e.preventDefault();
+        const applicationId = $(this).data('application_id');
+        const file_path = $(this).data('file_path');
+        const data = {
+          data: CryptoJS.AES.encrypt(JSON.stringify({
+            application_id: applicationId
+          }), 'te$t').toString()
+        };
+
+        if (file_path) {
+          window.open(file_path, '_blank');
+          return;
+        }
+
+        if (!applicationId) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Missing ID',
+            text: 'Application ID not found!'
+          });
+          return;
+        }
+
+        Swal.fire({
+          title: 'Generating...',
+          text: 'Please wait while your FreeShip Card PDF is being created.',
+          allowOutsideClick: false,
+          didOpen: () => {
+            Swal.showLoading();
+          }
+        });
+
+        $.ajax({
+          url: ssp_api_url + '/generate_freeshipCard',
+          type: 'POST',
+          headers: { 'X-APP-KEY': 'te$t', 'X-APP-NAME': 'te$t' },
+          data: {
+            data: encryptData({
+              application_id: applicationId
+            })
+          },
+          success: function (res) {
+            Swal.close();
+
+            try {
+              const response = res;
+
+              if (response.success) {
+                Swal.fire({
+                  icon: 'success',
+                  title: 'FreeShip Card Generated!',
+                  html: `
+                            <p><b>Student:</b> ${response.data}</p>
+                            <p><b>Source:</b> ${response.aws ? 'AWS S3' : 'Local Server'}</p>
+                            <a href="${response.path}" target="_blank" class="swal2-confirm swal2-styled" style="background:#3085d6;">Open PDF</a>
+                        `,
+                  showConfirmButton: false
+                });
+
+                // Update button with file path - set both jQuery data and HTML attribute
+                const pdfButton = $('#getFreeshipCardPDF');
+                if (pdfButton.length && response.path) {
+                  pdfButton
+                    .data('file_path', response.path)
+                    .attr('data-file-path', response.path)
+                    .text("View PDF");
+                  console.log("✅ File path set from generate_freeshipCard:", response.path);
+                }
+              } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'No Data Found',
+                  text: response.message || 'FreeShip Card could not be generated.'
+                });
+              }
+
+            } catch (err) {
+              console.error('Error parsing response:', err);
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Unexpected response from server.'
+              });
+            }
+          },
+          error: function (xhr, status, error) {
+            Swal.close();
+            console.error('FreeShipCard API error:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Request Failed',
+              text: 'Something went wrong while generating FreeShip Card.'
+            });
+          }
+        });
+      });
+
+      // Helper function to populate Freeship Card using span IDs (updated for current HTML structure)
+      function populateFreeshipCard(studentData, get_freeshipcard_file, applicationId) {
+        // console.log(get_freeshipcard_file);
+        const modal = document.getElementById('applicationIdModal');
+        if (modal) {
+          const freeshipTab = modal.querySelector('#freeshipTabPane');
+          if (freeshipTab) {
+            // Map data keys to span IDs and populate
+            const fields = [
+              { id: 'studentName', key: 'student_name' },
+              { id: 'applicationId', key: 'application_id' || applicationId },
+              { id: 'aadhaarNo', key: 'aadhaar_no' },
+              { id: 'dob', key: 'dob' }, // Assuming dob is available; adjust key if needed
+              { id: 'fatherName', key: 'father_name' },
+              { id: 'motherName', key: 'mother_name' },
+              { id: 'community', key: 'community' },
+              { id: 'annualIncome', key: 'income' },
+              { id: 'currentCourse', key: 'course_name' }, // Or combine course_name + course_branch_name
+              { id: 'institutionName', key: 'institution_name' },
+              { id: 'admissionMode', key: 'admission_type' },
+              { id: 'yearOfStudy', key: 'studying_year' },
+              { id: 'previousCourse', key: 'previous_course' }, // Adjust if available
+              { id: 'address', key: 'address' }, // Assuming address is available
+              { id: 'undertakingName', key: 'student_name' }
+            ];
+
+            fields.forEach(field => {
+              const element = $(`#${field.id}`, freeshipTab);
+              if (element.length && studentData[field.key]) {
+                const escapedText = $('<div>').text(studentData[field.key]).html();
+                element.html(escapedText);
+              }
+            });
+
+            // Handle applicationId separately with fallback logic
+            const applicationIdElement = $('#applicationId', freeshipTab);
+            if (applicationIdElement.length) {
+              const appIdValue = studentData.application_id || applicationId || '';
+              if (appIdValue) {
+                applicationIdElement.text(appIdValue);
+              }
+            }
+
+            // Handle get_freeshipcard_file with null check
+            const pdfButton = $('#getFreeshipCardPDF', freeshipTab);
+            if (pdfButton.length) {
+              if (get_freeshipcard_file && get_freeshipcard_file.success && get_freeshipcard_file.file_path) {
+                // Set both jQuery data and HTML attribute
+                pdfButton
+                  .data('file_path', get_freeshipcard_file.file_path)
+                  .attr('data-file-path', get_freeshipcard_file.file_path)
+                  .text("View PDF");
+                console.log("File path set:", get_freeshipcard_file.file_path);
+              } else {
+                pdfButton
+                  .data('file_path', '')
+                  .attr('data-file-path', '')
+                  .text("Generate PDF");
+              }
+            }
+
+
+
+
+
+
+            // Special handling for currentCourse if combining fields
+            const courseElement = $('#currentCourse', freeshipTab);
+            if (courseElement.length && studentData.course_name && studentData.course_branch_name) {
+              const combined = `${studentData.course_name} - ${studentData.course_branch_name}`;
+              courseElement.text(combined);
+            } else if (courseElement.length && studentData.course_name) {
+              courseElement.text(studentData.course_name);
+            }
+
+            // Ensure undertaking name is set if not already
+            const undertakingElement = $('#undertakingName', freeshipTab);
+            if (undertakingElement.length && !undertakingElement.text().trim() && studentData.student_name) {
+              undertakingElement.text(studentData.student_name);
+            }
+          } else {
+            console.error("Freeship Tab element not found");
+          }
+        }
+      }
+
+      // Helper function to populate History (fallback - basic using rowData)
+      function populateHistoryFallback(rowData) {
+        const modal = document.getElementById('applicationIdModal');
+        if (modal) {
+          const historyTab = modal.querySelector('#historyTabPane');
+          if (historyTab) {
+            // Basic fallback population (extend as needed based on rowData keys)
+            $('#cardmodal_student_name', historyTab).text(rowData.student_name || '-');
+            $('#cardmodal_gender', historyTab).text(rowData.gender || '-');
+            // Add more fields if available in rowData
+            $('#apply_scheme_details tbody', historyTab).html('<tr><td colspan="2" class="text-center">Data not available</td></tr>');
+            // Set other fields to '-' or defaults
+            $('#form-student_approval_status', historyTab).text('-');
+            // ... etc.
+          }
+        }
+      }
+
+      // Show the modal using Bootstrap's modal API
+      var modal = new bootstrap.Modal(document.getElementById('applicationIdModal'));
+      modal.show();
+    }
+    function formatTimestamp(ts) {
+      if (ts === null || ts === undefined || ts === '') return '-';
+      try {
+        let s = ts.toString().trim();
+        // Truncate fractional seconds to milliseconds (3 digits) if longer: .089427 -> .089
+        s = s.replace(/(\.\d{3})\d+/, '$1');
+        // Try parsing
+        let d = new Date(s);
+        if (isNaN(d.getTime())) {
+          // Fallback: remove fractional part entirely
+          s = s.replace(/\.\d+/, '');
+          d = new Date(s);
+        }
+        if (isNaN(d.getTime())) return ts;
+        return d.toLocaleString('en-IN', {
+          year: 'numeric', month: 'short', day: '2-digit',
+          hour: '2-digit', minute: '2-digit', second: '2-digit'
+        });
+      } catch (e) {
+        return ts;
+      }
+    }
+
+    $(document).on('click', '.view-installment-btn', function (e) {
+      e.preventDefault();
+      let applicationId = $(this).data('application_id') || $(this).attr('data-application_id') || '';
+      const studentId = $(this).data('student_id') || $(this).attr('data-student_id') || '';
+      const installmentCount = $(this).data('installment') || $(this).attr('data-installment') || '';
+      const installment_status = $(this).data('installment_status') || $(this).attr('data-installment_status') || '';
+
+      if (!applicationId) {
+        const titleText = $('#applicationIdModalLabel').text() || '';
+        const match = titleText.match(/Application ID:\s*(\S+)/);
+        if (match && match[1]) applicationId = match[1];
+      }
+
+      Swal.fire({
+        title: 'Payment Status',
+        html: '<div id="swalPaymentContent" style="min-height:120px">Loading...</div>',
+        width: '950px',
+        didOpen: () => Swal.showLoading(),
+        allowOutsideClick: false
+      });
+
+      const payload = {
+        "typeid": 1,
+        "selected_columns": [
+          "paid_bank_name",
+          "paid_account_no",
+          "paid_aadhaar_number_as_per_bank",
+          "paid_total_payment_amount",
+          "paid_account_holder_name",
+          "payment_status",
+          "response_received_ts",
+          "failure_reason",
+          "request_file_generated_ts"
+        ],
+        "filter_conditions": {
+          "application_id": applicationId,
+          "installment_id": installmentCount
+        },
+        "group_by_columns": [],
+        "sort_columns": {},
+        "count_columns": [],
+        "sum_columns": [],
+        "limit_rows": 500,
+        "offset_rows": 0
+      };
+
+      $.ajax({
+        url: ssp_api_url + '/get_payment_history',
+        headers: { 'X-APP-KEY': 'te$t', 'X-APP-NAME': 'te$t' },
+        type: 'POST',
+        data: { data: encryptData(payload) },
+
+        success: function (res) {
+          try {
+            res.data = decryptData(res.data);
+            let rows = Array.isArray(res.data) ? res.data : [];
+
+            if (!rows.length) {
+              Swal.fire({
+                title: 'Payment Status',
+                html: '<p class="text-muted">No payment records found.</p>'
+              });
+              return;
+            }
+
+            // Check if any row has rejected status
+            const hasRejected = rows.some(r => r.payment_status !== 1 && r.payment_status !== 0);
+
+            // Build grid table
+            let tableHtml = `
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Submitted Timestamp</th>
+                                    <th>Status</th>
+                                    <th>Bank Details / Reason</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+
+            rows.forEach((r, idx) => {
+              const submittedTs = formatTimestamp(r.request_file_generated_ts) || '-';
+              const statusVal = r.payment_status;
+              let statusLabel = '';
+              let extraInfo = '';
+
+              if (statusVal == 1) {
+                statusLabel = `<span class="badge bg-success">Success</span>`;
+                extraInfo = `
+                            <div>
+                                <strong>Bank:</strong> ${r.paid_bank_name || '-'}<br>
+                                <strong>Account:</strong> ${r.paid_account_no || '-'}<br>
+                                <strong>Holder:</strong> ${r.paid_account_holder_name || '-'}<br>
+                                <strong>Aadhaar:</strong> ${r.paid_aadhaar_number_as_per_bank || '-'}<br>
+                                <strong>Amount:</strong> ${r.paid_total_payment_amount || '-'}<br>
+                                <strong>Response TS:</strong> ${formatTimestamp(r.response_received_ts) || '-'}
+                            </div>
+                        `;
+              } else if (statusVal == 0) {
+                statusLabel = `<span class="badge bg-warning text-dark">Pending</span>`;
+                extraInfo = `<em>Awaiting payment confirmation</em>`;
+              } else {
+                statusLabel = `<span class="badge bg-danger">Rejected</span>`;
+                extraInfo = `<strong>Reason:</strong> ${r.failure_reason || 'Unknown error'} <br><strong>Response TS:</strong> ${formatTimestamp(r.response_received_ts) || '-'}`;
+              }
+
+              tableHtml += `
+                        <tr>
+                            <td>${idx + 1}</td>
+                            <td>${submittedTs}</td>
+                            <td>${statusLabel}</td>
+                            <td>${extraInfo}</td>
+                        </tr>
+                    `;
+            });
+
+            tableHtml += '</tbody></table></div>';
+
+            // Add reinitiate button if any payment is rejected
+            // In your tableHtml building code, add the onclick directly:
+            if (hasRejected && installment_status.toLowerCase().includes('rejected')) {
+              tableHtml += `
+                            <div class="mt-3 text-center">
+                                <button id="reinitiatePaymentBtn" 
+                                        class="btn btn-warning" 
+                                        onclick="window.reinitiatePayment('${applicationId}', '${installmentCount}')">
+                                    <i class="fas fa-redo-alt me-1"></i> Reinitiate Payment
+                                </button>
+                            </div>
+                            `;
+            }
+
+            Swal.fire({
+              title: `Payment Status for Application ${$('<div>').text(applicationId).html()}`,
+              html: tableHtml,
+              width: '950px',
+              didOpen: () => {
+                // Use event delegation for the dynamically created button
+                $(document).on('click', '#reinitiatePaymentBtn', function () {
+                  window.reinitiatePayment(applicationId, installmentCount);
+                });
+              }
+            });
+          } catch (err) {
+            console.error('Error processing payment history response', err);
+            Swal.fire({
+              title: 'Error',
+              text: 'Failed to load payment history.',
+              icon: 'error'
+            });
+          }
+        },
+        error: function (xhr, status, error) {
+          console.error('Payment history request failed', error);
+          Swal.fire({
+            title: 'Error',
+            text: 'Failed to fetch payment history.',
+            icon: 'error'
+          });
+        }
+      });
+    });
+
+    // Function to reinitiate payment
+    window.reinitiatePayment = function reinitiatePayment(applicationId, installmentCount) {
+      Swal.fire({
+        title: 'Reinitiate Payment',
+        text: `Are you sure you want to reinitiate payment for Application ID: ${applicationId}?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, Reinitiate',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Show processing alert
+          Swal.fire({
+            title: 'Processing...',
+            text: 'Please wait while we reinitiate the payment',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            }
+          });
+
+
+
+
+          console.log("✅ Reinitiate payment called for Application ID:", applicationId, "Installment:", installmentCount);
+          // Prepare payload
+          const installmentId = ($('#is_applied').val() == 27) ? 1 : 2;
+          const encryptDataPayload = {
+            action: "function_call",
+            function_name: "public.update_payment_repush_reinitate",
+            params: {
+              "installment": "installment1",
+
+              application_ids: [applicationId]
+              // Single application ID in array
+            }
+          };
+
+          $.ajax({
+            url: config.ssp_api_url + '/update_payment_status',
+            type: 'POST',
+            headers: {
+              'X-APP-KEY': 'te$t',
+              'X-APP-NAME': 'te$t'
+            },
+            data: { data: encryptData(encryptDataPayload) },
+            dataType: 'json',
+
+            success: function (response) {
+              console.log("Payment repush response:", response);
+
+              let result = response;
+              if (response.data) {
+                try {
+                  result = decryptData(response.data);
+                  console.log("Decrypted result:", result);
+                } catch (e) {
+                  console.warn("Could not decrypt response:", e);
+                }
+              }
+
+              if (response.success == 1 || result?.success == 1) {
+                Swal.fire({
+                  title: 'Success',
+                  text: 'Payment reinitiation request submitted successfully',
+                  icon: 'success'
+                }).then(() => {
+                  // Close the current payment status modal
+                  location.reload();
+                });
+              } else {
+                Swal.fire({
+                  title: 'Error',
+                  text: response.message || result?.message || 'Failed to reinitiate payment',
+                  icon: 'error'
+                });
+              }
+            },
+
+            error: function (xhr, status, error) {
+              console.error("AJAX error:", xhr, status, error);
+
+              let errorMsg = 'An error occurred while reinitiating payment.';
+              if (xhr.responseJSON?.message) {
+                errorMsg = xhr.responseJSON.message;
+              } else if (xhr.responseText) {
+                errorMsg = error + ': ' + xhr.responseText.substring(0, 100);
+              }
+
+              Swal.fire({
+                title: 'Error',
+                text: errorMsg,
+                icon: 'error'
+              });
+            }
+          });
+        }
+      });
+    }
+
+
+    // Click handler for Fetch DBT Status button
+    $(document).on('click', '#fetchDBTStatusBtn', function (e) {
+      e.preventDefault();
+      let applicationId = $(this).data('application-id') || $(this).attr('data-application-id') || '';
+      const studentId = $(this).data('student-id') || $(this).attr('data-student-id') || '';
+      const schemeId = $(this).data('scheme_id') || $(this).attr('data-scheme_id') || '';
+      if (!applicationId) {
+        const titleText = $('#applicationIdModalLabel').text() || '';
+        const match = titleText.match(/Application ID:\s*(\S+)/);
+        if (match && match[1]) applicationId = match[1];
+      }
+
+      const payload = {
+        typeid: 2,
+        selected_columns: [
+          'registration_response_status_updated_ts',
+          'registration_error_remarks',
+          'registration_response_status'
+
+        ],
+        filter_conditions: {
+          student_id: studentId,
+          scheme_id: schemeId,
+
+        },
+        group_by_columns: [],
+        sort_columns: {},
+        count_columns: [],
+        sum_columns: [],
+        limit_rows: 500,
+        offset_rows: 0
+      };
+
+      // show loading
+      Swal.fire({
+        title: 'Fetching DBT Status...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
+      $.ajax({
+        url: ssp_api_url + '/get_payment_history',
+        headers: { 'X-APP-KEY': 'te$t', 'X-APP-NAME': 'te$t' },
+        type: 'POST',
+        data: { data: encryptData(payload) },
+        success: function (res) {
+          try {
+            let rows = [];
+            if (res && res.success && res.data) {
+              try {
+                rows = decryptData(res.data);
+              } catch (e) {
+                console.warn('Decrypt failed, using raw data', e);
+                rows = res.data;
+              }
+            } else if (Array.isArray(res)) rows = res;
+
+            if (!rows || !rows.length) {
+              Swal.fire({ title: 'DBT Status', html: '<p class="text-muted">No DBT records found.</p>' });
+              return;
+            }
+
+            // Build HTML table
+            let tableHtml = `<div class="table-responsive"><table class="table table-sm table-bordered"><thead><tr><th>S.No</th><th>Status</th><th>Remarks</th><th>Updated Timestamps</th></tr></thead><tbody>`;
+            rows.forEach((r, i) => {
+              const rawStatus = r.registration_response_status;
+              let reqTs = '-';
+              if (rawStatus === 1 || rawStatus === '1') reqTs = 'Success';
+              else if (rawStatus === 2 || rawStatus === '2') reqTs = 'Failure';
+              else if (rawStatus === 0 || rawStatus === '0') reqTs = 'Pending';
+              else if (rawStatus) reqTs = rawStatus; // fallback to whatever string/value is present
+
+              const registration_error_remarks = r.registration_error_remarks || '-';
+              const respStatusTs = r.registration_response_status_updated_ts || '-';
+
+              tableHtml += `<tr><td>${i + 1}</td><td>${$('<div>').text(reqTs).html()}</td><td>${$('<div>').text(registration_error_remarks).html()}</td><td>${$('<div>').text(respStatusTs).html()}</td></tr>`;
+            });
+            tableHtml += `</tbody></table></div>`;
+
+            Swal.fire({
+              title: `DBT Status for Application ${$('<div>').text(applicationId).html()}`,
+              html: tableHtml,
+              width: '800px'
+            });
+
+          } catch (err) {
+            console.error('Error processing DBT response', err);
+            Swal.fire({ title: 'Error', text: 'Failed to process DBT status response.' });
+          }
+        },
+        error: function (xhr, status, err) {
+          console.error('DBT status request failed', err);
+          Swal.fire({ title: 'Error', text: 'Failed to fetch DBT status.' });
+        }
+      });
+    });
+
+
+
+    $('#about_scheme').on('click', function (e) {
+      e.preventDefault();
+      getschemeInfo();
+    });
+    $("#schemeinfo").on("click", function (e) {
+      e.preventDefault();
+      $('#applied_info').modal('show');
+      $('#scheme_info').modal('hide');
+    });
+
+    function getschemeInfo() {
+      $('#applied_info').modal('hide');
+      $('#scheme_info').modal('show');
+      const info = details[0] || {};
+      const data = { scheme_id: info.schemeid, rule_id: info.scheme_ruleid };
+      let encry_data = encryptData(data);
+      const $schemeInfo = $('#scheme_info');
+      $.ajax({
+        url: config.ssp_api_url + '/get_scheme_details',
+        type: 'POST',
+        headers: { 'X-APP-KEY': 'te$t', 'X-APP-NAME': 'te$t' },
+        data: { data: encry_data },
+        success: function (res) {
+          if (res && res.success == 1) {
+            const response = decryptData(res.data);
+            let info = response[0];
+            let exclusionArray = [];
+            let paymentDetails = [];
+            try {
+              let parsed = JSON.parse(info.exclusiondetail);
+              exclusionArray = Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+              console.warn("Invalid exclusiondetail format:", e);
+              exclusionArray = [];
+            }
+            try {
+              let parsed = JSON.parse(info.paymentinstallmentdetail);
+              paymentDetails = Array.isArray(parsed) ? parsed : [];
+            } catch (e) {
+              console.warn("Invalid paymentinstallmentdetail format:", e);
+              paymentDetails = [];
+            }
+
+            let exclusive = exclusionArray.length ? exclusionArray[0] : null;
+            let installment = paymentDetails.length ? paymentDetails[0] : null;
+            console.log('exclusive', exclusive);
+            let paymentInstallmentData = info.paymentinstallmentdetail[0];
+            if (info) {
+              $schemeInfo.find('#form-scheme_name').text(info.scheme_name || '-');
+              $schemeInfo.find('#form-frequency').text(info.frequency || '-');
+              $schemeInfo.find('#form-department_name').text(info.department_name || '-');
+              $schemeInfo.find('#form-subdepartment_name').text(info.subdepartment_name || '-');
+              $schemeInfo.find('#form-scheme_code').text(info.scheme_code || '-');
+              $schemeInfo.find('#form-scheme_category').text(info.scheme_category || '-');
+              $schemeInfo.find('#form-freezed').text(info.freezed || '-');
+            }
+            $schemeInfo.find('#form-exclusion_name').text(exclusive?.ExclusiveSchemeName || '-');
+
+            if ($.fn.DataTable.isDataTable('#payment_installment_details')) {
+              $('#payment_installment_details').DataTable().destroy();
+            }
+            $('#payment_installment_details').DataTable({
+              data: paymentDetails,
+              paging: false,
+              lengthMenu: false,
+              ordering: true,
+              info: false,
+              responsive: true,
+              dom: 'lrtip',
+              columnDefs: [
+                { className: "dt-center", targets: "_all" }
+              ],
+              columns: [
+                {
+                  data: null,
+                  render: (data, type, row, meta) => meta.row + 1
+                },
+                { data: "paymentmode" },
+                { data: "installmentid" },
+                {
+                  data: "paymentpercentage",
+                  render: function (data, type, row) {
+                    return data + " %";
+                  }
+                },
+              ]
+
+            });
+          } else {
+            Object.keys(fieldMapping).forEach(function (fieldname) {
+              var $fieldContainer = $('#scheme_info').find(fieldMapping[fieldname]).closest('.mb-1');
+              $fieldContainer.hide();
+            });
+          }
+        },
+        error: function (error) {
+          console.log('Ajax Erro:', error);
+          alertof('error', '', 'Ajax Error', true, null);
+        }
+      });
+
+    }
+
+
+
+    function updateDateTime() {
+      const now = new Date();
+      const options = {
+        timeZone: 'Asia/Kolkata', // Use Asia/Kolkata for Indian time zone
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false // Use 24-hour format
+      };
+      const formattedDate = now.toLocaleString('en-IN', options).replace(',', ''); // Format: DD/MM/YYYY HH:mm:ss
+      document.getElementById('dateTimeLink').textContent = formattedDate;
+    }
+
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+  </script>
+
+
+  <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  /* ================================
+     SIDEBAR TOGGLE
+  ================================= */
+
+  const sidebarToggle = document.getElementById("sidebarToggle");
+  const sidebarIcon = sidebarToggle?.querySelector("i");
+
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener("click", function () {
+
+      console.log("clicked"); // ✅ debug
+
+      document.body.classList.toggle("sidebar-expanded");
+
+      sidebarIcon?.classList.toggle("bi-list");
+      sidebarIcon?.classList.toggle("bi-x-lg");
+
+    });
+  }
+
+
+  /* ================================
+     PROFILE DROPDOWN
+  ================================= */
+
+  const trigger = document.getElementById("profileTrigger");
+  const dropdown = document.getElementById("profileDropdown");
+
+  trigger?.addEventListener("click", function (e) {
+    e.stopPropagation();
+    dropdown.classList.toggle("show");
+  });
+
+  dropdown?.addEventListener("click", function (e) {
+    e.stopPropagation();
+  });
+
+  document.addEventListener("click", function () {
+    dropdown?.classList.remove("show");
+  });
+
+});
+
+</script>
+
+
+
+
+  <!-- refresh loader -->
+  <script>
+    $('.refresh_submit').on('click', function () {
+
+  let loader = $('#modalLoader');
+  let progressBar = $('#progressBar');
+  let success = $('#modalSuccess');
+
+  loader.addClass('active');
+
+  let progress = 0;
+
+  let interval = setInterval(() => {
+
+    progress += Math.floor(Math.random() * 10) + 5; // smooth random speed
+
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(interval);
+
+      // complete progress
+      progressBar.css('width', '100%').text('100%');
+
+      // show success
+      setTimeout(() => {
+        loader.removeClass('active');
+        success.addClass('show');
+
+        // hide success + close modal
+        setTimeout(() => {
+          success.removeClass('show');
+          $('#refreshModal').modal('hide');
+        }, 1500);
+
+      }, 500);
+
+    } else {
+      progressBar.css('width', progress + '%').text(progress + '%');
+    }
+
+  }, 200);
+
+});
+  </script>
+  <!-- refersh laoder -->
+
+
+
+
+
+  <!-- ripple bnt -->
+  <script>
+    $(document).on('click', '.ripple', function (e) {
+
+  let $this = $(this);
+
+  let offset = $this.offset();
+  let x = e.pageX - offset.left;
+  let y = e.pageY - offset.top;
+
+  let ripple = $('<span class="ripple-effect"></span>');
+
+  ripple.css({
+    top: y + 'px',
+    left: x + 'px',
+    width: '20px',
+    height: '20px'
+  });
+
+  $this.append(ripple);
+
+  setTimeout(() => {
+    ripple.remove();
+  }, 600);
+
+});
+
+    $(document).on('click', '.nav-link.ripple', function () {
+
+  let $this = $(this);
+  let ripple = $('<span class="ripple-effect"></span>');
+
+  ripple.css({
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%) scale(0)'
+  });
+
+  $this.append(ripple);
+
+  setTimeout(() => ripple.remove(), 600);
+
+});
+  </script>
+  <!-- ripple btn -->
+
+</body>
+
+</html>

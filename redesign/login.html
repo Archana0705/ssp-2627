@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>TN State Scholarship Portal</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <!-- Favicons -->
+  <link href="../assets/img/tn_logo.png" rel="icon">
+  <link href="../assets/img/tn_logo.png" rel="apple-touch-icon">
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/aos/aos-min.css">
+
+
+  <link rel="stylesheet" href="assets/css/header_style.css">
+  <link rel="stylesheet" href="assets/common-style/v3.css">
+  <link rel="stylesheet" href="assets/common-style/style.css">
+
+
+
+  <style>
+    /* LOADER OVERLAY */
+    .modal-loader {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+
+      opacity: 0;
+      pointer-events: none;
+      transition: all .3s ease;
+    }
+
+    .modal-loader.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* loader card */
+    .loader-card {
+      background: #fff;
+      padding: 24px 30px;
+      border-radius: 14px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 260px;
+    }
+
+    /* spinning icon */
+    .loader-icon {
+      font-size: 26px;
+      color: #5b5fc7;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+
+    /* SUCCESS TOAST */
+    .modal-success {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+
+      background: #10b981;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all .3s ease;
+    }
+
+    .modal-success.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    /* MAIN CARD */
+
+    .student-premium-card {
+      background: linear-gradient(145deg, #ffffff, #f4f6fb);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+      transition: all .3s ease;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+
+
+    /* SECTION TITLE */
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #2c3e70;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      border-left: 4px solid #5b6cff;
+      padding-left: 12px;
+    }
+
+    .section-title i {
+      font-size: 22px;
+      color: #5b6cff;
+    }
+
+
+    /* PROFILE HEADER */
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 25px;
+    }
+
+
+    /* AVATAR */
+
+    .profile-avatar {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #5b6cff, #7a8cff);
+      box-shadow: 0 6px 18px rgba(91, 108, 255, 0.4);
+    }
+
+
+    /* PROFILE NAME */
+
+    .profile-info h4 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 600;
+      color: #2b2f4b;
+      margin-bottom: 6px;
+    }
+
+
+    /* BADGES */
+
+    .profile-info .badge {
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-right: 4px;
+      letter-spacing: .3px;
+    }
+
+
+    /* DETAILS GRID */
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 15px;
+    }
+
+
+    /* DETAIL ITEM */
+
+    .details-grid div {
+      background: white;
+      border-radius: 10px;
+      padding: 8px 14px;
+      border: 1px solid #e4ebff;
+      transition: all .25s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+
+    .details-grid div:hover {
+      background: #f9faff;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+    }
+
+
+    /* LABEL */
+
+    .details-label {
+      font-weight: 600;
+      color: #4a4f6d;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+
+    /* ICON */
+
+    .details-label i {
+      color: #5b6cff;
+      font-size: 15px;
+    }
+
+
+    /* VALUE */
+
+    .details-value {
+      font-weight: 500;
+      color: #2b2f4b;
+      font-size: 14px;
+      margin-left: 6px;
+    }
+
+
+    /* VERIFIED ICON */
+
+    .bi-patch-check-fill {
+      font-size: 16px;
+    }
+
+    .bi-x-circle-fill {
+      font-size: 16px;
+    }
+
+
+    /* MOBILE RESPONSIVE */
+
+    @media(max-width:768px) {
+
+      .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .profile-avatar {
+        width: 55px;
+        height: 55px;
+        font-size: 20px;
+      }
+
+      .details-grid {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+    .student-premium-card {
+      animation: fadeStudent .5s ease;
+    }
+
+    @keyframes fadeStudent {
+
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+    }
+
+    /* HEADER ALIGNMENT */
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+
+    /* NAME */
+
+    .student-name-row h4 {
+      font-size: 19px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #2c3553;
+    }
+
+
+    /* META ROW */
+
+    .student-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+
+    /* BADGE IMPROVEMENTS */
+
+    .student-meta .badge {
+      font-size: 13px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+    }
+
+
+    /* PHONE BADGE */
+
+    .badge-phone {
+      background: #eef2ff;
+      color: #3949ab;
+      border: 1px solid #e0e6ff;
+    }
+
+
+    /* ICON INSIDE BADGE */
+
+    .student-meta i {
+      font-size: 13px;
+    }
+
+
+    /* AVATAR IMPROVEMENT */
+
+    .profile-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      box-shadow: 0 6px 15px rgba(79, 70, 229, .35);
+    }
+
+    .badge-phone i:last-child {
+      font-size: 14px;
+      margin-left: 3px;
+    }
+
+    ul#student_info_update {
+      border-bottom: 0;
+    }
+
+    #student_info_update button.nav-link.active {
+      border-radius: 4px 7px;
+      box-shadow: 1px 5px 10px rgb(0 0 0 / 20%) !important;
+    }
+
+    #student_info_update button.nav-link {
+      border: 1px solid #6859b0;
+      border-radius: 4px 7px;
+      color: #33208c;
+      font-size: 14px;
+    }
+
+    #student_info_update button.nav-link:hover {
+      background: #6859b0;
+      color: #fff;
+      transition: 0.3 all;
+    }
+
+    .text-view {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .details-label i {
+      color: #6859b0 !important;
+      margin-right: 6px;
+    }
+
+    /* modal surface */
+    .custom-modal .modal-content {
+      border-radius: 16px;
+      border: none;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      padding: 10px;
+    }
+
+    /* cards */
+    .refresh-card {
+      background: #fff;
+      border: 1px solid #eef1f6;
+      border-radius: 12px;
+      padding: 16px;
+      transition: all .25s ease;
+    }
+
+    .refresh-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+      border-color: #dbe2ff;
+    }
+
+    /* header inside card */
+    .refresh-card .card-header {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .refresh-card .card-header i {
+      font-size: 20px;
+      color: #5b5fc7;
+      background: #eef0ff;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    /* title */
+    .refresh-card h6 {
+      margin: 0;
+      font-weight: 600;
+    }
+
+    /* subtitle */
+    .refresh-card p {
+      margin: 0;
+      font-size: 12px;
+      color: #6b7280;
+    }
+
+    /* checkbox spacing */
+    .form-check {
+      cursor: pointer;
+    }
+
+    .modal.fade .modal-dialog {
+      transform: translateY(20px) scale(.98);
+      transition: all .25s ease;
+    }
+
+    .modal.show .modal-dialog {
+      transform: translateY(0) scale(1);
+    }
+
+
+
+    .custom-modal-width {
+      max-width: 50% !important;
+      /* Adjust percentage as needed */
+    }
+
+    .otp-field input {
+      display: inline-block !important;
+      width: 15% !important;
+    }
+
+    #scheme_details_length .custom-select.custom-select-sm.form-control.form-control-sm {
+      margin: 0px 6px;
+      font-size: 12px !important;
+      padding: 0 10px;
+      min-height: calc(0.5em + 0.5em + 2px) !important;
+      font-weight: 600;
+    }
+
+    .tab-title {
+      background-color: #301d92;
+      color: white;
+    }
+
+    .parameter-list {
+      list-style: none;
+      margin: 0;
+      padding: 0px 1px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .parameter-items {
+      background: #e4f1ff;
+      padding: 2px 4px;
+      border-radius: 5px;
+      list-style: none;
+      width: max-content;
+      margin: 3px;
+    }
+
+    .modal-header {
+      padding: 10px 20px;
+      box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 8px 20px rgba(16, 24, 40, 0.06) !important;
+    }
+
+    /* .progress {
+      --bs-progress-height: 1.00rem !important;
+    } */
+
+    .applyCancleCta .btn:disabled {
+      background-color: grey;
+      /* Change to your preferred grey color */
+      color: white;
+      /* Change text color if needed */
+      cursor: not-allowed;
+      /* Optional: Change cursor style */
+      opacity: 0.6;
+      /* Optional: Make it look faded */
+    }
+
+    .custom-checkbox .form-check-input {
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .custom-checkbox .form-check-label {
+      font-size: 12px;
+      color: #495057;
+      line-height: 1.5;
+    }
+
+    .form-check.custom-checkbox:hover .form-check-input {
+      background-color: #33208c;
+      border-color: #33208c;
+    }
+
+    .form-check.custom-checkbox:focus-within .form-check-input {
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .hover-shadow-lg:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-check.custom-checkbox input:checked {
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+
+    .form-check.custom-checkbox input:checked+.form-check-label {
+      color: #28a745;
+    }
+
+    .resend-button {
+      background: #33208c;
+      /* Blue background */
+      border: none;
+      color: white;
+      font-size: 12px;
+      /* padding: 8px 12px; */
+      border-radius: 10%;
+      /* display: flex; */
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .resend-button i {
+      font-size: 1.2em;
+    }
+
+    .resend-button:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      background: #0056b3;
+      /* Darker blue on hover */
+    }
+
+    .resend-button:active {
+      transform: scale(0.95);
+    }
+
+    .parameters {
+      max-height: 20vh;
+    }
+
+    #scheme_info .over-scroll-down {
+      overflow-y: scroll !important;
+    }
+
+    #check_scheme_eligibility {
+      margin-bottom: 77px;
+    }
+
+    #scheme_eligibility {
+      margin-bottom: 77px;
+    }
+
+    #studentTableBody td:nth-child(2) {
+      word-break: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+    }
+
+    #schemeTableBody td:nth-child(2) {
+      word-break: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+    }
+
+    .table td {
+      max-height: 50px;
+      /* Set a maximum height */
+      overflow: hidden;
+      /* Hide overflow */
+      text-overflow: ellipsis;
+      /* Add ellipsis for overflow */
+      white-space: nowrap;
+      /* Prevent wrapping */
+      line-height: 1.2;
+      /* Set line height for readability */
+    }
+
+    #check_scheme_content td:nth-child(2) {
+      height: 150px;
+      overflow-y: auto;
+      word-break: break-all !important;
+      white-space: break-spaces;
+      display: block;
+    }
+
+    /* Add these styles in the existing style block */
+    .student-details-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .scheme-table th {
+      /* background: #f8f9fa; */
+      font-weight: 600;
+    }
+
+    .scheme-checkbox {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .apply-button {
+      min-width: 120px;
+      transition: all 0.3s ease;
+    }
+
+    .apply-button:disabled {
+      background-color: #6c757d;
+      border-color: #6c757d;
+      opacity: 0.65;
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+
+
+
+  <header id="header" class="app-header fixed-top">
+
+    <!--   <div class="header-left">
+
+    <button class="sidebar-toggle toggle-sidebar-btn1">
+      <i class="bi bi-list"></i>
+    </button>
+
+    <a href="index.html" class="app-logo">
+      <img src="../assets/img/tn_logo.png" alt="logo">
+      <div class="logo-text">
+        <span class="portal-title">Tamil Nadu Integrated State Scholarship Portal</span>
+        <span class="portal-subtitle">Government of Tamil Nadu</span>
+      </div>
+    </a>
+
+  </div> -->
+
+
+    <div class="header-left d-flex align-items-center gap-2">
+
+
+
+      <a href="#" class="logo d-flex align-items-center">
+        <img src="assets/img/tn_logo.png" class="logo_header">
+        <div class="ms-2">
+          <div class="title">Tamil Nadu Integrated State Scholarship Portal</div>
+          <small class="subtitle">Government of Tamil Nadu</small>
+        </div>
+      </a>
+
+    </div>
+
+
+    <div class="header-right">
+
+      <div class="header-tools">
+
+       
+        <!-- Date Time -->
+        <div class="header-time">
+          <i class="bi bi-clock"></i>
+          <span id="dateTimeLink">13/03/2026 14:31:15</span>
+        </div>
+
+
+
+      </div>
+
+
+    </div>
+
+  </header>
+
+  <!-- End Sidebar-->
+  <!-- <div id="preloader"></div> -->
+  <!-- End Sidebar-->
+
+  <!-- <div class="container-fluid p-2"> -->
+
+  <style>
+    .hero {
+      position: fixed;
+      transform: translate(-50%, -50%) scale(1.1);
+      top: 50%;
+      left: 50%;
+      width: 500px;
+      box-shadow: 3px 3px 5px rgba(255, 255, 255, .3), 3px 3px 5px rgba(0, 0, 0, 0.096), -10px -10px 5px rgba(138, 138, 138, 0.041), 3px 3px 5px rgba(0, 0, 0, 0.096);
+      padding: 35px;
+      border-radius: 20px;
+      backdrop-filter: blur(50px) brightness(120%);
+    }
+
+    .bg {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      filter: blur(35px) saturate(80%) brightness(100%);
+      opacity: 100%;
+      animation: zoomer 60s ease-in-out infinite;
+    }
+
+    @keyframes zoomer {
+      0% {
+        opacity: 0;
+        transform: scale(1);
+      }
+
+      10% {
+        opacity: 100%;
+      }
+
+      90% {
+        opacity: 100%;
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(2) rotate(45deg);
+      }
+    }
+
+    .log-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 0 !important;
+    }
+  </style>
+  <div class="bg"><img src="assets/img/bg-login.jpg" alt=""></div>
+  <div class="hero">
+
+    <!-- Tab Content -->
+
+    <div>
+      <div class="text-center">
+        <img src="assets/img/tn_logo.png" alt="" width="50px">
+      </div>
+      <div class="log-title">🏛️ Department Login</div>
+      <div class="card-subtitle text-center">No credentials? Contact <span><a href="">TNeGA</a></span> to register</div>
+      <div class="row d-flex no-wrap mb-3">
+        <div class="d-flex flex-column">
+
+          <style>
+            .floatingInput {
+              color: #012970;
+              font-weight: 600;
+              border-radius: 15px;
+            }
+
+            .form-floating label {
+              color: #6c757d;
+            }
+
+            .captcha-container {
+              display: flex;
+              flex-direction: row;
+              justify-content: space-between;
+              margin-top: 10px;
+              gap: 10px;
+              align-items: center;
+            }
+
+            button.refersh-captcha {
+              padding: 5px 10px;
+              background-color: #11367a;
+              border-radius: 20px;
+              color: wheat;
+              border: none;
+              cursor: pointer;
+            }
+
+            #captcha-img {
+              position: relative;
+              background:
+                repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 2px, transparent 2px, transparent 6px),
+                repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 2px, transparent 2px, transparent 6px),
+                linear-gradient(135deg, #e0f7fa, #fce4ec, #e8f5e9);
+              border-radius: 8px;
+              padding: 15px;
+              font-weight: bold;
+              font-size: 22px;
+              letter-spacing: 4px;
+              text-align: center;
+              color: #012970;
+              min-width: 150px;
+              border: 1px dotted rgba(0, 0, 0, 0.281);
+            }
+
+            .submit {
+              padding: 10px 10px;
+              background-color: #11367a;
+              border-radius: 5px;
+              color: wheat;
+              border: 1px solid #11367a00;
+              font-weight: 600;
+              transition: all 0.2s ease-in-out;
+            }
+
+            .submit:hover {
+              padding: 10px 10px;
+              background-color: #ffffff00;
+              border-radius: 5px;
+              color: #11367a;
+              border: 1px solid #11367a;
+              font-weight: 600;
+              letter-spacing: 2px;
+            }
+
+            .card-subtitle {
+              color: #373737;
+            }
+
+            .card-subtitle a {
+              color: rgb(49, 51, 161);
+              font-weight: 700;
+            }
+          </style>
+          <div class="" data-aos="zoom-out" data-aos-duration="1500">
+            <div class="form-floating"> <input type="text" class="form-control floatingInput" id="username"
+                placeholder="name@example.com">
+              <label for="floatingInput">User Name</label>
+            </div>
+
+          </div>
+          <div class="mt-2" data-aos="zoom-out" data-aos-duration="1500">
+            <div class="form-floating"> <input type="password" class="form-control floatingInput" id="password"
+                placeholder="name@example.com">
+              <label for="floatingInput">Password</label>
+            </div>
+
+          </div>
+          <div class="container">
+            <div class="row g-3 align-items-end">
+
+              <div class="col-md-6">
+                <label class="form-label">Captcha</label>
+                <input type="text" class="form-control" id="captcha" placeholder="Enter captcha" required>
+              </div>
+
+              <div class="col-md-6 d-flex align-items-center gap-2">
+                <img src="" alt="CAPTCHA Image" id="captcha-image" class="img-fluid border p-1">
+
+                <button type="button" id="refreshCaptcha" class="btn btn-outline-primary">
+                  <i class="bi bi-arrow-clockwise"></i>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <button class="submit mt-2" id="loginBtn">Sign in <i class="bi bi-box-arrow-in-right"></i></button>
+          <div class="card-subtitle mt-2"><a href="">Forgot Password?</a></div>
+
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/aos/aos-min.js"></script>
+  <script>
+    AOS.init();
+  </script>
+  <script src="assets/js/crypto-js.min.js"></script>
+  <script src="assets/js/page-script/api.js"></script>
+  <script src="assets/js/global.js"></script>
+  <script src="assets/js/page-script/login.js"></script>
+
+
+
+
+
+
+</body>
+
+</html>

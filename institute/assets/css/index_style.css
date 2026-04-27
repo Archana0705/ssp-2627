@@ -1,0 +1,282 @@
+
+.head-label {
+    text-align: center;
+    color: #301d92;
+    font-weight: 800;
+    font-family: 'Nunito';
+  }
+
+  #scheme_info .form-label {
+    color: var(--shade1) !important;
+    font-weight: 800;
+    text-wrap: nowrap;
+
+  }
+  
+  #scheme_info .card-body {
+    padding: 5px !important;
+  }
+.dataTables_wrapper .dataTables_filter input {
+  width: auto;
+  /* Adjust width if necessary */
+  display: inline-block;
+  /* Make sure it's inline */
+  margin: 0;
+  /* Remove default margins */
+  margin-left: 10px;
+}
+
+.dataTables_wrapper .dataTables_filter label {
+  display: inline;
+  /* Make sure label is inline */
+}
+
+.dataTables_wrapper .dataTables_length label {
+    display: inline-flex;
+      margin: 0;
+  }
+/* Optional: Remove the default padding/margins around the table */
+.dataTables_wrapper .dataTables_wrapper {
+  margin: 0;
+}
+
+.table {
+  margin-bottom: 0px;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.customer-details h5 {
+  font-weight: bolder;
+  color: #33208c;
+  font-size: 15px;
+}
+
+.customer-details p {
+  font-size: 14px;
+}
+
+.applyScreen .sectionSeparate {
+  border: 1px solid #331f8e;
+  border-radius: 5px;
+  /* margin-bottom: 3rem !important; */
+  margin-bottom: 1rem;
+  /* padding: 1rem; */
+}
+
+/* .applyScreen .sectionSeparate table th {
+  font-size: 14px;
+  font-weight: 100;
+} */
+
+.applyScreen .sectionSeparate h6 {
+  padding: .5rem;
+  text-align: left;
+  color: whitesmoke;
+  font-weight: bolder;
+  background: var(--shade1);
+
+}
+
+#scheme_info .applyScreen .sectionSeparate h6 {
+  padding: .5rem;
+  text-align: left;
+  color: rgb(0, 0, 0);
+  font-weight: bolder;
+  background: #ffffff;
+
+}
+
+.screen_infocls .sectionSeparate h6 {
+  padding: .5rem !important;
+  text-align: left !important;
+  /* Uncomment and adjust the color if needed */
+  color: rgb(0, 0, 0);
+  font-weight: bold !important;
+  /* Changed from 'bolder' to 'bold' */
+  /* Uncomment and adjust the background if needed */
+  background: #ffffff;
+}
+
+.applyScreen .form-group ul {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.studentScreen ul {
+  border: 1px solid #465f9f;
+  margin-top: 2rem;
+  width: 75%;
+}
+
+.applyScreen .form-group ul li {
+  border: 0;
+  display: inline-block;
+  list-style-type: none;
+ 
+  vertical-align: top;
+  width: 50%;
+}
+
+.applyScreen .tnLogo img {
+  width: 50px;
+}
+
+.applyScreen .form-group.marBtm {
+  margin-bottom: 1rem;
+}
+
+.applyScreen .form-group {
+  text-align: left;
+}
+
+.applyScreen label {
+  color: var(--shade1) !important;
+  font-weight: 600;
+  text-wrap: nowrap;
+}
+
+.applyScreen label b {
+  color: black;
+  text-wrap: wrap
+}
+
+/* .otp-field {
+flex-direction: row;
+column-gap: 10px;
+display: flex;
+align-items: center;
+justify-content: center;
+} */
+
+.otp-field input {
+  height: 45px;
+  width: 42px;
+  border-radius: 6px;
+  outline: none;
+  font-size: 1.125rem;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.otp-field input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.otp-field input::-webkit-inner-spin-button,
+.otp-field input::-webkit-outer-spin-button {
+  display: none;
+}
+
+.resend {
+  font-size: 12px;
+}
+
+#scheme_details_filter {
+  margin-left: 10px;
+}
+
+#scheme_info .card-header {
+  font-weight: 800;
+  color: #331f8e;
+}
+
+.form-check .form-check-input {
+  float: none;
+  /* margin-left: -1.5em; */
+}
+.filter-john{
+  position: absolute;
+  display: flex;
+  width: max-content;
+  top: 5px;
+}
+.table-responsive{
+  position: relative;
+}
+.dataTables_wrapper .dataTables_filter label{
+  width: 100%;
+  font-size: 14px;
+  font-weight: 600;
+}
+.filter-john select{
+  width: 100%;
+  padding: 0px 40px 0px 15px !important;
+  margin: 0px 10px;
+  text-wrap: nowrap;
+}  
+.filter-john label{
+  width: 100%;
+  text-wrap: nowrap;
+}
+/* Custom CSS for DataTable */
+.dataTables_wrapper .dataTables_filter {
+  text-align: right; /* Align search box to the right */
+}
+.dataTables_wrapper .dataTables_length label {
+  display: inline-flex;
+    margin: 0;
+}
+.dataTables_wrapper .dataTables_filter input {
+  width: auto; /* Adjust width if necessary */
+  display: inline-block; /* Make sure it's inline */
+  margin: 0; /* Remove default margins */
+}
+
+.dataTables_wrapper .dataTables_filter label {
+  display: inline; /* Make sure label is inline */
+}
+#scheme_list_length .custom-select.custom-select-sm.form-control.form-control-sm{
+  margin: 0px 6px;
+    font-size: 12px !important;
+    padding: 0 10px;
+    min-height: calc(0.5em + 0.5em + 2px) !important;
+    font-weight: 600;
+}
+/* Optional: Remove the default padding/margins around the table */
+.dataTables_wrapper .dataTables_wrapper {
+  margin: 0;
+}
+.min-filter-drops{
+  border-radius: 20px;
+  width: 20%;
+}
+
+.head-label {
+  text-align: center;
+  color: #301d92;
+  font-weight: 800;
+  font-family: 'Nunito';
+}
+
+#scheme_info .form-label {
+  color: var(--shade1) !important;
+  font-weight: 800;
+  text-wrap: nowrap;
+
+}
+
+#scheme_info .card-body {
+  padding: 5px !important;
+}
+/* Ensure buttons in the action column are centered */
+.table .action-buttons {
+    text-align: center;
+}
+
+/* Style buttons within the action column */
+.table .action-buttons .btn {
+    margin: 0 5px; /* Space between buttons */
+}
+
+/* Optional: Adjust the size or padding of the buttons */
+.table .action-buttons .btn i {
+    margin-right: 5px; /* Space between icon and text */
+}
+.bi-patch-check-fill{ 
+  color: green;
+}

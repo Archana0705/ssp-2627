@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>TN State Scholarship Portal</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <!-- Favicons -->
+  <link href="../institute/assets/img/tn_logo.png" rel="icon">
+  <link href="../institute/assets/img/tn_logo.png" rel="apple-touch-icon">
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="../institute/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../institute/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/css/header_style.css">
+
+
+  <link rel="stylesheet" href="../institute/assets/aos/aos-min.css">
+  <!-- <link href="../institute/assets/css/style.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="../institute/assets/vendor/datatable/dataTables.bootstrap5.min.css">
+  <script src="../components/view-scheme-component.js" type="text/javascript" defer></script>
+  <script src="../components/check-eligibility.js" type="text/javascript" defer></script>
+  <link rel="stylesheet" href="../assets/common-style/style.css">
+  <link href="../institute/assets/vendor/datatables-new/css/buttons.dataTables.css" rel="stylesheet">
+  <link href="../institute/assets/vendor/datatables-new/css/dataTables.dataTables.css" rel="stylesheet">
+  <link href="../institute/assets/vendor/datatables-new/css/responsive.dataTables.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap5.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-buttons-bs5/3.1.2/buttons.bootstrap5.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/datatables.net-buttons-dt/3.1.2/buttons.dataTables.css">
+  <!-- ...existing head content... -->
+  <style>
+    #scheme_check_caste th:nth-child(1),
+    #scheme_check_caste td:nth-child(1) {
+      width: 10% !important;
+      /* First column: 10% */
+    }
+
+    #scheme_check_caste th:nth-child(2),
+    #scheme_check_caste td:nth-child(2) {
+      width: 50% !important;
+      /* Second column: 50% */
+    }
+
+    #scheme_check_caste th:nth-child(3),
+    #scheme_check_caste td:nth-child(3) {
+      width: 15% !important;
+      /* Third column: 15% */
+    }
+
+    #scheme_check_caste th:nth-child(4),
+    #scheme_check_caste td:nth-child(4) {
+      width: 15% !important;
+      /* Fourth column: 15% */
+    }
+
+    #check_eligibility_content td:nth-child(2) {
+      height: 150px;
+      overflow-y: auto;
+      word-break: break-all !important;
+      white-space: break-spaces;
+      display: block;
+    }
+
+    #check_scheme_content td:nth-child(2) {
+      height: 150px;
+      overflow-y: auto;
+      word-break: break-all !important;
+      white-space: break-spaces;
+      display: block;
+    }
+
+    td#scheme_check_caste {
+      height: 150px;
+      overflow-y: scroll;
+      word-break: break-all !important;
+      white-space: break-spaces;
+      display: block;
+    }
+
+    .header .toggle-sidebar-btn {
+      font-size: 32px !important;
+    }
+
+    .filter-john {
+      position: absolute;
+      display: flex;
+      width: max-content;
+      top: 5px;
+    }
+
+    .table-responsive {
+      position: relative;
+    }
+
+    .dataTables_wrapper .dataTables_filter label {
+      width: 100%;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .filter-john select {
+      width: 100%;
+      padding: 0px 40px 0px 15px !important;
+      margin: 0px 10px;
+      text-wrap: nowrap;
+    }
+
+    .filter-john label {
+      width: 100%;
+      text-wrap: nowrap;
+    }
+
+    /* Custom CSS for DataTable */
+    .dataTables_wrapper .dataTables_filter {
+      text-align: right;
+      /* Align search box to the right */
+    }
+
+    .dataTables_wrapper .dataTables_length label {
+      display: inline-flex;
+      margin: 0;
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+      width: auto;
+      /* Adjust width if necessary */
+      display: inline-block;
+      /* Make sure it's inline */
+      margin: 0;
+      /* Remove default margins */
+    }
+
+    .dataTables_wrapper .dataTables_filter label {
+      display: inline;
+      /* Make sure label is inline */
+    }
+
+    #scheme_list_length .custom-select.custom-select-sm.form-control.form-control-sm {
+      margin: 0px 6px;
+      font-size: 12px !important;
+      padding: 0 10px;
+      min-height: calc(0.5em + 0.5em + 2px) !important;
+      font-weight: 600;
+    }
+
+    /* Optional: Remove the default padding/margins around the table */
+    .dataTables_wrapper .dataTables_wrapper {
+      margin: 0;
+    }
+
+    .min-filter-drops {
+      border-radius: 20px;
+      width: 20%;
+    }
+
+    .head-label {
+      text-align: center;
+      color: #301d92;
+      font-weight: 800;
+      font-family: 'Nunito';
+    }
+
+    #scheme_info .form-label {
+      color: var(--shade1) !important;
+      font-weight: 800;
+      text-wrap: nowrap;
+
+    }
+
+    #scheme_info .card-body {
+      padding: 5px !important;
+    }
+
+    /* Ensure buttons in the action column are centered */
+    .table .action-buttons {
+      text-align: center;
+    }
+
+    /* Style buttons within the action column */
+    .table .action-buttons .btn {
+      margin: 0 5px;
+      /* Space between buttons */
+    }
+
+    /* Optional: Adjust the size or padding of the buttons */
+    .table .action-buttons .btn i {
+      margin-right: 5px;
+      /* Space between icon and text */
+    }
+
+    .tab-title {
+      background-color: #301d92;
+      color: white;
+    }
+
+    .parameter-list {
+      list-style: none;
+      margin: 0;
+      padding: 0px 1px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .parameter-items {
+      background: #e4f1ff;
+      padding: 2px 4px;
+      border-radius: 5px;
+      list-style: none;
+      width: max-content;
+      margin: 3px;
+    }
+
+/*    .modal-header {
+      padding: 10px 20px;
+      box-shadow: 0px 0px 10px #00000096;
+    }*/ 
+
+    .table td {
+      max-height: 50px;
+      /* Set a maximum height */
+      overflow: hidden;
+      /* Hide overflow */
+      text-overflow: ellipsis;
+      /* Add ellipsis for overflow */
+      white-space: nowrap;
+      /* Prevent wrapping */
+      line-height: 1.2;
+      /* Set line height for readability */
+    }
+
+    .table td.long-text {
+      white-space: normal;
+      /* Allow wrapping for longer text */
+    }
+
+    .students-wrap {
+      height: 38vh;
+      overflow-y: auto;
+    }
+
+    #subscheme_list tr td:nth-child(1) {
+      width: 450px;
+      /* Set the width of the td element */
+      word-wrap: break-word;
+      /* Ensure long words break onto the next line */
+      white-space: normal;
+      /* Allow text to wrap */
+      /* overflow-y: auto; 
+    display: block;  */
+    }
+
+    #subscheme_list tr td:nth-child(2) {
+      width: 250px;
+      /* Set the width of the td element */
+      word-wrap: break-word;
+      /* Ensure long words break onto the next line */
+      white-space: normal;
+      /* Allow text to wrap */
+
+    }
+
+    .parameters {
+      max-height: 20vh;
+      overflow-y: scroll !important;
+    }
+
+    :root {
+      --primary-color: rgb(34, 25, 109);
+      --text-color: #333;
+      --value-color: #666;
+      --background-color: #f0f2f5;
+      --neumorphic-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2), -3px -3px 6px rgba(255, 255, 255, 0.8);
+    }
+
+    #studentDetailsModal .modal.fade .modal-dialog {
+      transform: translateY(-30px);
+      opacity: 0;
+      transition: transform 0.3s ease-out, opacity 0.3s ease;
+    }
+
+    #studentDetailsModal .modal.show .modal-dialog {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    #studentDetailsModal .modal-content {
+      border: none;
+      border-radius: 12px;
+      background: var(--background-color);
+      box-shadow: var(--neumorphic-shadow);
+      overflow: hidden;
+    }
+
+    #studentDetailsModal .modal-header {
+      background: var(--primary-color);
+      color: white;
+      border-bottom: none;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #studentDetailsModal .modal-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    #studentDetailsModal .btn-close {
+      background: none;
+      filter: brightness(0) invert(1);
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
+    }
+
+    #studentDetailsModal .btn-close:hover {
+      opacity: 1;
+    }
+
+    #studentDetailsModal .modal-body {
+      padding: 1rem;
+    }
+
+    #studentDetailsModal .section-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin: 1rem 0 0.5rem;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 0.3rem;
+    }
+
+    #studentDetailsModal .detail-card {
+      background: white;
+      border-radius: 8px;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      box-shadow: var(--neumorphic-shadow);
+    }
+
+    #studentDetailsModal .student-details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      #studentDetailsModal .student-details-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    #studentDetailsModal .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.3rem 0;
+    }
+
+    #studentDetailsModal .detail-label {
+      font-weight: 600;
+      color: var(--text-color);
+      flex: 0 0 40%;
+    }
+
+    #studentDetailsModal .detail-value {
+      color: var(--value-color);
+      flex: 1;
+      text-align: right;
+    }
+
+    #studentDetailsModal .modal-footer {
+      border-top: none;
+      padding: 1rem;
+      background: var(--background-color);
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    #studentDetailsModal .btn {
+      padding: 0.4rem 1rem;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+    }
+
+    #studentDetailsModal .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--neumorphic-shadow);
+    }
+
+    #studentDetailsModal .btn-primary {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    #studentDetailsModal .btn-info {
+      background: #17a2b8;
+      color: white;
+    }
+
+    #studentDetailsModal .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+
+    #applyModal .modal.fade .modal-dialog {
+      transform: translateY(-30px);
+      opacity: 0;
+      transition: transform 0.3s ease-out, opacity 0.3s ease;
+    }
+
+    #applyModal .modal.show .modal-dialog {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    #applyModal .modal-content {
+      border: none;
+      border-radius: 12px;
+      background: var(--background-color);
+      box-shadow: var(--neumorphic-shadow);
+      overflow: hidden;
+    }
+
+    #applyModal .modal-header {
+      background: var(--primary-color);
+      color: white;
+      border-bottom: none;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #applyModal .modal-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    #applyModal .btn-close {
+      background: none;
+      filter: brightness(0) invert(1);
+      opacity: 0.7;
+      transition: opacity 0.2s ease;
+    }
+
+    #applyModal .btn-close:hover {
+      opacity: 1;
+    }
+
+    #applyModal .modal-body {
+      padding: 1rem;
+    }
+
+    #applyModal .section-header {
+      background: var(--primary-color);
+      color: white;
+      padding: 0.5rem;
+      border-radius: 5px 5px 0 0;
+      margin-bottom: 0.5rem;
+    }
+
+    #applyModal .section-content {
+      background: white;
+      border-radius: 0 0 5px 5px;
+      padding: 0.5rem;
+      box-shadow: var(--neumorphic-shadow);
+      margin-bottom: 1rem;
+    }
+
+    #applyModal .detail-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      padding: 0.3rem 0;
+    }
+
+    #applyModal .detail-label {
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    #applyModal .detail-value {
+      color: var(--value-color);
+      text-align: right;
+    }
+
+    #applyModal .form-group {
+      margin-bottom: 0.5rem;
+    }
+
+    #applyModal .form-control {
+      border-radius: 5px;
+      padding: 0.4rem;
+      font-size: 0.9rem;
+      border: 1px solid #ccc;
+    }
+
+    #applyModal .btn {
+      padding: 0.4rem 1rem;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+    }
+
+    #applyModal .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--neumorphic-shadow);
+    }
+
+    #applyModal .btn-primary {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    #applyModal .radio-group {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    #applyModal .consent-text {
+      font-size: 0.9rem;
+      color: var(--text-color);
+      margin-bottom: 0.5rem;
+    }
+
+    #applyModal .form-check {
+      margin: 0.5rem 0;
+    }
+
+    #applyModal .sectionSeparate {
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: var(--neumorphic-shadow);
+    }
+
+    #applyModal h6 {
+
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    #applyModal .form-group ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #applyModal .form-group li {
+      margin-bottom: 0.3rem;
+    }
+
+    @media (max-width: 768px) {
+      #applyModal .detail-row {
+        grid-template-columns: 1fr;
+      }
+
+      #applyModal .col-lg-3,
+      #applyModal .col-lg-4 {
+        width: 100% !important;
+        float: none !important;
+      }
+    }
+
+    #opt_modal .modal-content {
+      border: none;
+      border-radius: 12px;
+      background: var(--background-color);
+      box-shadow: var(--neumorphic-shadow);
+    }
+
+    #opt_modal .modal-header {
+      background: var(--primary-color);
+      color: white !important;
+      border-bottom: none;
+      padding: 1rem;
+    }
+
+    #opt_modal .modal-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    #opt_modal .btn-close {
+      filter: brightness(0) invert(1);
+      opacity: 0.7;
+    }
+
+    #opt_modal .btn-close:hover {
+      opacity: 1;
+    }
+
+    #opt_modal .modal-body {
+      padding: 1rem;
+      text-align: center;
+    }
+
+    #opt_modal .otp-input {
+      width: 40px;
+      text-align: center;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin: 0 5px;
+    }
+
+    #opt_modal .resend {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    #opt_modal .modal-footer {
+      border-top: none;
+      padding: 1rem;
+      justify-content: center;
+    }
+
+
+    .swal2-html-container {
+
+
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+
+
+  <header id="header" class="app-header fixed-top">
+
+<!--   <div class="header-left">
+
+    <button class="sidebar-toggle toggle-sidebar-btn1">
+      <i class="bi bi-list"></i>
+    </button>
+
+    <a href="index.html" class="app-logo">
+      <img src="../assets/img/tn_logo.png" alt="logo">
+      <div class="logo-text">
+        <span class="portal-title">Tamil Nadu Integrated State Scholarship Portal</span>
+        <span class="portal-subtitle">Government of Tamil Nadu</span>
+      </div>
+    </a>
+
+  </div> -->
+
+    <div class="header-left d-flex align-items-center gap-2">
+
+  <div class="sidebar-toggle" id="sidebarToggle">
+    <i class="bi bi-list"></i>
+  </div>
+
+  <a href="#" class="logo d-flex align-items-center">
+    <img src="../assets/img/tn_logo.png" class="logo_header">
+    <div class="ms-2">
+      <div class="title">Tamil Nadu Integrated State Scholarship Portal</div>
+      <small class="subtitle">Government of Tamil Nadu</small>
+    </div>
+  </a>
+
+</div>
+
+
+  <div class="header-right">
+
+<div class="header-tools">
+
+  <!-- Accessibility Controls -->
+  <div class="font-controls">
+    <button class="btn-font increase">A+</button>
+    <button class="btn-font reset">A</button>
+    <button class="btn-font decrease">A-</button>
+  </div>
+
+  <!-- Language Switch -->
+  <div class="lang-switch" onclick="switchLang()">
+    <i class="bi bi-translate"></i>
+    <span>தமிழ்</span>
+  </div>
+
+  <!-- Date Time -->
+<div class="header-time">
+      <i class="bi bi-clock"></i>
+      <span id="dateTimeLink">13/03/2026 14:31:15</span>
+    </div>
+
+  <!-- Profile -->
+  <div class="profile-menu">
+
+    <div class="profile-trigger">
+      <div class="avatar">
+        <i class="bi bi-person"></i>
+      </div>
+
+      <span id="stud_name">M SAM</span>
+      <i class="bi bi-chevron-down"></i>
+    </div>
+
+    <div class="profile-dropdown">
+      <a href="#"><i class="bi bi-person"></i> Profile</a>
+      <a href="#"><i class="bi bi-gear"></i> Settings</a>
+      <a href="#"><i class="bi bi-box-arrow-right"></i> Logout</a>
+    </div>
+
+  </div>
+
+</div>
+
+
+  </div>
+
+</header>
+
+  <!-- End Header -->
+  <!-- ======= Sidebar ======= -->
+<!--   <aside id="sidebar" class="sidebar">
+    <ul class="nav nav-pills flex-column mb-auto">
+      <ul class="sidebar-nav" id="sidebar-nav" data-aos="fade-left" data-aos-duration="600">
+        <li class="nav-item">
+          <a class="nav-link" href="#" data-aos="fade-left" data-aos-duration="1000" id="dashboard-link">
+            <i class="bi bi-house-fill"></i>
+            <span data-i18n="dashboard-link">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="applied-schemes-link">
+            <i class="bi bi-card-checklist"></i>
+            <span data-i18n="applied-schemes-link">Applied Schemes</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="#" id="all-schemes-link">
+            <i class="bi bi-grid-fill"></i>
+            <span data-i18n="all-schemes-link">All Schemes</span>
+          </a>
+        </li>
+      </ul>
+  </aside> -->
+
+    <aside id="sidebar" class="app-sidebar">
+
+  <ul class="sidebar-nav">
+
+    <li class="nav-item">
+      <a class="nav-link " href="#" id="dashboard-link">
+        <i class="bi bi-house-door"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="#" id="applied-schemes-link">
+        <i class="bi bi-card-checklist"></i>
+        <span>Applied Schemes</span>
+      </a>
+    </li>
+
+    <li class="nav-item">         
+      <a class="nav-link active" href="#" id="all-schemes-link">
+        <i class="bi bi-grid"></i>
+        <span>All Schemes</span>
+      </a>
+    </li>
+
+  </ul>
+
+</aside>
+
+  <!-- End Sidebar-->
+  <!-- <div id="preloader"></div> -->
+  <!-- End Sidebar-->
+  <main id="main" class="main">
+    <!-- Dashboard view starts -->
+   <!--  <section>
+      <div class="add-btn-area">
+        <header class="pt-0 pb-0 mb-0" id="backtotop">
+          <h5 class="title">&nbsp;&nbsp;&nbsp;Schemes List</h5>
+        </header>
+      </div>
+
+
+      <div class="card">
+        <div class="container-fluid mt-4">
+
+          <div class="table-responsive">
+
+            <table class="table table-hover table-bordered" id="scheme_list" style="width: 100%!important;">
+              <thead>
+                <tr>
+                  <th scope="col-sm" data-aos="fade-up" data-aos-duration="100">S.no</th>
+                  <th scope="col-sm" data-aos="fade-up" data-aos-duration="700">Scheme Name</th>
+                  <th scope="col-sm" data-aos="fade-up" data-aos-duration="750">Department</th>
+                  <th scope="col-sm" data-aos="fade-up" data-aos-duration="750">Sub Department</th>
+                  <th scope="col-sm" data-aos="fade-up" data-aos-duration="1000" class="text-center">Details</th>
+                </tr>
+              </thead>
+              <tbody id="scheme_list_body">
+              </tbody>
+            </table>
+          </div>
+         
+          <div class="modal fade" id="scheme_info" tabindex="-1" role="dialog" aria-labelledby="modalTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-fullscreen-xl-down modal-dialog-centered modal-dialog-scrollable"
+              role="document">
+              <div class="modal-content">
+                <div class="modal-header border-bottom-0 text-center">
+                  <h5 class="head-label w-100">Scheme's with Sub Schemes Details</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="applyScreen">
+                    <div class="container">
+                      <div class="justify-content-center row">
+                        <div class="">
+                          <form class="">
+                            <div class="card">
+                              <div class="card-body">
+
+                                <div class="row">
+                                  <div class="mb-2 col-md-4">
+                                    <div>
+                                      <label class="d-block form-label" for="form-scheme_name">Scheme Name :</label>
+                                      <strong class="d-block" id="form-scheme_name">-</strong>
+                                    </div>
+                                  </div>
+                                  <div class="mb-2 col-md-4">
+                                    <div>
+                                      <label class="d-block form-label" for="form-frequency">Frequency :</label>
+                                      <strong class="d-block" id="form-frequency">-</strong>
+                                    </div>
+                                  </div>
+                                  <div class="mb-2 col-md-4">
+                                    <div>
+                                      <label class="d-block form-label" for="form-department_name">Department Name
+                                        :</label>
+                                      <strong class="d-block" id="form-department_name">-</strong>
+                                    </div>
+                                  </div>
+                                  <div class="mb-2 col-md-4">
+                                    <div>
+                                      <label class="d-block form-label" for="form-subdepartment_name">Subdepartment Name
+                                        :</label>
+                                      <strong class="d-block" id="form-subdepartment_name">-</strong>
+                                    </div>
+                                  </div>
+                                  <div class="mb-2 col-md-4">
+                                    <div>
+                                      <label class="d-block form-label" for="form-scheme_code">Scheme Code :</label>
+                                      <strong class="d-block" id="form-scheme_code">-</strong>
+                                    </div>
+                                  </div>
+                                  <div class="mb-2 col-md-4">
+                                    <div>
+                                      <label class="d-block form-label" for="form-scheme_category">Scheme Category
+                                        :</label>
+                                      <strong class="d-block" id="form-scheme_category">-</strong>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="mt-2 card students-wrap">
+                              <div class="card-body">
+                                <table id="subscheme_list" class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>Subscheme Name</th>
+                                      <th>Scholarship Fee Type</th>
+                                     
+
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+
+
+        </div>
+      </div>
+      </div>
+    </section> -->
+
+    <section>
+
+     
+
+    
+
+    <!-- 3rd row -->
+    <div class="table-card px-3 mt-3">
+
+       <!-- 1st row -->
+    <div class="section-header-card mt-2 mb-3">
+      <div class="section-icon">
+        <i class="bi bi-grid"></i>
+      </div>
+
+      <div>
+        <h5>Schemes List</h5>
+        <p>Browse and explore available scholarship schemes</p>
+      </div>
+    </div>
+    <!-- 1st row -->
+
+      <!-- 2nd row -->
+    <div class="table-toolbar mb-3 mt-2">
+
+      <!-- SEARCH --> 
+      <div class="search-box col-lg-2">
+        <i class="bi bi-search search-icon"></i>
+        <input type="text" class="w-100" placeholder="Search schemes..." id="schemeSearch">
+      </div>
+
+      <!-- ACTION BUTTONS -->
+      <div class="action-buttons">
+
+        <button class="btn-outline-action btn btn-sm ripple">
+          <i class="bi bi-file-earmark-excel"></i> Excel
+        </button>
+
+        <button class="btn-outline-action btn btn-sm ripple mx-2">
+          <i class="bi bi-file-earmark-pdf"></i> PDF
+        </button>
+
+        <button class="btn-outline-action btn btn-sm ripple">
+          <i class="bi bi-printer"></i> Print
+        </button>
+
+        <button class="btn-primary-action btn btn-indigo btn-sm ripple mx-2">
+          <i class="bi bi-layout-three-columns"></i> Columns
+        </button>
+
+      </div>
+
+    </div>
+    <!-- 2nd row -->
+
+  <table class="table align-middle custom-table">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Scheme Name</th>
+        <th>Department</th>
+        <th>Sub Department</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr>
+        <td>1</td>
+        <td>MBC - Free Education...</td>
+        <td>BC, MBC and Minorities Welfare</td>
+        <td>MBC/DNC Welfare</td>
+        <td>
+          <button class="btn btn-check-eligibility btn-sm ripple" data-bs-toggle="modal" data-bs-target=".eligibilityModal">
+            <i class="bi bi-info-circle"></i> Check Eligibility
+          </button>
+        </td>
+      </tr>
+
+      <tr>
+        <td>2</td>
+        <td>7.5% Scholarship</td>
+        <td>Higher Education Dept</td>
+        <td>DOTE</td>
+        <td>
+          <button class="btn btn-check-eligibility btn-sm ripple" data-bs-toggle="modal" data-bs-target=".eligibilityModal">
+            <i class="bi bi-info-circle"></i> Check Eligibility
+          </button>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+</div>
+    <!-- /3rd row -->
+
+
+  </section>
+
+
+    <footer id="footer" class="app-footer">
+    <div class="footer-left">
+      <span class="footer-copy">
+        <i class="bi bi-shield-check"></i>
+        © 2026 Tamil Nadu e-Governance Agency (TNeGA)
+      </span>
+    </div>
+    <div class="footer-right">
+      <a href="https://tnega.tn.gov.in/" target="_blank" class="footer-link">
+        <i class="bi bi-globe"></i>
+        TNeGA
+      </a>
+
+    </div>
+  </footer>
+
+
+  </main>
+
+  <div class="modal fade" id="studentDetailsModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+    role="dialog" aria-labelledby="studentDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="studentDetailsModalLabel" style="color: white !important;">Student Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            style="color: white !important;">X</button>
+        </div>
+        <div class="modal-body">
+          <div class="section-title">Student Details</div>
+          <div class="detail-card student-details-grid">
+            <input type="text" id="sspstud_id" value="" hidden>
+            <div class="detail-row"><span class="detail-label">Name:</span><span class="detail-value"
+                id="modal_student_name">-</span></div>
+            <div class="detail-row"><span class="detail-label">Gender:</span><span class="detail-value"
+                id="modal_gender">-</span></div>
+            <div class="detail-row"><span class="detail-label">Religion:</span><span class="detail-value"
+                id="modal_religion">-</span></div>
+            <div class="detail-row"><span class="detail-label">Community <i class=""
+                  id="community_verify"></i>:</span><span class="detail-value" id="modal_community">-</span></div>
+            <div class="detail-row"><span class="detail-label">Caste:</span><span class="detail-value"
+                id="modal_caste">-</span></div>
+            <div class="detail-row"><span class="detail-label">First Graduate:</span><span class="detail-value"
+                id="modal_first_graduate">-</span></div>
+            <div class="detail-row"><span class="detail-label">Family Income <i class="" id="income_verify"></i>
+                :</span><span class="detail-value" id="modal_income">-</span></div>
+            <div class="detail-row"><span class="detail-label">Disability:</span><span class="detail-value"
+                id="modal_isdifferentlyabled">-</span></div>
+            <div class="detail-row"><span class="detail-label">Aadhaar No <i class="" id="aadhar_verify"></i>
+                :</span><span class="detail-value" id="modal_aadhaar_no">-</span></div>
+            <div class="detail-row"><span class="detail-label">EMIS No:</span><span class="detail-value"
+                id="modal_emis_no">-</span></div>
+            <div class="detail-row"><span class="detail-label">UMIS No:</span><span class="detail-value"
+                id="modal_umis_no">-</span></div>
+            <div class="detail-row"><span class="detail-label">Institute Name:</span><span class="detail-value"
+                id="modal_institution_name">-</span></div>
+            <div class="detail-row"><span class="detail-label">Course Name:</span><span class="detail-value"
+                id="modal_course_name">-</span></div>
+            <div class="detail-row"><span class="detail-label">Course Branch:</span><span class="detail-value"
+                id="modal_course_branch_name">-</span></div>
+            <div class="detail-row"><span class="detail-label">Course Year:</span><span class="detail-value"
+                id="modal_studying_year">-</span></div>
+            <div class="detail-row"><span class="detail-label">Academic Year:</span><span class="detail-value"
+                id="modal_accademic_year_id"></span></div>
+          </div>
+          <div class="section-title scheme_details_card">Eligibility Check</div>
+          <style>
+            #check_scheme_eligibility .table td {
+                max-height: fit-content !important;
+                padding-top: 6px !important;
+                padding-bottom: 6px !important;
+            }
+        </style>
+        <div class="container" id="check_scheme_eligibility">
+            <div class="container-fluid">
+                <div class="card">
+                    <!-- <h4 class="eligibilityCheckCard">Eligibility Check</h4> -->
+                    <div class="card-body" id="check_scheme_content">
+                        <div id="eligibilityMessage"></div>
+                          
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped"
+                                style="min-height: fix-content !important;">
+                                <thead id="tableHeader">
+                                    <tr>
+                                        <th scope="col" class="text-center">Parameters</th>
+                                        <th class="text-center">Scheme Parameters</th>
+                                        <th class="text-center">Student Parameters</th>
+                                        <th class="text-center">Eligibility Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="schemeTableBody"></tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-info" id="modal_sync_button">Refresh</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <student-refresh></student-refresh>
+  <!-- End #main -->
+  <!-- ======= Footer ======= -->
+<!--   <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>TNeGA</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      Designed & Developed by <a href="https://tnega.tn.gov.in/" target="_blank">TNeGA</a>
+    </div>
+  </footer> -->
+  <!-- End Footer -->
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+
+
+<div class="modal fade custom-modal eligibilityModal">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <!-- HEADER -->
+      <div class="modal-header border-0 py-2">
+        <h5 class="modal-title"> 
+          <i class="bi bi-patch-check me-2 text-primary"></i>
+          Student Profile 
+        </h5>
+
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body py-1">
+
+  <!-- SECTION HEADER -->
+  <div class="section-header-card mb-2 mt-2">
+    <div class="section-icon">
+      <i class="bi bi-person"></i>
+    </div>
+    <div>
+      <h5>Student Details</h5>
+      <p>Complete academic and personal information</p>
+    </div>
+  </div>
+
+  <!-- DETAILS GRID -->
+  <!-- DETAILS GRID -->
+<div class="details-grid">
+
+  <div class="details-card">
+    <div class="details-left">
+      <i class="bi bi-person"></i>
+      <span>Name</span>
+    </div>
+    <div class="details-right">SRIKANTH K</div>
+  </div>
+
+  <div class="details-card">
+    <div class="details-left">
+      <i class="bi bi-gender-male"></i>
+      <span>Gender</span>
+    </div>
+    <div class="details-right">Male</div>
+  </div>
+
+  <div class="details-card">
+    <div class="details-left">
+      <i class="bi bi-globe"></i>
+      <span>Religion</span>
+    </div>
+    <div class="details-right">Hindu</div>
+  </div>
+
+  <div class="details-card">
+    <div class="details-left">
+      <i class="bi bi-people"></i>
+      <span>Community</span>
+    </div>
+    <div class="details-right">MBC</div>
+  </div>
+
+  <div class="details-card">
+    <div class="details-left">
+      <i class="bi bi-person-badge"></i>
+      <span>Caste</span>
+    </div>
+    <div class="details-right">Kurumba</div>
+  </div>
+
+  <div class="details-card">
+    <div class="details-left">
+      <i class="bi bi-award"></i>
+      <span>First Graduate</span>
+    </div>
+    <div class="details-right">Yes</div>
+  </div>
+
+  <div class="details-card">
+    <div class="details-left">
+      <i class="bi bi-currency-rupee"></i>
+      <span>Family Income</span>
+    </div>
+    <div class="details-right">₹72,000</div>
+  </div>
+
+  <div class="details-card">
+    <div class="details-left">
+      <i class="bi bi-universal-access"></i>
+      <span>Disability</span>
+    </div>
+    <div class="details-right">No</div>
+  </div>
+
+  <div class="details-card">
+    <div class="details-left">
+      <i class="bi bi-credit-card"></i>
+      <span>Aadhaar No</span>
+    </div>
+    <div class="details-right">********8119</div>
+  </div>
+
+  <div class="details-card">
+    <div class="details-left">
+      <i class="bi bi-hash"></i>
+      <span>EMIS No</span>
+    </div>
+    <div class="details-right">2008421077</div>
+  </div>
+
+  <div class="details-card">
+    <div class="details-left">
+      <i class="bi bi-hash"></i>
+      <span>UMIS No</span>
+    </div>
+    <div class="details-right">9000886455</div>
+  </div>
+
+  <div class="details-card">
+    <div class="details-left">
+      <i class="bi bi-building"></i>
+      <span>Institute</span>
+    </div>
+    <div class="details-right long-text">
+      DR MGR Fisheries College and Research Institute, Thalaianayeru
+    </div>
+  </div>
+
+  <div class="details-card">
+    <div class="details-left">
+      <i class="bi bi-book"></i>
+      <span>Course</span>
+    </div>
+    <div class="details-right">B.F.Sc</div>
+  </div>
+
+  <div class="details-card">
+    <div class="details-left">
+      <i class="bi bi-diagram-3"></i>
+      <span>Course Branch</span>
+    </div>
+    <div class="details-right">Fisheries Science</div>
+  </div>
+
+  <div class="details-card">
+    <div class="details-left">
+      <i class="bi bi-calendar"></i>
+      <span>Course Year</span>
+    </div>
+    <div class="details-right">3</div>
+  </div>
+
+  <div class="details-card">
+    <div class="details-left">
+      <i class="bi bi-calendar-check"></i>
+      <span>Academic Year</span>
+    </div>
+    <div class="details-right">2025-2026</div>
+  </div>
+
+</div>
+
+
+  <!-- ELIGIBILITY SECTION -->
+  <div class="section-header-card mt-2 mb-2">
+    <div class="section-icon">
+      <i class="bi bi-patch-check"></i>
+    </div>
+    <div>
+      <h5>Eligibility Check</h5>
+      <p>Scheme validation result</p>
+    </div>
+  </div>
+
+  <!-- STATUS BANNER -->
+  <div class="eligibility-banner success mt-1">
+    <i class="bi bi-check-circle-fill"></i>
+    <div>
+      <strong>Eligible</strong>
+      <p class="mb-2">Congratulations! You are eligible to apply for the scheme MBC- Free Education (Professional Courses) in Govt. and Govt. Aided Colleges) in the institute -- (Exclusive) studying in course - and branch - and course category -</p>
+    </div>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-card mt-3">
+    <table class="table align-middle custom-table">
+      <thead>
+        <tr>
+          <th>Parameter</th>
+          <th>Scheme Requirement</th>
+          <th>Student Value</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Community</td>
+          <td>MBC</td>
+          <td>MBC</td>
+          <td>
+            <span class="badge bg-success">
+              <i class="bi bi-check"></i>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+      <!-- FOOTER -->
+      <div class="modal-footer border-0">
+        <button class="btn btn-light btn-sm" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle me-1"></i> Close
+        </button>
+
+        <button class="btn btn-primary btn-sm ripple">
+          <i class="bi bi-arrow-repeat me-1"></i> Refresh
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+  <script src="../institute/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="../institute/assets/js/sweetalert2.all.min.js"></script>
+  <script src="../institute/assets/js/sweetalert.min.js"></script>
+  <script src="../institute/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../institute/assets/js/main.js"></script>
+  <script src="../institute/assets/aos/aos-min.js"></script>
+  <script src="../assets/js/crypto-js.min.js"></script>
+  <script src="../institute/assets/js/add.js"></script>
+  <script src="../institute/assets/js/global.js"></script>
+  <!-- Datatable -->
+  <script src="../institute/assets/vendor/datatable/jquery.dataTables.min.js"></script>
+  <!-- <script src="../institute/assets/js/page-script/index-page.js"></script>  -->
+  <script src="../assets/language/language.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+  <script src="../institute/assets/vendor/datatables-buttons/js/jszip.min.js"></script>
+  <script src="../institute/assets/vendor/DataTableNew/dataTables.buttons.min.js"></script>
+  <script src="../institute/assets/vendor/DataTableNew/buttons.flash.min.js"></script>
+  <script src="../institute/assets/vendor/DataTableNew/buttons.html5.min.js"></script>
+  <script src="../institute/assets/vendor/DataTableNew/buttons.print.min.js"></script>
+  <script src="../institute/assets/vendor/DataTableNew/buttons.colVis.min.js"></script>
+  <script src="../components/student_refresh-component.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init();
+
+    $(document).on({
+      ajaxStart: function () {
+        $('#preloader').show();
+        $("body").addClass("user_loading");
+      },
+      ajaxStop: function () {
+        $('#preloader').hide();
+        $("body").removeClass("user_loading");
+      }
+    });
+
+    const student_name_ = localStorage.getItem('student_name');
+    $('#stud_name').text(student_name_);
+    var schemesData = {};
+    var student_api_url = config.student_api_url;
+    var queryString = window.location.search;
+    var queryParams = queryString.split('?details');
+    var student_id = queryParams[1];
+    var dashboardHref = `index.html?details${student_id}`;
+    var appliedHref = `applied_schemes.html?details${student_id}`;
+    var allHref = `all_schemes.html?details${student_id}`;
+    var institute_api_url = config.institute_api_url;
+
+    document.addEventListener("DOMContentLoaded", function () {
+      var dashboardLink = document.getElementById('dashboard-link');
+      if (dashboardLink) {
+        dashboardLink.href = dashboardHref; // Update the href for Dashboard
+      }
+
+      var appliedLink = document.getElementById('applied-schemes-link');
+      if (appliedLink) {
+        appliedLink.href = appliedHref; // Update the href for Applied Schemes
+      }
+
+      var allLink = document.getElementById('all-schemes-link');
+      if (allLink) {
+        allLink.href = allHref; // Update the href for All Schemes
+      }
+    });
+
+
+
+    // Function to initialize DataTable
+    function initializeDataTable(year) {
+      if ($.fn.DataTable.isDataTable('#scheme_list')) {
+        // Destroy the existing DataTable instance
+        $('#scheme_list').DataTable().destroy();
+      }
+
+      $('#scheme_list').DataTable({
+        "paging": true,
+        "lengthMenu": [10, 15, 20, 30],
+        "ordering": true,
+        "info": true,
+        "responsive": true,
+        "dom": 'Bfrtlip', // Add the buttons to the DOM
+        "buttons": [
+          {
+            extend: 'excelHtml5',
+            text: '<i class="bi bi-file-earmark-spreadsheet"> Excel</i>',
+            titleAttr: 'EXCEL',
+            className: 'btn btn-success',
+            exportOptions: {
+              columns: ':visible' // Only export visible columns
+            }
+          },
+          {
+            extend: 'pdfHtml5',
+            orientation: 'Portrait',
+            pageSize: 'A4',
+            text: '<i class="bi bi-filetype-pdf"> PDF</i>',
+            titleAttr: 'PDF',
+            className: 'btn btn-danger',
+            exportOptions: {
+              columns: ':visible' // Only export visible columns
+            },
+            customize: function (doc) {
+              doc.defaultStyle = {
+                font: 'Roboto' // Use Roboto as the default font
+              };
+            }
+          },
+          {
+            extend: 'print',
+            text: '<i class="bi bi-printer"> Print</i>',
+            titleAttr: 'Print',
+            exportOptions: {
+              columns: ':visible' // Only export visible columns
+            }
+          },
+          {
+            extend: 'colvis',  // Add column visibility button
+            text: '<i class="bi bi-eye"> Column Visibility</i>',
+            className: 'btn btn-info',
+            columns: ':not(.noVis)'  // Exclude columns with the class `noVis`
+          }
+        ],
+        "columnDefs": [
+          { "className": "dt-center", "targets": "_all" } // Center align all columns
+        ],
+        "ajax": {
+          "url": config.ssp_api_url + '/student/get_allSchemes',
+          "type": "POST",
+          "headers": { 'X-APP-KEY': 'te$t', 'X-APP-NAME': 'te$t' },
+          "data": function (data) {
+            data.academic_year = $('#academic_year').val(); // Send selected academic year
+          },
+          "dataSrc": function (response) {
+            var $academicYearSelect = $('#academic_year');
+            $academicYearSelect.empty(); // Clear existing options
+            schemesData = {};
+            // Iterate over the academic_year array and append options
+            $.each(response.academic_year, function (index, item) {
+              $academicYearSelect.append('<option value="' + item.year + '">' + item.year + '</option>');
+            });
+            const decryptedData = decryptData(response.data);
+            $.each(decryptedData, function (index, scheme) {
+              schemesData[scheme.scheme_id] = scheme; // Store scheme details by ID
+            });
+            return decryptedData;
+          },
+          "error": function (xhr, error, thrown) {
+            let message;
+            if (xhr.status === 400) {
+              message = 'Login is required. Please log in to continue.';
+            } else if (xhr.status === 500) {
+              message = 'Something went wrong on the server. Please try again later.';
+            } else {
+              message = 'An unexpected error occurred: ' + xhr.status + ' ' + xhr.statusText;
+            }
+            alert(message); // Show the appropriate error message
+            console.error('Error details:', xhr); // Log error details to console
+          }
+        },
+        "columns": [
+          {
+            "data": "id", render: function (data, type, row, meta) {
+              return meta.row + meta.settings._iDisplayStart + 1;
+            }
+          },
+          { "data": "scheme_name" },
+          { "data": "department_name" },
+          { "data": "subdepartment_name" },
+          {
+            data: 'scheme_id',
+            title: 'Details',
+            render: function (data, type, row) {
+              var scheme_name = row.scheme_name;
+              return '<a class="btn btn-warning check-scheme btn-sm" data-scheme-id="' + data + '" data-scheme-name="' + scheme_name + '" href="#"><i class="bi bi-info-circle"></i> Check Scheme Eligibility</a></a></div>';
+            }
+          }
+        ],
+        "language": {
+          "emptyTable": "No Schemes available in this table."
+        }
+      });
+    }
+
+    function getSectionTitle(fieldname) {
+      if (["Education", "InstituteOwnership", "Institute", "University"].includes(fieldname)) {
+        return "Institute Parameters";
+      } else if (["Stream", "CourseType", "MediumofInstruction", "CourseGrp", "Course", "CourseCategory", "CourseBr", "CourseYear", "AccrediationStatus", "Caste", "Gender", "Income", "IncomeValue"].includes(fieldname)) {
+        return "Course Parameters";
+      } else if (["Quota", "SplCtg", "ModeOfStudy"].includes(fieldname)) {
+        return "Student Eligibility Parameters";
+      } else if (["ResidentalStatus", "MaintanenceGrp", "DisabilityStatus"].includes(fieldname)) {
+        return "Maintenance Parameters";
+      } else if (["Religion", "Community"].includes(fieldname)) {
+        return "Socio Economic Parameters";
+      }
+      return "";
+    }
+
+    // Initialize the DataTable with the default academic year
+    initializeDataTable();
+
+    // Event listener for academic year change
+    $('#academic_year').on('change', function () {
+      initializeDataTable(); // Reinitialize DataTable with the selected academic year
+    });
+
+    // Event listener for view scheme button click
+    $(document).on('click', '.view-scheme', function () {
+      event.preventDefault();
+      var schemeId = $(this).data('scheme-id');
+      var scheme = schemesData[schemeId];
+      if (scheme) {
+        // Populate the modal with scheme details
+        $('#scheme_info').find('#form-scheme_name').text(scheme.scheme_name || 'N/A');
+        $('#scheme_info').find('#form-frequency').text(scheme.frequency || 'N/A');
+        $('#scheme_info').find('#form-department_name').text(scheme.department_name || 'N/A');
+        $('#scheme_info').find('#form-subdepartment_name').text(scheme.subdepartment_name || 'N/A');
+        $('#scheme_info').find('#form-scheme_code').text(scheme.scheme_code || 'N/A');
+        $('#scheme_info').find('#form-scheme_category').text(scheme.scheme_category || 'N/A');
+
+        $('.mt-2.card:has(h6:contains("Institute Parameters"))').hide();
+        $('.mt-2.card:has(h6:contains("Course Parameters"))').hide();
+        $('.mt-2.card:has(h6:contains("Student Eligibility Parameters"))').hide();
+        $('.mt-2.card:has(h6:contains("Maintenance Parameters"))').hide();
+        $('.mt-2.card:has(h6:contains("Socio Economic Parameters"))').hide();
+        var encryptDatas = {
+          scheme_id: schemeId,
+        };
+        // Clear the table body
+        $('#subscheme_list tbody').empty();
+        // Make an API call to fetch additional details
+        $.ajax({
+          url: config.ssp_api_url + '/get_sub_scheme_list',
+          type: 'POST',
+          headers: { 'X-APP-KEY': 'te$t', 'X-APP-NAME': 'te$t' },
+          data: { data: encryptData(encryptDatas) },
+          success: function (response) {
+            if (response.success == 1) {
+              const decryptedData = decryptData(response.data);
+              const $subschemeList = $('#subscheme_list');
+
+              // Initialize or destroy and reinitialize the DataTable
+              if ($.fn.DataTable.isDataTable('#subscheme_list')) {
+                $('#subscheme_list').DataTable().destroy();
+              }
+
+              // Reinitialize DataTable with the new data
+              $('#subscheme_list').DataTable({
+                "paging": true,
+                "lengthMenu": [10, 15, 20, 30],
+                "ordering": true,
+                "info": true,
+                "responsive": true,
+                "columnDefs": [
+                  { "className": "dt-center", "targets": "_all" } // Center align all columns
+                ],
+                "data": decryptedData, // Use the decryptedData array as the source
+                "columns": [
+                  { "data": "subscheme_name" },
+                  { "data": "scholarship_fee_type" }
+                  
+                ],
+                "language": {
+                  "emptyTable": "No Sub-Schemes available in this table."
+                }
+              });
+
+
+              // Attach click event to the dynamically added buttons
+              $subschemeList.on('click', '.viewbtn', function (event) {
+                event.preventDefault(); // Prevent default link behavior
+                const sub_scheme_id = $(this).data('sub-scheme-id');
+                $subschemeList.find('.viewbtn')
+                  .css({ backgroundColor: '#33208c', color: '#fff' })
+                  .text('Select');
+
+                // Define a mapping of field names to their corresponding DOM element IDs
+                const fieldMapping = {
+                  "Education": "#form-education",
+                  "InstituteOwnership": "#form-institute_ownership",
+                  "Institute": "#form-institute",
+                  "University": "#form-university",
+                  "Stream": "#form-stream",
+                  "CourseType": "#form-course_type",
+                  "MediumofInstruction": "#form-MediumofInstruction",
+                  "CourseGrp": "#form-CourseGrp",
+                  "Course": "#form-Course",
+                  "CourseCategory": "#form-CourseCategory",
+                  "CourseBr": "#form-CourseBr",
+                  "CourseYear": "#form-CourseYear",
+                  "AccrediationStatus": "#form-AccrediationStatus",
+                  "Caste": "#form-Caste",
+                  "Gender": "#form-Gender",
+                  "Income": "#form-Income",
+                  "IncomeValue": "#form-IncomeValue",
+                  "Quota": "#form-Quota",
+                  "SplCtg": "#form-SplCtg",
+                  "ModeOfStudy": "#form-ModeOfStudy",
+                  "ResidentalStatus": "#form-ResidentalStatus",
+                  "MaintanenceGrp": "#form-MaintanenceGrp",
+                  "DisabilityStatus": "#form-DisabilityStatus",
+                  "Religion": "#form-Religion",
+                  "Community": "#form-Community"
+                };
+                // Show all sections initially
+                $('.mt-2.card').show();
+                var jsonData = {
+                  scheme_id: schemeId, sub_scheme_id: sub_scheme_id
+                }
+
+
+                $.ajax({
+                  url: config.ssp_api_url + '/get_rule_condition',
+                  type: 'POST',
+                  headers: { 'X-APP-KEY': 'te$t', 'X-APP-NAME': 'te$t' },
+                  data: { data: encryptData(jsonData) },
+                  success: function (ruleResponse) {
+                    var decrptDatas = decryptData(ruleResponse.data);
+                    if (decrptDatas.status == 1) {
+                      // Track if any parameters in the section are populated
+                      let sectionHasValues = {
+                        "Institute Parameters": false,
+                        "Course Parameters": false,
+                        "Student Eligibility Parameters": false,
+                        "Maintenance Parameters": false,
+                        "Socio Economic Parameters": false
+                      };
+
+
+                      decrptDatas.fielddetails?.forEach(function (field) {
+                        if (fieldMapping[field.fieldname]) {
+                          var $list = $('<ul class="parameter-list"></ul>'); // Create a new unordered list
+
+                          // Check if field.fieldvalues is an array and has elements
+                          if (Array.isArray(field.fieldvalues) && field.fieldvalues.length > 0) {
+                            field.fieldvalues.forEach(function (value) {
+                              if (value.value !== "All" && value.text !== "All" && !(value.text === "-1" && value.value === "Not Applicable")) {
+                                var listItem = $('<li class="parameter-items"></li>').text(value.value || value.text); // Create list items
+                                $list.append(listItem); // Append the list item to the list
+                              }
+                            });
+                          }
+
+                          var $fieldContainer = $('#scheme_information').find(fieldMapping[field.fieldname]).closest('.mb-1'); // Get the parent container
+
+                          // Check if the list is empty
+                          if ($list.children().length === 0) {
+                            $fieldContainer.hide(); // Hide the entire container (label + field)
+                          } else {
+                            $fieldContainer.show(); // Show the container if there are values
+                            $fieldContainer.find('.parameters').html($list); // Update the content
+                            sectionHasValues[getSectionTitle(field.fieldname)] = true; // Mark section as having values
+                          }
+                        }
+                      });
+
+                      // Hide sections if they don't have any values
+                      for (const section in sectionHasValues) {
+                        if (!sectionHasValues[section]) {
+                          $('.mt-2.card:has(h6:contains("' + section + '"))').hide();
+                        }
+                      }
+                    } else {
+                      Object.keys(fieldMapping).forEach(function (fieldname) {
+                        var $fieldContainer = $('#scheme_info').find(fieldMapping[fieldname]).closest('.mb-1');
+                        $fieldContainer.hide(); // Hide all fields if there's an error
+                      });
+                    }
+                  }
+                });
+              });
+            } else {
+              $('#subscheme_list').html('<tr><td colspan="5">No subschemes available</td></tr>');
+            }
+          },
+          error: function (xhr, status, error) {
+            // Handle errors
+            console.error('Failed to fetch sub-department details:', error);
+            $('#scheme_info').find('#form-subscheme_name').text('Error fetching details');
+          }
+        });
+        $('#scheme_info').modal('show'); // Show the modal
+      } else {
+        alert('Scheme details not found.');
+      }
+    });
+
+
+    // Ensure DOM is fully loaded before binding events
+    $(document).on('click', '.check-scheme', function () {
+      const schemeId = $(this).data('scheme-id');
+      let umis_id = null;
+
+      // Validate schemeId
+      if (!schemeId) {
+        console.error('Scheme ID is undefined or missing');
+        Swal.fire({
+          title: 'Error',
+          text: 'Scheme ID is missing. Please try again.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+        return;
+      }
+
+      // Validate student_id
+      if (typeof student_id === 'undefined') {
+        console.error('student_id is undefined');
+        Swal.fire({
+          title: 'Error',
+          text: 'Student ID is not defined. Please ensure a valid student ID is provided.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+        return;
+      }
+
+      // Show the modal
+      try {
+        $('#studentDetailsModal').modal('show');
+      } catch (e) {
+        console.error('Failed to show modal:', e);
+        Swal.fire({
+          title: 'Error',
+          text: 'Failed to open the modal. Ensure Bootstrap is properly included.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+        return;
+      }
+
+      // First AJAX call to fetch student details
+      $.ajax({
+        url: student_api_url + "/get_student_detail",
+        method: "POST",
+        headers: { "X-APP-KEY": "te$t", "X-APP-NAME": "te$t" },
+        data: { student_details: student_id },
+        dataType: "json",
+        success: function (response) {
+          const data = decryptData(response.data);
+          if (!data?.student_details || !Array.isArray(data.student_details) || data.student_details.length === 0) {
+            console.error('Invalid or empty student_details data');
+            Swal.fire({
+              title: 'Error',
+              text: 'No student details available.',
+              icon: 'error',
+              confirmButtonText: 'OK',
+            });
+            return;
+          }
+
+          umis_id = data.student_details[0]['umis_no'];
+
+          // Define fields for student details
+          const studentFields = [
+            { id: 'modal_student_name', key: 'student_name' },
+            { id: 'modal_gender', key: 'gender' },
+            { id: 'modal_religion', key: 'religion' },
+            { id: 'modal_community', key: 'community' },
+            { id: 'modal_caste', key: 'caste' },
+            { id: 'modal_first_graduate', key: 'is_first_graduate', format: (val) => val ? 'Yes' : 'No' },
+            { id: 'modal_income', key: 'income' },
+            { id: 'modal_isdifferentlyabled', key: 'isdifferentlyabled', format: (val) => val ? 'Yes' : 'No' },
+            { id: 'modal_aadhaar_no', key: 'aadhaar_no', format: (val) => val ? `********${val.slice(-4)}` : '-' },
+            { id: 'modal_emis_no', key: 'emis_no' },
+            { id: 'modal_umis_no', key: 'umis_no' },
+            { id: 'modal_institution_name', key: 'institution_name' },
+            { id: 'modal_course_name', key: 'course_name' },
+            { id: 'modal_course_branch_name', key: 'course_branch_name' },
+            { id: 'modal_studying_year', key: 'studying_year' },
+            { id: 'modal_accademic_year_id', key: 'academicyear' },
+          ];
+          const missingElements = [];
+
+          // Populate student fields
+          studentFields.forEach(({ id, key, format }) => {
+            $('#sspstud_id').val(data.student_details[0].student_id || '');
+            const element = document.getElementById(id);
+            if (element) {
+              const value = data.student_details[0][key];
+              element.textContent = value != null ? (format ? format(value) : value.toString()) : '-';
+            } else {
+              missingElements.push(id);
+            }
+          });
+
+          if (missingElements.length > 0) {
+            console.warn('Missing elements:', missingElements);
+          }
+
+          // Second AJAX call to fetch scheme eligibility
+          const inputData = { type: 1, search_id: umis_id, scheme_id: schemeId };
+          const encry_data = encryptData(inputData);
+
+          let tableRows = '';
+                        $.ajax({
+                            url: institute_api_url + '/get_scheme_eligibility',
+                            type: 'POST',
+                            headers: { 'X-APP-KEY': 'te$t', 'X-APP-NAME': 'te$t' },
+                            data: { data: encry_data },
+                            dataType: 'json',
+                            success: function (response) {
+                                if (response.status == 1) {
+                                    const schemeDetailsArray = decryptData(response.data);
+                                    let checkEligible = [];
+                                    if (schemeDetailsArray.length && schemeDetailsArray[0]?.sp_evaluate_student_rules_forscheme) {
+                                        try {
+                                            checkEligible = JSON.parse(schemeDetailsArray[0].sp_evaluate_student_rules_forscheme);
+                                        } catch (e) {
+                                            console.error("Failed to parse inner rules JSON:", e);
+                                        }
+                                    }
+                                    const groupedSchemes = {};
+                                    checkEligible.forEach(item => {
+                                        const scheme = item.schemename || 'Unknown Scheme';
+                                        if (!groupedSchemes[scheme]) groupedSchemes[scheme] = [];
+                                        groupedSchemes[scheme].push(item);
+                                    });
+                                    let allSchemesHTML = '';
+                                    Object.entries(groupedSchemes).forEach(([schemeName, rules]) => {
+                                        const inclusiveRules = rules.filter(r => r.rule_type === 'inclusive');
+                                        const exclusiveRules = rules.filter(r => r.rule_type === 'exclusive');
+                                        const eligibleRules = rules.filter(r => r.rule_type === 'Eligible');
+                                        const instituteName = rules.find(r => r.field_name === 'Institute')?.student_value || '-';
+                                        const courseName = rules.find(r => r.field_name === 'Course')?.student_value || '-';
+                                        const branchName = rules.find(r => r.field_name === 'CourseBr')?.student_value || '-';
+                                        const categoryName = rules.find(r => r.field_name === 'CourseCategory')?.student_value || '-';
+
+                                        const buildRows = (ruleList, type) => {
+                                            return ruleList.map(rule => `
+                                                <tr>
+                                                    <td class="text-center align-middle text-start">${rule.field_name || '-'}</td>
+                                                    <td class="text-center align-middle text-center">${rule.rule_value || '-'}</td>
+                                                    <td class="text-center align-middle text-center">${rule.student_value || '-'}</td>
+                                                    <td class="text-center">${type === 'Eligible' ? '<i class="bi bi-check-circle-fill text-success"></i>' : '<i class="bi bi-x-circle-fill text-danger"></i>'}
+                                                    </td>
+                                                </tr>
+                                            `).join('');
+                                        };
+
+                                        const inclusiveTable = inclusiveRules.length ? `
+                                        <p>Sorry you're not eligible, for scheme <strong>${schemeName || ''} - (Inclusive)</strong> in the institute <strong>${instituteName || ''}</strong> studying in course <strong>${courseName || ''}</strong> and branch <strong>${branchName || ''}</strong> and course category <strong>${categoryName || ''}</strong>.</p>
+                                            <table class="table table-bordered">
+                                                <thead class="">
+                                                    <tr>
+                                                        <th class="text-center">Parameter</th>
+                                                        <th class="text-center">Scheme Parameter</th>
+                                                        <th class="text-center">Student Parameter</th>
+                                                        <th class="text-center">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>${buildRows(inclusiveRules, 'inclusive')}</tbody>
+                                            </table>
+                                        ` : '';
+
+                                        const exclusiveTable = exclusiveRules.length ? `
+                                        <p>Sorry you're not eligible, for scheme <strong>${schemeName || ''} - (Exclusive)</strong> in the institute <strong>${instituteName || ''}</strong> studying in course <strong>${courseName || ''}</strong> and branch <strong>${branchName || ''}</strong> and course category <strong>${categoryName || ''}</strong>.</p>
+                                            <table class="table table-bordered">
+                                                <thead class="">
+                                                    <tr>
+                                                        <th class="text-center">Parameter</th>
+                                                        <th class="text-center">Scheme Parameter</th>
+                                                        <th class="text-center">Student Parameter</th>
+                                                        <th class="text-center">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>${buildRows(exclusiveRules, 'exclusive')}</tbody>
+                                            </table>
+                                        ` : '';
+
+                                        const eligibleTable = eligibleRules.length ? `
+                                            <p class="mt-3 sd">Congratulations! You are eligible to apply for the scheme <strong>${schemeName || ''}</strong> in the institute <strong>${instituteName || ''}- (Exclusive)</strong> studying in course <strong>${courseName || ''}</strong> and branch <strong>${branchName || ''}</strong> and course category <strong>${categoryName || ''}</strong>.</p>
+                                            <table class="table table-bordered table-striped">
+                                                <thead class="">
+                                                    <tr>
+                                                        <th class="text-center">Parameter</th>
+                                                        <th class="text-center">Scheme Parameter</th>
+                                                        <th class="text-center">Student Parameter</th>
+                                                        <th class="text-center">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>${buildRows(eligibleRules, 'Eligible')}</tbody>
+                                            </table>
+                                        ` : '';
+                                        allSchemesHTML += `
+                                            <div class="mb-5">
+                                                ${inclusiveTable}
+                                                ${exclusiveTable}
+                                                ${eligibleTable}
+                                            </div>
+                                        `;
+                                    });
+                                    $('#eligibilityMessage').html(allSchemesHTML);
+                                    $('#tableHeader').hide();
+                                    $(".student_info").show();
+                                    $('#check_scheme_eligibility').show();
+
+                                } else {
+                                    if (response && response.data && response.data == 12) {
+                                        eligibilityMessage = `
+                                                    <div class="alert alert-danger" role="alert">
+                                                        Maintenance Group Code is mandatory for this institute.
+                                                    </div>
+                                                    `;
+                                        $('#tableHeader').hide();
+                                        $('#eligibilityMessage').html(eligibilityMessage);
+                                        $('#schemeTableBody').html(tableRows);
+                                        $('#check_scheme_eligibility').show();
+                                    } else {
+                                        alertOf('error', ' ', 'Sorry data not found in database!', true, null);
+                                    }
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("AJAX Error: ", error);
+                                alertOf('error', ' ', 'Something Went Wrong', true, null);
+                            }
+                        });
+        },
+        error: function (xhr, status, error) {
+          console.error("AJAX Error: ", error);
+          Swal.fire({
+            title: 'Error',
+            text: `An error occurred while fetching student details: ${error}`,
+            icon: 'error',
+            confirmButtonText: 'OK',
+          });
+        }
+      });
+
+
+      const syncButton = document.getElementById('modal_sync_button');
+      syncButton.onclick = () => {
+           
+            $("#refresh_modal").modal("show");
+          };
+    });
+    function updateDateTime() {
+      const now = new Date();
+      const options = {
+        timeZone: 'Asia/Kolkata', // Use Asia/Kolkata for Indian time zone
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false // Use 24-hour format
+      };
+      const formattedDate = now.toLocaleString('en-IN', options).replace(',', ''); // Format: DD/MM/YYYY HH:mm:ss
+      document.getElementById('dateTimeLink').textContent = formattedDate;
+    }
+
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+    
+
+  </script>
+
+
+
+
+
+  <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  /* ================================
+     SIDEBAR TOGGLE
+  ================================= */
+
+  const sidebarToggle = document.getElementById("sidebarToggle");
+  const sidebarIcon = sidebarToggle?.querySelector("i");
+
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener("click", function () {
+
+      console.log("clicked"); // ✅ debug
+
+      document.body.classList.toggle("sidebar-expanded");
+
+      sidebarIcon?.classList.toggle("bi-list");
+      sidebarIcon?.classList.toggle("bi-x-lg");
+
+    });
+  }
+
+
+  /* ================================
+     PROFILE DROPDOWN
+  ================================= */
+
+  const trigger = document.getElementById("profileTrigger");
+  const dropdown = document.getElementById("profileDropdown");
+
+  trigger?.addEventListener("click", function (e) {
+    e.stopPropagation();
+    dropdown.classList.toggle("show");
+  });
+
+  dropdown?.addEventListener("click", function (e) {
+    e.stopPropagation();
+  });
+
+  document.addEventListener("click", function () {
+    dropdown?.classList.remove("show");
+  });
+
+});
+
+</script>
+
+
+
+
+  <!-- refresh loader -->
+  <script>
+    $('.refresh_submit').on('click', function () {
+
+  let loader = $('#modalLoader');
+  let progressBar = $('#progressBar');
+  let success = $('#modalSuccess');
+
+  loader.addClass('active');
+
+  let progress = 0;
+
+  let interval = setInterval(() => {
+
+    progress += Math.floor(Math.random() * 10) + 5; // smooth random speed
+
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(interval);
+
+      // complete progress
+      progressBar.css('width', '100%').text('100%');
+
+      // show success
+      setTimeout(() => {
+        loader.removeClass('active');
+        success.addClass('show');
+
+        // hide success + close modal
+        setTimeout(() => {
+          success.removeClass('show');
+          $('#refreshModal').modal('hide');
+        }, 1500);
+
+      }, 500);
+
+    } else {
+      progressBar.css('width', progress + '%').text(progress + '%');
+    }
+
+  }, 200);
+
+});
+  </script>
+  <!-- refersh laoder -->
+
+
+
+
+
+  <!-- ripple bnt -->
+  <script>
+    $(document).on('click', '.ripple', function (e) {
+
+  let $this = $(this);
+
+  let offset = $this.offset();
+  let x = e.pageX - offset.left;
+  let y = e.pageY - offset.top;
+
+  let ripple = $('<span class="ripple-effect"></span>');
+
+  ripple.css({
+    top: y + 'px',
+    left: x + 'px',
+    width: '20px',
+    height: '20px'
+  });
+
+  $this.append(ripple);
+
+  setTimeout(() => {
+    ripple.remove();
+  }, 600);
+
+});
+
+    $(document).on('click', '.nav-link.ripple', function () {
+
+  let $this = $(this);
+  let ripple = $('<span class="ripple-effect"></span>');
+
+  ripple.css({
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%) scale(0)'
+  });
+
+  $this.append(ripple);
+
+  setTimeout(() => ripple.remove(), 600);
+
+});
+  </script>
+  <!-- ripple btn -->
+
+
+</body>
+
+</html>

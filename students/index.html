@@ -1,0 +1,2499 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>TN State Scholarship Portal</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <!-- Favicons -->
+    <link href="../assets/img/tn_logo.png" rel="icon">
+    <link href="../assets/img/tn_logo.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/aos/aos-min.css">
+    <link rel="stylesheet" href="assets/css/header_style.css">
+    <link rel="stylesheet" href="assets/common-style/style.css">
+    <style>
+      /* LOADER OVERLAY */
+      .modal-loader{
+      position:absolute;
+      inset:0;
+      background:rgba(255,255,255,0.85);
+      backdrop-filter: blur(4px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:10;
+      opacity:0;
+      pointer-events:none;
+      transition:all .3s ease;
+      }
+      .modal-loader.active{
+      opacity:1;
+      pointer-events:auto;
+      }
+      /* loader card */
+      .loader-card{
+      background:#fff;
+      padding:24px 30px;
+      border-radius:14px;
+      box-shadow:0 20px 50px rgba(0,0,0,0.1);
+      text-align:center;
+      width:260px;
+      }
+      /* spinning icon */
+      .loader-icon{
+      font-size:26px;
+      color:#5b5fc7;
+      animation:spin 1s linear infinite;
+      }
+      @keyframes spin{
+      100%{ transform:rotate(360deg); }
+      }
+      /* progress bar */
+      .progress{
+      height:8px;
+      border-radius:10px;
+      background:#eef1f6;
+      }
+      .progress-bar{
+      background:linear-gradient(90deg,#6366f1,#8b5cf6);
+      font-size:11px;
+      line-height:8px;
+      text-align:center;
+      transition:width .2s ease;
+      }
+      /* SUCCESS TOAST */
+      .modal-success{
+      position:absolute;
+      bottom:20px;
+      right:20px;
+      background:#10b981;
+      color:#fff;
+      padding:10px 16px;
+      border-radius:8px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.15);
+      opacity:0;
+      transform:translateY(10px);
+      transition:all .3s ease;
+      }
+      .modal-success.show{
+      opacity:1;
+      transform:translateY(0);
+      }
+      /* MAIN CARD */
+      .student-premium-card{
+      background: linear-gradient(145deg,#ffffff,#f4f6fb);
+      border-radius:16px;
+      padding:28px;
+      box-shadow:0 10px 35px rgba(0,0,0,0.08);
+      transition:all .3s ease;
+      border:1px solid rgba(0,0,0,0.04);
+      }
+      /* SECTION TITLE */
+      .section-title{
+      font-size:20px;
+      font-weight:600;
+      color:#2c3e70;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:12px;
+      border-left:4px solid #5b6cff;
+      padding-left:12px;
+      }
+      .section-title i{
+      font-size:22px;
+      color:#5b6cff;
+      }
+      /* PROFILE HEADER */
+      .profile-header{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-bottom:25px;
+      }
+      /* AVATAR */
+      .profile-avatar{
+      width:65px;
+      height:65px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:24px;
+      font-weight:600;
+      color:white;
+      background:linear-gradient(135deg,#5b6cff,#7a8cff);
+      box-shadow:0 6px 18px rgba(91,108,255,0.4);
+      }
+      /* PROFILE NAME */
+      .profile-info h4{
+      margin:0;
+      font-size:22px;
+      font-weight:600;
+      color:#2b2f4b;
+      margin-bottom:6px;
+      }
+      /* BADGES */
+      .profile-info .badge{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:6px;
+      margin-right:4px;
+      letter-spacing:.3px;
+      }
+      /* DETAILS GRID */
+      .details-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:18px;
+      margin-top:15px;
+      }
+      /* DETAIL ITEM */
+      .details-grid div{
+      background:white;
+      border-radius:10px;
+      padding:8px 14px;
+      border:1px solid #e4ebff; 
+      transition:all .25s ease;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      }
+      /*.details-grid div:hover{
+      background:#f9faff;
+      transform:translateY(-2px);
+      box-shadow:0 6px 16px rgba(0,0,0,0.05);
+      }*/
+      /* LABEL */
+      .details-label{
+     /* font-weight:600;
+      color:#4a4f6d;*/
+      font-size:14px;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      }
+      /* ICON */
+      .details-label i{
+/*      color:#5b6cff;*/
+      font-size:15px;
+      }
+      /* VALUE */
+      .details-value{
+      font-weight:500;
+      color:#2b2f4b;
+      font-size:14px;
+      margin-left:6px;
+      }
+      /* VERIFIED ICON */
+      .bi-patch-check-fill{
+      font-size:16px;
+      }
+      .bi-x-circle-fill{
+      font-size:16px;
+      }
+      /* MOBILE RESPONSIVE */
+      @media(max-width:768px){
+      .profile-header{
+      flex-direction:column;
+      align-items:flex-start;
+      }
+      .profile-avatar{
+      width:55px;
+      height:55px;
+      font-size:20px;
+      }
+      .details-grid{
+      grid-template-columns:1fr;
+      }
+      }.student-premium-card{
+      animation:fadeStudent .5s ease;
+      }
+      @keyframes fadeStudent{
+      from{
+      opacity:0;
+      transform:translateY(8px);
+      }
+      to{
+      opacity:1;
+      transform:translateY(0);
+      }
+      }
+      /* HEADER ALIGNMENT */
+      .profile-header{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-bottom:22px;
+      }
+      /* NAME */
+      .student-name-row h4{
+      font-size:19px;
+      font-weight:600;
+      margin-bottom:6px;
+      color:#2c3553;
+      } 
+      /* META ROW */
+      .student-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      }
+      /* BADGE IMPROVEMENTS */
+      .student-meta .badge{
+      font-size:13px;
+      padding:6px 10px;
+      border-radius:6px;
+      display:flex;
+      align-items:center;
+      font-weight:500;
+      }
+      /* PHONE BADGE */
+      .badge-phone{
+      background:#eef2ff;
+      color:#3949ab;
+      border:1px solid #e0e6ff;
+      }
+      /* ICON INSIDE BADGE */
+      .student-meta i{
+      font-size:13px;
+      }
+      /* AVATAR IMPROVEMENT */
+      .profile-avatar{
+      width:60px;
+      height:60px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:22px;
+      font-weight:600;
+      color:white;
+      background:linear-gradient(135deg,#4f46e5,#6366f1);
+      box-shadow:0 6px 15px rgba(79,70,229,.35);
+      }
+      .badge-phone i:last-child{
+      font-size:14px;
+      margin-left:3px;
+      }
+      ul#student_info_update {
+      border-bottom: 0;
+      }
+
+
+     /* #student_info_update .nav-link {
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+#student_info_update .nav-link.active {
+  background: #eef2ff;
+  color: #4f46e5;
+}*/
+
+
+      #student_info_update button.nav-link.active {
+     /* border-radius: 4px 7px;
+      box-shadow: 1px 5px 10px rgb(0 0 0 / 20%) !important;*/
+
+      background: #eef2ff !important;
+  color: #4f46e5 !important;
+  box-shadow: none !important;
+  font-weight: 600 !important;
+
+
+      }
+      #student_info_update button.nav-link {
+      /*border: 1px solid #6859b0; 
+      border-radius: 4px 7px;
+      color: #33208c;
+      font-size: 14px;*/
+
+      border: none !important;
+  background: transparent !important;
+  color: #6b7280 !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+
+
+      }
+      #student_info_update button.nav-link:hover { 
+      background: #6859b0;
+      color: #fff;
+      transition: 0.3 all;
+      } 
+      .text-view {
+      font-size: 12px;
+      font-weight: 600;
+      }
+      .details-label i{
+/*      color:#6859b0 !important; */
+      margin-right:6px; 
+      }
+      /* modal surface */
+      .custom-modal .modal-content{
+      border-radius:16px;
+      border:none;
+      box-shadow:0 20px 60px rgba(0,0,0,0.15);
+      padding:10px;
+      }
+      /* cards */
+      .refresh-card{
+      background:#fff;
+      border:1px solid #eef1f6;
+      border-radius:12px;
+      padding:16px;
+      transition:all .25s ease;
+      }
+      .refresh-card:hover{
+      transform:translateY(-3px);
+      box-shadow:0 12px 28px rgba(0,0,0,0.08);
+      border-color:#dbe2ff;
+      }
+      /* header inside card */
+      .refresh-card .card-header{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      }
+      .refresh-card .card-header i{
+      font-size:20px;
+      color:#5b5fc7;
+      background:#eef0ff;
+      padding:10px;
+      border-radius:10px;
+      }
+      /* title */
+      .refresh-card h6{
+      margin:0;
+      font-weight:600;
+      }
+      /* subtitle */
+      .refresh-card p{
+      margin:0;
+      font-size:12px;
+      color:#6b7280;
+      }
+      /* checkbox spacing */
+      .form-check{
+      cursor:pointer;
+      }
+      .modal.fade .modal-dialog{
+      transform:translateY(20px) scale(.98);
+      transition:all .25s ease;
+      }
+      .modal.show .modal-dialog{
+      transform:translateY(0) scale(1);
+      }
+      .custom-modal-width {
+      max-width: 50% !important;
+      /* Adjust percentage as needed */
+      }
+      .otp-field input {
+      display: inline-block !important;
+      width: 15% !important;
+      }
+      #scheme_details_length .custom-select.custom-select-sm.form-control.form-control-sm {
+      margin: 0px 6px;
+      font-size: 12px !important;
+      padding: 0 10px;
+      min-height: calc(0.5em + 0.5em + 2px) !important;
+      font-weight: 600;
+      }
+      .tab-title {
+      background-color: #301d92;
+      color: white;
+      }
+      .parameter-list {
+      list-style: none;
+      margin: 0;
+      padding: 0px 1px;
+      display: flex;
+      flex-wrap: wrap;
+      }
+      .parameter-items {
+      background: #e4f1ff;
+      padding: 2px 4px;
+      border-radius: 5px;
+      list-style: none;
+      width: max-content;
+      margin: 3px;
+      }
+      .modal-header {
+      padding: 10px 20px;
+      box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 8px 20px rgba(16, 24, 40, 0.06) !important; 
+      }
+      /* .progress {
+      --bs-progress-height: 1.00rem !important;
+      } */
+      .applyCancleCta .btn:disabled {
+      background-color: grey;
+      /* Change to your preferred grey color */
+      color: white;
+      /* Change text color if needed */
+      cursor: not-allowed;
+      /* Optional: Change cursor style */
+      opacity: 0.6;
+      /* Optional: Make it look faded */
+      }
+      .custom-checkbox .form-check-input {
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      }
+      .custom-checkbox .form-check-label {
+      font-size: 12px;
+      color: #495057;
+      line-height: 1.5;
+      }
+      .form-check.custom-checkbox:hover .form-check-input {
+      background-color: #33208c;
+      border-color: #33208c;
+      }
+      .form-check.custom-checkbox:focus-within .form-check-input {
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+      }
+      .hover-shadow-lg:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .form-check.custom-checkbox input:checked {
+      background-color: #28a745;
+      border-color: #28a745;
+      }
+      .form-check.custom-checkbox input:checked+.form-check-label {
+      color: #28a745;
+      }
+      .resend-button {
+      background: #33208c;
+      /* Blue background */
+      border: none;
+      color: white;
+      font-size: 12px;
+      /* padding: 8px 12px; */
+      border-radius: 10%;
+      /* display: flex; */
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .resend-button i {
+      font-size: 1.2em;
+      }
+      .resend-button:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      background: #0056b3;
+      /* Darker blue on hover */
+      }
+      .resend-button:active {
+      transform: scale(0.95);
+      }
+      .parameters {
+      max-height: 20vh;
+      }
+      #scheme_info .over-scroll-down {
+      overflow-y: scroll !important;
+      }
+      #check_scheme_eligibility {
+      margin-bottom: 77px;
+      }
+      #scheme_eligibility {
+      margin-bottom: 77px;
+      }
+      #studentTableBody td:nth-child(2) {
+      word-break: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+      }
+      #schemeTableBody td:nth-child(2) {
+      word-break: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+      }
+      .table td {
+      max-height: 50px;
+      /* Set a maximum height */
+      overflow: hidden;
+      /* Hide overflow */
+      text-overflow: ellipsis;
+      /* Add ellipsis for overflow */
+      white-space: nowrap;
+      /* Prevent wrapping */
+      line-height: 1.2;
+      /* Set line height for readability */
+      }
+      #check_scheme_content td:nth-child(2) {
+      height: 150px;
+      overflow-y: auto;
+      word-break: break-all !important;
+      white-space: break-spaces;
+      display: block;
+      }
+      /* Add these styles in the existing style block */
+      .student-details-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      }
+
+      .scheme-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/*.details-grid div:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+}*/
+
+
+      .scheme-table th {
+      /* background: #f8f9fa; */
+      font-weight: 600;
+      }
+      .scheme-checkbox {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      }
+      .apply-button {
+      min-width: 120px;
+      transition: all 0.3s ease;
+      }
+      .apply-button:disabled {
+      background-color: #6c757d;
+      border-color: #6c757d;
+      opacity: 0.65;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="app-header fixed-top">
+
+      <div class="header-left d-flex align-items-center gap-2">
+        <div class="sidebar-toggle" id="sidebarToggle">
+          <i class="bi bi-list"></i>
+        </div>
+        <a href="#" class="logo d-flex align-items-center">
+          <img src="assets/img/tn_logo.png" class="logo_header">
+          <div class="ms-2">
+            <div class="title">Tamil Nadu Integrated State Scholarship Portal</div>
+            <small class="subtitle">Government of Tamil Nadu</small>
+          </div>
+        </a>
+      </div>
+      <div class="header-right">
+        <div class="header-tools">
+          <!-- Accessibility Controls -->
+          <div class="font-controls">
+            <button class="btn-font increase">A+</button>
+            <button class="btn-font reset">A</button>
+            <button class="btn-font decrease">A-</button>
+          </div>
+          <!-- Language Switch -->
+          <div class="lang-switch" onclick="switchLang()">
+            <i class="bi bi-translate"></i>
+            <span>தமிழ்</span>
+          </div>
+          <!-- Date Time -->
+          <div class="header-time">
+            <i class="bi bi-clock"></i>
+            <span id="dateTimeLink">13/03/2026 14:31:15</span>
+          </div>
+          <!-- Profile -->
+          <div class="profile-menu">
+            <div class="profile-trigger">
+              <div class="avatar">
+                <i class="bi bi-person"></i>
+              </div>
+              <span id="stud_name">M SAM</span>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+            <div class="profile-dropdown">
+              <!-- <a href="#"><i class="bi bi-person"></i> Profile</a>
+              <a href="#"><i class="bi bi-gear"></i> Settings</a> -->
+              <a href="#"><i class="bi bi-box-arrow-right"></i> Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- End Header -->
+    <!-- ======= Sidebar ======= -->
+   
+    <aside id="sidebar" class="app-sidebar">
+      <ul class="sidebar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="index.html" id="dashboard-link">
+          <i class="bi bi-house-door"></i>
+          <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="applied_schemes.html" id="applied-schemes-link">
+          <i class="bi bi-card-checklist"></i>
+          <span>Applied Schemes</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="all_schemes.html" id="all-schemes-link">
+          <i class="bi bi-grid"></i>
+          <span>All Schemes</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <!-- End Sidebar-->
+    <!-- <div id="preloader"></div> -->
+    <!-- End Sidebar-->
+    <main id="main" class="main">
+      <section>
+        <div id="studentDetailsInline">
+          <style>
+            body, #studentDetailsInline {
+            background: radial-gradient(circle at 15% 10%, rgba(79, 70, 229, 0.07), transparent 40%), radial-gradient(circle at 85% 20%, rgba(99, 102, 241, 0.05), transparent 45%), #f6f8fb !important;
+            }
+            .student-section, .scheme-section {
+            background: #fff;
+            border-radius: 0.8rem;
+            box-shadow: 0 2px 12px 0 rgba(31, 38, 135, 0.07);
+            border: none;
+/*            margin-bottom: 15px;*/
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 15px;
+            }    
+            /* .student-section {
+            margin-bottom: 1.5rem;
+            }*/
+            .student-section .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #e3e3ff;
+            padding-bottom: 15px;
+            }
+            .student-section .profile-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #eef2ff;
+            color: #33208c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgb(51 32 140 / 27%);
+            }
+            .student-section .profile-info {
+            flex: 1;
+            }
+            .student-section .profile-info h4 {
+            margin: 0;
+            font-weight: 800;
+            color: #2a2a72;
+            letter-spacing: 0.5px;
+            }
+            .student-section .profile-info .badge {
+            font-size: 1.1rem;
+            background: #fff;
+            }
+            .student-section .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 0.7rem 2.5rem;
+            }
+            .student-section .details-label {
+/*            font-weight: 600;*/
+/*            color: #6859b0;*/
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+/*            font-size: 16px; */
+
+
+              font-size: 12px;
+              color: #6b7280;   /* 🔥 replace purple */
+              font-weight: 500;
+
+
+            }
+            .student-section .details-value {
+            /*color: #333;
+            font-weight: 500; */
+
+
+             font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+
+
+            }
+            .section-title {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #2a2a72;
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            border-left: 5px solid #33208c;
+            padding-left: 0.7rem;
+            }
+           /* .scheme-section .scheme-table th { 
+            background: #f4f6fa;
+            color: #6859b0; 
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            }*/
+            .modal span.form-check-label {
+              font-size: 14px;
+            } 
+
+
+            .details-grid div,
+.scheme-table tr {
+  transition: all 0.2s ease;
+}
+
+.scheme-table tbody tr.selected {
+  background: #eef2ff;
+}
+
+            .scheme-section .scheme-table td, .scheme-section .scheme-table th {
+            vertical-align: middle;
+            border: none;
+            }
+            .scheme-section .scheme-badge {
+            padding: 0.25em 0.7em;
+            border-radius: 12px;
+            font-size: 1em;
+/*            font-weight: 600;*/
+            color: #fff;
+            background: #33208c;
+            }
+            .scheme-section .scheme-badge.inclusive {
+            border: 1px dotted #188251 !important;
+            background: transparent !important;
+            color: #188251;
+            border-radius: 4px 7px !important;
+            }  
+            .scheme-section .scheme-badge.exclusive { background: #fde8ef; color:#be185d }
+            .scheme-section .scheme-badge[aria-label*="exceptions"] { background: #fd7e14; }
+            /*// .scheme-section .status-chip {
+            //   display: inline-block;
+            //   padding: 0.2em 0.8em;
+            //   border-radius: 10px;
+            //   font-size: 1em;
+            //   font-weight: 600;
+            //   color: #fff;
+            // }*/
+            .scheme-section .status-chip.applied { background: #28a745; }
+            .scheme-section .action-btn {
+            min-width: 120px;
+            font-size: 16px;
+            border-radius: 8px !important;
+            margin-right: 0.7rem;
+            box-shadow: 0 2px 8px rgba(51, 32, 140, 0.08);
+            }
+            .scheme-section .action-btn i {
+            margin-right: 0.4em;
+            }
+            .scheme-section .table-responsive {
+            border-radius: 12px;
+            overflow-x: auto;
+            }
+            @media (max-width: 1200px) {
+            .student-section, .scheme-section {
+            padding: 1.2rem 0.5rem 1rem 0.5rem;
+            }
+            }
+            @media (max-width: 900px) {
+            .student-section, .scheme-section {
+            padding: 1rem 0.2rem 1rem 0.2rem;
+            }
+            .student-section .details-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 0.7rem 1.2rem;
+            }
+            }
+            @media (max-width: 700px) {
+            .student-section .details-grid {
+            grid-template-columns: 1fr;
+            gap: 0.5rem 0;
+            }
+            }
+            @media (max-width: 600px) {
+            .student-section, .scheme-section {
+            padding: 0.5rem 0.1rem 0.5rem 0.1rem;
+            border-radius: 0;
+            box-shadow: none;
+            }
+            .student-section .profile-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.7rem;
+            border-bottom: 1px solid #e3e3ff;
+            padding-bottom: 15px;
+            }
+            .student-section .profile-avatar {
+            width: 56px;
+            height: 56px;
+            font-size: 1.5rem;
+            margin-right: 0;
+            margin-bottom: 0.5rem;
+            }
+            .student-section .profile-info h4 {
+            font-size: 1.1rem;
+            }
+            .section-title {
+            font-size: 1.2rem;
+            padding-left: 0.4rem;
+            margin-bottom: 1rem;
+            }
+            }
+            // new css
+            /* MAIN CARD */
+            .student-premium-card{
+            background: linear-gradient(145deg,#ffffff,#f4f6fb);
+            border-radius:16px;
+            padding:28px;
+            box-shadow:0 10px 35px rgba(0,0,0,0.08);
+            transition:all .3s ease;
+            border:1px solid rgba(0,0,0,0.04);
+            }
+            /* SECTION TITLE */
+            .section-title{
+            font-size:20px;
+            font-weight:600;
+            color:#2c3e70;
+            display:flex;
+            align-items:center;
+            gap:10px;
+            margin-bottom:12px;
+            border-left:4px solid #5b6cff;
+            padding-left:12px;
+            }
+            .section-title i{
+            font-size:22px;
+            color:#5b6cff;
+            }
+            /* PROFILE HEADER */
+            .profile-header{
+            display:flex;
+            align-items:center;
+            gap:18px;
+            margin-bottom:25px;
+            }
+            /* AVATAR */
+            .profile-avatar{
+            width:65px;
+            height:65px;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:24px;
+            font-weight:600;
+            color:white;
+            background:linear-gradient(135deg,#5b6cff,#7a8cff);
+            box-shadow:0 6px 18px rgba(91,108,255,0.4);
+            }
+            /* PROFILE NAME */
+            .profile-info h4{
+            margin:0;
+            font-size:22px;
+            font-weight:600;
+            color:#2b2f4b;
+            margin-bottom:6px;
+            }
+            /* BADGES */
+            .profile-info .badge{
+            font-size:12px;
+            padding:6px 10px;
+            border-radius:6px;
+            margin-right:4px;
+            letter-spacing:.3px;
+            }
+            /* DETAILS GRID */
+            .details-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+            gap:14px;
+            margin-top:15px;
+            } 
+            /* DETAIL ITEM */
+
+
+
+
+
+
+          /*  .details-grid div{
+            background:white;
+            border-radius:10px;
+            padding:8px 14px;
+            border: 1px solid #eef1f6;  
+            transition:all .25s ease;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            flex-wrap:wrap;
+            }*/
+           /* .details-grid div:hover{
+            background:#f9faff;
+            transform:translateY(-2px);
+            box-shadow:0 6px 16px rgba(0,0,0,0.05);
+            }*/
+
+            /*.details-grid div:hover {
+  background: #fafbff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+}*/
+
+
+            /* LABEL */
+            .details-label{
+            /*font-weight:600;
+            color:#4a4f6d;*/
+            font-size:14px;
+            display:flex;
+            align-items:center;
+            gap:6px;
+            }
+
+
+            .details-label i {
+/*  color: #6366f1;  /* soft indigo instead of hard purple */*/
+}
+
+
+            /* ICON */
+           /* .details-label i{
+            color:#5b6cff;
+            font-size:15px;
+            }*/
+            /* VALUE */
+            .details-value{
+            font-weight:600;
+/*            color:#2b2f4b;*/
+            color: #111827;
+            font-size:14px;
+            margin-left:6px;
+            }
+            /* VERIFIED ICON */
+            .bi-patch-check-fill{
+            font-size:16px;
+            }
+            .bi-x-circle-fill{
+            font-size:16px;
+            }
+            /* MOBILE RESPONSIVE */
+            @media(max-width:768px){
+            .profile-header{
+            flex-direction:column;
+            align-items:flex-start;
+            }
+            .profile-avatar{
+            width:55px;
+            height:55px;
+            font-size:20px;
+            }
+            .details-grid{
+            grid-template-columns:1fr;
+            }
+            }.student-premium-card{
+            animation:fadeStudent .5s ease;
+            }
+            @keyframes fadeStudent{
+            from{
+            opacity:0;
+            transform:translateY(8px);
+            }
+            to{
+            opacity:1;
+            transform:translateY(0);
+            }
+            }
+            /* HEADER ALIGNMENT */
+            .profile-header{
+            display:flex;
+            align-items:center;
+            gap:18px;
+            margin-bottom:22px;
+            }
+            /* NAME */
+            .student-name-row h4{
+            font-size:19px;
+            font-weight:600;
+            margin-bottom:6px;
+            color:#2c3553;
+            } 
+            /* META ROW */
+            .student-meta{
+            display:flex;
+            flex-wrap:wrap;
+            gap:8px;
+            }
+            /* BADGE IMPROVEMENTS */
+            .student-meta .badge{
+            font-size:13px;
+            padding:6px 10px;
+            border-radius:6px;
+            display:flex;
+            align-items:center;
+            font-weight:500;
+            }
+            /* PHONE BADGE */
+            .badge-phone{
+            background:#eef2ff;
+            color:#3949ab;
+            border:1px solid #e0e6ff;
+            }
+            /* ICON INSIDE BADGE */
+            .student-meta i{
+            font-size:13px;
+            }
+            /* AVATAR IMPROVEMENT */
+            .profile-avatar{
+            width:60px;
+            height:60px;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:22px;
+            font-weight:600;
+            color:white;
+            background:linear-gradient(135deg,#4f46e5,#6366f1);
+            box-shadow:0 6px 15px rgba(79,70,229,.35);
+            }
+            .badge-phone i:last-child{
+            font-size:14px;
+            margin-left:3px;
+            }
+            ul#student_info_update {
+            border-bottom: 0;
+            }
+            #student_info_update button.nav-link.active {
+            border-radius: 4px 7px;
+/*            box-shadow: 1px 5px 10px rgb(0 0 0 / 20%) !important;*/
+            }
+            #student_info_update button.nav-link {
+            border: 1px solid #6859b0; 
+            border-radius: 4px 7px;
+            color: #33208c;
+            font-size: 14px;
+            }
+            #student_info_update button.nav-link:hover { 
+            background: #6859b0;
+            color: #fff;
+            transition: 0.3 all;
+            } 
+            .text-view {
+            font-size: 12px;
+            font-weight: 600;
+            }
+            .details-label i{
+/*            color:#6859b0 !important; */
+            margin-right:6px; 
+            }
+            /* modal surface */
+            .custom-modal .modal-content{
+            border-radius:16px;
+            border:none;
+            box-shadow:0 20px 60px rgba(0,0,0,0.15);
+            padding:10px;
+            }
+            /* cards */
+            .refresh-card{
+            background:#fff;
+            border:1px solid #eef1f6;
+            border-radius:12px;
+            padding:16px;
+            transition:all .25s ease;
+            }
+            .refresh-card:hover{
+            transform:translateY(-3px);
+            box-shadow:0 12px 28px rgba(0,0,0,0.08);
+            border-color:#dbe2ff;
+            }
+            /* header inside card */
+            .refresh-card .card-header{
+            display:flex;
+            gap:12px;
+            align-items:center;
+            }
+            .refresh-card .card-header i{
+            font-size:20px;
+            color:#5b5fc7;
+            background:#eef0ff;
+            padding:10px;
+            border-radius:10px;
+            }
+            /* title */
+            /*.refresh-card h6{
+            margin:0;
+            font-weight:600;
+            }*/
+            .refresh-card h6 {
+            margin: 0;
+            font-weight: 620;
+            color: #5543b0;
+            }
+            /* subtitle */
+            .refresh-card p{
+            margin:0;
+            font-size:12px;
+            color:#6b7280;
+            }
+            /* checkbox spacing */
+            .form-check{
+            cursor:pointer;
+            }
+            .modal.fade .modal-dialog{
+            transform:translateY(20px) scale(.98);
+            transition:all .25s ease;
+            }
+            .modal.show .modal-dialog{
+            transform:translateY(0) scale(1);
+            }
+            .scheme-badge i {
+            font-size: 12px;
+            cursor: pointer;
+            color: #be185d;
+            } 
+            .scheme-badge i:hover {
+            color: #0d6efd;
+            }
+            /*      // new css*/
+          </style>
+          <div class="row mx-0 mt-2">
+            <div class="student-section col-lg-12 mb-2">
+              <!-- <ul class="nav nav-tabs" id="student_info_update" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link ripple active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab">
+                  <i class="bi bi-person me-1"></i>
+                  Student Details
+                  </button>
+                </li>
+                <li class="nav-item mx-2" role="presentation">
+                  <button class="nav-link ripple" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab">
+                  <i class="bi bi-telephone-fill me-1"></i>
+                  Contact Details
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link ripple" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab">
+                  <i class="bi bi-people-fill me-1"></i>
+                  Family Information
+                  </button>
+                </li>
+                <li class="nav-item mx-2" role="presentation">
+                  <button class="nav-link ripple" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab">
+                  <i class="bi bi-mortarboard-fill me-1"></i>
+                  Academic Information
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link ripple" id="disabled-tab1" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane1" type="button" role="tab">
+                  <i class="bi bi-bank2 me-1"></i>
+                  Bank Account Information
+                  </button>
+                </li>
+              </ul> -->
+
+
+             <ul class="nav nav-tabs" id="student_info_update" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link ripple active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab">
+                  <i class="bi bi-person me-1"></i>
+                  Student Details
+                  </button>
+                </li>
+                <li class="nav-item mx-2" role="presentation">
+                  <button class="nav-link ripple" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab">
+                  <i class="bi bi-telephone-fill me-1"></i>
+                  Contact Details
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link ripple" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab">
+                  <i class="bi bi-people-fill me-1"></i>
+                  Family Information
+                  </button>
+                </li>
+                <li class="nav-item mx-2" role="presentation">
+                  <button class="nav-link ripple" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab">
+                  <i class="bi bi-mortarboard-fill me-1"></i>
+                  Academic Information
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link ripple" id="disabled-tab1" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane1" type="button" role="tab">
+                  <i class="bi bi-bank2 me-1"></i>
+                  Bank Account Information
+                  </button>
+                </li>
+                <!-- <li class="nav-item mx-2" role="presentation">
+                  <button class="nav-link ripple" id="disabled-tab2" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane2" type="button" role="tab">
+                    <i class="bi bi-tags-fill me-1"></i>
+                    Category Details
+                  </button>
+                  </li> -->
+              </ul>
+
+
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                 
+
+                  <div class="details-grid">
+                    <div>
+                      <span class="details-label"><i class="bi bi-person-fill"></i> Name:</span>
+                      <span class="details-value">Kumar</span>
+                    </div>
+                    <div>
+                      <span class="details-label">
+                      <i class="bi bi-cake2-fill"></i> Date of Birth:
+                      </span>
+                      <span class="details-value">
+                      12/03/2001
+                      </span>
+                    </div>
+                    <div>
+                      <span class="details-label">
+                      <i class="bi bi-gender-female"></i> Gender:
+                      </span>
+                      <span class="details-value">
+                      Female
+                      </span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-globe2"></i> Nationality:</span>
+                      <span class="details-value">Indian</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-book-half"></i> Religion:</span>
+                      <span class="details-value">Hindu</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-diagram-3-fill"></i> Community:</span>
+                      <span class="details-value">BC</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-people-fill"></i> Caste:</span>
+                      <span class="details-value">Vanniyar</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-credit-card-2-front-fill"></i> Aadhaar Number:</span>
+                      <span class="details-value">********1761 <i class="ps-2 bi bi-patch-check-fill text-success" title="Mobile Verified"></i></span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-award-fill"></i> First Graduate:</span>
+                      <span class="details-value">Yes</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-universal-access-circle"></i> Disability:</span>
+                      <span class="details-value">No</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-hash"></i> EMIS No:</span>
+                      <span class="details-value">1018707457</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-hash"></i> UMIS:</span>
+                      <span class="details-value">9000798582</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-translate"></i> Medium:</span>
+                      <span class="details-value">English</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-house-door-fill"></i> Hosteler:</span>
+                      <span class="details-value">Yes</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-building"></i> Hosteler Type:</span>
+                      <span class="details-value">Inside Campus</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-tags-fill"></i> Special Category:</span>
+                      <span class="details-value">Yes</span>
+                    </div>
+                  </div>
+
+
+
+                  <div class="mt-2 alert alert-info d-flex align-items-center justify-content-between py-1 px-3 mb-0">
+                    <span class="text-view">
+                    If your UMIS data is not reflected in SSP here, click the refresh button to update your information instantly.
+                    </span>
+                    <a data-bs-toggle="modal" data-bs-target=".refreshModal1" class="ripple btn btn-primary btn-sm cpointer">
+                    <i class="bi bi-arrow-clockwise"></i> Refresh Student Details
+                    </a>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                  <div class="details-grid">
+                    <div>
+                      <span class="details-label">
+                      <i class="bi bi-phone-fill"></i> Mobile No:
+                      </span>
+                      <span class="details-value">
+                      8148809858
+                      <i class="bi bi-patch-check-fill text-success ps-2" title="Mobile Verified"></i>
+                      </span>
+                    </div>
+                    <div>
+                      <span class="details-label">
+                      <i class="bi bi-envelope-fill"></i> Email ID:
+                      </span>
+                      <span class="details-value">student@gmail.com</span>
+                    </div>
+                    <div>
+                      <span class="details-label">
+                      <i class="bi bi-house-door-fill"></i> Permanent Address:
+                      </span>
+                      <span class="details-value">No:3, test road, Anna Salai.</span>
+                    </div>
+                    <div>
+                      <span class="details-label">
+                      <i class="bi bi-geo-alt-fill"></i> State:
+                      </span>
+                      <span class="details-value">Tamil Nadu</span>
+                    </div>
+                    <div>
+                      <span class="details-label">
+                      <i class="bi bi-map-fill"></i> District:
+                      </span>
+                      <span class="details-value">Chennai</span>
+                    </div>
+                    <div>
+                      <span class="details-label">
+                      <i class="bi bi-mailbox2"></i> Pincode:
+                      </span>
+                      <span class="details-value">600058</span>
+                    </div>
+                  </div>
+                  <div class="mt-2 alert alert-info d-flex align-items-center justify-content-between py-1 px-3 mb-0">
+                    <span class="text-view">
+                    If your UMIS data is not reflected in SSP here, click the refresh button to update your information instantly.
+                    </span>
+                    <a data-bs-toggle="modal" data-bs-target=".refreshModal2" class="btn btn-primary btn-sm">
+                    <i class="bi bi-arrow-clockwise"></i> Refresh Contact Details
+                    </a>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                  <div class="details-grid">
+                    <div>
+                      <span class="details-label"><i class="bi bi-person-fill"></i> Father Name:</span>
+                      <span class="details-value">Kumar</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-person-heart"></i> Mother Name:</span>
+                      <span class="details-value">Priya</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-person-badge-fill"></i> Guardian Name:</span>
+                      <span class="details-value">Ramesh</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-phone-fill"></i> Parent Mobile No:</span>
+                      <span class="details-value">9865321487</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-envelope-fill"></i> Parent Email ID:</span>
+                      <span class="details-value">parent@gmail.com</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-credit-card-2-front-fill"></i> Family Card Number:</span>
+                      <span class="details-value">987456231245</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-cash-stack"></i> Family Annual Income:</span>
+                      <span class="details-value">30,0000</span>
+                    </div>
+                  </div>
+                  <div class="mt-2 alert alert-info d-flex align-items-center justify-content-between py-1 px-3 mb-0">
+                    <span class="text-view">
+                    If your UMIS data is not reflected in SSP here, click the refresh button to update your information instantly.
+                    </span>
+                    <a data-bs-toggle="modal" data-bs-target=".refreshModal3" class="ripple btn btn-primary btn-sm cpointer">
+                    <i class="bi bi-arrow-clockwise"></i> Refresh Family Information
+                    </a>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
+                  <div class="details-grid">
+                    <div>
+                      <span class="details-label"><i class="bi bi-mortarboard-fill"></i> Course Name:</span>
+                      <span class="details-value">BE</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-diagram-3-fill"></i> Course Branch:</span>
+                      <span class="details-value">CSE</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-calendar-event-fill"></i> Date of Admission:</span>
+                      <span class="details-value">13/03/2024</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-card-text"></i> Registration Number:</span>
+                      <span class="details-value">568923475869</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-arrow-left-right"></i> Lateral Entry:</span>
+                      <span class="details-value">Yes</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-building-fill"></i> Institute Name:</span>
+                      <span class="details-value">AGNI COLLEGE OF TECHNOLOGY</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-journal-bookmark-fill"></i> Mode of Study:</span>
+                      <span class="details-value">Regular</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-calendar3"></i> Academic Year:</span>
+                      <span class="details-value">2026</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-award-fill"></i> Studying Year:</span>
+                      <span class="details-value">2026</span>
+                    </div>
+                  </div>
+                  <div class="mt-2 alert alert-info d-flex align-items-center justify-content-between py-1 px-3 mb-0">
+                    <span class="text-view">
+                    If your UMIS data is not reflected in SSP here, click the refresh button to update your information instantly.
+                    </span>
+                    <a data-bs-toggle="modal" data-bs-target=".refreshModal4" class="ripple btn btn-primary btn-sm cpointer">
+                    <i class="bi bi-arrow-clockwise"></i> Refresh Academic Information
+                    </a>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="disabled-tab-pane1" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
+                  <div class="details-grid">
+                    <div>
+                      <span class="details-label"><i class="bi bi-bank2"></i> Bank:</span>
+                      <span class="details-value">Bank</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-diagram-3"></i> Branch:</span>
+                      <span class="details-value">Branch</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-credit-card-2-front"></i> IFSC Code:</span>
+                      <span class="details-value">SBI532874512</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-credit-card-2-front"></i> Account Number:</span>
+                      <span class="details-value">896532874512</span>
+                    </div>
+                    <div>
+                      <span class="details-label"><i class="bi bi-patch-check-fill"></i> Account Verified:</span>
+                      <span class="details-value">Verified <i class="ps-2 bi bi-patch-check-fill text-success" title="Mobile Verified"></i></span>
+                    </div>
+                  </div>
+                  <div class="mt-2 alert alert-info d-flex align-items-center justify-content-between py-1 px-3 mb-0">
+                    <span class="text-view">
+                    If your UMIS data is not reflected in SSP here, click the refresh button to update your information instantly.
+                    </span>
+                    <a data-bs-toggle="modal" data-bs-target=".refreshModal5" class="ripple btn btn-primary btn-sm cpointer">
+                    <i class="bi bi-arrow-clockwise"></i> Refresh Bank Account Information
+                    </a>
+                  </div>
+                </div>
+                <!-- <div class="tab-pane fade" id="disabled-tab-pane2" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">
+                  <div class="details-grid">
+                  
+                  <div>
+                    <span class="details-label"><i class="bi bi-tags-fill"></i> Special Category:</span>
+                    <span class="details-value">Yes</span>
+                  </div>
+                  
+                  </div>
+                  
+                  <div class="mt-2 alert alert-info d-flex align-items-center justify-content-between py-1 px-3 mb-0">
+                    <span class="text-view">
+                      If your UMIS data is not reflected in SSP here, click the refresh button to update your information instantly.
+                    </span>
+                    <a data-bs-toggle="modal" data-bs-target=".refreshModal" class="ripple btn btn-primary btn-sm cpointer">
+                      <i class="bi bi-arrow-clockwise"></i> Refresh
+                    </a>
+                  </div>
+                  
+                  </div> -->
+              </div>
+            </div>
+            <div class="scheme-section">
+              <!-- <div class="section-header-card mt-2 mb-3">
+                <div class="section-header-left">
+                  <div class="section-icon">
+                    <i class="bi bi-award"></i>
+                  </div>
+                  <div>
+                    <h5>Scheme Details</h5>
+                    <span class="section-subtitle">
+                    Available scholarship schemes for the student
+                    </span>
+                  </div>
+                </div>
+              </div> -->
+
+             <!--  <div class="scheme-header1">
+  <div>
+    <h5><i class="bi bi-award me-2 text-primary"></i>Scheme Details</h5>
+  </div>
+</div> -->
+
+
+<div class="col-md-12 title-section mb-2">
+              <h5><i class="bi bi-award me-2"></i>Scheme Details</h5>
+            </div>
+
+
+
+              <div class="my-2 alert alert-info d-flex align-items-center justify-content-between1 py-1 px-3 mb-0">
+
+                    <span class="text-view d-flex ms-2">
+                      <span class="details-label"><i class="bi bi-person-badge-fill"></i> GBM ID:</span>
+                      <span class="details-value">-</span>
+                    </span>
+                    <span class="text-view d-flex ms-2">
+                      <span class="details-label"><i class="bi bi-bank2"></i> PFMS Code:</span>
+                      <span class="details-value">-</span>
+                    </span>
+                    <span class="text-view d-flex ms-2">
+                      <span class="details-label"><i class="bi bi-person-badge-fill"></i> OTR:</span>
+                      <span class="details-value">-</span>
+                    </span>
+
+                  </div>
+
+
+              <div class="table-responsive mt-2">
+                <table class="table modern-table table-bordered scheme-table" id="inline_scheme_table">
+                  <thead>
+                    <tr>
+                      <th style="width:40px;text-align:center;"><input type="checkbox" id="inline_select_all_schemes" aria-label="Select all schemes"></th>
+                      <th>Scheme Name</th>
+                      <!-- <th>Scholarship Amount</th> -->
+                      <th>Scheme Amount</th>
+                      <th>Maintenance  Amount</th>
+                      <th>Disability Amount</th>
+                      <th>Scheme Type</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="inline_scheme_table_body">
+                    <tr data-scheme-id="329">
+                      <td style="text-align:center;">
+                        <input type="checkbox" class="inline_scheme_inclusive_checkbox" data-idx="0" data-scheme-id="329" data-scheme-ruleid="580" aria-label="Select scheme">
+                      </td>
+                      <td>MBC-FREE EDUCATION - DIPLOMA</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>
+                        <span class="scheme-badge exclusive d-inline-flex align-items-center gap-1">
+                        Inclusive
+                        <i class="bi bi-info-circle ps-1"
+                          data-bs-toggle="tooltip"
+                          data-bs-placement="top"
+                          title="This scheme is only available for selected users">
+                        </i>
+                        </span>
+                      </td>
+                      <td>
+                        <span class="status-chip not-applied">
+                        Not Applied
+                        </span>
+                      </td>
+                    </tr>
+                    <tr data-scheme-id="329">
+                      <td style="text-align:center;">
+                        <input type="checkbox" class="inline_scheme_inclusive_checkbox" data-idx="0" data-scheme-id="329" data-scheme-ruleid="580" aria-label="Select scheme">
+                      </td>
+                      <td>MBC-FREE EDUCATION - DIPLOMA</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>
+                        <span class="scheme-badge exclusive d-inline-flex align-items-center gap-1">
+                          Exclusive
+                          <i class="bi bi-info-circle"
+                             data-bs-toggle="tooltip"
+                             data-bs-placement="top"
+                             title="This scheme is strictly exclusive and not available to others">
+                          </i>
+                        </span>
+                      </td>
+                      <td>
+                        <span class="status-chip not-applied">
+                        Not Applied
+                        </span>
+                      </td>
+                    </tr>
+                    <tr data-scheme-id="329">
+                      <td style="text-align:center;">
+                        <input type="checkbox" class="inline_scheme_inclusive_checkbox" data-idx="0" data-scheme-id="329" data-scheme-ruleid="580" aria-label="Select scheme">
+                      </td>
+                      <td>MBC-FREE EDUCATION - DIPLOMA</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>-</td>
+                      <td>
+                        <span class="scheme-badge exclusive d-inline-flex align-items-center gap-1">
+                          Exclusive with Exception
+                          <i class="bi bi-info-circle"
+                             data-bs-toggle="tooltip"
+                             data-bs-placement="top"
+                             title="This scheme is exclusive but allows certain exceptions based on conditions">
+                          </i>
+                        </span>
+                      </td>
+                      <td>
+                        <span class="status-chip not-applied">
+                        Not Applied
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="mt-3 d-flex flex-wrap align-items-center">
+                 <button class="btn btn-check-eligibility btn-sm ripple" data-bs-toggle="modal" data-bs-target=".eligibilityModal">
+                    <i class="bi bi-send"></i> Apply
+                    </button>
+                <!-- <button  type="button" class="btn btn-primary action-btn btn-sm" id="inline_apply_button" disabled="" title="Apply for selected scheme(s)"><i class="bi bi-check-circle"></i>Apply</button> -->
+                <!-- <button type="button" class="btn btn-primary action-btn btn-sm" id="inline_sync_button"><i class="bi bi-check-circle"></i>Refresh</button>  --> 
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- <div id="studentDetailsInline">
+        <student-details-component></student-details-component>
+        </div>
+        <view-scheme-component></view-scheme-component>
+        <student-refresh></student-refresh> -->
+      <footer id="footer" class="app-footer">
+        <div class="footer-left">
+          <span class="footer-copy">
+          <i class="bi bi-shield-check"></i>
+          © 2026 Tamil Nadu e-Governance Agency (TNeGA)
+          </span>
+        </div>
+        <div class="footer-right">
+          <a href="https://tnega.tn.gov.in/" target="_blank" class="footer-link">
+          <i class="bi bi-globe"></i>
+          TNeGA
+          </a>
+        </div>
+      </footer>
+    </main>
+    <!-- End Footer -->
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+    <!-- refresh static modal 1 -->
+    <div class="modal fade custom-modal refreshModal1" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <!-- HEADER -->
+          <div class="modal-header border-0">
+            <h5 class="modal-title">
+              <i class="bi bi-arrow-repeat me-2 text-primary"></i>
+              Refresh Student Data - Student Details
+            </h5>
+            <div class="d-flex gap-2">
+              <button class="btn btn-light btn-sm" data-bs-dismiss="modal">
+              <i class="bi bi-x-circle me-1"></i> Cancel
+              </button>
+              <button class="btn btn-warning btn-sm">
+              <i class="bi bi-arrow-clockwise me-1"></i> Reload
+              </button>
+              <button class="btn btn-primary btn-sm refresh_submit">
+              <i class="bi bi-check-circle me-1"></i> Submit
+              </button>
+            </div>
+          </div>
+          <!-- BODY -->
+          <div class="modal-body">
+            <div class="row g-3">
+              <!-- CARD -->
+              <div class="col-md-12">
+                <div class="refresh-card">
+                  <div class="card-header">
+                    <i class="bi bi-person"></i>
+                    <div>
+                      <h6>Student Details</h6>
+                      <p>Basic personal information</p>
+                    </div>
+                  </div>
+                  <label class="form-check mt-2">
+                  <!-- <input class="form-check-input" type="checkbox"> -->
+                  <span class="form-check-label">
+                  Name, DOB, Gender, Nationality, Religion, Community, Caste, Aadhaar, First Graduate, Disability, EMIS No, UMIS No, Medium, Hosteler, Hosteler Type, Special Category
+                  </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!-- LOADER OVERLAY -->
+            <div class="modal-loader" id="modalLoader">
+              <div class="loader-card">
+                <div class="loader-icon">
+                  <i class="bi bi-arrow-repeat"></i>
+                </div>
+                <h6>Updating Student Data...</h6>
+                <!-- PROGRESS BAR -->
+                <div class="progress mt-3">
+                  <div class="progress-bar" id="progressBar" style="width:0%">0%</div>
+                </div>
+              </div>
+            </div>
+            <!-- SUCCESS TOAST -->
+            <div class="modal-success" id="modalSuccess">
+              <i class="bi bi-check-circle-fill"></i>
+              <span>Data refreshed successfully</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- refresh static modal 1-->
+    <!-- refresh static modal 2 -->
+    <div class="modal fade custom-modal refreshModal2" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <!-- HEADER -->
+          <div class="modal-header border-0">
+            <h5 class="modal-title">
+              <i class="bi bi-arrow-repeat me-2 text-primary"></i>
+              Refresh Student Data - Contact Details
+            </h5>
+            <div class="d-flex gap-2">
+              <button class="btn btn-light btn-sm" data-bs-dismiss="modal">
+              <i class="bi bi-x-circle me-1"></i> Cancel
+              </button>
+              <button class="btn btn-warning btn-sm">
+              <i class="bi bi-arrow-clockwise me-1"></i> Reload
+              </button>
+              <button class="btn btn-primary btn-sm refresh_submit">
+              <i class="bi bi-check-circle me-1"></i> Submit
+              </button>
+            </div>
+          </div>
+          <!-- BODY -->
+          <div class="modal-body">
+            <div class="row g-3">
+              <!-- CARD -->
+              <div class="col-md-12">
+                <div class="refresh-card">
+                  <div class="card-header">
+                    <i class="bi bi-telephone"></i>
+                    <div>
+                      <h6>Contact Details</h6>
+                      <p>Mobile, email, address</p>
+                    </div>
+                  </div>
+                  <label class="form-check mt-2">
+                  <!-- <input class="form-check-input" type="checkbox"> -->
+                  <span class="form-check-label">
+                  Mobile No, Email ID, Permanent Address, State, District, Pincode
+                  </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!-- LOADER OVERLAY -->
+            <div class="modal-loader" id="modalLoader">
+              <div class="loader-card">
+                <div class="loader-icon">
+                  <i class="bi bi-arrow-repeat"></i>
+                </div>
+                <h6>Updating Student Data...</h6>
+                <!-- PROGRESS BAR -->
+                <div class="progress mt-3">
+                  <div class="progress-bar" id="progressBar" style="width:0%">0%</div>
+                </div>
+              </div>
+            </div>
+            <!-- SUCCESS TOAST -->
+            <div class="modal-success" id="modalSuccess">
+              <i class="bi bi-check-circle-fill"></i>
+              <span>Data refreshed successfully</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- refresh static modal 2 -->
+    <!-- refresh static modal 3 -->
+    <div class="modal fade custom-modal refreshModal3" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <!-- HEADER -->
+          <div class="modal-header border-0">
+            <h5 class="modal-title">
+              <i class="bi bi-arrow-repeat me-2 text-primary"></i>
+              Refresh Student Data - Family Information
+            </h5>
+            <div class="d-flex gap-2">
+              <button class="btn btn-light btn-sm" data-bs-dismiss="modal">
+              <i class="bi bi-x-circle me-1"></i> Cancel
+              </button>
+              <button class="btn btn-warning btn-sm">
+              <i class="bi bi-arrow-clockwise me-1"></i> Reload
+              </button>
+              <button class="btn btn-primary btn-sm refresh_submit">
+              <i class="bi bi-check-circle me-1"></i> Submit
+              </button>
+            </div>
+          </div>
+          <!-- BODY -->
+          <div class="modal-body">
+            <div class="row g-3">
+              <!-- FAMILY -->
+              <div class="col-md-12">
+                <div class="refresh-card">
+                  <div class="card-header">
+                    <i class="bi bi-people"></i>
+                    <div>
+                      <h6>Family Information</h6>
+                      <p>Parent & income details</p>
+                    </div>
+                  </div>
+                  <label class="form-check mt-2">
+                  <!-- <input class="form-check-input" type="checkbox"> -->
+                  <span class="form-check-label">
+                  Father Name, Mother Name, Guardian Name, Parent Mobile No, Parent Email ID, Family Card Number, Family Annual Income
+                  </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!-- LOADER OVERLAY -->
+            <div class="modal-loader" id="modalLoader">
+              <div class="loader-card">
+                <div class="loader-icon">
+                  <i class="bi bi-arrow-repeat"></i>
+                </div>
+                <h6>Updating Student Data...</h6>
+                <!-- PROGRESS BAR -->
+                <div class="progress mt-3">
+                  <div class="progress-bar" id="progressBar" style="width:0%">0%</div>
+                </div>
+              </div>
+            </div>
+            <!-- SUCCESS TOAST -->
+            <div class="modal-success" id="modalSuccess">
+              <i class="bi bi-check-circle-fill"></i>
+              <span>Data refreshed successfully</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- refresh static modal 3 -->
+    <!-- refresh static modal 4 -->
+    <div class="modal fade custom-modal refreshModal4" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <!-- HEADER -->
+          <div class="modal-header border-0">
+            <h5 class="modal-title">
+              <i class="bi bi-arrow-repeat me-2 text-primary"></i>
+              Refresh Student Data - Academic Information
+            </h5>
+            <div class="d-flex gap-2">
+              <button class="btn btn-light btn-sm" data-bs-dismiss="modal">
+              <i class="bi bi-x-circle me-1"></i> Cancel
+              </button>
+              <button class="btn btn-warning btn-sm">
+              <i class="bi bi-arrow-clockwise me-1"></i> Reload
+              </button>
+              <button class="btn btn-primary btn-sm refresh_submit">
+              <i class="bi bi-check-circle me-1"></i> Submit
+              </button>
+            </div>
+          </div>
+          <!-- BODY -->
+          <div class="modal-body">
+            <div class="row g-3">
+              <!-- ACADEMIC -->
+              <div class="col-md-12">
+                <div class="refresh-card">
+                  <div class="card-header">
+                    <i class="bi bi-mortarboard"></i>
+                    <div>
+                      <h6>Academic Info</h6>
+                      <p>Course & institution details</p>
+                    </div>
+                  </div>
+                  <label class="form-check mt-2">
+                  <!-- <input class="form-check-input" type="checkbox"> -->
+                  <span class="form-check-label">
+                  Course, Course Branch, Date of Admission, Registration Number, Lateral Entry, Institute Name, Mode of Study, Academic Year, Studying Year
+                  </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!-- LOADER OVERLAY -->
+            <div class="modal-loader" id="modalLoader">
+              <div class="loader-card">
+                <div class="loader-icon">
+                  <i class="bi bi-arrow-repeat"></i>
+                </div>
+                <h6>Updating Student Data...</h6>
+                <!-- PROGRESS BAR -->
+                <div class="progress mt-3">
+                  <div class="progress-bar" id="progressBar" style="width:0%">0%</div>
+                </div>
+              </div>
+            </div>
+            <!-- SUCCESS TOAST -->
+            <div class="modal-success" id="modalSuccess">
+              <i class="bi bi-check-circle-fill"></i>
+              <span>Data refreshed successfully</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- refresh static modal 4 -->
+    <!-- refresh static modal 5 -->
+    <div class="modal fade custom-modal refreshModal5" tabindex="-1">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <!-- HEADER -->
+          <div class="modal-header border-0">
+            <h5 class="modal-title">
+              <i class="bi bi-arrow-repeat me-2 text-primary"></i>
+              Refresh Student Data - Bank Account Information
+            </h5>
+            <div class="d-flex gap-2">
+              <button class="btn btn-light btn-sm" data-bs-dismiss="modal">
+              <i class="bi bi-x-circle me-1"></i> Cancel
+              </button>
+              <button class="btn btn-warning btn-sm">
+              <i class="bi bi-arrow-clockwise me-1"></i> Reload
+              </button>
+              <button class="btn btn-primary btn-sm refresh_submit">
+              <i class="bi bi-check-circle me-1"></i> Submit
+              </button>
+            </div>
+          </div>
+          <!-- BODY -->
+          <div class="modal-body">
+            <div class="row g-3">
+              <!-- BANK -->
+              <div class="col-md-12">
+                <div class="refresh-card">
+                  <div class="card-header">
+                    <i class="bi bi-bank"></i>
+                    <div>
+                      <h6>Bank Details</h6>
+                      <p>Account & verification</p>
+                    </div>
+                  </div>
+                  <label class="form-check mt-2">
+                  <!-- <input class="form-check-input" type="checkbox"> -->
+                  <span class="form-check-label">
+                  Bank, Branch, IFSC Code, Account Number, Account Verified
+                  </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!-- LOADER OVERLAY -->
+            <div class="modal-loader" id="modalLoader">
+              <div class="loader-card">
+                <div class="loader-icon">
+                  <i class="bi bi-arrow-repeat"></i>
+                </div>
+                <h6>Updating Student Data...</h6>
+                <!-- PROGRESS BAR -->
+                <div class="progress mt-3">
+                  <div class="progress-bar" id="progressBar" style="width:0%">0%</div>
+                </div>
+              </div>
+            </div>
+            <!-- SUCCESS TOAST -->
+            <div class="modal-success" id="modalSuccess">
+              <i class="bi bi-check-circle-fill"></i>
+              <span>Data refreshed successfully</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- refresh static modal 5 -->
+
+
+
+    <!-- apply button -->
+
+       <div class="modal fade custom-modal eligibilityModal">
+      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <!-- HEADER -->
+          <div class="modal-header border-0 py-2">
+            <h5 class="modal-title"> 
+              <i class="bi bi-patch-check me-2 text-primary"></i>
+              Tamil Nadu Integrated State Scholarship Portal
+            </h5>
+            <button class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <!-- BODY -->
+          <div class="modal-body py-2">
+            <!-- ================= STUDENT DETAILS ================= -->
+            <!-- <div class="section-header-card mt-3 mb-2">
+              <div class="section-icon">
+                <i class="bi bi-person"></i>
+              </div>
+              <div>
+                <h5><i class="bi bi-person"></i> Student Details</h5>
+                <p>Personal & academic information</p>
+              </div>
+            </div> -->
+
+            <div class="col-md-12 modalTitle mt-2">
+              <h5><i class="bi bi-person"></i> Student Details</h5>
+            </div>
+
+
+            <div class="details-grid">
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-person"></i><span>Student Name</span></div>
+                <div class="details-right">PANDISELVI M</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-gender-female"></i><span>Emis Id</span></div>
+                <div class="details-right">1001725967</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-globe"></i><span>Umis Id</span></div>
+                <div class="details-right">9000579269</div>
+              </div>
+             
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-person-badge"></i><span>Nationality</span></div>
+                <div class="details-right">Indian</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-award"></i><span>Religion</span></div>
+                <div class="details-right">Hindu</div>
+              </div>
+            
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-universal-access"></i><span>Community</span></div>
+                <div class="details-right">MBC</div>
+              </div>
+           
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-hash"></i><span>Caste</span></div>
+                <div class="details-right">Kulala</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-hash"></i><span>Phone no</span></div>
+                <div class="details-right">9787630638</div>
+              </div>
+            
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-book"></i><span>Aadhar no</span></div>
+                <div class="details-right">********3513</div>
+              </div>
+             
+            </div>
+            <!-- ================= SCHEME DETAILS ================= -->
+            <!-- <div class="section-header-card mt-4 mb-2">
+              <div class="section-icon">
+                <i class="bi bi-journal-check"></i>
+              </div>
+              <div>
+                <h5>Scheme Details</h5>
+                <p>Selected scheme information</p>
+              </div>
+            </div> -->
+            <div class="col-md-12 modalTitle mt-2">
+              <h5><i class="bi bi-journal-check"></i> Scheme Details</h5>
+            </div>
+            <div class="table-card">
+              <table class="table align-middle custom-table">
+                <thead>
+                  <tr>
+                    <th>Scheme Name</th>
+                    <th>Scholarship Amount</th>
+                    <th>Maintenance Amount</th>
+                    <th>Disability Amount</th>
+                    <th>Scheme Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>BC - PMSS</td>
+                    <td>₹1,000</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>Exclusive</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- ================= Academic STATUS ================= -->
+
+           <!--  <div class="section-header-card mt-3 mb-2">
+              <div class="section-icon">
+                <i class="bi bi-person"></i>
+              </div>
+              <div>
+                <h5>ACADEMIC DETAILS</h5>
+                <p>Academic information</p>
+              </div>
+            </div> -->
+
+            <div class="col-md-12 modalTitle mt-2">
+              <h5><i class="bi bi-person"></i> Academic Details</h5>
+            </div>
+            <div class="details-grid">
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-person"></i><span>Academic Year</span></div>
+                <div class="details-right">2025-2026</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-gender-female"></i><span>Course</span></div>
+                <div class="details-right">B.Sc</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-globe"></i><span>Course Branch</span></div>
+                <div class="details-right">NURSING</div>
+              </div>
+             
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-person-badge"></i><span>Course Year</span></div>
+                <div class="details-right">4</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-award"></i><span>Medium Of Instruction</span></div>
+                <div class="details-right">English</div>
+              </div>
+            
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-universal-access"></i><span>Mode Of Study</span></div>
+                <div class="details-right">Regular</div>
+              </div>
+           
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-hash"></i><span>Hosteller</span></div>
+                <div class="details-right">Yes</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-hash"></i><span>Current Status Of The Student</span></div>
+                <div class="details-right">Studying in this institute</div>
+              </div>
+
+             
+            </div>
+
+            <!-- ================= Academic STATUS ================= -->
+            <!-- <div class="section-header-card mt-3 mb-2">
+              <div class="section-icon">
+                <i class="bi bi-person"></i>
+              </div>
+              <div>
+                <h5>Apply Confirmation</h5>
+              </div>
+            </div> -->
+
+
+            <div class="col-md-12 modalTitle mt-3">
+              <h5><i class="bi bi-person"></i> Apply Confirmation</h5>
+            </div>
+
+            <div class="col-lg-12">
+                      <form class="">
+                        <div class="form-group text-start">
+                          <ul class="ps-0">
+                            <label class="me-3 font14">
+                              <input type="radio" name="applicationDecision" value="apply">
+                              Yes, I want to apply
+                            </label>
+                            <label class="me-3 font14">
+                              <input type="radio" name="applicationDecision" value="notApply">
+                              No, I don't want to apply
+                            </label>
+                          </ul>
+                        </div>
+                      </form>
+                    </div>
+
+        <!-- ================= CONSENT DECLARATION ================= -->
+
+
+        <div class="col-md-12">
+          <div class="card sectionSeparate">
+                        <div class="card-body">
+                          <div class="declaration">
+                            <p id="consentText" class="font14 py-2">
+                            I have read and understood the eligibility and other conditions of award of Scholarship as per the scheme guidelines.
+                            I understand that my application is liable to be rejected if I provide wrong Aadhaar number or Aadhaar number of someone else’s.
+                            I understand that if more than one application is found to be made on-line, all my applications are liable to be rejected.
+                            I understand that for any wrong entry of Bank-account details, the State Government will not be responsible for mis-credit and I will be held responsible for diversion of public money on this ground.
+                            I have read the above statements &amp; agree with the conditions. Further, I hereby state that I have no objection in authenticating myself with Demographic Aadhaar authentication system for the purpose of availing benefit of Scholarship.
+                            </p>
+                            <p id="notificationText">
+                              I voluntarily agree to receive alerts and notifications via SMS and WhatsApp.
+                            </p>
+                            <div class="text-center">
+                              <div class="form-check">
+                                <label class="form-check-label" for="applySchemeVerification">
+                                  <input class="form-check-input" type="checkbox" value="1" id="applySchemeVerification">
+                                  I Agree to these conditions
+                                </label>
+                              </div>
+                            </div>
+                            <div class="applyCancleCta text-center">
+                              <button class="btn btn-primary" id="get_opt" disabled="">Apply</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+        </div>
+
+
+
+
+
+
+
+
+
+          </div>
+          <!-- FOOTER -->
+          <div class="modal-footer border-0">
+            <button class="btn btn-light btn-sm" data-bs-dismiss="modal">
+            <i class="bi bi-x-circle me-1"></i> Close
+            </button>
+            <!-- <button class="btn btn-primary btn-sm ripple">
+              <i class="bi bi-arrow-repeat me-1"></i> Refresh
+              </button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- apply button -->
+
+
+
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/aos/aos-min.js"></script>
+    <script>
+      AOS.init();
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+      
+        /* ================================
+           SIDEBAR TOGGLE
+        ================================= */
+      
+        const sidebarToggle = document.getElementById("sidebarToggle");
+        const sidebarIcon = sidebarToggle?.querySelector("i");
+      
+        if (sidebarToggle) {
+          sidebarToggle.addEventListener("click", function () {
+      
+            console.log("clicked"); // ✅ debug
+      
+            document.body.classList.toggle("sidebar-expanded");
+      
+            sidebarIcon?.classList.toggle("bi-list");
+            sidebarIcon?.classList.toggle("bi-x-lg");
+      
+          });
+        }
+      
+      
+        /* ================================
+           PROFILE DROPDOWN
+        ================================= */
+      
+        const trigger = document.getElementById("profileTrigger");
+        const dropdown = document.getElementById("profileDropdown");
+      
+        trigger?.addEventListener("click", function (e) {
+          e.stopPropagation();
+          dropdown.classList.toggle("show");
+        });
+      
+        dropdown?.addEventListener("click", function (e) {
+          e.stopPropagation();
+        });
+      
+        document.addEventListener("click", function () {
+          dropdown?.classList.remove("show");
+        });
+      
+      });
+      
+    </script>
+    <!-- refresh loader -->
+    <script>
+      $('.refresh_submit').on('click', function () {
+      
+      let loader = $('#modalLoader');
+      let progressBar = $('#progressBar');
+      let success = $('#modalSuccess');
+      
+      loader.addClass('active');
+      
+      let progress = 0;
+      
+      let interval = setInterval(() => {
+      
+      progress += Math.floor(Math.random() * 10) + 5; // smooth random speed
+      
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+      
+        // complete progress
+        progressBar.css('width', '100%').text('100%');
+      
+        // show success
+        setTimeout(() => {
+          loader.removeClass('active');
+          success.addClass('show');
+      
+          // hide success + close modal
+          setTimeout(() => {
+            success.removeClass('show');
+            $('#refreshModal').modal('hide');
+          }, 1500);
+      
+        }, 500);
+      
+      } else {
+        progressBar.css('width', progress + '%').text(progress + '%');
+      }
+      
+      }, 200);
+      
+      });
+    </script>
+    <!-- refersh laoder -->
+    <!-- ripple bnt -->
+    <script>
+      $(document).on('click', '.ripple', function (e) {
+      
+      let $this = $(this);
+      
+      let offset = $this.offset();
+      let x = e.pageX - offset.left;
+      let y = e.pageY - offset.top;
+      
+      let ripple = $('<span class="ripple-effect"></span>');
+      
+      ripple.css({
+      top: y + 'px',
+      left: x + 'px',
+      width: '20px',
+      height: '20px'
+      });
+      
+      $this.append(ripple);
+      
+      setTimeout(() => {
+      ripple.remove();
+      }, 600);
+      
+      });
+      
+      $(document).on('click', '.nav-link.ripple', function () {
+      
+      let $this = $(this);
+      let ripple = $('<span class="ripple-effect"></span>');
+      
+      ripple.css({
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%) scale(0)'
+      });
+      
+      $this.append(ripple);
+      
+      setTimeout(() => ripple.remove(), 600);
+      
+      });
+    </script>
+    <!-- ripple btn -->
+    <script>
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+      const tooltipList = [...tooltipTriggerList].map(el => new bootstrap.Tooltip(el)); 
+    </script>
+
+
+
+    <script>
+    
+      $(document).ready(function () {
+
+  let defaultFontSize = 16;
+  let currentFontSize = localStorage.getItem('fontSize') || defaultFontSize;
+
+  $('body').css('font-size', currentFontSize + 'px');
+
+  $('.btn-font.increase').click(function () {
+    currentFontSize++;
+    updateFont();
+  });
+
+  $('.btn-font.decrease').click(function () {
+    if (currentFontSize > 12) {
+      currentFontSize--;
+      updateFont();
+    }
+  });
+
+  $('.btn-font.reset').click(function () {
+    currentFontSize = defaultFontSize;
+    updateFont();
+  });
+
+  function updateFont() {
+    $('body').css('font-size', currentFontSize + 'px');
+    localStorage.setItem('fontSize', currentFontSize);
+  }
+
+});
+
+    </script>
+
+
+  </body>
+</html>

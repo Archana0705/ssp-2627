@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamil Nadu Integrated State Scholarship Portal Dashboard</title>
+    <!-- Bootstrap + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/common.css">
+    <link rel="stylesheet" href="assets/css/tab.css">
+    <link rel="stylesheet" href="assets/css/form-grid.css">
+    <link rel="stylesheet" href="assets/css/component.css">
+    <link rel="stylesheet" href="assets/css/modal.css">
+    <script src="assets/component/header-nav.js"></script>
+    <script src="assets/component/sidebar-nav.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <!-- SIDEBAR -->
+      <ssp-sidebar-nav></ssp-sidebar-nav>
+      <!-- MAIN -->
+      <div class="main" id="main">
+        <!-- HEADER -->
+        <ssp-header-nav></ssp-header-nav>
+        <!-- CONTENT -->
+        <div class="content">
+          <!-- grid wrap -->
+          <!-- scheme header -->
+          <div class="scheme-header-card mt-2">
+            <div class="scheme-title">
+              <i class="bi bi-grid"></i>
+              <span>Schemes List</span>
+            </div>
+            <div class="section-divider my-2"></div>
+            <div class="table-toolbar">
+              <!-- LEFT: SEARCH -->
+              <div class="search-box">
+                <i class="bi bi-search"></i>
+                <input type="text" placeholder="Search schemes..." />
+              </div>
+              <!-- RIGHT: ACTION BUTTONS -->
+              <div class="toolbar-actions">
+                <button class="btn-tool">
+                <i class="bi bi-file-earmark-excel"></i> Excel
+                </button>
+                <button class="btn-tool">
+                <i class="bi bi-file-earmark-pdf"></i> PDF
+                </button>
+                <button class="btn-tool">
+                <i class="bi bi-printer"></i> Print
+                </button>
+                <button class="btn-tool primary">
+                <i class="bi bi-columns-gap"></i> Columns
+                </button>
+              </div>
+            </div>
+            <!-- table -->
+            <div class="scheme-table-card py-2">
+              <table class="table custom-table">
+                <thead>
+                  <tr>
+                    <th>S.No</th>
+                    <th>Scheme Name</th>
+                    <th>Department</th>
+                    <th>Sub Department</th>
+                    <th>Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>MBC - Free Education...</td>
+                    <td>BC, MBC and Minorities Welfare</td>
+                    <td>MBC/DNC Welfare</td>
+                    <td class="d-flex">
+                      <button class="btn-refresh me-2" data-bs-toggle="modal" data-bs-target=".schemeViewModal">
+                      <i class="bi bi-eye"></i>
+                      view
+                      </button>
+                      <button class="btn-tool" data-bs-toggle="modal" data-bs-target=".checkEligibleModal">
+                      <i class="bi bi-info-circle"></i> Check Eligibility
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>7.5% Scholarship</td>
+                    <td>Higher Education Dept</td>
+                    <td>DOTE</td>
+                    <td class="d-flex">
+                      <button class="btn-refresh me-2" data-bs-toggle="modal" data-bs-target=".schemeViewModal">
+                      <i class="bi bi-eye"></i>
+                      view
+                      </button>
+                      <button class="btn-tool" data-bs-toggle="modal" data-bs-target=".checkEligibleModal">
+                      <i class="bi bi-info-circle"></i> Check Eligibility
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+                </tbody>
+              </table>
+            </div>
+            <!-- table -->
+            <!-- cta -->
+            <!--   <div class="scheme-action-bar">
+              <button class="btn-apply" data-bs-toggle="modal" data-bs-target="#applyModal">
+              <i class="bi bi-send"></i>
+              Apply for Selected Scheme
+              </button>   
+              </div> -->
+            <!-- cta -->
+          </div>
+          <!-- scheme header -->
+          <!-- grid wrap -->
+        </div>
+        <!-- FOOTER -->
+        <footer class="app-footer">
+          <div class="footer-left">
+            © 2026 Tamil Nadu e-Governance Agency (TNeGA)
+          </div>
+          <div class="footer-right">
+            <span class="footer-link">Privacy Policy</span>
+            <span class="footer-link">Terms</span>
+            <span class="footer-link">Support</span>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <!-- apply modal -->
+    <div class="modal fade schemeViewModal" tabindex="-1">
+      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content custom-modal">
+          <!-- HEADER -->
+          <div class="modal-header custom-header">
+            <h5 class="modal-title">
+              <i class="bi bi-patch-check"></i> 
+              Scheme's with Sub Schemes Details
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <!-- BODY -->
+          <div class="modal-body pt-0">
+            <!-- STUDENT DETAILS -->
+            <h6 class="section-title"><i class="bi bi-diagram-3"></i> Scheme Overview</h6>
+            <div class="info-grid">
+              <div class="info-card">
+                <i class="bi bi-award"></i>
+                <div>
+                  <label>Scheme Name</label>
+                  <p>7.5% Scholarship</p>
+                </div>
+              </div>
+              <div class="info-card">
+                <i class="bi bi-arrow-repeat"></i>
+                <div>
+                  <label>Frequency</label>
+                  <p>Quarterly</p>
+                </div>
+              </div>
+              <div class="info-card">
+                <i class="bi bi-building"></i>
+                <div>
+                  <label>Department Name</label>
+                  <p>Higher Education Department</p>
+                </div>
+              </div>
+              <div class="info-card">
+                <i class="bi bi-diagram-3"></i>
+                <div>
+                  <label>Subdepartment Name</label>
+                  <p>Higher Education Department (DOTE)</p>
+                </div>
+              </div>
+              <div class="info-card">
+                <i class="bi bi-upc-scan"></i>
+                <div>
+                  <label>Scheme Code</label>
+                  <p>221</p>
+                </div>
+              </div>
+              <div class="info-card">
+                <i class="bi bi-tag"></i>
+                <div>
+                  <label>Scheme Category</label>
+                  <p>Exclusive</p>
+                </div>
+              </div>
+            </div>
+            <div class="section-divider my-3"></div>
+            <!-- SCHEME DETAILS -->
+            <div class="table-toolbar">
+              <!-- LEFT: SEARCH -->
+              <div class="search-box">
+                <i class="bi bi-search"></i>
+                <input type="text" placeholder="Search schemes...">
+              </div>
+              <!-- RIGHT: ACTION BUTTONS -->
+              <div class="toolbar-actions mb-2">
+                <button class="btn-tool">
+                <i class="bi bi-file-earmark-excel"></i> Excel
+                </button>
+                <button class="btn-tool">
+                <i class="bi bi-file-earmark-pdf"></i> PDF
+                </button>
+                <button class="btn-tool">
+                <i class="bi bi-printer"></i> Print
+                </button>
+                <button class="btn-tool primary">
+                <i class="bi bi-columns-gap"></i> Columns
+                </button>
+              </div>
+            </div>
+            <div class="table-card1 custom-table">
+              <table class="table custom-table">
+                <thead>
+                  <tr>
+                    <th>S.No</th>
+                    <th>Sub Scheme Name</th>
+                    <th>Scholarship Fee Type</th>
+                    <th>Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Sub Scheme Name</td>
+                    <td>Scholarship Fee Type</td>
+                    <td class="d-flex">
+                      <button class="btn-refresh me-2" data-bs-toggle="modal" data-bs-target=".schemeViewModal">
+                      <i class="bi bi-eye"></i>
+                      view
+                      </button>
+                      <button class="btn-tool" data-bs-toggle="modal" data-bs-target=".checkEligibleModal">
+                      <i class="bi bi-info-circle"></i> Check Eligibility
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- FOOTER -->
+          <div class="modal-footer py-1">
+            <button class="btn btn-light" data-bs-dismiss="modal">Close</button> 
+            <button class="btn-refresh">
+            <i class="bi bi-arrow-clockwise"></i>
+            Refresh
+            </button>      
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- apply modal -->
+
+
+    <!-- check modal -->
+    <div class="modal fade checkEligibleModal" tabindex="-1">
+      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content custom-modal">
+          <!-- HEADER -->
+          <div class="modal-header custom-header">
+            <h5 class="modal-title">
+              <i class="bi bi-patch-check"></i> 
+              Student Profile
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <!-- BODY -->
+          <div class="modal-body pt-0">
+            <!-- STUDENT DETAILS -->
+            <h6 class="section-title"><i class="bi bi-person"></i> Student Details</h6>
+            <div class="info-grid">
+
+  <!-- PERSONAL -->
+  <div class="info-card">
+    <i class="bi bi-person"></i>
+    <div>
+      <label>Name</label>
+      <p>SRIKANTH K</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-gender-male"></i>
+    <div>
+      <label>Gender</label>
+      <p>Male</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-globe2"></i>
+    <div>
+      <label>Religion</label>
+      <p>Hindu</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-people"></i>
+    <div>
+      <label>Community</label>
+      <p>MBC</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-person-badge"></i>
+    <div>
+      <label>Caste</label>
+      <p>Kurumba</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-mortarboard"></i>
+    <div>
+      <label>First Graduate</label>
+      <p>Yes</p>
+    </div>
+  </div>
+
+  <!-- FINANCIAL / ELIGIBILITY -->
+  <div class="info-card">
+    <i class="bi bi-currency-rupee"></i>
+    <div>
+      <label>Family Income</label>
+      <p>₹72,000</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-universal-access"></i>
+    <div>
+      <label>Disability</label>
+      <p>No</p>
+    </div>
+  </div>
+
+  <!-- IDS -->
+  <div class="info-card">
+    <i class="bi bi-credit-card-2-front"></i>
+    <div>
+      <label>Aadhaar No</label>
+      <p>********8119</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-hash"></i>
+    <div>
+      <label>EMIS No</label>
+      <p>2008421077</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-hash"></i>
+    <div>
+      <label>UMIS No</label>
+      <p>9000886455</p>
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="info-card">
+    <i class="bi bi-building"></i>
+    <div>
+      <label>Institute</label>
+      <p>DR MGR Fisheries College and Research Institute, Thalaianayeru</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-book"></i>
+    <div>
+      <label>Course</label>
+      <p>B.F.Sc</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-journal-text"></i>
+    <div>
+      <label>Course Branch</label>
+      <p>Fisheries Science</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-123"></i>
+    <div>
+      <label>Course Year</label>
+      <p>3</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-calendar3"></i>
+    <div>
+      <label>Academic Year</label>
+      <p>2025-2026</p>
+    </div>
+  </div>
+
+</div>
+
+
+
+            <div class="section-divider my-3"></div>
+            <!-- eligible check -->
+
+            <h6 class="section-title"><i class="bi bi-patch-check"></i> Eligibility Check</h6>
+
+            <div class="eligibility-box success">
+  <div class="icon">
+    <i class="bi bi-check-circle-fill"></i>
+  </div>
+  <div class="content py-0">
+    <h4>Eligible</h4>
+    <p>
+      Congratulations! You are eligible to apply for the scheme 
+      <b>MBC- Free Education (Professional Courses)</b> in Govt. and Govt. Aided Colleges 
+      in the institute -- (Exclusive) studying in course - and branch - and course category -
+    </p>
+  </div>
+</div>
+
+            
+            <div class="table-card1 custom-table">
+              <table class="table custom-table">
+                <thead>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Scheme Requirement</th>
+                    <th>Student Value</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tbody>
+                  <tr>
+                    <td>Community</td>
+                    <td>MBC</td>
+                    <td>MBC</td>
+                    <td>
+          <span class="status success">
+            <i class="bi bi-check-lg"></i>
+          </span>
+        </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- FOOTER -->
+          <div class="modal-footer py-1">
+            <button class="btn btn-light" data-bs-dismiss="modal">Close</button> 
+            <button class="btn-refresh">
+            <i class="bi bi-arrow-clockwise"></i>
+            Refresh
+            </button>      
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- check modal -->
+
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+      // tooltip
+      document.querySelectorAll('.table-text').forEach(el => {
+        el.setAttribute("data-bs-title", el.innerText.trim());
+      });
+      
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+      tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
+    </script>
+  </body>
+</html>

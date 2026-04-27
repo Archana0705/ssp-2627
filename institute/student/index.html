@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>TN State Scholarship Portal</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <!-- Favicons -->
+  <link href="../assets/img/tn_logo.png" rel="icon">
+  <link href="../assets/img/tn_logo.png" rel="apple-touch-icon">
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+  <!-- Vendor CSS Files -->
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/aos/aos-min.css">
+  <link rel="stylesheet" href="../assets/css/sweetalert.min.css">
+  <link rel="stylesheet" href="../assets/css/sweetalert2.min.css">
+
+  <link rel="stylesheet" href="../institute/assets/vendor/DataTableNew/css/dataTables.bootstrap5.min.css">
+  <link rel="stylesheet" href="../institute/assets/vendor/DataTableNew/css/buttons.bootstrap5.min.css">
+  <link rel="stylesheet" href="../institute/assets/vendor/DataTableNew/css/buttons.dataTables.css">
+
+  <link rel="stylesheet" href="../assets/css/index_style.css">
+
+  <link rel="stylesheet" href="../assets/css/header_style.css">
+
+  <link href="../assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/common-style/style.css">
+  <script src="../components/view-scheme-component.js" type="text/javascript" defer></script>
+  <script src="../components/eligibility_schemes-component.js" type="text/javascript" defer></script>
+  <script src="../components/index-model-components.js" type="text/javascript" defer></script>
+
+  <script src="../components/check-eligibility.js" type="text/javascript" defer></script>
+  <script src="../components/student_details.js" type="text/javascript" defer></script>
+
+  <script type="module">
+    import AlpineI18n from "../assets/js/alpinejs-i18n_module.esm.js";
+    document.addEventListener("alpine:init", () => {
+      window.Alpine.plugin(AlpineI18n);
+    });
+  </script>
+
+
+  <style>
+    .custom-modal-width {
+      max-width: 50% !important;
+      /* Adjust percentage as needed */
+    }
+
+    .otp-field input {
+      display: inline-block !important;
+      width: 15% !important;
+    }
+
+    #scheme_details_length .custom-select.custom-select-sm.form-control.form-control-sm {
+      margin: 0px 6px;
+      font-size: 12px !important;
+      padding: 0 10px;
+      min-height: calc(0.5em + 0.5em + 2px) !important;
+      font-weight: 600;
+    }
+
+    .tab-title {
+      background-color: #301d92;
+      color: white;
+    }
+
+    .parameter-list {
+      list-style: none;
+      margin: 0;
+      padding: 0px 1px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .parameter-items {
+      background: #e4f1ff;
+      padding: 2px 4px;
+      border-radius: 5px;
+      list-style: none;
+      width: max-content;
+      margin: 3px;
+    }
+
+    .modal-header {
+      padding: 10px 20px;
+          box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 8px 20px rgba(16, 24, 40, 0.06) !important; 
+    }
+
+    /* .progress {
+      --bs-progress-height: 1.00rem !important;
+    } */
+
+    .applyCancleCta .btn:disabled {
+      background-color: grey;
+      /* Change to your preferred grey color */
+      color: white;
+      /* Change text color if needed */
+      cursor: not-allowed;
+      /* Optional: Change cursor style */
+      opacity: 0.6;
+      /* Optional: Make it look faded */
+    }
+
+    .custom-checkbox .form-check-input {
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .custom-checkbox .form-check-label {
+      font-size: 12px;
+      color: #495057;
+      line-height: 1.5;
+    }
+
+    .form-check.custom-checkbox:hover .form-check-input {
+      background-color: #33208c;
+      border-color: #33208c;
+    }
+
+    .form-check.custom-checkbox:focus-within .form-check-input {
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .hover-shadow-lg:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-check.custom-checkbox input:checked {
+      background-color: #28a745;
+      border-color: #28a745;
+    }
+
+    .form-check.custom-checkbox input:checked+.form-check-label {
+      color: #28a745;
+    }
+
+    .resend-button {
+      background: #33208c;
+      /* Blue background */
+      border: none;
+      color: white;
+      font-size: 12px;
+      /* padding: 8px 12px; */
+      border-radius: 10%;
+      /* display: flex; */
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .resend-button i {
+      font-size: 1.2em;
+    }
+
+    .resend-button:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      background: #0056b3;
+      /* Darker blue on hover */
+    }
+
+    .resend-button:active {
+      transform: scale(0.95);
+    }
+
+    .parameters {
+      max-height: 20vh;
+    }
+
+    #scheme_info .over-scroll-down {
+      overflow-y: scroll !important;
+    }
+
+    #check_scheme_eligibility {
+      margin-bottom: 77px;
+    }
+
+    #scheme_eligibility {
+      margin-bottom: 77px;
+    }
+
+    #studentTableBody td:nth-child(2) {
+      word-break: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+    }
+
+    #schemeTableBody td:nth-child(2) {
+      word-break: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+    }
+
+    .table td {
+      max-height: 50px;
+      /* Set a maximum height */
+      overflow: hidden;
+      /* Hide overflow */
+      text-overflow: ellipsis;
+      /* Add ellipsis for overflow */
+      white-space: nowrap;
+      /* Prevent wrapping */
+      line-height: 1.2;
+      /* Set line height for readability */
+    }
+
+    #check_scheme_content td:nth-child(2) {
+      height: 150px;
+      overflow-y: auto;
+      word-break: break-all !important;
+      white-space: break-spaces;
+      display: block;
+    }
+
+    /* Add these styles in the existing style block */
+    .student-details-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .scheme-table th {
+      /* background: #f8f9fa; */
+      font-weight: 600;
+    }
+
+    .scheme-checkbox {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .apply-button {
+      min-width: 120px;
+      transition: all 0.3s ease;
+    }
+
+    .apply-button:disabled {
+      background-color: #6c757d;
+      border-color: #6c757d;
+      opacity: 0.65;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  <!-- <header id="header" class="header fixed-top d-flex flex-column">
+    <div class="d-flex flex-row align-items-center w-100">
+      <div class="d-flex align-items-center justify-content-between">
+        <i class="bi bi-list toggle-sidebar-btn"></i>
+        <a href="index.html?details=GfwfmwqhyLNY2TIYlWMvlnlDWlJTMWhJOTJtSWU4WWhYbG9ENUFWRVJySEg3UDJQTUV3V05aMXBXUk09%27"
+          class="logo d-flex align-items-center mx-2" data-aos="fade-down">
+          <img src="../assets/img/tn_logo.png" alt="logo" class="logo_header">
+          <span class="fs-4 title">Tamil Nadu Intergrated State Scholarship Portal</span>
+        </a>
+      </div>
+      <nav class="header-nav ms-auto" style="width: 68%;">
+        <ul class="d-flex align-items-center justify-content-end">
+          <li class="nav-item" data-aos="fade-down">
+            <a class="nav-link mx-2 nav-profile"><i class="bi bi-person"></i> <span class="" id="stud_name"></span></a>
+          </li>
+          <li class="nav-item" data-aos="fade-down">
+            <a class="nav-link mx-2 nav-profile"><span class="" id="stud_year">-</span></a>
+
+          </li>
+          <li class="nav-item" data-aos="fade-down">
+            <i class="bi bi-calendar-check"></i>
+            <span class="" id="dateTimeLink">-</span>
+          </li>
+        </ul>
+        <div class="marquee-container">
+        </div>
+      </nav>
+    </div>
+  </header> -->
+
+  <header id="header" class="app-header fixed-top">
+
+<!--   <div class="header-left">
+
+    <button class="sidebar-toggle toggle-sidebar-btn1">
+      <i class="bi bi-list"></i>
+    </button>
+
+    <a href="index.html" class="app-logo">
+      <img src="../assets/img/tn_logo.png" alt="logo">
+      <div class="logo-text">
+        <span class="portal-title">Tamil Nadu Integrated State Scholarship Portal</span>
+        <span class="portal-subtitle">Government of Tamil Nadu</span>
+      </div>
+    </a>
+
+  </div> -->
+
+
+  <div class="header-left d-flex align-items-center gap-2">
+
+  <div class="sidebar-toggle" id="sidebarToggle">
+    <i class="bi bi-list"></i>
+  </div>
+
+  <a href="#" class="logo d-flex align-items-center">
+    <img src="../assets/img/tn_logo.png" class="logo_header">
+    <div class="ms-2">
+      <div class="title">Tamil Nadu Integrated State Scholarship Portal</div>
+      <small class="subtitle">Government of Tamil Nadu</small>
+    </div>
+  </a>
+
+</div>
+
+
+  <div class="header-right">
+
+<div class="header-tools">
+
+  <!-- Accessibility Controls -->
+  <div class="font-controls">
+    <button class="btn-font increase">A+</button>
+    <button class="btn-font reset">A</button>
+    <button class="btn-font decrease">A-</button>
+  </div>
+
+  <!-- Language Switch -->
+  <div class="lang-switch" onclick="switchLang()">
+    <i class="bi bi-translate"></i>
+    <span>தமிழ்</span>
+  </div>
+
+  <!-- Date Time -->
+<div class="header-time">
+      <i class="bi bi-clock"></i>
+      <span id="dateTimeLink">13/03/2026 14:31:15</span>
+    </div>
+
+  <!-- Profile -->
+  <div class="profile-menu">
+
+    <div class="profile-trigger">
+      <div class="avatar">
+        <i class="bi bi-person"></i>
+      </div>
+
+      <span id="stud_name">M SAM</span>
+      <i class="bi bi-chevron-down"></i>
+    </div>
+
+    <div class="profile-dropdown">
+      <a href="#"><i class="bi bi-person"></i> Profile</a>
+      <a href="#"><i class="bi bi-gear"></i> Settings</a>
+      <a href="#"><i class="bi bi-box-arrow-right"></i> Logout</a>
+    </div>
+
+  </div>
+
+</div>
+
+
+  </div>
+
+</header>
+
+  <!-- End Header -->
+  <!-- ======= Sidebar ======= -->
+<!--   <aside id="sidebar" class="sidebar">
+    <ul class="nav nav-pills flex-column mb-auto">
+      <ul class="sidebar-nav" id="sidebar-nav" data-aos="fade-left" data-aos-duration="600">
+        <li class="nav-item">
+          <a class="nav-link active" href="#" data-aos="fade-left" data-aos-duration="1000" id="dashboard-link">
+            <i class="bi bi-house-fill"></i>
+            <span data-i18n="dashboard-link">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="applied-schemes-link">
+            <i class="bi bi-card-checklist"></i>
+            <span data-i18n="applied-schemes-link">Applied Schemes</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="all-schemes-link">
+            <i class="bi bi-grid-fill"></i>
+            <span data-i18n="all-schemes-link">All Schemes</span>
+          </a>
+        </li>
+      </ul>
+  </aside> -->
+
+
+  <aside id="sidebar" class="app-sidebar">
+
+  <ul class="sidebar-nav">
+
+    <li class="nav-item">
+      <a class="nav-link active" href="#" id="dashboard-link">
+        <i class="bi bi-house-door"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="#" id="applied-schemes-link">
+        <i class="bi bi-card-checklist"></i>
+        <span>Applied Schemes</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" href="#" id="all-schemes-link">
+        <i class="bi bi-grid"></i>
+        <span>All Schemes</span>
+      </a>
+    </li>
+
+  </ul>
+
+</aside>
+
+
+
+  <!-- End Sidebar-->
+  <div id="preloader"></div>
+  <!-- End Sidebar-->
+  <main id="main" class="main">
+    <!-- Student Details Inline Card -->
+    <div id="studentDetailsInline">
+      <student-details-component></student-details-component>
+    </div>
+
+  
+    <view-scheme-component></view-scheme-component>
+    <!-- Add student-refresh component -->
+    <student-refresh></student-refresh>
+
+
+    <footer id="footer" class="app-footer">
+    <div class="footer-left">
+      <span class="footer-copy">
+        <i class="bi bi-shield-check"></i>
+        © 2026 Tamil Nadu e-Governance Agency (TNeGA)
+      </span>
+    </div>
+    <div class="footer-right">
+      <a href="https://tnega.tn.gov.in/" target="_blank" class="footer-link">
+        <i class="bi bi-globe"></i>
+        TNeGA
+      </a>
+
+    </div>
+  </footer>
+
+  </main>
+    
+  
+
+<!--   <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>TNeGA</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      Designed & Developed by <a href="https://tnega.tn.gov.in/" target="_blank">TNeGA</a>
+    </div>
+  </footer> -->
+
+
+  <!-- <footer id="footer" class="app-footer">
+    <div class="footer-left">
+      <span class="footer-copy">
+        <i class="bi bi-shield-check"></i>
+        © 2026 Tamil Nadu e-Governance Agency (TNeGA)
+      </span>
+    </div>
+    <div class="footer-right">
+      <a href="https://tnega.tn.gov.in/" target="_blank" class="footer-link">
+        <i class="bi bi-globe"></i>
+        TNeGA
+      </a>
+
+    </div>
+  </footer> -->
+
+
+  <!-- End Footer -->
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+
+      <!-- refresh static modal -->
+      <div class="modal fade custom-modal refreshModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- HEADER -->
+      <div class="modal-header border-0">
+        <h5 class="modal-title">
+          <i class="bi bi-arrow-repeat me-2 text-primary"></i>
+          Refresh Student Data
+        </h5>
+
+        <div class="d-flex gap-2">
+
+          <button class="btn btn-light btn-sm" data-bs-dismiss="modal">
+            <i class="bi bi-x-circle me-1"></i> Cancel
+          </button>
+
+          <button class="btn btn-warning btn-sm">
+            <i class="bi bi-arrow-clockwise me-1"></i> Reload
+          </button>
+
+          <button class="btn btn-primary btn-sm refresh_submit">
+            <i class="bi bi-check-circle me-1"></i> Submit
+          </button>
+
+        </div> 
+
+
+      </div>
+
+      <!-- BODY -->
+      <div class="modal-body">
+
+        <div class="row g-3">
+
+          <!-- CARD -->
+          <div class="col-md-6">
+            <div class="refresh-card">
+              <div class="card-header">
+                <i class="bi bi-person"></i>
+                <div>
+                  <h6>Student Details</h6>
+                  <p>Basic personal information</p>
+                </div>
+              </div>
+
+              <label class="form-check mt-2">
+                <input class="form-check-input" type="checkbox">
+                <span class="form-check-label">
+                  Name, DOB, Gender, Aadhaar, UMIS
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- CARD -->
+          <div class="col-md-6">
+            <div class="refresh-card">
+              <div class="card-header">
+                <i class="bi bi-telephone"></i>
+                <div>
+                  <h6>Contact Details</h6>
+                  <p>Mobile, email, address</p>
+                </div>
+              </div>
+
+              <label class="form-check mt-2">
+                <input class="form-check-input" type="checkbox">
+                <span class="form-check-label">
+                  Mobile, Email, Address
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- FAMILY -->
+          <div class="col-md-6">
+            <div class="refresh-card">
+              <div class="card-header">
+                <i class="bi bi-people"></i>
+                <div>
+                  <h6>Family Information</h6>
+                  <p>Parent & income details</p>
+                </div>
+              </div>
+
+              <label class="form-check mt-2">
+                <input class="form-check-input" type="checkbox">
+                <span class="form-check-label">
+                  Parents, Income, Family Card
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- ACADEMIC -->
+          <div class="col-md-6">
+            <div class="refresh-card">
+              <div class="card-header">
+                <i class="bi bi-mortarboard"></i>
+                <div>
+                  <h6>Academic Info</h6>
+                  <p>Course & institution details</p>
+                </div>
+              </div>
+
+              <label class="form-check mt-2">
+                <input class="form-check-input" type="checkbox">
+                <span class="form-check-label">
+                  Course, Institute, Admission
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- BANK -->
+          <div class="col-md-6">
+            <div class="refresh-card">
+              <div class="card-header">
+                <i class="bi bi-bank"></i>
+                <div>
+                  <h6>Bank Details</h6>
+                  <p>Account & verification</p>
+                </div>
+              </div>
+
+              <label class="form-check mt-2">
+                <input class="form-check-input" type="checkbox">
+                <span class="form-check-label">
+                  Bank, Account, Status
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <!-- CATEGORY -->
+          <div class="col-md-6">
+            <div class="refresh-card">
+              <div class="card-header">
+                <i class="bi bi-award"></i>
+                <div>
+                  <h6>Category Details</h6>
+                  <p>Special category info</p>
+                </div>
+              </div>
+
+              <label class="form-check mt-2">
+                <input class="form-check-input" type="checkbox">
+                <span class="form-check-label">
+                  Special Category
+                </span>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- LOADER OVERLAY -->
+        <div class="modal-loader" id="modalLoader">
+
+          <div class="loader-card">
+
+            <div class="loader-icon">
+              <i class="bi bi-arrow-repeat"></i>
+            </div>
+
+            <h6>Updating Student Data...</h6>
+
+            <!-- PROGRESS BAR -->
+            <div class="progress mt-3">
+              <div class="progress-bar" id="progressBar" style="width:0%">0%</div>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- SUCCESS TOAST -->
+        <div class="modal-success" id="modalSuccess">
+          <i class="bi bi-check-circle-fill"></i>
+          <span>Data refreshed successfully</span>
+        </div>  
+
+
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- refresh static modal -->
+
+
+
+
+  <script src="../assets/vendor/jquery/jquery.min.js"></script>
+  <script src="../assets/js/sweetalert2.all.min.js"></script>
+  <script src="../assets/js/sweetalert.min.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/aos/aos-min.js"></script>
+  <script src="../assets/js/add.js"></script>
+
+  <script src="../assets/js/global.js"></script>
+  <!-- Datatable -->
+  <script src="../institute/assets/vendor/datatable/jquery.dataTables.min.js"></script>
+  <script src="../institute/assets/vendor/datatables-buttons/js/jszip.min.js"></script>
+  <script src="../institute/assets/vendor/datatables-buttons/js/pdfmake.min.js"></script>
+  <script src="../institute/assets/vendor/datatables-buttons/js/vfs_fonts.js"></script>
+  <script src="../institute/assets/vendor/DataTableNew/dataTables.buttons.min.js"></script>
+  <script src="../institute/assets/vendor/DataTableNew/buttons.flash.min.js"></script>
+  <script src="../institute/assets/vendor/DataTableNew/buttons.html5.min.js"></script>
+  <script src="../institute/assets/vendor/DataTableNew/buttons.print.min.js"></script>
+  <script src="../institute/assets/vendor/DataTableNew/buttons.colVis.min.js"></script>
+  <script src="../assets/js/crypto-js.min.js"></script>
+  <!-- <script src="../assets/js/page-script/index-page.js"></script> -->
+  <script src="../assets/language/language.js"></script>
+   <script src="../components/student_refresh-component.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('#otp_input_1').focus(); // Set focus to the input field
+    });
+
+
+    AOS.init();
+
+    $(document).on({
+      ajaxStart: function () {
+        $("#preloader").show();
+        $("body").addClass("user_loading");
+      },
+      ajaxStop: function () {
+        $("#preloader").hide();
+        $("body").removeClass("user_loading");
+      },
+    });
+    function transButtonComponent() {
+      return {
+        changeLang() {
+          var currentLang = AlpineI18n.locale;
+          if (currentLang == "en") {
+            AlpineI18n.locale = "ta";
+            window.localStorage.setItem("language", "ta");
+          } else {
+            AlpineI18n.locale = "en";
+            window.localStorage.setItem("language", "en");
+          }
+        },
+      };
+    }
+    function updateDateTime() {
+      const now = new Date();
+      const options = {
+        timeZone: "Asia/Kolkata", // Use Asia/Kolkata for Indian time zone
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false, // Use 24-hour format
+      };
+      const formattedDate = now.toLocaleString("en-IN", options).replace(",", ""); // Format: DD/MM/YYYY HH:mm:ss
+      document.getElementById("dateTimeLink").textContent = formattedDate;
+    }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+
+    $(document).on("click", ".applied_application", function () {
+      var pdfUrl = $(this).data("filepath");
+      // var pdfUrl = config.ssp_api_url +'/student/public/AJAY_P/' + 526 + '.pdf';
+      window.open(pdfUrl, "_blank");
+    });
+    var schemesData = {};
+    var student_api_url = config.students_api_url;
+    //console.log(student_api_url);
+    var queryString = window.location.search;
+    var queryParams = queryString.split("?details");
+    var urlKey = queryParams[1];
+    var dashboardHref = `index.html?details${urlKey}`;
+    var appliedHref = `applied_schemes.html?details${urlKey}`;
+    var allHref = `all_schemes.html?details${urlKey}`;
+    let stud_Id;
+    let pdf_data;
+    let studentId = "";
+    let studentEducationId = "";
+    let feeData = "";
+    let aadhaarNo = "";
+    let academic_year;
+    let institution_name;
+    let institutionId;
+    let university_name;
+    let selectedDecision;
+    document.addEventListener("DOMContentLoaded", function () {
+      var dashboardLink = document.getElementById("dashboard-link");
+      if (dashboardLink) {
+        dashboardLink.href = dashboardHref; // Update the href for Dashboard
+      }
+
+      var appliedLink = document.getElementById("applied-schemes-link");
+      if (appliedLink) {
+        appliedLink.href = appliedHref; // Update the href for Applied Schemes
+      }
+
+      var allLink = document.getElementById("all-schemes-link");
+      if (allLink) {
+        allLink.href = allHref; // Update the href for All Schemes
+      }
+    });
+    function checkReasons() {
+      location.href = allHref;
+    }
+
+    $('.not-qualified').hide();
+    $(document).ready(function () {
+      $("#check_scheme_eligibility").hide();
+      $("#scheme_eligibility").hide();
+
+      // Function to fetch customer details from the API
+      student_id = "";
+      $.ajax({
+        url: student_api_url + "/get_student_detail",
+        method: "POST",
+        headers: { "X-APP-KEY": "te$t", "X-APP-NAME": "te$t" },
+        data: { student_details: urlKey },
+        dataType: "json",
+        success: function (response) {
+          const studentDetailsComponent = document.querySelector('student-details-component');
+          studentDetailsComponent.showStudentDetailsInline(decryptData(response.data), 'apply');
+        },
+        error: function (xhr, status, error) {
+          Swal.fire({
+            title: "Error!",
+            text: `An error occurred: ${error}`,
+            icon: "error",
+            showConfirmButton: true,
+          });
+        },
+
+      });
+
+
+      $(document).on("click", "#inline_sync_button", function () {
+        $('#refresh_modal').modal('show');
+      });
+    });
+   
+  </script>
+
+
+
+ <script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  /* ================================
+     SIDEBAR TOGGLE
+  ================================= */
+
+  const sidebarToggle = document.getElementById("sidebarToggle");
+  const sidebarIcon = sidebarToggle?.querySelector("i");
+
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener("click", function () {
+
+      console.log("clicked"); // ✅ debug
+
+      document.body.classList.toggle("sidebar-expanded");
+
+      sidebarIcon?.classList.toggle("bi-list");
+      sidebarIcon?.classList.toggle("bi-x-lg");
+
+    });
+  }
+
+
+  /* ================================
+     PROFILE DROPDOWN
+  ================================= */
+
+  const trigger = document.getElementById("profileTrigger");
+  const dropdown = document.getElementById("profileDropdown");
+
+  trigger?.addEventListener("click", function (e) {
+    e.stopPropagation();
+    dropdown.classList.toggle("show");
+  });
+
+  dropdown?.addEventListener("click", function (e) {
+    e.stopPropagation();
+  });
+
+  document.addEventListener("click", function () {
+    dropdown?.classList.remove("show");
+  });
+
+});
+
+</script>
+
+
+
+
+
+  <!-- refresh loader -->
+  <script>
+    $('.refresh_submit').on('click', function () {
+
+  let loader = $('#modalLoader');
+  let progressBar = $('#progressBar');
+  let success = $('#modalSuccess');
+
+  loader.addClass('active');
+
+  let progress = 0;
+
+  let interval = setInterval(() => {
+
+    progress += Math.floor(Math.random() * 10) + 5; // smooth random speed
+
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(interval);
+
+      // complete progress
+      progressBar.css('width', '100%').text('100%');
+
+      // show success
+      setTimeout(() => {
+        loader.removeClass('active');
+        success.addClass('show');
+
+        // hide success + close modal
+        setTimeout(() => {
+          success.removeClass('show');
+          $('#refreshModal').modal('hide');
+        }, 1500);
+
+      }, 500);
+
+    } else {
+      progressBar.css('width', progress + '%').text(progress + '%');
+    }
+
+  }, 200);
+
+});
+  </script>
+  <!-- refersh laoder -->
+
+
+
+
+
+  <!-- ripple bnt -->
+  <script>
+    $(document).on('click', '.ripple', function (e) {
+
+  let $this = $(this);
+
+  let offset = $this.offset();
+  let x = e.pageX - offset.left;
+  let y = e.pageY - offset.top;
+
+  let ripple = $('<span class="ripple-effect"></span>');
+
+  ripple.css({
+    top: y + 'px',
+    left: x + 'px',
+    width: '20px',
+    height: '20px'
+  });
+
+  $this.append(ripple);
+
+  setTimeout(() => {
+    ripple.remove();
+  }, 600);
+
+});
+
+    $(document).on('click', '.nav-link.ripple', function () {
+
+  let $this = $(this);
+  let ripple = $('<span class="ripple-effect"></span>');
+
+  ripple.css({
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%) scale(0)'
+  });
+
+  $this.append(ripple);
+
+  setTimeout(() => ripple.remove(), 600);
+
+});
+  </script>
+  <!-- ripple btn -->
+
+ 
+
+
+</body>
+
+</html>

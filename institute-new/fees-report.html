@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>TN State Scholarship Portal</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <!-- Favicons -->
+    <link href="../institute/assets/img/tn_logo.png" rel="icon">
+    <link href="../institute/assets/img/tn_logo.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/aos/aos-min.css">
+    <link rel="stylesheet" href="assets/css/header_style.css">
+    <link rel="stylesheet" href="assets/common-style/style.css">
+    <!-- ✅ DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <!-- ...existing head content... -->
+    <style>
+      @media (max-width: 768px) {
+      .toggle-sidebar .sidebar {
+      top: 50px !important;
+      }
+      }
+      #studentDetailsAppliedModal .modal.fade .modal-dialog {
+      transform: scale(0.9);
+      opacity: 0;
+      transition: var(--transition);
+      }
+      #studentDetailsAppliedModal .modal.show .modal-dialog {
+      transform: scale(1);
+      opacity: 1;
+      }
+      #studentDetailsAppliedModal .modal-content {
+      border: none;
+      border-radius: 12px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow), var(--glow);
+      overflow: hidden;
+      font-size: clamp(0.85rem, 2.5vw, 0.9rem);
+      font-family: 'Inter', system-ui, sans-serif;
+      }
+      #studentDetailsAppliedModal .modal-header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 0.75rem 1rem;
+      border-bottom: none;
+      display: flex;
+      align-items: center;
+      position: relative;
+      }
+      #studentDetailsAppliedModal .modal-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-color), transparent);
+      }
+      #studentDetailsAppliedModal .modal-title {
+      font-size: clamp(1.1rem, 3vw, 1.2rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      }
+      #studentDetailsAppliedModal .btn-close {
+      background: transparent;
+      color: white;
+      opacity: 0.8;
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      transition: var(--transition);
+      }
+      #studentDetailsAppliedModal .btn-close:hover {
+      opacity: 1;
+      transform: scale(1.2);
+      }
+      #studentDetailsAppliedModal .modal-body {
+      padding: clamp(0.75rem, 2vw, 1rem);
+      background: var(--background-color);
+      }
+      #studentDetailsAppliedModal .section-title {
+      font-size: clamp(0.95rem, 2.5vw, 1rem);
+      font-weight: 600;
+      color: var(--primary-color);
+      margin: 0.5rem 0 0.25rem;
+      padding-bottom: 0.2rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      }
+      #studentDetailsAppliedModal .section-title::before {
+      content: '•';
+      color: var(--accent-color);
+      font-size: 1.2rem;
+      }
+      #studentDetailsAppliedModal .detail-card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid transparent;
+      background-clip: padding-box;
+      transition: var(--transition);
+      }
+      #studentDetailsAppliedModal .detail-card:hover {
+      border-image: linear-gradient(135deg, var(--primary-color), var(--accent-color)) 1;
+      box-shadow: var(--shadow), var(--glow);
+      transform: translateY(-2px);
+      }
+      #studentDetailsAppliedModal .student-details-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 0rem;
+      background: white;
+      }
+      #studentDetailsAppliedModal .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      /* padding: 0.5rem 0.25rem; */
+      min-height: 2rem;
+      transition: var(--transition);
+      }
+      #studentDetailsAppliedModal .detail-row:hover {
+      background: #f8fafc;
+      border-radius: 4px;
+      }
+      #studentDetailsAppliedModal .detail-label {
+      font-weight: 500;
+      color: var(--text-color);
+      flex: 0 0 40%;
+      text-align: left;
+      padding-right: 0.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      }
+      #studentDetailsAppliedModal .detail-value {
+      color: var(--text-color);
+      flex: 1;
+      text-align: left;
+      font-weight: 400;
+      padding-left: 0.5rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      }
+      #studentDetailsAppliedModal .table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: clamp(0.8rem, 2vw, 0.85rem);
+      }
+      #studentDetailsAppliedModal .table th {
+      background: var(--primary-color);
+      color: white;
+      padding: 0.5rem;
+      font-weight: 500;
+      text-align: left;
+      white-space: nowrap;
+      }
+      #studentDetailsAppliedModal .table td {
+      padding: 0.5rem;
+      border-bottom: 1px solid #e5e7eb;
+      color: var(--text-color);
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      }
+      #studentDetailsAppliedModal .table tbody tr:nth-child(odd) {
+      background: #f9fafb;
+      }
+      #studentDetailsAppliedModal .table tbody tr:hover {
+      background: #e0e7ff;
+      }
+      #studentDetailsAppliedModal .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      }
+      #studentDetailsAppliedModal .modal-footer {
+      border-top: none;
+      padding: 0.5rem;
+      background: var(--background-color);
+      display: flex;
+      gap: 0.4rem;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      }
+      #studentDetailsAppliedModal .btn {
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      font-size: clamp(0.8rem, 2vw, 0.85rem);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      line-height: 1.2;
+      box-shadow: var(--shadow);
+      }
+      #studentDetailsAppliedModal .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow), var(--glow);
+      }
+      #studentDetailsAppliedModal .btn-primary {
+      background: var(--primary-color);
+      color: white;
+      }
+      #studentDetailsAppliedModal .btn-info {
+      background: var(--accent-color);
+      color: white;
+      }
+      #studentDetailsAppliedModal .btn-secondary {
+      background: #6b7280;
+      color: white;
+      }
+      #studentDetailsAppliedModal .card {
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 0.75rem;
+      background: var(--card-bg);
+      border: 1px solid transparent;
+      transition: var(--transition);
+      }
+      #studentDetailsAppliedModal .card:hover {
+      border-image: linear-gradient(135deg, var(--primary-color), var(--accent-color)) 1;
+      }
+      #studentDetailsAppliedModal .card-title {
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      }
+      #studentDetailsAppliedModal .fees_amount {
+      background: #f8fafc;
+      padding: 0.5rem;
+      border-radius: 6px;
+      font-size: clamp(0.8rem, 2vw, 0.85rem);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      }
+      #studentDetailsAppliedModal .sectionSeparate h6 {
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+      }
+      #studentDetailsAppliedModal .table-bordered {
+      border: 1px solid #e5e7eb;
+      }
+      #studentDetailsAppliedModal .table-bordered th,
+      #studentDetailsAppliedModal .table-bordered td {
+      border: 1px solid #e5e7eb;
+      }
+      /* HEADER */
+      .fees-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:15px;
+      }
+      .fees-title{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      }
+      .icon-box{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      background:linear-gradient(135deg,#6366f1,#8b5cf6);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      }
+      /* FILTER BUTTON */
+      .btn-filter{
+      background:#6366f1;
+      color:#fff;
+      border:none;
+      padding:8px 14px;
+      border-radius:8px;
+      display:flex;
+      align-items:center;
+      gap:5px;
+      }
+      /* FILTER PANEL */
+      .filter-accordion{
+      background:#fff;
+      border-radius:14px;
+      padding:15px;
+      margin-bottom:15px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.05);
+      transition:all 0.3s ease;
+      }
+      .filter-accordion.collapsed{
+      max-height:0;
+      overflow:hidden;
+      padding:0;
+      }
+      /* GRID */
+      .filter-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:15px;
+      }
+      /* INPUT */
+      .form-select{
+      border-radius:8px;
+      padding:8px;
+      }
+      /* TABLE CARD */
+      .fees-table-card{
+      background:#fff;
+      border-radius:16px;
+      padding:15px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.05);
+      }
+      /* TOP BAR */
+      .table-topbar{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:10px;
+      }
+      /* SEARCH */
+      .search-box{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      background:#f3f4f6;
+      padding:6px 10px;
+      border-radius:8px;
+      }
+      /* ACTIONS */
+      .table-actions button{
+      border:1px solid #ddd;
+      background:#fff;
+      padding:6px 10px;
+      border-radius:8px;
+      margin-left:5px;
+      }
+      .table-actions .primary{
+      background:#6366f1;
+      color:#fff;
+      }
+      /* TABLE */
+      .custom-table thead{
+      background:#f9fafb;
+      }
+      .custom-table th{
+      color:#6366f1;
+      }
+      .filter-canvas{
+      width:380px;
+      }
+      /* GRID */
+      .filter-grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+      }
+      /* LABEL */
+      .form-group label{
+      font-size:13px;
+      color:#6b7280;
+      }
+      /* SELECT */
+      .form-select{
+      border-radius:10px;
+      padding:8px;
+      /*      background:#f9fafb;*/
+      }
+      /* ACCORDION */
+      .accordion-button{
+      font-weight:500;
+      }
+      .accordion-button:not(.collapsed){
+      background:#eef2ff;
+      color:#4f46e5;
+      }
+      /* FOOTER */
+      .filter-footer{
+      position:sticky;
+      bottom:0;
+      background:#fff;
+      padding:10px;
+      border-top:1px solid #eee;
+      }
+      .btn-submit{
+      width:100%;
+      background:#2563eb;
+      color:#fff;
+      padding:10px;
+      border-radius:10px;
+      border:none;
+      font-weight:500;
+      }
+      .active-filters{
+      background:#fff;
+      padding:12px;
+      border-radius:12px;
+      margin-bottom:7px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.05);
+      }
+      /*.filter-group{
+      margin-bottom:10px;
+      }*/   
+      .filter-group h6{
+      font-size:13px;
+      color:#6b7280;
+      margin-bottom:6px;
+      }
+      .filter-chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      }
+      /* CHIP */
+      .filter-chip{
+      background:#eef2ff;
+      color:#4f46e5;
+      padding:6px 10px;
+      border-radius:20px;
+      font-size:12px;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      transition:0.2s;
+      border: 1px solid #4f46e5;
+      }
+      .filter-chip i{
+      cursor:pointer;
+      font-size:12px;
+      }
+      .filter-chip:hover{
+      background:#e0e7ff;
+      }
+      .clear-btn{
+      width:100%;
+      margin-top:8px;
+      background:#f3f4f6;
+      border:none;
+      padding:10px;
+      border-radius:10px;
+      font-weight:500;
+      }
+      .form-group label{
+      font-size:13px;
+      font-weight:500;
+      color:#6b7280;
+      margin-bottom:4px;
+      display:block;
+      }
+      .form-select{
+      border-radius:10px;
+      padding:8px;
+      /*  background:#f9fafb;*/
+      border:1px solid #e5e7eb;
+      }
+      .form-select:focus{
+      border-color:#6366f1;
+      box-shadow:0 0 0 2px rgba(99,102,241,0.2);
+      }
+      .card-transparent {
+      justify-content: space-between;
+      background: transparent !important;
+      border: 0 !important;
+      box-shadow: none !important;
+      padding: 5px !important;
+      }
+      .section-header-card .title-grid {
+      display: flex;
+      }
+      .active-filters{
+      transition: all 0.3s ease;
+      } 
+      .filter-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 5px;
+      margin-bottom: 10px;
+      } 
+      .filter-item{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:#fff;
+      padding:12px 14px;
+      border-radius:12px;
+      border:1px solid #e5e7eb;
+      transition:0.2s;
+      }
+      .filter-item:hover{
+      box-shadow:0 4px 12px rgba(0,0,0,0.05);
+      }
+      /* LEFT */
+      .filter-item .left{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:13px;
+      color:#6b7280;
+      }
+      .filter-item i{
+      color:#6366f1;
+      font-size:16px;
+      }
+      /* VALUE */
+      .filter-item .value{
+      font-weight:600;
+      font-size:14px;
+      color:#111827;
+      }
+      /* LONG TEXT */
+      .filter-item .value.long{
+      max-width:220px;
+      text-align:right;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      }
+      .column-filter-bar {
+      background: #f5f7ff;
+      padding: 10px 15px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border: 1px solid #e6e9ff;
+      }
+      .filter-title {
+      font-weight: 600;
+      color: #2c2f4a;
+      }
+      .column-filter-bar .form-check-label {
+      cursor: pointer;
+      font-weight: 500;
+      color: #444;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      }
+      .table-scroll {
+      max-height: 300px;
+      overflow-y: auto;
+      }
+      .sticky-header th {
+      position: sticky;
+      top: 0;
+      background: #f8f9fa;
+      z-index: 2;
+      border-bottom: 1px solid #dee2e6;
+      } 
+    </style>
+  </head>
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="app-header fixed-top">
+      <div class="header-left d-flex align-items-center gap-2">
+        <div class="sidebar-toggle" id="sidebarToggle">
+          <i class="bi bi-list"></i>
+        </div>
+        <a href="#" class="logo d-flex align-items-center">
+          <img src="assets/img/tn_logo.png" class="logo_header">
+          <div class="ms-2">
+            <div class="title">Tamil Nadu Integrated State Scholarship Portal</div>
+            <small class="subtitle">Government of Tamil Nadu</small>
+          </div>
+        </a>
+      </div>
+      <div class="header-right">
+        <div class="header-tools">
+          <!-- Accessibility Controls -->
+          <div class="font-controls">
+            <button class="btn-font increase">A+</button>
+            <button class="btn-font reset">A</button>
+            <button class="btn-font decrease">A-</button>
+          </div>
+          <!-- Language Switch -->
+          <div class="lang-switch" onclick="switchLang()">
+            <i class="bi bi-translate"></i>
+            <span>தமிழ்</span>
+          </div>
+          <!-- Date Time -->
+          <div class="header-time">
+            <i class="bi bi-clock"></i>
+            <span id="dateTimeLink">13/03/2026 14:31:15</span>
+          </div>
+          <!-- Profile -->
+          <div class="profile-menu">
+            <div class="profile-trigger">
+              <div class="avatar">
+                <i class="bi bi-person"></i>
+              </div>
+              <span id="stud_name">M SAM</span>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+            <div class="profile-dropdown">
+              <a href="#"><i class="bi bi-person"></i> Profile</a>
+              <a href="#"><i class="bi bi-gear"></i> Settings</a>
+              <a href="#"><i class="bi bi-box-arrow-right"></i> Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- End Header -->
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="app-sidebar">
+      <ul class="sidebar-nav">
+        <li class="nav-item">
+          <a class="nav-link " href="index.html" id="dashboard-link">
+          <i class="bi bi-house-door"></i>
+          <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="applied_schemes.html" id="applied-schemes-link">
+          <i class="bi bi-card-checklist"></i>
+          <span>Applied Schemes</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="all_schemes.html" id="all-schemes-link">
+          <i class="bi bi-grid"></i>
+          <span>All Schemes</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <main id="main" class="main">
+      <section>
+        <div class="fees-container">
+          <!-- <div class="fees-header">
+            <div class="fees-title">
+              <div class="icon-box">
+                <i class="bi bi-grid"></i>
+              </div>
+              <div>
+                <h5>Fees List</h5>
+                <p>Explore course fees, structure, and academic details</p>
+              </div>
+            </div>
+            
+            <button class="btn-filter" data-bs-toggle="offcanvas" data-bs-target="#filterCanvas">
+            <i class="bi bi-funnel"></i> Filter
+            </button>
+            </div> -->
+          <div class="section-header-card card-transparent">
+            <div class="title-grid">
+              <div class="section-icon">
+                <i class="bi bi-receipt"></i>
+              </div>
+              <div>
+                <h5>Fees Report</h5>
+                <p>View and analyze student fee details and reports</p>
+              </div>
+            </div>
+            <div class="filter">
+              <!-- <button class="btn btn-primary1 bg-white filter-btn my-2 me-1">
+                <i class="bi bi-funnel"></i> Fee Reports 
+                </button> -->
+              <button class="btn btn-primary1 bg-white filter-btn my-2 me-1"
+                data-bs-toggle="modal"
+                data-bs-target="#feeReportModal">
+              <i class="bi bi-file-earmark-bar-graph me-1"></i> Fee Reports
+              </button> 
+              <button class="btn btn-primary1 bg-white filter-btn my-2" id="openFilter" data-bs-toggle="offcanvas" data-bs-target="#filterCanvas">
+              <i class="bi bi-funnel"></i> Filter 
+              </button>
+            </div>
+          </div>
+          <div id="activeFilters" class="active-filters d-none">
+            <div class="filter-group">
+              <h6><i class="bi bi-book me-1"></i> Course Filters</h6>
+              <div id="courseChips" class="filter-chips"></div>
+            </div>
+          </div>
+          <div class="column-filter-bar mb-2">
+            <span class="fw-semibold me-2">Show Columns:</span>
+            <!-- COURSE GROUP -->
+            <div class="form-check form-check-inline">
+              <input class="form-check-input column-toggle" type="checkbox" value="course" id="colCourse">
+              <label class="form-check-label" for="colCourse">
+              <i class="bi bi-mortarboard"></i> Course
+              </label>
+            </div>
+            <!-- INSTITUTE GROUP -->
+            <div class="form-check form-check-inline">
+              <input class="form-check-input column-toggle" type="checkbox" value="institute" id="colInstitute">
+              <label class="form-check-label" for="colInstitute">
+              <i class="bi bi-building"></i> Institute
+              </label>
+            </div>
+            <!-- FEES GROUP -->
+            <div class="form-check form-check-inline">
+              <input class="form-check-input column-toggle" type="checkbox" value="fees" id="colFees">
+              <label class="form-check-label" for="colFees">
+              <i class="bi bi-cash-stack"></i> Fees
+              </label>
+            </div>
+          </div>
+          <!-- TABLE CARD -->
+          <div class="fees-table-card">
+            <!-- TOP BAR -->
+            <div class="table-topbar">
+              <div class="search-box col-lg-3">
+                <i class="bi bi-search"></i>
+                <input type="text" class="w-100" placeholder="Search ..." />
+              </div>
+              <div class="table-actions">
+                <button><i class="bi bi-file-earmark-excel"></i> Excel</button>
+                <button><i class="bi bi-file-earmark-pdf"></i> PDF</button>
+                <button><i class="bi bi-printer"></i> Print</button>
+                <button class="primary"><i class="bi bi-layout-three-columns"></i> Columns</button>
+              </div>
+            </div>
+            <!-- TABLE -->
+            <div class="table-responsive">
+              <table class="table custom-table" id="dynamicTable">
+                <thead>
+                  <tr>
+                    <th>S.No</th>
+                    <th>Student</th>
+                    <th>Scheme</th>
+                    <!-- COURSE -->
+                    <th class="course-col">Course</th>
+                    <th class="course-col">Branch</th>
+                    <!-- INSTITUTE -->
+                    <th class="inst-col">Institute</th>
+                    <th class="inst-col">University</th>
+                    <!-- FEES -->
+                    <th class="fee-col">Tuition Fee</th>
+                    <th class="fee-col">Exam Fee</th>
+                    <th class="fee-col">Total Fees</th>
+                    <!-- <th>Action</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>SRIKANTH</td>
+                    <td>Scholarship A</td>
+                    <!-- COURSE -->
+                    <td class="course-col">B.Tech</td>
+                    <td class="course-col">IT</td>
+                    <!-- INSTITUTE -->
+                    <td class="inst-col">ABC College</td>
+                    <td class="inst-col">Anna University</td>
+                    <!-- FEES -->
+                    <td class="fee-col">₹50,000</td>
+                    <td class="fee-col">₹5,000</td>
+                    <td class="fee-col">₹55,000</td>
+                    <!-- <td>
+                      <button class="btn btn-sm btn-primary">
+                        <i class="bi bi-eye"></i> View
+                      </button>
+                      </td> -->
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- .................... -->
+      <footer id="footer" class="app-footer">
+        <div class="footer-left">
+          <span class="footer-copy">
+          <i class="bi bi-shield-check"></i>
+          © 2026 Tamil Nadu e-Governance Agency (TNeGA)
+          </span>
+        </div>
+        <div class="footer-right">
+          <a href="https://tnega.tn.gov.in/" target="_blank" class="footer-link">
+          <i class="bi bi-globe"></i>
+          TNeGA
+          </a>
+        </div>
+      </footer>
+    </main>
+    <!-- End #main -->
+    <!-- End Footer -->
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+    <!-- OFFCANVAS -->
+    <div class="offcanvas offcanvas-end filter-canvas" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="filterCanvas">
+      <!-- HEADER -->
+      <div class="offcanvas-header py-2">
+        <h5 class="mb-0"><i class="bi bi-funnel me-2"></i> Filters</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <!-- BODY -->
+      <div class="offcanvas-body pt-2">
+        <div class="accordion" id="filterAccordion">
+          <!-- ===================== -->
+          <!-- COURSE FILTER -->
+          <!-- ===================== -->
+          <div class="accordion-item mt-2">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#courseFilter">
+              <i class="bi bi-book me-2"></i> Course Filters
+              </button>
+            </h2>
+            <div id="courseFilter" class="accordion-collapse collapse show">
+              <div class="accordion-body">
+                <div class="filter-grid">
+                  <!-- COURSE FILTER -->
+                  <div class="form-group">
+                    <label for="feeStatus">Fee Status</label>
+                    <select class="form-select" id="feeStatus" name="feeStatus">
+                      <option>All</option>
+                      <option>Available</option>
+                      <option>Not Available</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="stream">Stream</label>
+                    <select class="form-select" id="stream" name="stream">
+                      <option>Select Stream</option>
+                      <option>Fisheries Science</option>
+                      <option>Marine Biology</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="courseType">Course Type</label>
+                    <select class="form-select" id="courseType" name="courseType">
+                      <option>Select Course Type</option>
+                      <option>UG</option>
+                      <option>PG</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="courseCategory">Course Category</label>
+                    <select class="form-select" id="courseCategory" name="courseCategory">
+                      <option>Select Category</option>
+                      <option>Regular</option>
+                      <option>Part Time</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="course">Course</label>
+                    <select class="form-select" id="course" name="course">
+                      <option>Select Course</option>
+                      <option>B.F.Sc</option>
+                      <option>M.F.Sc</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="courseBranch">Course Branch</label>
+                    <select class="form-select" id="courseBranch" name="courseBranch">
+                      <option>Select Branch</option>
+                      <option>Fisheries Science</option>
+                      <option>Aquaculture</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="courseYear">Course Year</label>
+                    <select class="form-select" id="courseYear" name="courseYear">
+                      <option>Select Year</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="shiftTiming">Shift Timing</label>
+                    <select class="form-select" id="shiftTiming" name="shiftTiming">
+                      <option>Select Shift</option>
+                      <option>Morning</option>
+                      <option>Evening</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="medium">Medium</label>
+                    <select class="form-select" id="medium" name="medium">
+                      <option>Select Medium</option>
+                      <option>English</option>
+                      <option>Tamil</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- FOOTER -->
+      <div class="filter-footer">
+        <button class="btn-submit">
+        <i class="bi bi-search"></i> Apply Filters
+        </button>
+        <button class="clear-btn">Clear All</button>
+      </div>
+    </div>
+    <div class="modal fade custom-modal" id="feeReportModal">
+      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <!-- HEADER -->
+          <div class="modal-header border-0 py-2">
+            <h5 class="modal-title">
+              <i class="bi bi-columns-gap me-2 text-primary"></i>
+              Column Visibility
+            </h5>
+            <button class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <!-- BODY -->
+          <div class="modal-body py-2">
+            <!-- SEARCH -->
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Search columns...">
+            </div>
+            <!-- SELECT ALL -->
+            <div class="mb-2">
+              <label class="form-check-label">
+              <input type="checkbox" class="form-check-input me-2" checked>
+              Select All / Deselect All
+              </label>
+            </div>
+            <!-- TABLE -->
+            <div class="table-card">
+              <div class="table-responsive table-scroll">
+                <table class="table align-middle custom-table mb-0">
+                  <thead class="sticky-header">
+                    <tr>
+                      <th>Show/Hide</th>
+                      <th>Column Name</th>
+                      <th>Group By</th>
+                      <th>Sort By</th>
+                      <th>Display Type</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- ROW -->
+                    <tr>
+                      <td><input type="checkbox" checked></td>
+                      <td>District Name</td>
+                      <td><input type="checkbox"></td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option>None</option>
+                          <option>Asc</option>
+                          <option>Desc</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option>None</option>
+                          <option>Text</option>
+                          <option>Number</option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" checked></td>
+                      <td>HOD</td>
+                      <td><input type="checkbox"></td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option>None</option>
+                          <option>Asc</option>
+                          <option>Desc</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option>None</option>
+                          <option>Text</option>
+                          <option>Number</option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" checked></td>
+                      <td>Ownership</td>
+                      <td><input type="checkbox"></td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option>None</option>
+                          <option>Asc</option>
+                          <option>Desc</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option>None</option>
+                          <option>Text</option>
+                          <option>Number</option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" checked></td>
+                      <td>Institution Name</td>
+                      <td><input type="checkbox"></td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option>None</option>
+                          <option>Asc</option>
+                          <option>Desc</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option>None</option>
+                          <option>Text</option>
+                          <option>Number</option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><input type="checkbox" checked></td>
+                      <td>Stream Name</td>
+                      <td><input type="checkbox"></td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option>None</option>
+                          <option>Asc</option>
+                          <option>Desc</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select class="form-select form-select-sm">
+                          <option>None</option>
+                          <option>Text</option>
+                          <option>Number</option>
+                        </select>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- FOOTER -->
+          <div class="modal-footer border-0">
+            <button class="btn btn-light btn-sm">Reset</button>
+            <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+            <button class="btn btn-primary btn-sm">Apply</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/aos/aos-min.js"></script>
+    <!-- ✅ DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+      // Initialize AOS
+      AOS.init();
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+      
+        /* ================================
+           SIDEBAR TOGGLE
+        ================================= */
+      
+        const sidebarToggle = document.getElementById("sidebarToggle");
+        const sidebarIcon = sidebarToggle?.querySelector("i");
+      
+        if (sidebarToggle) {
+          sidebarToggle.addEventListener("click", function () {
+      
+            console.log("clicked"); // ✅ debug
+      
+            document.body.classList.toggle("sidebar-expanded");
+      
+            sidebarIcon?.classList.toggle("bi-list");
+            sidebarIcon?.classList.toggle("bi-x-lg");
+      
+          });
+        }
+      
+      
+        /* ================================
+           PROFILE DROPDOWN
+        ================================= */
+      
+        const trigger = document.getElementById("profileTrigger");
+        const dropdown = document.getElementById("profileDropdown");
+      
+        trigger?.addEventListener("click", function (e) {
+          e.stopPropagation();
+          dropdown.classList.toggle("show");
+        });
+      
+        dropdown?.addEventListener("click", function (e) {
+          e.stopPropagation();
+        });
+      
+        document.addEventListener("click", function () {
+          dropdown?.classList.remove("show");
+        });
+      
+      });
+      
+    </script>
+    <!-- refresh loader -->
+    <script>
+      $('.refresh_submit').on('click', function () {
+      
+      let loader = $('#modalLoader');
+      let progressBar = $('#progressBar');
+      let success = $('#modalSuccess');
+      
+      loader.addClass('active');
+      
+      let progress = 0;
+      
+      let interval = setInterval(() => {
+      
+      progress += Math.floor(Math.random() * 10) + 5; // smooth random speed
+      
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+      
+        // complete progress
+        progressBar.css('width', '100%').text('100%');
+      
+        // show success
+        setTimeout(() => {
+          loader.removeClass('active');
+          success.addClass('show');
+      
+          // hide success + close modal
+          setTimeout(() => {
+            success.removeClass('show');
+            $('#refreshModal').modal('hide');
+          }, 1500);
+      
+        }, 500);
+      
+      } else {
+        progressBar.css('width', progress + '%').text(progress + '%');
+      }
+      
+      }, 200);
+      
+      });
+    </script>
+    <!-- refersh laoder -->
+    <!-- ripple bnt -->
+    <script>
+      $(document).on('click', '.ripple', function (e) {
+      
+      let $this = $(this);
+      
+      let offset = $this.offset();
+      let x = e.pageX - offset.left;
+      let y = e.pageY - offset.top;
+      
+      let ripple = $('<span class="ripple-effect"></span>');
+      
+      ripple.css({
+      top: y + 'px',
+      left: x + 'px',
+      width: '20px',
+      height: '20px'
+      });
+      
+      $this.append(ripple);
+      
+      setTimeout(() => {
+      ripple.remove();
+      }, 600);
+      
+      });
+      
+      $(document).on('click', '.nav-link.ripple', function () {
+      
+      let $this = $(this);
+      let ripple = $('<span class="ripple-effect"></span>');
+      
+      ripple.css({
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%) scale(0)'
+      });
+      
+      $this.append(ripple);
+      
+      setTimeout(() => ripple.remove(), 600);
+      
+      });
+    </script>
+    <!-- ripple btn -->
+    <!-- accordion -->
+    <script>
+      const toggleBtn = document.getElementById("toggleFilter");
+      const panel = document.getElementById("filterPanel");
+      
+      toggleBtn.addEventListener("click", () => {
+        panel.classList.toggle("collapsed");
+      
+        toggleBtn.querySelector(".bi-chevron-down")
+          .classList.toggle("rotate");
+      });
+    </script>
+    <!-- accordion -->
+    <!-- filter -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function(){
+      
+        document.querySelector(".btn-submit")?.addEventListener("click", applyFilters);
+        document.querySelector(".clear-btn")?.addEventListener("click", clearAllFilters);
+      
+      });
+      
+      /* =========================
+         GET VALUE
+      ========================= */
+      function getValue(id){
+        return document.getElementById(id)?.value || "";
+      }
+      
+      /* =========================
+         CREATE CHIP
+      ========================= */
+      function createChip(label, value, container, fieldId){
+      
+        if(!value || value.toLowerCase().includes("select") || value === "All") return;
+      
+        const chip = document.createElement("div");
+        chip.className = "filter-chip";
+      
+        chip.innerHTML = `
+          ${label}: ${value}
+          <i class="bi bi-x"></i>
+        `;
+      
+        chip.querySelector("i").addEventListener("click", () => {
+          chip.remove();
+          document.getElementById(fieldId).selectedIndex = 0;
+      
+          toggleFilterCardVisibility();
+        });
+      
+        container.appendChild(chip);
+      }
+      
+      /* =========================
+         APPLY FILTER
+      ========================= */
+      function applyFilters(){
+      
+        const courseChips = document.getElementById("courseChips");
+      
+        if(!courseChips) return;
+      
+        courseChips.innerHTML = "";
+      
+        createChip("Fee Status", getValue("feeStatus"), courseChips, "feeStatus");
+        createChip("Stream", getValue("stream"), courseChips, "stream");
+        createChip("Course Type", getValue("courseType"), courseChips, "courseType");
+        createChip("Category", getValue("courseCategory"), courseChips, "courseCategory");
+        createChip("Course", getValue("course"), courseChips, "course");
+        createChip("Branch", getValue("courseBranch"), courseChips, "courseBranch");
+        createChip("Year", getValue("courseYear"), courseChips, "courseYear");
+        createChip("Shift", getValue("shiftTiming"), courseChips, "shiftTiming");
+        createChip("Medium", getValue("medium"), courseChips, "medium");
+      
+        toggleFilterCardVisibility();
+      
+        // CLOSE OFFCANVAS
+        const canvas = document.getElementById("filterCanvas");
+        if(canvas){
+          const instance = bootstrap.Offcanvas.getInstance(canvas)
+            || new bootstrap.Offcanvas(canvas);
+          instance.hide();
+        }
+      
+      }
+      
+      /* =========================
+         CLEAR ALL
+      ========================= */
+      function clearAllFilters(){
+      
+        document.querySelectorAll("#filterCanvas select").forEach(sel=>{
+          sel.selectedIndex = 0;
+        });
+      
+        document.getElementById("courseChips").innerHTML = "";
+      
+        toggleFilterCardVisibility();
+      }
+      
+      /* =========================
+         TOGGLE CARD VISIBILITY
+      ========================= */
+      function toggleFilterCardVisibility(){
+      
+        const container = document.getElementById("courseChips");
+        const wrapper = document.getElementById("activeFilters");
+      
+        if(!container || !wrapper) return;
+      
+        if(container.children.length === 0){
+          wrapper.classList.add("d-none");
+        }else{
+          wrapper.classList.remove("d-none");
+        }
+      
+      }
+      
+    </script>
+    <!-- filter -->
+    <!-- toggle column -->
+    <script>
+      $(document).ready(function () {
+      
+      // ✅ SAFETY CHECK
+      if (!$.fn.DataTable) {
+      console.error("❌ DataTables not loaded");
+      return;
+      }
+      
+      const table = $('#dynamicTable').DataTable({
+      autoWidth: false,
+      columnDefs: [
+      { targets: [3,4,5,6,7,8,9], visible: false } // ✅ default hide
+      ]
+      });
+      
+      const columnGroups = {
+      course: [3, 4],
+      institute: [5, 6],
+      fees: [7, 8, 9]
+      };
+      
+      $('.column-toggle').on('change', function () {
+      
+      const type = $(this).val();
+      const cols = columnGroups[type];
+      
+      if (!cols) return;
+      
+      table.columns(cols).visible(this.checked);
+      
+      });
+      
+      });
+      
+    </script>
+    <!-- toggle column -->
+    <!-- modal -->
+    <script>
+      $('.form-check-input').first().on('change', function () {
+        $('tbody input[type="checkbox"]').prop('checked', this.checked);
+      });
+      $('input[placeholder="Search columns..."]').on('keyup', function () {
+        let value = $(this).val().toLowerCase();
+        $('tbody tr').filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+      });
+    </script>
+    <!-- modal -->
+  </body>
+</html>

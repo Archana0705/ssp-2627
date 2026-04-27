@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TN State Scholarship Portal</title>
+  <meta name="description" content="Tamil Nadu State Scholarship Portal">
+  <meta name="keywords" content="scholarship, Tamil Nadu, education, benefits">
+
+  <!-- Favicons -->
+  <link href="landing_page_assets/img/tn_logo.png" rel="icon">
+  <link href="landing_page_assets/img/tn_logo.png" rel="apple-touch-icon">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <!-- Preconnect to Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Nunito:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link href="landing_page_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="landing_page_assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <script src="landing_page_assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="stylesheet" href="landing_page_assets/css/sweetalert.min.css">
+  <link rel="stylesheet" href="landing_page_assets/css/sweetalert2.min.css">
+  <!-- Main CSS -->
+  <link href="landing_page_assets/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Fixed Button (hidden by default) -->
+  <div class="fixed_btn d-none">
+    <button type="button" class="mdl-btn btn btn-primary filter_pannel">
+      <i class="bi bi-funnel"></i>
+    </button>
+  </div>
+  <!-- Header Bar -->
+  <header class="d-flex justify-content-between align-items-center px-4 py-2 bg-light border-bottom">
+    <div id="userRole" class="fw-bold text-primary"></div>
+    <div class="d-flex align-items-center">
+      <div id="dateTime" class="me-4 text-secondary"></div>
+      <div class="dropdown">
+        <a href="#" class="btn add-btn goto-btn dropdown-toggle" id="profileDropdown" data-bs-toggle="dropdown"
+          aria-expanded="false" style="color: #333; background-color: #f8f9fa;">
+          <i class="bi bi-person"></i>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+          <li>
+            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+              <i class="bi bi-key"></i><span data-i18n="change-password">Change Password</span>
+            </a>
+          </li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li>
+            <a class="dropdown-item text-danger" href="#" id="logout-btn">
+              <i class="bi bi-box-arrow-in-right"></i><span data-i18n="logout">Logout</span>
+            </a>
+          </li>
+        </ul>
+        <style>
+          .dropdown-menu {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            min-width: 180px;
+            padding: 0.5rem 0;
+          }
+
+          /* Dropdown items base style */
+          .dropdown-menu .dropdown-item {
+            padding: 10px 16px;
+            font-size: 14px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.2s ease-in-out, color 0.2s;
+          }
+
+          /* Add spacing between icon and text */
+          .dropdown-menu .dropdown-item i {
+            margin-right: 8px;
+            font-size: 16px;
+          }
+
+          /* Hover effects for dropdown items */
+          .dropdown-menu .dropdown-item:hover {
+            background-color: #33208c;
+            color: #fff;
+          }
+
+          /* Logout styled as "danger" without being too aggressive */
+          .dropdown-item.text-danger {
+            color: #dc3545 !important;
+          }
+
+          .dropdown-item.text-danger:hover {
+            background-color: #dc3545 !important;
+            color: #fff !important;
+          }
+
+          /* Button hover improvement */
+          .goto-btn:hover {
+            background-color: #33208c !important;
+            color: #fff !important;
+          }
+        </style>
+      </div>
+    </div>
+  </header>
+  <div id="preloader"></div>
+  <main id="main" class="main ms-0 mt-0">
+    <section>
+      <div class="container-fluid">
+        <div class="content_wrap">
+          <div class="row">
+            <!-- Header Section -->
+            <div class="text-center mb-2">
+              <h1 class="fw-bold title_txt mb-0">
+                <img src="landing_page_assets/img/tn_logo.png" alt="Tamil Nadu Government Logo" class="logo_img"
+                  width="40" height="40">
+                Tamil Nadu Intergrated State Scholarship Portal
+              </h1>
+            </div>
+
+
+            <div class="row justify-content-center mb-4">
+              <!-- Academic Year -->
+              <div class="col-md-4 mb-3 text-center">
+                <label for="academicYear" class="form-label fw-bold fs-5 text-primary mb-2 lgfont">
+                  🎓 Select Academic Year
+                </label>
+                <div class="d-flex justify-content-center">
+                  <select
+                    class="form-select shadow-sm border-2 border-primary rounded-pill text-center animate__animated animate__fadeIn"
+                    id="academicYear" style="max-width: 250px; width: 100%; padding: 0.6rem 1.5rem;">
+                    <option disabled selected>Loading years...</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Education Type -->
+              <div class="col-md-4 mb-3 text-center">
+                <label for="educationType" class="form-label fw-bold fs-5 text-primary mb-2 lgfont">
+                  &#127979; Select Education Type
+                </label>
+                <div class="d-flex justify-content-center">
+                  <select
+                    class="form-select shadow-sm border-2 border-primary rounded-pill text-center animate__animated animate__fadeIn"
+                    id="educationType" style="max-width: 250px; width: 100%; padding: 0.6rem 1.5rem;">
+                    <option selected>UMIS</option>
+                    <option>EMIS</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Details Card -->
+            <div class="card p-3 mb-3 slide-in" id="detailsCard" style="width: 60%; margin: 0 auto;"></div>
+
+
+            <!-- Scholarship / Benefits / Incentives Cards -->
+            <div class="row" id="cardContainer" style="width: 60%; margin: 0 auto;"></div>
+          </div>
+        </div>
+    </section>
+  </main>
+  <!-- Change Password Modal -->
+  <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <form id="changePasswordForm" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changePasswordModalLabel">Change Password</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="mb-3">
+            <label for="oldPassword" class="form-label">Current Password</label>
+            <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
+            <div class="invalid-feedback">Please enter your current password.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="newPassword" class="form-label">New Password</label>
+            <input type="password" class="form-control" id="newPassword" name="newPassword" required minlength="6">
+            <div class="invalid-feedback">
+              Password must be at least 6 characters and include at least one uppercase letter, one lowercase letter,
+              one number, and one special character.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+            <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword" required
+              minlength="6">
+            <div class="invalid-feedback">Passwords do not match.</div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Change Password</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer id="footer" class="footer ms-0 w-100">
+    <div class="copyright">
+      &copy; Copyright <strong><span>TNeGA</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      Designed & Developed by <a href="https://tnega.tn.gov.in/" target="_blank" rel="noopener noreferrer">TNeGA</a>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+  <script src="assets/js/crypto-js.min.js"></script>
+  <!-- JavaScript -->
+  <script src="landing_page_assets/vendor/jquery/jquery.min.js"></script>
+  <script src="landing_page_assets/js/global.js"></script>
+  <script src="landing_page_assets/js/sweetalert.min.js"></script>
+  <script src="landing_page_assets/js/sweetalert2.all.min.js"></script>
+
+  <script src="assets/js/page-script/api.js"></script>
+  <script type="module">
+    // import permissions from 'assets/js/permissions.js';
+    let cards = [];
+    let departmentId;
+    let subDepartmentId;
+    document.addEventListener("DOMContentLoaded", () => {
+      // Animate slide-in elements
+      document.querySelectorAll(".slide-in").forEach((el, i) =>
+        setTimeout(() => el.classList.add("show"), 200 * i)
+      );
+      fetchAcademicYear();
+    });
+    function updateDateTime() {
+      const now = new Date();
+      const options = {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      };
+
+      const formattedDate = now.toLocaleDateString('en-US', options);
+      document.getElementById('dateTime').innerHTML = '<i class="bi bi-calendar-check me-1"></i>' + formattedDate;
+    }
+    // Update on load
+    updateDateTime();
+    // Update every second
+    setInterval(updateDateTime, 1000);
+    console.log("Session Storage:", sessionStorage.user_details);
+    // Defensive check for localStorage values before decrypting
+    let get_user_details = null;
+    const userDetailsEncrypted = sessionStorage.user_details;
+    const encryptionKey = sessionStorage.encryption_key;
+    console.log("Encrypted user details from sessionStorage:", userDetailsEncrypted);
+    console.log("Encryption key from sessionStorage:", encryptionKey);
+    if (userDetailsEncrypted && encryptionKey) {
+      try {
+        const decrypted = SecureAPI.decrypt(userDetailsEncrypted, encryptionKey);
+        console.log("Decrypted user details:", decrypted);
+        get_user_details = JSON.parse(decrypted);
+      } catch (e) {
+        console.error("Failed to decrypt or parse user details:", e);
+      }
+    } else {
+      console.warn("User details or encryption key missing in localStorage.");
+    }
+    let roleId = get_user_details && get_user_details.roles;
+    //let userPermissions = permissions.roles[roleId] || permissions.roles.default;
+    let userId1 = get_user_details.user_id;
+    // if (userId1 == null) {
+    //   localStorage.clear();
+    //   sessionStorage.clear();
+    //   // window.location.href = "index.html";
+    // }
+    let roleName = ''; // Variable to store the role name
+    // Determine role name based on userRole
+    let roleId1 = Number(roleId);
+    switch (roleId1) {
+      case 1:
+        roleName = 'root';
+        break;
+      case 2:
+        roleName = 'State Admin';
+        break;
+      case 3:
+        roleName = 'State User';
+        break;
+      case 4:
+        roleName = 'Department State User';
+        break;
+      case 5:
+        roleName = 'Department Head';
+        break;
+      case 6:
+        roleName = 'Institute';
+        break;
+      case 7:
+        roleName = 'Student';
+        break;
+      case 8:
+        roleName = 'Department User';
+        break;
+      case 9:
+        roleName = 'Department District User';
+        break;
+      case 10:
+        roleName = 'Department State Admin';
+        break;
+      case 11:
+        roleName = 'EDM User';
+        break;
+      case 12:
+        roleName = 'UMIS Complaint';
+        break;
+      case 13:
+        roleName = 'Department State User';
+        break;
+      default:
+        roleName = 'Unknown role';
+        break;
+    }
+    // Set the role name as text in #nav-institute
+    const userName = localStorage.getItem("userName");
+    // Inject into the header
+    document.getElementById("userRole").textContent = roleName + ' (' + userName + ')';
+    document.getElementById('logout-btn').addEventListener('click', handleLogout);
+    function handleLogout() {
+      localStorage.clear();
+      sessionStorage.clear();
+      // window.location.href = "index.html";
+    }
+    $('#academicYear').on('change', function () {
+      fetchDetailsCard();
+    });
+    $('#educationType').on('change', function () {
+      fetchDetailsCard();
+    });
+    function fetchAcademicYear() {
+      try {
+        $('#preloader').show();
+        $.ajax({
+          url: config.ssp_api_url + '/getAcademicYears',
+          type: 'GET',
+          headers: { 'X-APP-KEY': 'te$t', 'X-APP-NAME': 'te$t' },
+          success: function (response) {
+            $('#preloader').hide();
+            if (response.success) {
+              fetchDetailsCard();
+              // Clear existing options
+              const $academicYearSelect = $('#academicYear');
+              $academicYearSelect.empty();
+
+              const academicYears = response.data;
+              if (Array.isArray(academicYears) && academicYears.length > 0) {
+                academicYears.forEach((year, index) => {
+                  const isSelected = index === 0 ? 'selected' : '';
+                  $academicYearSelect.append(
+                    `<option value="${year.academicyearid}" ${isSelected}>${year.academicyear}</option>`
+                  );
+                });
+              } else {
+                $academicYearSelect.append(
+                  `<option disabled selected>No academic year found</option>`
+                );
+              }
+                $academicYearSelect.append(
+                    `<option value="3">2026-2027</option>`
+                  );
+            } else {
+              fetchDetailsCard();
+              console.log('Failed to load academic years.');
+            }
+          },
+          error: function () {
+            fetchDetailsCard();
+            $('#preloader').hide();
+            console.log('Failed to fetch academic years.');
+          }
+        });
+      } catch (error) {
+        $('#preloader').hide();
+        console.error('Error during fetch:', error);
+        console.log('Something went wrong!');
+      }
+    }
+    function fetchDetailsCard() {
+      $('#preloader').show();
+      const detailsCard = document.getElementById("detailsCard");
+
+      // Step 1: Show static default content immediately
+      detailsCard.innerHTML = `
+        <h5 class="title ps-3 mb-3 flex_between">
+          <span data-i18n="department-details">
+            <i class="bi bi-building"></i> Department Details
+          </span>
+        </h5>
+        <div class="row">
+          <div class="col-6">
+            <div class="customer-details">
+              <div class="d-flex align-items-center">
+                <span class="customer-widget-icon d-inline-flex">
+                  <i class="fe-mail"></i>
+                </span>
+                <div class="customer-details-cont ms-3">
+                  <h5>Department Name</h5>
+                  <p>Loading...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="customer-details">
+              <div class="d-flex align-items-center">
+                <span class="customer-widget-icon d-inline-flex">
+                  <i class="fe-mail"></i>
+                </span>
+                <div class="customer-details-cont ms-3">
+                  <h5>Sub Department Name</h5>
+                  <p>Loading...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      try {
+        $.ajax({
+          url: config.dept_api_url + '/getDetailsCard',
+          type: 'POST',
+          headers: { 'X-APP-KEY': 'te$t', 'X-APP-NAME': 'te$t' },
+          data: {
+            education_type: $('#educationType').val() || null,
+            user_id: get_user_details.user_id || null
+          },
+          success: function (response) {
+            $('#preloader').hide();
+            if (response.success) {
+              // Step 2: Replace static content with API response
+              const { department_name, subdepartment_name } = response.data;
+              departmentId = response.data.department_id;
+              subDepartmentId = response.data.subdepartment_id;
+              const departmentData = [
+                { title: "Department Name", value: department_name || "N/A", icon: "fe-mail" },
+                { title: "Sub Department Name", value: subdepartment_name || "N/A", icon: "fe-mail" },
+              ];
+
+              let content = `
+                <h5 class="title ps-3 mb-3 flex_between">
+                  <span data-i18n="department-details">
+                    <i class="bi bi-building"></i> Department Details
+                  </span>
+                </h5>
+                <div class="row">
+              `;
+
+              departmentData.forEach(({ title, value, icon }) => {
+                content += `
+                  <div class="col-6">
+                    <div class="customer-details">
+                      <div class="d-flex align-items-center">
+                        <span class="customer-widget-icon d-inline-flex">
+                          <i class="${icon}"></i>
+                        </span>
+                        <div class="customer-details-cont ms-3">
+                          <h5>${title}</h5>
+                          <p>${value}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              });
+
+              content += `</div>`;
+              detailsCard.innerHTML = content;
+              fetchCards();
+            } else {
+              console.log('Failed to load user details.');
+            }
+          },
+          error: function () {
+            $('#preloader').hide();
+            console.log('Failed to fetch user details.');
+          }
+        });
+      } catch (error) {
+        $('#preloader').hide();
+        console.error('Error during fetch:', error);
+        console.log('Something went wrong!');
+      }
+    }
+    function fetchCards() {
+      $('#preloader').show();
+      let departmentInfo = {
+        userDetailsEncrypted : userDetailsEncrypted,
+        encryptionKey : encryptionKey,
+        user_details : userDetailsEncrypted,
+        access_token : localStorage.getItem("access_token"),
+        refresh_token : localStorage.getItem("refresh_token"),
+      }
+      console.log("Department Info being sent to card APIs:", departmentInfo);
+      var bta_encoded = btoa(JSON.stringify(departmentInfo));
+      console.log("Base64 Encoded Department Info:", bta_encoded);
+      console.log("Decoded Department Info (for verification):", JSON.parse(atob(bta_encoded)));
+      let cards = [];
+
+      const result = SecureAPI.request(
+        `http://localhost/ssp/ssp_3/department/ssp_backend_1/public/api/get-card`,
+        'POST',
+        {
+          education_type: $('#educationType').val() || null,
+          academic_year_id: $('#academicYear').val() || null,
+          department_id: departmentId || null,
+          sub_department_id: subDepartmentId || null
+        }
+      );
+      console.log("API response for cards:", result);
+      try {
+        $.ajax({
+          url: config.dept_api_url + '/getCards',
+          type: 'POST',
+          headers: { 'X-APP-KEY': 'te$t', 'X-APP-NAME': 'te$t' },
+          data: {
+            education_type: $('#educationType').val() || null,
+            academic_year_id: $('#academicYear').val() || null,
+            department_id: departmentId || null,
+            sub_department_id: subDepartmentId || null
+          },
+          success: function (response) {
+            $('#preloader').hide();
+            if (response.success && Array.isArray(response.data)) {
+
+              // Normalize data: build a map of type to urlvalue
+              const typeUrlMap = {};
+              response.data.forEach(item => {
+                const type = item.scholarshiptypes.toLowerCase();
+                typeUrlMap[type] = item.urlvalue;
+              });
+
+              if (typeUrlMap["scholarship"]) {
+                cards.push({
+                  title: "Scholarship",
+                  icon: "bi-award-fill",
+                  text: "View available scholarships based on academic year and eligibility.",
+                  color: "text-primary",
+                  link: typeUrlMap["scholarship"] + "?dept_details=" + bta_encoded
+                });
+              }
+
+              if (typeUrlMap["benifits"] || typeUrlMap["benefits"]) {
+                const benefitLink = typeUrlMap["benifits"] || typeUrlMap["benefits"];
+                cards.push({
+                  title: "Benefits",
+                  icon: "bi-stars",
+                  text: "Eligible benefits like bus pass, laptops.",
+                  color: "text-success",
+                  link: benefitLink + "?dept_details=" + bta_encoded
+                });
+              }
+
+              if (typeUrlMap["incentives"]) {
+                cards.push({
+                  title: "Incentives",
+                  icon: "bi-gift-fill",
+                  text: "Explore all student-specific benefits and offers provided by the state.",
+                  color: "text-warning",
+                  link: typeUrlMap["incentives"] + "?dept_details=" + bta_encoded
+                });
+              }
+
+              if (typeUrlMap["scheme creation"]) {// && userPermissions && userPermissions.canAddScheme) {
+                cards.push({
+                  title: "Scheme Management",
+                  icon: "bi-building-gear",
+                  text: "Create And Maintain Schemes.",
+                  color: "text-success",
+                  link: typeUrlMap["scheme creation"] + "?dept_details=" + bta_encoded
+                });
+              }
+              if (typeUrlMap["local"]) {// && userPermissions && userPermissions.canAddScheme) {
+                cards.push({
+                  title: "local",
+                  icon: "bi-building-gear",
+                  text: "Create And Maintain Schemes.",
+                  color: "text-success",
+                  link: typeUrlMap["local"] + "?dept_details=" + bta_encoded
+                });
+              }
+
+              if (typeUrlMap["payment"]) {// && userPermissions && userPermissions.canAddScheme) {
+                cards.push({
+                  title: "PPS-TPS",
+                  icon: "bi-credit-card-2-front",
+                  text: "View Payment Status.",
+                  color: "#33208c",
+                  link: typeUrlMap["payment"] + "?dept_details=" + bta_encoded
+                });
+              }
+            } else {
+              console.log('Failed to load cards.');
+            }
+              renderCards(cards);
+          },
+          error: function () {
+            $('#preloader').hide();
+            console.log('Failed to fetch cards.');
+          }
+        });
+      } catch (error) {
+        $('#preloader').hide();
+        console.error('Error during fetch:', error);
+        console.log('Something went wrong!');
+      }
+    }
+    function renderCards(cards) {
+      const cardContainer = document.getElementById("cardContainer");
+      cardContainer.innerHTML = "";
+
+      const numCards = cards.length;
+      let colClass = "col-md-4"; // default 3-column layout
+
+      if (numCards === 1) {
+        colClass = "col-md-6 offset-md-3"; // center single card
+      } else if (numCards === 2) {
+        colClass = "col-md-6"; // two columns
+      }
+
+      cards.forEach(card => {
+        const cardHTML = `
+          <div class="${colClass} mb-3 d-flex">
+            <a href="${card.link}" class="text-decoration-none w-100">
+              <div class="card p-4 text-center h-100 shadow-lg card-hover-effect">
+                <i class="bi ${card.icon} fs-1 ${card.color} mb-2"></i>
+                <h2 class="h5 fw-bold card-title">${card.title}</h2>
+                <p class="text-muted card-text">${card.text}</p>
+              </div>
+            </a>
+          </div>`;
+        cardContainer.innerHTML += cardHTML;
+      });
+    }
+    document.getElementById('changePasswordForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const oldPwd = document.getElementById('oldPassword');
+      const newPwd = document.getElementById('newPassword');
+      const confirmPwd = document.getElementById('confirmNewPassword');
+
+      // Reset validation states
+      oldPwd.classList.remove('is-invalid');
+      newPwd.classList.remove('is-invalid');
+      confirmPwd.classList.remove('is-invalid');
+
+      let valid = true;
+
+      if (!oldPwd.value.trim()) {
+        oldPwd.classList.add('is-invalid');
+        valid = false;
+      }
+
+      // Password policy regex:
+      // At least 1 uppercase, 1 lowercase, 1 digit, 1 special char, min 6 chars
+      const passwordPolicy = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/;
+
+      if (!newPwd.value.trim() || !passwordPolicy.test(newPwd.value)) {
+        newPwd.classList.add('is-invalid');
+        valid = false;
+      }
+
+      if (confirmPwd.value !== newPwd.value || !confirmPwd.value.trim()) {
+        confirmPwd.classList.add('is-invalid');
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      // Show preloader
+      $('#preloader').show();
+
+      const userId = localStorage.getItem("userId");
+      const self = this; // Save reference to form to reset later
+
+      try {
+        $.ajax({
+          url: config.dept_api_url + '/change_password',
+          type: 'POST',
+          headers: { 'X-APP-KEY': 'te$t', 'X-APP-NAME': 'te$t' },
+          data: {
+            user_id: userId || null,
+            old_password: oldPwd.value,
+            new_password: newPwd.value,
+          },
+          success: function (response) {
+            $('#preloader').hide();
+            console.log('Password changed successfully.');
+
+            const modalEl = document.getElementById('changePasswordModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            modal.hide();
+
+            // Reset the form
+            self.reset();
+            Swal.fire({
+              title: 'Password changed successfully!',
+              icon: 'success', // changed to success icon
+              showConfirmButton: false,
+              timer: 1500
+            });
+          },
+          error: function (xhr) {
+            $('#preloader').hide();
+
+            let errorMessage = 'Failed to change password!';
+            let isInvalidOldPassword = false;
+
+            if (xhr.responseJSON && xhr.responseJSON.error) {
+              errorMessage = xhr.responseJSON.error;
+
+              // Check if error message includes "invalid old password" (case-insensitive)
+              isInvalidOldPassword = /invalid old password/i.test(errorMessage);
+            }
+
+            console.error(errorMessage);
+
+            // Show specific message if "invalid old password"
+            if (isInvalidOldPassword) {
+              Swal.fire({
+                title: 'Incorrect Old Password',
+                text: 'The old password you entered is incorrect.',
+                icon: 'error',
+                showConfirmButton: true,
+              });
+            } else {
+              const modalEl = document.getElementById('changePasswordModal');
+              const modal = bootstrap.Modal.getInstance(modalEl);
+              modal.hide();
+
+              // Reset the form
+              self.reset();
+              Swal.fire({
+                title: 'Failed to change password!',
+                text: errorMessage,
+                icon: 'error',
+                showConfirmButton: true,
+              });
+            }
+          }
+        });
+      } catch (error) {
+        $('#preloader').hide();
+        console.error('Error during fetch:', error);
+
+        const modalEl = document.getElementById('changePasswordModal');
+        const modal = bootstrap.Modal.getInstance(modalEl);
+        modal.hide();
+
+        // Reset the form
+        self.reset();
+
+        Swal.fire({
+          title: 'Something went wrong!',
+          icon: 'error',
+          showConfirmButton: true,
+        });
+      }
+    });
+  </script>
+</body>
+
+</html>

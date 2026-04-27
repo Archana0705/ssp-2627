@@ -1,0 +1,211 @@
+/* GRID */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+/*  gap: 12px;*/
+} 
+
+/* CARD */
+.info-card {
+/*  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 16px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;*/
+
+      display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 16px;
+    border-radius: 12px;
+    background: #ffffff;
+    transition: all 0.2s ease;
+    border: none;
+/*    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);*/
+}
+
+/* HOVER */
+/*.info-card:hover {
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}*/
+
+/* ICON */
+.info-card i {
+  font-size: 18px;
+/*  color: #6366f1;*/
+    color: #1d50d9;
+}
+
+/* LABEL */
+.info-card label {
+  font-size: 12px;
+  color: #64748b;
+  display: block;
+}
+
+/* VALUE */
+.info-card p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* VERIFIED */
+.verified {
+  color: #16a34a;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* FULL WIDTH CARD (FOR ADDRESS) */
+.full-width {
+  grid-column: span 2;
+}
+
+/* BETTER TEXT WRAP */
+.info-card p {
+  word-break: break-word;
+}
+
+/* VERIFIED STYLE UPGRADE */
+.verified {
+  background: #dcfce7;
+  color: #166534;
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  margin-left: 6px;
+  font-weight: 500;
+}
+
+/* RESPONSIVE FIX */
+@media (max-width: 1024px) {
+  .full-width {
+    grid-column: span 1;
+  }
+}
+
+
+/* SECTION WRAPPER */
+.family-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* SECTION CARD */
+.section-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+}
+
+
+/* SECTION TITLE */
+.section-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #475569;
+}
+
+/* HIGHLIGHT CARD (INCOME) */
+.highlight-card {
+  border: 1px solid #c7d2fe;
+  background: linear-gradient(145deg, #eef2ff, #ffffff);
+}
+
+.highlight-card p {
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+/* WRAPPER */
+.academic-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* HIGHLIGHT INSTITUTE BLOCK */
+.highlight-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(145deg, #eef2ff, #ffffff);
+  border: 1px solid #c7d2fe;
+  padding: 16px;
+  border-radius: 14px;
+}
+
+.highlight-block i {
+  font-size: 22px;
+  color: #6366f1;
+}
+
+.highlight-block label {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.highlight-block h5 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+/* WRAPPER */
+.bank-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* SECURE ACCOUNT CARD */
+.secure-card {
+  border: 1px dashed #cbd5f5;
+  background: linear-gradient(145deg, #f8fafc, #ffffff);
+}
+
+/* VERIFY BLOCK */
+.verify-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(145deg, #ecfdf5, #ffffff);
+  border: 1px solid #bbf7d0;
+  padding: 6px 16px;
+  border-radius: 14px;
+}
+
+.verify-block i {
+  font-size: 22px;
+  color: #16a34a;
+}
+
+.verified-text {
+  color: #166534;
+  font-weight: 600;
+}
+

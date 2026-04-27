@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Document</title>
+  
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  
+  <style>/*custom font*/
+
+/*form styles*/
+#msform {
+    text-align: center;
+    position: relative;
+    margin-top: 30px;
+}
+
+#msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 0px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 20px 30px;
+    box-sizing: border-box;
+    width: 80%;
+    margin: 0 10%;
+
+    /*stacking fieldsets above each other*/
+    position: relative;
+}
+
+/*Hide all except first fieldset*/
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+/*inputs*/
+#msform input, #msform textarea {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2C3E50;
+    font-size: 13px;
+}
+
+#msform input:focus, #msform textarea:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #ee0979;
+    outline-width: 0;
+    transition: All 0.5s ease-in;
+    -webkit-transition: All 0.5s ease-in;
+    -moz-transition: All 0.5s ease-in;
+    -o-transition: All 0.5s ease-in;
+}
+
+/*buttons*/
+#msform .action-button {
+    width: 100px;
+    background: #ee0979;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+#msform .action-button:hover, #msform .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #ee0979;
+}
+
+#msform .action-button-previous {
+    width: 100px;
+    background: #C5C5F1;
+    font-weight: bold;
+    color: white;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+#msform .action-button-previous:hover, #msform .action-button-previous:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #C5C5F1;
+}
+
+/*headings*/
+.fs-title {
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #2C3E50;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.fs-subtitle {
+    font-weight: normal;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/*field-progressbar*/
+#field-progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    /*CSS counters to number the steps*/
+    counter-reset: step;
+}
+
+#field-progressbar li {
+    list-style-type: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: 9px;
+    width: 33.33%;
+    float: left;
+    position: relative;
+    letter-spacing: 1px;
+}
+
+#field-progressbar li:before {
+    content: counter(step);
+    counter-increment: step;
+    width: 24px;
+    height: 24px;
+    line-height: 26px;
+    display: block;
+    font-size: 12px;
+    color: #333;
+    background: white;
+    border-radius: 25px;
+    margin: 0 auto 10px auto;
+}
+
+/*field-progressbar connectors*/
+#field-progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: white;
+    position: absolute;
+    left: -50%;
+    top: 9px;
+    z-index: -1; /*put it behind the numbers*/
+}
+
+#field-progressbar li:first-child:after {
+    /*connector not needed before the first step*/
+    content: none;
+}
+
+/*marking active/completed steps green*/
+/*The number of the step and the connector before it = green*/
+#field-progressbar li.active:before, #field-progressbar li.active:after {
+    background: #ee0979;
+    color: white;
+}
+
+
+/* Not relevant to this form */
+.dme_link {
+    margin-top: 30px;
+    text-align: center;
+}
+.dme_link a {
+    background: #FFF;
+    font-weight: bold;
+    color: #ee0979;
+    border: 0 none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 5px 25px;
+    font-size: 12px;
+}
+
+.dme_link a:hover, .dme_link a:focus {
+    background: #C5C5F1;
+    text-decoration: none;
+}</style>
+  <!-- MultiStep Form -->
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <form id="msform">
+            <!-- field-progressbar -->
+            <ul id="field-progressbar">
+                <li class="active">Personal Details</li>
+                <li>Social Profiles</li>
+                <li>Account Setup</li>
+            </ul>
+            <!-- fieldsets -->
+            <fieldset>
+                 <div class="circle-body d-flex flex-row g-2">
+              <div class="incl-excl form-grid-2 p-2 active">
+                <h4 class="inc">Inclusive</h4>
+                <div class="form-group mt-2">
+                  <label class="form-label">Community</label>
+                  <div class="chip-select multi-select">
+                    <div class="sel-chip" onclick="toggleChip(this)">SC</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">SC (Conv. to Christianity)</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">ST</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">BC</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">MBC</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Gender</label>
+                  <div class="chip-select multi-select">
+                    <div class="sel-chip" onclick="toggleChip(this)">Female</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">Male</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">Transgender</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Income Per Annum (₹)</label>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <select class="cond-select op"><option>≤</option><option>≥</option><option>=</option></select>
+                    <input class="form-input" style="width:120px;height:34px;" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Residential Status</label>
+                  <select class="form-select"><option>Not Applicable</option><option>Hosteller</option><option>Day Scholar</option></select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Is First Graduate</label>
+                  <select class="form-select"><option>Not Applicable</option><option>Yes</option><option>No</option></select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Quota</label>
+                  <select class="form-select"><option>Not Applicable</option><option>7.5% Quota</option><option>Management Quota</option></select>
+                </div>
+              </div>
+               <div class="incl-excl form-grid-2 p-2">
+                  <h4 class="excl">Exclusive</h4>
+                <div class="form-group mt-2">
+                  <label class="form-label">Community</label>
+                  <div class="chip-select multi-select">
+                    <div class="sel-chip" onclick="toggleChip(this)">SC</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">SC (Conv. to Christianity)</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">ST</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">BC</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">MBC</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Gender</label>
+                  <div class="chip-select multi-select">
+                    <div class="sel-chip" onclick="toggleChip(this)">Female</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">Male</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">Transgender</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Income Per Annum (₹)</label>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <select class="cond-select op"><option>≤</option><option>≥</option><option>=</option></select>
+                    <input class="form-input" style="width:120px;height:34px;" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Residential Status</label>
+                  <select class="form-select"><option>Not Applicable</option><option>Hosteller</option><option>Day Scholar</option></select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Is First Graduate</label>
+                  <select class="form-select"><option>Not Applicable</option><option>Yes</option><option>No</option></select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Quota</label>
+                  <select class="form-select"><option>Not Applicable</option><option>7.5% Quota</option><option>Management Quota</option></select>
+                </div>
+              </div>
+            </div>
+                <input type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
+            <fieldset>
+                <div class="circle-body d-flex flex-row g-2">
+              <div class="incl-excl form-grid-2 active">
+                 <h4 class="inc">Inclusive</h4>
+                <div class="form-group">
+                  <label class="form-label">Institute Ownership</label>
+                  <div class="chip-select multi-select">
+                    <div class="sel-chip" onclick="toggleChip(this)">Government</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">Government Aided</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">Private</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">Deemed</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">University Type</label>
+                  <select class="form-select"><option>Not Applicable</option><option>State University</option><option>Deemed University</option></select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Institute Category</label>
+                  <select class="form-select"><option>Not Applicable</option><option>Arts &amp; Science</option><option>Engineering</option><option>Medical</option></select>
+                </div>
+              </div>
+            <div class="incl-excl form-grid-2">
+               <h4 class="excl">Exclusive</h4>
+                <div class="form-group">
+                  <label class="form-label">Institute Ownership</label>
+                  <div class="chip-select multi-select">
+                    <div class="sel-chip" onclick="toggleChip(this)">Government</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">Government Aided</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">Private</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">Deemed</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">University Type</label>
+                  <select class="form-select"><option>Not Applicable</option><option>State University</option><option>Deemed University</option></select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Institute Category</label>
+                  <select class="form-select"><option>Not Applicable</option><option>Arts &amp; Science</option><option>Engineering</option><option>Medical</option></select>
+                </div>
+              </div>
+            </div>
+                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <input type="button" name="next" class="next action-button" value="Next"/>
+            </fieldset>
+            <fieldset>
+                <div class="circle-body d-flex flex-row g-2">
+              <div class="incl-excl form-grid-2 active">
+                
+                  <h4 class="inc">Inclusive</h4>
+                <div class="form-group">
+                  <label class="form-label">Course Type</label>
+                  <div class="chip-select multi-select">
+                    <div class="sel-chip" onclick="toggleChip(this)">Post Graduate (PG)</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">Under Graduate (UG)</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">Diploma</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Stream</label>
+                  <select class="form-select"><option>Not Applicable</option><option>Arts</option><option>Science</option><option>Commerce</option><option>Engineering</option></select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Course Year</label>
+                  <select class="form-select"><option>Not Applicable</option><option>1st Year</option><option>2nd Year</option></select>
+                </div>
+              </div>
+              <div class="incl-excl form-grid-2">
+                
+                  <h4 class="excl">Exclusive</h4>
+                <div class="form-group">
+                  <label class="form-label">Course Type</label>
+                  <div class="chip-select multi-select">
+                    <div class="sel-chip" onclick="toggleChip(this)">Post Graduate (PG)</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">Under Graduate (UG)</div>
+                    <div class="sel-chip" onclick="toggleChip(this)">Diploma</div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Stream</label>
+                  <select class="form-select"><option>Not Applicable</option><option>Arts</option><option>Science</option><option>Commerce</option><option>Engineering</option></select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Course Year</label>
+                  <select class="form-select"><option>Not Applicable</option><option>1st Year</option><option>2nd Year</option></select>
+                </div>
+              </div>
+            </div>
+                <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                <input type="submit" name="submit" class="submit action-button" value="Submit"/>
+            </fieldset>
+        </form>
+        <!-- link to designify.me code snippets -->
+        <div class="dme_link">
+            <p><a href="http://designify.me/code-snippets-js/" target="_blank">More Code Snippets</a></p>
+        </div>
+        <!-- /.link to designify.me code snippets -->
+    </div>
+</div>
+<!-- /.MultiStep Form -->
+
+
+
+
+
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/trump.js"></script>
+  
+</body>
+</html>
+

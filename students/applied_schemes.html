@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>TN State Scholarship Portal</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <!-- Favicons -->
+    <link href="../institute/assets/img/tn_logo.png" rel="icon">
+    <link href="../institute/assets/img/tn_logo.png" rel="apple-touch-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/aos/aos-min.css">
+    <link rel="stylesheet" href="assets/css/header_style.css">
+    <link rel="stylesheet" href="assets/common-style/style.css">
+    <!-- ...existing head content... -->
+    <style>
+      @media (max-width: 768px) {
+      .toggle-sidebar .sidebar {
+      top: 50px !important;
+      }
+      }
+      #studentDetailsAppliedModal .modal.fade .modal-dialog {
+      transform: scale(0.9);
+      opacity: 0;
+      transition: var(--transition);
+      }
+      #studentDetailsAppliedModal .modal.show .modal-dialog {
+      transform: scale(1);
+      opacity: 1;
+      }
+      #studentDetailsAppliedModal .modal-content {
+      border: none;
+      border-radius: 12px;
+      background: var(--card-bg);
+      box-shadow: var(--shadow), var(--glow);
+      overflow: hidden;
+      font-size: clamp(0.85rem, 2.5vw, 0.9rem);
+      font-family: 'Inter', system-ui, sans-serif;
+      }
+      #studentDetailsAppliedModal .modal-header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 0.75rem 1rem;
+      border-bottom: none;
+      display: flex;
+      align-items: center;
+      position: relative;
+      }
+      #studentDetailsAppliedModal .modal-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-color), transparent);
+      }
+      #studentDetailsAppliedModal .modal-title {
+      font-size: clamp(1.1rem, 3vw, 1.2rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      }
+      #studentDetailsAppliedModal .btn-close {
+      background: transparent;
+      color: white;
+      opacity: 0.8;
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      transition: var(--transition);
+      }
+      #studentDetailsAppliedModal .btn-close:hover {
+      opacity: 1;
+      transform: scale(1.2);
+      }
+      #studentDetailsAppliedModal .modal-body {
+      padding: clamp(0.75rem, 2vw, 1rem);
+      background: var(--background-color);
+      }
+      #studentDetailsAppliedModal .section-title {
+      font-size: clamp(0.95rem, 2.5vw, 1rem);
+      font-weight: 600;
+      color: var(--primary-color);
+      margin: 0.5rem 0 0.25rem;
+      padding-bottom: 0.2rem;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      }
+      #studentDetailsAppliedModal .section-title::before {
+      content: '•';
+      color: var(--accent-color);
+      font-size: 1.2rem;
+      }
+      #studentDetailsAppliedModal .detail-card {
+      background: var(--card-bg);
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid transparent;
+      background-clip: padding-box;
+      transition: var(--transition);
+      }
+      #studentDetailsAppliedModal .detail-card:hover {
+      border-image: linear-gradient(135deg, var(--primary-color), var(--accent-color)) 1;
+      box-shadow: var(--shadow), var(--glow);
+      transform: translateY(-2px);
+      }
+      #studentDetailsAppliedModal .student-details-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 0rem;
+      background: white;
+      }
+      #studentDetailsAppliedModal .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      /* padding: 0.5rem 0.25rem; */
+      min-height: 2rem;
+      transition: var(--transition);
+      }
+      #studentDetailsAppliedModal .detail-row:hover {
+      background: #f8fafc;
+      border-radius: 4px;
+      }
+      #studentDetailsAppliedModal .detail-label {
+      font-weight: 500;
+      color: var(--text-color);
+      flex: 0 0 40%;
+      text-align: left;
+      padding-right: 0.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      }
+      #studentDetailsAppliedModal .detail-value {
+      color: var(--text-color);
+      flex: 1;
+      text-align: left;
+      font-weight: 400;
+      padding-left: 0.5rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      }
+      #studentDetailsAppliedModal .table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: var(--card-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: clamp(0.8rem, 2vw, 0.85rem);
+      }
+      #studentDetailsAppliedModal .table th {
+      background: var(--primary-color);
+      color: white;
+      padding: 0.5rem;
+      font-weight: 500;
+      text-align: left;
+      white-space: nowrap;
+      }
+      #studentDetailsAppliedModal .table td {
+      padding: 0.5rem;
+      border-bottom: 1px solid #e5e7eb;
+      color: var(--text-color);
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      }
+      #studentDetailsAppliedModal .table tbody tr:nth-child(odd) {
+      background: #f9fafb;
+      }
+      #studentDetailsAppliedModal .table tbody tr:hover {
+      background: #e0e7ff;
+      }
+      #studentDetailsAppliedModal .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      }
+      #studentDetailsAppliedModal .modal-footer {
+      border-top: none;
+      padding: 0.5rem;
+      background: var(--background-color);
+      display: flex;
+      gap: 0.4rem;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      }
+      #studentDetailsAppliedModal .btn {
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: var(--transition);
+      border: none;
+      font-size: clamp(0.8rem, 2vw, 0.85rem);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      line-height: 1.2;
+      box-shadow: var(--shadow);
+      }
+      #studentDetailsAppliedModal .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow), var(--glow);
+      }
+      #studentDetailsAppliedModal .btn-primary {
+      background: var(--primary-color);
+      color: white;
+      }
+      #studentDetailsAppliedModal .btn-info {
+      background: var(--accent-color);
+      color: white;
+      }
+      #studentDetailsAppliedModal .btn-secondary {
+      background: #6b7280;
+      color: white;
+      }
+      #studentDetailsAppliedModal .card {
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 0.75rem;
+      background: var(--card-bg);
+      border: 1px solid transparent;
+      transition: var(--transition);
+      }
+      #studentDetailsAppliedModal .card:hover {
+      border-image: linear-gradient(135deg, var(--primary-color), var(--accent-color)) 1;
+      }
+      #studentDetailsAppliedModal .card-title {
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      }
+      #studentDetailsAppliedModal .fees_amount {
+      background: #f8fafc;
+      padding: 0.5rem;
+      border-radius: 6px;
+      font-size: clamp(0.8rem, 2vw, 0.85rem);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      }
+      #studentDetailsAppliedModal .sectionSeparate h6 {
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+      }
+      #studentDetailsAppliedModal .table-bordered {
+      border: 1px solid #e5e7eb;
+      }
+      #studentDetailsAppliedModal .table-bordered th,
+      #studentDetailsAppliedModal .table-bordered td {
+      border: 1px solid #e5e7eb;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="app-header fixed-top">
+      <div class="header-left d-flex align-items-center gap-2">
+        <div class="sidebar-toggle" id="sidebarToggle">
+          <i class="bi bi-list"></i>
+        </div>
+        <a href="#" class="logo d-flex align-items-center">
+          <img src="assets/img/tn_logo.png" class="logo_header">
+          <div class="ms-2">
+            <div class="title">Tamil Nadu Integrated State Scholarship Portal</div>
+            <small class="subtitle">Government of Tamil Nadu</small>
+          </div>
+        </a>
+      </div>
+      <div class="header-right">
+        <div class="header-tools">
+          <!-- Accessibility Controls -->
+          <div class="font-controls">
+            <button class="btn-font increase">A+</button>
+            <button class="btn-font reset">A</button>
+            <button class="btn-font decrease">A-</button>
+          </div>
+          <!-- Language Switch -->
+          <div class="lang-switch" onclick="switchLang()">
+            <i class="bi bi-translate"></i>
+            <span>தமிழ்</span>
+          </div>
+          <!-- Date Time -->
+          <div class="header-time">
+            <i class="bi bi-clock"></i>
+            <span id="dateTimeLink">13/03/2026 14:31:15</span>
+          </div>
+          <!-- Profile -->
+          <div class="profile-menu">
+            <div class="profile-trigger">
+              <div class="avatar">
+                <i class="bi bi-person"></i>
+              </div>
+              <span id="stud_name">M SAM</span>
+              <i class="bi bi-chevron-down"></i>
+            </div>
+            <div class="profile-dropdown">
+              <!-- <a href="#"><i class="bi bi-person"></i> Profile</a>
+                <a href="#"><i class="bi bi-gear"></i> Settings</a> -->
+              <a href="#"><i class="bi bi-box-arrow-right"></i> Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- End Header -->
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="app-sidebar">
+      <ul class="sidebar-nav">
+        <li class="nav-item">
+          <a class="nav-link " href="index.html" id="dashboard-link">
+          <i class="bi bi-house-door"></i>
+          <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="applied_schemes.html" id="applied-schemes-link">
+          <i class="bi bi-card-checklist"></i>
+          <span>Applied Schemes</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="all_schemes.html" id="all-schemes-link">
+          <i class="bi bi-grid"></i>
+          <span>All Schemes</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+    <main id="main" class="main">
+      <section>
+        <!-- 3rd row -->
+        <div class="table-card px-3 mt-3">
+          <!-- 1st row -->
+          <!-- <div class="section-header-card mt-2 mb-3">
+            <div class="section-icon">
+              <i class="bi bi-grid"></i>
+            </div>
+            <div>
+              <h5>Applied Schemes List</h5>
+              <p>Browse and explore available scholarship schemes</p>
+            </div>
+          </div> -->
+
+          <div class="col-md-12 title-section mb-3">
+              <h5><i class="bi bi-check2-circle"></i> Applied Schemes List</h5>
+            </div>
+
+
+          <!-- 1st row -->
+          <!-- 2nd row -->
+          <div class="table-toolbar mb-3 mt-2">
+            <!-- SEARCH --> 
+            <div class="search-box col-lg-2">
+              <i class="bi bi-search search-icon"></i>
+              <input type="text" class="w-100" placeholder="Search schemes..." id="schemeSearch">
+            </div>
+            <!-- ACTION BUTTONS -->
+            <div class="action-buttons">
+              <button class="btn-outline-action btn btn-sm ripple">
+              <i class="bi bi-file-earmark-excel"></i> Excel
+              </button>
+              <button class="btn-outline-action btn btn-sm ripple mx-2">
+              <i class="bi bi-file-earmark-pdf"></i> PDF
+              </button>
+              <button class="btn-outline-action btn btn-sm ripple">
+              <i class="bi bi-printer"></i> Print
+              </button>
+              <button class="btn-primary-action btn btn-indigo btn-sm ripple mx-2">
+              <i class="bi bi-layout-three-columns"></i> Columns
+              </button>
+            </div>
+          </div>
+          <!-- 2nd row -->
+          <div class="table-responsive">
+            <table class="table align-middle custom-table">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Application Id</th>
+                  <th>Scheme Name</th>
+                  <th>Sub Scheme Name</th>
+                  <th>Applied On</th>
+                  <th>Status</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>TNISSP2026034200593126835550</td>
+                  <td>BC- Free Educational 3 year Degree Courses in Govt And Govt Aided Colleges</td>
+                  <td>BC-Free Educational 3 year Degree Courses in Govt And Govt Aided Colleges</td>
+                  <td>2026-01-30T18:50</td>
+                  <td><span class="badge badge-warning bg-warning nowrap">3. Department Pending</span></td>
+                  <td>
+                    <button class="btn btn-check-eligibility btn-sm ripple" data-bs-toggle="modal" data-bs-target=".eligibilityModal">
+                    <i class="bi bi-eye"></i> view
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- /3rd row -->
+      </section>
+      <footer id="footer" class="app-footer">
+        <div class="footer-left">
+          <span class="footer-copy">
+          <i class="bi bi-shield-check"></i>
+          © 2026 Tamil Nadu e-Governance Agency (TNeGA)
+          </span>
+        </div>
+        <div class="footer-right">
+          <a href="https://tnega.tn.gov.in/" target="_blank" class="footer-link">
+          <i class="bi bi-globe"></i>
+          TNeGA
+          </a>
+        </div>
+      </footer>
+    </main>
+    <!-- End #main -->
+    <!-- End Footer -->
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+    <div class="modal fade custom-modal eligibilityModal">
+      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <!-- HEADER -->
+          <div class="modal-header border-0 py-2">
+            <h5 class="modal-title"> 
+              <i class="bi bi-patch-check me-2 text-primary"></i>
+              Application ID : <span>TNISSP2026034200593126835550</span> 
+            </h5>
+            <button class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <!-- BODY -->
+          <div class="modal-body py-2">
+            <!-- ================= STUDENT DETAILS ================= -->
+            <!-- <div class="section-header-card mt-3 mb-2">
+              <div class="section-icon">
+                <i class="bi bi-person"></i>
+              </div>
+              <div>
+                <h5>Student Details</h5>
+                <p>Personal & academic information</p>
+              </div>
+            </div> -->
+
+            <div class="col-md-12 modalTitle mt-2">
+              <h5><i class="bi bi-person"></i> Student Details</h5>
+            </div>
+
+
+            <div class="details-grid">
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-person"></i><span>Name</span></div>
+                <div class="details-right">JANCYMARIYA</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-gender-female"></i><span>Gender</span></div>
+                <div class="details-right">Female</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-globe"></i><span>Religion</span></div>
+                <div class="details-right">Christian</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-people"></i><span>Community</span></div>
+                <div class="details-right text-danger">
+                  BC <i class="bi bi-x-circle-fill ms-1"></i>
+                </div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-person-badge"></i><span>Caste</span></div>
+                <div class="details-right">Vanniyar</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-award"></i><span>First Graduate</span></div>
+                <div class="details-right">No</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-currency-rupee"></i><span>Income</span></div>
+                <div class="details-right text-success">
+                  ₹50400 <i class="bi bi-check-circle-fill ms-1"></i>
+                </div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-universal-access"></i><span>Disability</span></div>
+                <div class="details-right">No</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-credit-card"></i><span>Aadhaar</span></div>
+                <div class="details-right text-success">
+                  344430375685 <i class="bi bi-check-circle-fill ms-1"></i>
+                </div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-hash"></i><span>UMIS No</span></div>
+                <div class="details-right">9993884091</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-hash"></i><span>EMIS No</span></div>
+                <div class="details-right">1014127848</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-building"></i><span>Institute</span></div>
+                <div class="details-right long-text">
+                  Government Arts and Science College, Jayankondam
+                </div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-book"></i><span>Course</span></div>
+                <div class="details-right">B.A</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-diagram-3"></i><span>Branch</span></div>
+                <div class="details-right">English</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-calendar"></i><span>Year</span></div>
+                <div class="details-right">1</div>
+              </div>
+              <div class="details-card">
+                <div class="details-left"><i class="bi bi-calendar-check"></i><span>Academic Year</span></div>
+                <div class="details-right">2025-2026</div>
+              </div>
+            </div>
+            <!-- ================= SCHEME DETAILS ================= -->
+           <!--  <div class="section-header-card mt-4 mb-2">
+              <div class="section-icon">
+                <i class="bi bi-journal-check"></i>
+              </div>
+              <div>
+                <h5>Scheme Details</h5>
+                <p>Selected scheme information</p>
+              </div>
+            </div> -->
+
+
+
+            <div class="col-md-12 modalTitle mt-2">
+              <h5><i class="bi bi-journal-check"></i> Scheme Details</h5>
+            </div>
+
+
+            <div class="table-card">
+              <table class="table align-middle custom-table">
+                <thead>
+                  <tr>
+                    <th>Scheme Name</th>
+                    <th>Scholarship Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>BC - Free Educational 3 year Degree Courses in Govt and Govt Aided Colleges</td>
+                    <td>₹ -</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- ================= APPROVAL STATUS ================= -->
+            <!-- <div class="section-header-card mt-4 mb-2">
+              <div class="section-icon">
+                <i class="bi bi-check2-circle"></i>
+              </div>
+              <div>
+                <h5>Approval Status</h5>
+                <p>Application workflow progress</p>
+              </div>
+            </div> -->
+
+
+             <div class="col-md-12 modalTitle mt-2">
+              <h5><i class="bi bi-check2-circle"></i> Approval Status</h5>
+            </div>
+
+            <div class="table-card">
+              <table class="table align-middle custom-table">
+                <thead>
+                  <tr>
+                    <th>S.No</th>
+                    <th>Stage</th>
+                    <th>Status</th>
+                    <th>Remarks</th>
+                    <th>Updated</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Student</td>
+                    <td>Applied</td>
+                    <td>2026-01-30</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Institute</td>
+                    <td class="text-success">Approved</td>
+                    <td>-</td>
+                    <td>2026-01-30</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>District</td>
+                    <td class="text-success">Approved</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>State</td>
+                    <td class="text-warning">Pending</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- ================= DBT STATUS ================= -->
+            <!-- <div class="section-header-card mt-4 mb-2">
+              <div class="section-icon">
+                <i class="bi bi-bank"></i>
+              </div>
+              <div>
+                <h5>DBT Registration</h5>
+                <p>Direct benefit transfer status</p>
+              </div>
+            </div> -->
+
+
+
+
+            <div class="d-flex justify-space-between mb-2 mt-3">
+
+              <div class="modalTitle">
+              <h5 class="d-inline" ><i class="bi bi-bank"></i> DBT Registration</h5>
+            </div>
+            
+              <button class="btn btn-primary btn-sm ripple">
+              <i class="bi bi-arrow-repeat me-1"></i> Fetch DBT Status
+              </button>
+            </div>
+
+
+
+
+            <div class="table-card">
+              <table class="table align-middle custom-table">
+                <thead>
+                  <tr>
+                    <th>S.No</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Remarks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- ================= PAYMENT ================= -->
+            <!-- <div class="section-header-card mt-4 mb-2">
+              <div class="section-icon">
+                <i class="bi bi-cash-stack"></i>
+              </div>
+              <div>
+                <h5>Payment Status</h5>
+                <p>Scholarship disbursement details</p>
+              </div>
+            </div> -->
+
+
+             <div class="col-md-12 modalTitle mt-2">
+              <h5><i class="bi bi-cash-stack"></i> Payment Status</h5>
+            </div>
+
+
+            <!--   <div class="alert alert-light border rounded">
+              <strong>Scholarship:</strong> ₹0 |
+              <strong>Maintenance:</strong> ₹0 |
+              <strong>Scheme:</strong> ₹2330 |
+              <strong>Disability:</strong> ₹0
+              </div> -->
+            <div class="alert alert-light border rounded gap-2">
+              <!-- MAIN -->
+              <div class="d-flex flex-wrap align-items-center">
+                <strong>Total Scholarship:</strong> 
+                <span id="scholarshipMain" class="fw-bold text-primary">₹3000</span>
+              </div>
+              <div class="d-flex flex-wrap align-items-center gap-2">
+                <!-- BREAKDOWN -->
+                <div>
+                  <span>Maintenance:</span> ₹<span id="maintenance">0</span>
+                </div>
+                <span>|</span>
+                <div>
+                  <span>Scheme:</span> ₹<span id="scheme">2330</span>
+                </div>
+                <span>|</span>
+                <div>
+                  <span>Disability:</span> ₹<span id="disability">0</span>
+                </div>
+              </div>
+            </div>
+            <div class="table-card">
+              <table class="table align-middle custom-table">
+                <thead>
+                  <tr>
+                    <th>S.No</th>
+                    <th>Stage</th>
+                    <th>Status</th>
+                    <th>Amount</th>
+                    <th>Remarks</th>
+                    <th>View</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Installment 1</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Installment 2</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Installment 3</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="text-end fw-semibold mt-2">
+              Total Paid: ₹0
+            </div>
+          </div>
+          <!-- FOOTER -->
+          <div class="modal-footer border-0">
+            <button class="btn btn-light btn-sm" data-bs-dismiss="modal">
+            <i class="bi bi-x-circle me-1"></i> Close
+            </button>
+            <!-- <button class="btn btn-primary btn-sm ripple">
+              <i class="bi bi-arrow-repeat me-1"></i> Refresh
+              </button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/aos/aos-min.js"></script>
+    <script>
+      // Initialize AOS
+      AOS.init();
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+      
+        /* ================================
+           SIDEBAR TOGGLE
+        ================================= */
+      
+        const sidebarToggle = document.getElementById("sidebarToggle");
+        const sidebarIcon = sidebarToggle?.querySelector("i");
+      
+        if (sidebarToggle) {
+          sidebarToggle.addEventListener("click", function () {
+      
+            console.log("clicked"); // ✅ debug
+      
+            document.body.classList.toggle("sidebar-expanded");
+      
+            sidebarIcon?.classList.toggle("bi-list");
+            sidebarIcon?.classList.toggle("bi-x-lg");
+      
+          });
+        }
+      
+      
+        /* ================================
+           PROFILE DROPDOWN
+        ================================= */
+      
+        const trigger = document.getElementById("profileTrigger");
+        const dropdown = document.getElementById("profileDropdown");
+      
+        trigger?.addEventListener("click", function (e) {
+          e.stopPropagation();
+          dropdown.classList.toggle("show");
+        });
+      
+        dropdown?.addEventListener("click", function (e) {
+          e.stopPropagation();
+        });
+      
+        document.addEventListener("click", function () {
+          dropdown?.classList.remove("show");
+        });
+      
+      });
+      
+    </script>
+    <!-- refresh loader -->
+    <script>
+      $('.refresh_submit').on('click', function () {
+      
+      let loader = $('#modalLoader');
+      let progressBar = $('#progressBar');
+      let success = $('#modalSuccess');
+      
+      loader.addClass('active');
+      
+      let progress = 0;
+      
+      let interval = setInterval(() => {
+      
+      progress += Math.floor(Math.random() * 10) + 5; // smooth random speed
+      
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+      
+        // complete progress
+        progressBar.css('width', '100%').text('100%');
+      
+        // show success
+        setTimeout(() => {
+          loader.removeClass('active');
+          success.addClass('show');
+      
+          // hide success + close modal
+          setTimeout(() => {
+            success.removeClass('show');
+            $('#refreshModal').modal('hide');
+          }, 1500);
+      
+        }, 500);
+      
+      } else {
+        progressBar.css('width', progress + '%').text(progress + '%');
+      }
+      
+      }, 200);
+      
+      });
+    </script>
+    <!-- refersh laoder -->
+    <!-- ripple bnt -->
+    <script>
+      $(document).on('click', '.ripple', function (e) {
+      
+      let $this = $(this);
+      
+      let offset = $this.offset();
+      let x = e.pageX - offset.left;
+      let y = e.pageY - offset.top;
+      
+      let ripple = $('<span class="ripple-effect"></span>');
+      
+      ripple.css({
+      top: y + 'px',
+      left: x + 'px',
+      width: '20px',
+      height: '20px'
+      });
+      
+      $this.append(ripple);
+      
+      setTimeout(() => {
+      ripple.remove();
+      }, 600);
+      
+      });
+      
+      $(document).on('click', '.nav-link.ripple', function () {
+      
+      let $this = $(this);
+      let ripple = $('<span class="ripple-effect"></span>');
+      
+      ripple.css({
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%) scale(0)'
+      });
+      
+      $this.append(ripple);
+      
+      setTimeout(() => ripple.remove(), 600);
+      
+      });
+    </script>
+    <!-- ripple btn -->
+  </body>
+</html>

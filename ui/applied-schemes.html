@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tamil Nadu Integrated State Scholarship Portal Dashboard</title>
+    <!-- Bootstrap + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/common.css">
+    <link rel="stylesheet" href="assets/css/tab.css">
+    <link rel="stylesheet" href="assets/css/form-grid.css">
+    <link rel="stylesheet" href="assets/css/component.css">
+    <link rel="stylesheet" href="assets/css/modal.css">
+    <script src="assets/component/header-nav.js"></script>
+    <script src="assets/component/sidebar-nav.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <!-- SIDEBAR -->
+      <ssp-sidebar-nav></ssp-sidebar-nav>
+      <!-- MAIN -->
+      <div class="main" id="main">
+        <!-- HEADER -->
+        <ssp-header-nav></ssp-header-nav>
+        <!-- CONTENT -->
+        <div class="content">
+
+          <!-- grid wrap -->
+          <!-- scheme header -->
+          <div class="scheme-header-card mt-2">
+            <div class="scheme-title">
+              <i class="bi bi-check2-circle"></i>
+              <span>Applied Schemes List</span>
+            </div>
+
+            <div class="section-divider my-2"></div>
+
+
+            <div class="table-toolbar">
+
+  <!-- LEFT: SEARCH -->
+  <div class="search-box">
+    <i class="bi bi-search"></i>
+    <input type="text" placeholder="Search schemes..." />
+  </div>
+
+  <!-- RIGHT: ACTION BUTTONS -->
+  <div class="toolbar-actions">
+
+    <button class="btn-tool">
+      <i class="bi bi-file-earmark-excel"></i> Excel
+    </button>
+
+    <button class="btn-tool">
+      <i class="bi bi-file-earmark-pdf"></i> PDF
+    </button>
+
+    <button class="btn-tool">
+      <i class="bi bi-printer"></i> Print
+    </button>
+
+    <button class="btn-tool primary">
+      <i class="bi bi-columns-gap"></i> Columns
+    </button>
+
+  </div>
+
+</div>
+
+
+            <!-- table -->
+            <div class="scheme-table-card py-2">
+              <table class="table custom-table">
+                <thead>
+                  <tr>
+                    <th>S.No</th>
+                    <th>Application Id</th>
+                    <th>Scheme Name</th>
+                    <th>Sub Scheme Name</th>
+                    <th>Applied On</th>
+                    <th class="sticky-right-2">Status</th>
+                    <th class="sticky-right">Details</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <td>1</td>
+                    <td>TNISSP2026034200593126835550</td>
+                    <td>
+                      <span 
+                        class="table-text clickable"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                      >
+                        BC- Free Educational 3 year Degree Courses in Govt And Govt Aided Colleges
+                      </span>
+                    </td>
+                    <td>
+                      <span 
+                        class="table-text clickable"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                      >
+                        BC-Free Educational 3 year Degree Courses in Govt And Govt Aided Colleges
+                      </span>
+                    </td>
+                    <td class="nowrap">2026-01-30T18:50</td>
+                    <td><span class="bg-warn badge badge-warning bg-warning nowrap py-2">3. Department Pending</span></td>
+                    <td><button class="btn-refresh" data-bs-toggle="modal" data-bs-target="#viewSchemeModal">
+                          <i class="bi bi-eye"></i>
+                          view
+                        </button>
+                    </td>    
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- table -->
+            <!-- cta -->
+          <!--   <div class="scheme-action-bar">
+              <button class="btn-apply" data-bs-toggle="modal" data-bs-target="#applyModal">
+              <i class="bi bi-send"></i>
+              Apply for Selected Scheme
+              </button>   
+            </div> -->
+            <!-- cta -->
+          </div>
+          <!-- scheme header -->
+          <!-- grid wrap -->
+        </div>
+        <!-- FOOTER -->
+        <footer class="app-footer">
+          <div class="footer-left">
+            © 2026 Tamil Nadu e-Governance Agency (TNeGA)
+          </div>
+          <div class="footer-right">
+            <span class="footer-link">Privacy Policy</span>
+            <span class="footer-link">Terms</span>
+            <span class="footer-link">Support</span>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- apply modal -->
+    <div class="modal fade" id="viewSchemeModal" tabindex="-1">
+      <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content custom-modal">
+          <!-- HEADER -->
+          <div class="modal-header custom-header">
+            <h5 class="modal-title">
+              <i class="bi bi-patch-check"></i> 
+               Application ID : TNISSP2026034200593126835550
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <!-- BODY -->
+          <div class="modal-body">
+            <!-- STUDENT DETAILS -->
+            <h6 class="section-title"><i class="bi bi-person"></i> Student Details</h6>
+            <div class="info-grid">
+
+  <div class="info-card">
+    <i class="bi bi-person"></i>
+    <div>
+      <label>Name</label>
+      <p>JANCYMARIYA</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-gender-female"></i>
+    <div>
+      <label>Gender</label>
+      <p>Female</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-globe"></i>
+    <div>
+      <label>Religion</label>
+      <p>Christian</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-diagram-3"></i>
+    <div>
+      <label>Community</label>
+      <p>BC</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-people"></i>
+    <div>
+      <label>Caste</label>
+      <p>Vanniyar</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-award"></i>
+    <div>
+      <label>First Graduate</label>
+      <p>No</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-cash-stack"></i>
+    <div>
+      <label>Income</label>
+      <p>₹50400</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-universal-access"></i>
+    <div>
+      <label>Disability</label>
+      <p>No</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-credit-card"></i>
+    <div>
+      <label>Aadhaar No</label>
+      <p>********3513</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-hash"></i>
+    <div>
+      <label>UMIS No</label>
+      <p>9993884091</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-hash"></i>
+    <div>
+      <label>EMIS No</label>
+      <p>1014127848</p>
+    </div>
+  </div>
+
+  <div class="info-card full-width">
+    <i class="bi bi-building"></i>
+    <div>
+      <label>Institute</label>
+      <p>Government Arts and Science College, Jayankondam</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-mortarboard"></i>
+    <div>
+      <label>Course</label>
+      <p>B.A</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-book"></i>
+    <div>
+      <label>Branch</label>
+      <p>English</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-hash"></i>
+    <div>
+      <label>Year</label>
+      <p>1</p>
+    </div>
+  </div>
+
+  <div class="info-card">
+    <i class="bi bi-calendar-range"></i>
+    <div>
+      <label>Academic Year</label>
+      <p>2025-2026</p>
+    </div>
+  </div>
+
+</div>
+
+
+            <div class="section-divider my-3"></div>
+            <!-- SCHEME DETAILS -->
+            <h6 class="section-title mt-2"><i class="bi bi-journal-check"></i> Scheme Details</h6>
+            <div class="table-card1 custom-table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Scheme Name</th>
+                    <th>Scholarship Amount</th> 
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>BC - Free Educational 3 year Degree Courses in Govt and Govt Aided Colleges</td>
+                    <td>₹ -</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="section-divider my-3"></div>
+
+
+            <!-- approval DETAILS -->
+            <h6 class="section-title mt-2"><i class="bi bi-check2-circle"></i> Approval Status</h6>
+            <div class="table-card1 custom-table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>S.No</th>
+                    <th>Stage</th>
+                    <th>Status</th>
+                    <th>Remarks</th>
+                    <th>Updated</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Student</td>
+                    <td>Applied</td>
+                    <td>2026-01-30</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Institute</td>
+                    <td class="text-success">Approved</td>
+                    <td>-</td>
+                    <td>2026-01-30</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>District</td>
+                    <td class="text-success">Approved</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>State</td>
+                    <td class="text-warning">Pending</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="section-divider my-3"></div>
+
+
+            <!-- ACADEMIC -->
+            <h6 class="section-title mt-3 spaceFlex">
+
+              <div class="d-flex align-items-center">
+                <i class="bi bi-bank me-2"></i> DBT Registration
+              </div>
+              <div>
+              <button class="btn-refresh">
+                <i class="bi bi-eye"></i>
+                  Fetch DBT details
+              </button>
+              </div>
+
+            </h6>
+
+
+            <h6 class="section-title my-2"><i class="bi bi-check2-circle"></i> Mode of Registration</h6>
+            <div class="scheme-meta mb-2">
+              <div class="meta-item">
+                <i class="bi bi-hash"></i>
+                <span>GBM ID: -</span>
+              </div>
+              <div class="meta-item">
+                <i class="bi bi-bank"></i>
+                <span>PFMS Code: -</span>
+              </div> 
+            </div>
+
+
+             <div class="table-card1 custom-table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>S.No</th>
+                    <th>Type</th> 
+                    <th>Status</th>
+                    <th>Mode of Registration</th>
+                    <th>Code</th>
+                    <th>Remarks</th>
+                    <th>Updated</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>-</td>
+                    
+                    <td>
+                      <span class="status-badge rejected" id="statusPopover">
+                        <i class="bi bi-x-circle"></i> Rejected
+                      </span>
+                    </td>  
+
+                    <td>GBM</td>
+                    <td>123456</td>     
+
+                    <td>-</td>
+                    <td>2026-01-30</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+
+
+          
+            <div class="section-divider my-3"></div>
+            <!-- Apply confirmation -->
+            <h6 class="section-title mt-3"><i class="bi bi-cash-stack"></i> Payment Status</h6>
+
+            <div class="scholarship-summary">
+
+  <div class="total-box">
+    <span>Total Scholarship</span>
+    <h3>₹3000</h3>
+  </div>
+
+  <div class="breakdown">
+    <div class="item">
+      <i class="bi bi-cash-stack"></i>
+      <span>Maintenance</span>
+      <b>₹0</b>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="item">
+      <i class="bi bi-award"></i>
+      <span>Scheme</span>
+      <b>₹2330</b>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="item">
+      <i class="bi bi-universal-access"></i>
+      <span>Disability</span>
+      <b>₹0</b>
+    </div>
+  </div>
+
+</div>
+
+            <div class="table-card1 custom-table">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>S.No</th>
+                    <th>Stage</th>
+                    <th>Status</th>
+                    <th>Amount</th>
+                    <th>Remarks</th>
+                    <th>View</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Installment 1</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Installment 2</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  
+                </tbody>
+              </table>
+            </div>
+            <div class="text-end fw-semibold mt-2">
+              Total Paid: ₹0
+            </div>
+            
+
+
+
+          </div>
+          <!-- FOOTER -->
+          <div class="modal-footer">
+            <button class="btn btn-light" data-bs-dismiss="modal">Close</button>       
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- apply modal -->
+
+
+    <!-- rejected pop over timeline -->
+    <div id="statusTimelineContent" style="display:none;">
+
+      <div class="timeline-popover p-0">
+
+        <!-- HEADER -->
+        <div class="timeline-header">
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-clock-history text-primary"></i>
+            <span>Status Timeline</span>
+          </div>
+          <i class="bi bi-x close-popover"></i>
+        </div>
+
+        <!-- TIMELINE -->
+        <div class="timeline">
+
+  <!-- APPLIED -->
+  <div class="timeline-item success">
+    <div class="dot">
+      <i class="bi bi-send-check"></i>
+    </div>
+    <div class="content py-0">
+      <p class="title">Student Applied</p>
+      <p class="meta">Submitted successfully</p>
+      <span class="time">30 Jan 2026, 10:00 AM</span>
+    </div>
+  </div>
+
+  <!-- REJECTED -->
+  <div class="timeline-item reject">
+    <div class="dot">
+      <i class="bi bi-x-circle"></i>
+    </div>
+    <div class="content py-0">
+      <p class="title">Institute Rejected</p>
+      <p class="meta">Mismatch in documents</p>
+      <span class="time">30 Jan 2026, 12:30 PM</span>
+    </div>
+  </div>
+
+  <!-- RE-APPLIED -->
+  <div class="timeline-item info">
+    <div class="dot">
+      <i class="bi bi-arrow-repeat"></i>
+    </div>
+    <div class="content py-0">
+      <p class="title">Re-applied</p>
+      <p class="meta">Documents updated & resubmitted</p>
+      <span class="time">31 Jan 2026, 09:15 AM</span>
+    </div>
+  </div>
+
+</div>
+
+      </div>
+
+    </div> 
+    <!-- rejected pop over timeline -->
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+      // tooltip
+      document.querySelectorAll('.table-text').forEach(el => {
+        el.setAttribute("data-bs-title", el.innerText.trim());
+      });
+
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+      tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
+    </script>
+
+    <!-- rejected popover -->
+    <script>
+      const popover = new bootstrap.Popover(
+        document.getElementById("statusPopover"),
+        {
+          html: true,
+          placement: "right",
+          content: document.getElementById("statusTimelineContent").innerHTML,
+          trigger: "manual"
+        }
+      );
+
+      // OPEN
+      document.getElementById("statusPopover").addEventListener("mouseenter", function () {
+        popover.show();
+      });
+
+      // CLOSE (custom close button)
+      document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("close-popover")) {
+          popover.hide();
+        }
+      }); 
+    </script>
+    <!-- rejected popover -->
+
+
+
+  </body>
+</html>
