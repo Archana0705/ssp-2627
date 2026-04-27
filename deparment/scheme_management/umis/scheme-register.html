@@ -793,83 +793,90 @@
     }
 
 
-/* Toast Notifications */    
-#simpleToastContainer {
-    position: fixed !important;
-    top: 20px !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    z-index: 999999;
-}
+    /* Toast Notifications */
+    #simpleToastContainer {
+      position: fixed !important;
+      top: 20px !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      z-index: 999999;
+    }
 
-.simple-toast {
-    background: linear-gradient(135deg, #1e293b, #0f172a);
-    color: #f1f5f9;
-    padding: 14px 24px;
-    margin-top: 12px;
-    border-radius: 16px;
-    font-size: 14px;
-    font-weight: 500;
-    min-width: 280px;
-    text-align: center;
-    letter-spacing: 0.2px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-    
-    /* Orbital shadow animation */
-    animation: orbitalShadow 3s ease-in-out infinite;
-}
+    .simple-toast {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      color: #f1f5f9;
+      padding: 14px 24px;
+      margin-top: 12px;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 500;
+      min-width: 280px;
+      text-align: center;
+      letter-spacing: 0.2px;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 
-.simple-toast.success { 
-    background: linear-gradient(135deg, #059669, #047857);
-    border-bottom-color: #34d399;
-}
-.simple-toast.error { 
-    background: linear-gradient(135deg, #dc2626, #b91c1c);
-    border-bottom-color: #f87171;
-}
-.simple-toast.warning { 
-    background: linear-gradient(135deg, #d97706, #b45309);
-    color: #fef3c7;
-    border-bottom-color: #fbbf24;
-}
-.simple-toast.info { 
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
-    border-bottom-color: #60a5fa;
-}
+      /* Orbital shadow animation */
+      animation: orbitalShadow 3s ease-in-out infinite;
+    }
 
-/* Orbital shadow moving animation */
-@keyframes orbitalShadow {
-    0% {
-        box-shadow: 
-            0 4px 10px rgba(0, 0, 0, 0.3),
-            0 0 0 0 rgba(255, 255, 255, 0),
-            inset 0 0 0 rgba(0, 0, 0, 0);
+    .simple-toast.success {
+      background: linear-gradient(135deg, #059669, #047857);
+      border-bottom-color: #34d399;
     }
-    25% {
-        box-shadow: 
-            0 6px 18px rgba(0, 0, 0, 0.4),
-            0 0 0 3px rgba(255, 255, 255, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
+    .simple-toast.error {
+      background: linear-gradient(135deg, #dc2626, #b91c1c);
+      border-bottom-color: #f87171;
     }
-    50% {
-        box-shadow: 
-            0 10px 30px rgba(0, 0, 0, 0.5),
-            0 0 0 6px rgba(255, 255, 255, 0.05),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+    .simple-toast.warning {
+      background: linear-gradient(135deg, #d97706, #b45309);
+      color: #fef3c7;
+      border-bottom-color: #fbbf24;
     }
-    75% {
-        box-shadow: 
-            0 6px 18px rgba(0, 0, 0, 0.4),
-            0 0 0 3px rgba(255, 255, 255, 0.1),
-            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+
+    .simple-toast.info {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-bottom-color: #60a5fa;
     }
-    100% {
-        box-shadow: 
-            0 4px 10px rgba(0, 0, 0, 0.3),
-            0 0 0 0 rgba(255, 255, 255, 0),
-            inset 0 0 0 rgba(0, 0, 0, 0);
+
+    /* Orbital shadow moving animation */
+    @keyframes orbitalShadow {
+      0% {
+        box-shadow:
+          0 4px 10px rgba(0, 0, 0, 0.3),
+          0 0 0 0 rgba(255, 255, 255, 0),
+          inset 0 0 0 rgba(0, 0, 0, 0);
+      }
+
+      25% {
+        box-shadow:
+          0 6px 18px rgba(0, 0, 0, 0.4),
+          0 0 0 3px rgba(255, 255, 255, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      }
+
+      50% {
+        box-shadow:
+          0 10px 30px rgba(0, 0, 0, 0.5),
+          0 0 0 6px rgba(255, 255, 255, 0.05),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+
+      75% {
+        box-shadow:
+          0 6px 18px rgba(0, 0, 0, 0.4),
+          0 0 0 3px rgba(255, 255, 255, 0.1),
+          inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      }
+
+      100% {
+        box-shadow:
+          0 4px 10px rgba(0, 0, 0, 0.3),
+          0 0 0 0 rgba(255, 255, 255, 0),
+          inset 0 0 0 rgba(0, 0, 0, 0);
+      }
     }
-}
   </style>
 </head>
 
@@ -969,7 +976,7 @@
 
   <!-- <div id="preloader"></div> -->
   <!-- End Sidebar-->
-   <div id="simpleToastContainer"></div>
+  <div id="simpleToastContainer"></div>
   <main id="main" class="main">
     <div class="card-header stick-top">
       <div class="progress-bar">
@@ -1024,27 +1031,27 @@
                 </div>
                 <div class="d-flex gap-2">
                   <div>
-                      <button type="button" class="btn text-white bg-primary btn-sm" id="addNewScheme" disabled>
-                        <i class="bi bi-plus"></i> Add New Scheme
-                      </button>
-                    </div>
+                    <button type="button" class="btn text-white bg-primary btn-sm" id="addNewScheme" disabled>
+                      <i class="bi bi-plus"></i> Add New Scheme
+                    </button>
+                  </div>
 
-                    <div>
-                      <button type="button" class="btn text-white bg-primary btn-sm" id="editExistingScheme">
-                        <i class="bi bi-pencil"></i> Edit Scheme
-                      </button>
-                    </div>
+                  <div>
+                    <button type="button" class="btn text-white bg-primary btn-sm" id="editExistingScheme">
+                      <i class="bi bi-pencil"></i> Edit Scheme
+                    </button>
+                  </div>
                 </div>
               </div>
               <div class="meta-bar info-box navy">
                 <span id="departmentMetaValue"><b>Department:</b> Adi Dravidar And Tribal Welfare Dept</span>
               </div>
-              
+
               <div class="row d-flex no-wrap mb-3">
                 <div class="row ">
                   <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
                     <label class="form-label">Department<span style="color: red;">*</span></label>
-                    <input type="text" class="form-select" id="department" name="department" value="" placeholder="Department will be auto-filled" disabled>
+                    <input type="text" class="form-select" id="department" name="department" value="" disabled>
                     <!-- <select class="form-select" id="department" name="department" required>
                       <option value="2">--Select--</option> -->
                     </select>
@@ -1165,7 +1172,8 @@
                 </div>
               </div>
               <div class="w-100 d-flex flex-row justify-content-end">
-                <button type="button" class="btn text-center btn-next" id="save_scheme_setup"> Continue <i class="bi bi-arrow-right-circle"></i>
+                <button type="button" class="btn text-center btn-next" id="save_scheme_setup"> Continue <i
+                    class="bi bi-arrow-right-circle"></i>
                   Eligibility</button>
               </div>
             </div>
@@ -1197,7 +1205,7 @@
                           <button class="btn btn-success mx-2">copy</button>
                         </div>
                       </div>
-                    
+
                     </div>
                   </div>
                   <div class="info-box amber" style="margin-bottom:12px;">
@@ -1319,7 +1327,8 @@
                             <label class="form-label">Income Per Annum (₹)</label>
                             <div style="display:flex;align-items:center;gap:8px;">
                               <select class="cond-select op" id="eligibleexcincomeRange"></select>
-                              <input class="form-input d-none" id="exincomeValue" style="width:120px;height:34px;" value="">
+                              <input class="form-input d-none" id="exincomeValue" style="width:120px;height:34px;"
+                                value="">
                             </div>
                           </div>
 
@@ -1350,31 +1359,36 @@
                           <h4 class="inc">Inclusive</h4>
                           <div class="form-group">
                             <label class="form-label">Institute Ownership</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="eincinstituteownership"  data-val="ownership">
+                            <select class="form-select js-example-basic-multiple" multiple id="eincinstituteownership"
+                              data-val="ownership">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label class="form-label">University Type</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="eincuniversitytype"  data-val="universityType">
+                            <select class="form-select js-example-basic-multiple" multiple id="eincuniversitytype"
+                              data-val="universityType">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label class="form-label">University</label>
-                           <select class="form-select js-example-basic-multiple" multiple id="eincuniversity"  data-val="university">
+                            <select class="form-select js-example-basic-multiple" multiple id="eincuniversity"
+                              data-val="university">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label class="form-label">Institute Category</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="eincinstitutecategory"  data-val="instituteCategory">
+                            <select class="form-select js-example-basic-multiple" multiple id="eincinstitutecategory"
+                              data-val="instituteCategory">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label class="form-label">Institute name</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="eincinstitutename"  data-val="instituteName">
+                            <select class="form-select js-example-basic-multiple" multiple id="eincinstitutename"
+                              data-val="instituteName">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
@@ -1387,31 +1401,36 @@
                             </label></h4>
                           <div class="form-group">
                             <label class="form-label">Institute Ownership</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="eexcinstituteownership"  data-val="ownership">
+                            <select class="form-select js-example-basic-multiple" multiple id="eexcinstituteownership"
+                              data-val="ownership">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label class="form-label">University Type</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="eexcuniversitytype"  data-val="universityType">
+                            <select class="form-select js-example-basic-multiple" multiple id="eexcuniversitytype"
+                              data-val="universityType">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label class="form-label">University</label>
-                           <select class="form-select js-example-basic-multiple" multiple id="eexcuniversity"  data-val="university">
+                            <select class="form-select js-example-basic-multiple" multiple id="eexcuniversity"
+                              data-val="university">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label class="form-label">Institute Category</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="eexcinstitutecategory"  data-val="instituteCategory">
+                            <select class="form-select js-example-basic-multiple" multiple id="eexcinstitutecategory"
+                              data-val="instituteCategory">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label class="form-label">Institute name</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="eexcinstitutename"  data-val="instituteName">
+                            <select class="form-select js-example-basic-multiple" multiple id="eexcinstitutename"
+                              data-val="instituteName">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
@@ -1427,39 +1446,45 @@
                           <h4 class="inc">Inclusive</h4>
                           <div class="form-group">
                             <label class="form-label">Stream</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="eincstream"  data-val="stream">
+                            <select class="form-select js-example-basic-multiple" multiple id="eincstream"
+                              data-val="stream">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label class="form-label">Course Type</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="einccoursetype"  data-val="courseType">
+                            <select class="form-select js-example-basic-multiple" multiple id="einccoursetype"
+                              data-val="courseType">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
 
                           </div>
                           <div class="form-group">
                             <label class="form-label">Course Category</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="einccoursecategory"  data-val="courseCategory">
+                            <select class="form-select js-example-basic-multiple" multiple id="einccoursecategory"
+                              data-val="courseCategory">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label class="form-label">Course</label>
-                             <select class="form-select js-example-basic-multiple" multiple id="einccourse"  data-val="course">
+                            <select class="form-select js-example-basic-multiple" multiple id="einccourse"
+                              data-val="course">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label class="form-label">Course Branch</label>
-                             <select class="form-select js-example-basic-multiple" multiple id="einccoursebranch"  data-val="courseBranch">
+                            <select class="form-select js-example-basic-multiple" multiple id="einccoursebranch"
+                              data-val="courseBranch">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
 
                           <div class="form-group">
                             <label class="form-label">Course Year</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="einccourseyear"  data-val="courseYear">
+                            <select class="form-select js-example-basic-multiple" multiple id="einccourseyear"
+                              data-val="courseYear">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
@@ -1473,39 +1498,45 @@
                             </label></h4>
                           <div class="form-group">
                             <label class="form-label">Stream</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="eexcstream"  data-val="stream">
+                            <select class="form-select js-example-basic-multiple" multiple id="eexcstream"
+                              data-val="stream">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label class="form-label">Course Type</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="eexccoursetype"  data-val="courseType">
+                            <select class="form-select js-example-basic-multiple" multiple id="eexccoursetype"
+                              data-val="courseType">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
 
                           </div>
                           <div class="form-group">
                             <label class="form-label">Course Category</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="eexccoursecategory"  data-val="courseCategory">
+                            <select class="form-select js-example-basic-multiple" multiple id="eexccoursecategory"
+                              data-val="courseCategory">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label class="form-label">Course</label>
-                             <select class="form-select js-example-basic-multiple" multiple id="eexccourse"  data-val="course">
+                            <select class="form-select js-example-basic-multiple" multiple id="eexccourse"
+                              data-val="course">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
                           <div class="form-group">
                             <label class="form-label">Course Branch</label>
-                             <select class="form-select js-example-basic-multiple" multiple id="eexccoursebranch"  data-val="courseBranch">
+                            <select class="form-select js-example-basic-multiple" multiple id="eexccoursebranch"
+                              data-val="courseBranch">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
 
                           <div class="form-group">
                             <label class="form-label">Course Year</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="eexccourseyear"  data-val="courseYear">
+                            <select class="form-select js-example-basic-multiple" multiple id="eexccourseyear"
+                              data-val="courseYear">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
                           </div>
@@ -1519,7 +1550,8 @@
                     <div class="action-bar-left"><span class="draft-dot"></span> Scheme: Post Matric Scholarship for SC
                       Students</div>
                     <div class="action-bar-right">
-                      <button class="btn btn-primary" id="add_eligibility"><i class="bi bi-plus-square"></i> Add Eligibility Criterias</button>
+                      <button class="btn btn-primary" id="add_eligibility"><i class="bi bi-plus-square"></i> Add
+                        Eligibility Criterias</button>
                     </div>
                   </div>
                 </div>
@@ -1587,12 +1619,14 @@
                       <div class="d-flex justify-content-between g-5">
                         <div class="form-group" style="min-width: 400px;margin-bottom:16px;">
                           <label class="form-label">Fee Rule Name <span class="req">*</span></label>
-                          <input id="scholarshipFeeName" class="form-input" placeholder="e.g. Private College Students" value="">
+                          <input id="scholarshipFeeName" class="form-input" placeholder="e.g. Private College Students"
+                            value="">
                         </div>
 
                         <div class="form-group" style="min-width: 400px;margin-bottom:16px;">
                           <label class="form-label">Eligibility Rules<span class="req">*</span></label>
-                          <select class="form-select js-example-basic-multiple" multiple id="eligibilityCriteriaList" style="max-width:300px;" aria-placeholder="Select Eligibility Rules">
+                          <select class="form-select js-example-basic-multiple" multiple id="eligibilityCriteriaList"
+                            style="max-width:300px;" aria-placeholder="Select Eligibility Rules">
                             <option>Select all</option>
                             <option>BC-MBC Private Fees</option>
                             <option>7.5% Govt/Govt Aided</option>
@@ -1617,25 +1651,28 @@
                           <div style="font-size:11.5px;color:var(--text-muted);">All students get the same flat ₹ amount
                           </div>
                         </button>
-                        <button type="button" id="componentBasedFeeCard" class="sub-scheme-card" data-type="component" style="cursor:pointer;">
+                        <button type="button" id="componentBasedFeeCard" class="sub-scheme-card" data-type="component"
+                          style="cursor:pointer;">
                           <div style="font-weight:700;color:var(--navy);margin-bottom:4px;">📄 Component Based</div>
                           <div style="font-size:11.5px;color:var(--text-muted);">Based on UMIS fee components (tuition,
                             exam fee etc.)</div>
                         </button>
-                        <button  data-bs-toggle="modal" data-bs-target="#custom-table-fee-rule" type="button" class="sub-scheme-card" style="cursor:pointer;">
+                        <button data-bs-toggle="modal" data-bs-target="#custom-table-fee-rule" type="button"
+                          class="sub-scheme-card" style="cursor:pointer;">
                           <div style="font-weight:700;color:var(--navy);margin-bottom:4px;">📊 Customised Table</div>
                           <div style="font-size:11.5px;color:var(--text-muted);">Select or build a fee table with
                             IF/THEN rules</div>
                         </button>
 
                       </div>
-                      
+
 
                       <div id="fixed_fee" data-type="fixed">
                         <div class="section-label" style="margin-bottom:8px;">Enter Fee Amount</div>
                         <div
                           style="display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap; max-width:300px">
-                          <input type="number" id="scholarshipFixedFee" class="scheme_fee form-select" width="500px" aria-label="Scheme Fee" placeholder="eg: 100000" data-val="FixedFee" />
+                          <input type="number" id="scholarshipFixedFee" class="scheme_fee form-select" width="500px"
+                            aria-label="Scheme Fee" placeholder="eg: 100000" data-val="FixedFee" />
                         </div>
                       </div>
 
@@ -1791,31 +1828,36 @@
                               <h4 class="inc">Inclusive</h4>
                               <div class="form-group">
                                 <label class="form-label">Institute Ownership</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sincinstituteownership"  data-val="ownership">
+                                <select class="form-select js-example-basic-multiple" multiple
+                                  id="sincinstituteownership" data-val="ownership">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
                               <div class="form-group">
                                 <label class="form-label">University Type</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sincuniversitytype"  data-val="universityType">
+                                <select class="form-select js-example-basic-multiple" multiple id="sincuniversitytype"
+                                  data-val="universityType">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
                               <div class="form-group">
                                 <label class="form-label">University</label>
-                              <select class="form-select js-example-basic-multiple" multiple id="sincuniversity"  data-val="university">
+                                <select class="form-select js-example-basic-multiple" multiple id="sincuniversity"
+                                  data-val="university">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
                               <div class="form-group">
                                 <label class="form-label">Institute Category</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sincinstitutecategory"  data-val="instituteCategory">
+                                <select class="form-select js-example-basic-multiple" multiple
+                                  id="sincinstitutecategory" data-val="instituteCategory">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
                               <div class="form-group">
                                 <label class="form-label">Institute name</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sincinstitutename"  data-val="instituteName">
+                                <select class="form-select js-example-basic-multiple" multiple id="sincinstitutename"
+                                  data-val="instituteName">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
@@ -1828,31 +1870,36 @@
                                 </label></h4>
                               <div class="form-group">
                                 <label class="form-label">Institute Ownership</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sexcinstituteownership"  data-val="ownership">
+                                <select class="form-select js-example-basic-multiple" multiple
+                                  id="sexcinstituteownership" data-val="ownership">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
                               <div class="form-group">
                                 <label class="form-label">University Type</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sexcuniversitytype"  data-val="universityType">
+                                <select class="form-select js-example-basic-multiple" multiple id="sexcuniversitytype"
+                                  data-val="universityType">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
                               <div class="form-group">
                                 <label class="form-label">University</label>
-                              <select class="form-select js-example-basic-multiple" multiple id="sexcuniversity"  data-val="university">
+                                <select class="form-select js-example-basic-multiple" multiple id="sexcuniversity"
+                                  data-val="university">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
                               <div class="form-group">
                                 <label class="form-label">Institute Category</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sexcinstitutecategory"  data-val="instituteCategory">
+                                <select class="form-select js-example-basic-multiple" multiple
+                                  id="sexcinstitutecategory" data-val="instituteCategory">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
                               <div class="form-group">
                                 <label class="form-label">Institute name</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sexcinstitutename"  data-val="instituteName">
+                                <select class="form-select js-example-basic-multiple" multiple id="sexcinstitutename"
+                                  data-val="instituteName">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
@@ -1868,39 +1915,45 @@
                               <h4 class="inc">Inclusive</h4>
                               <div class="form-group">
                                 <label class="form-label">Stream</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sincstream"  data-val="stream">
+                                <select class="form-select js-example-basic-multiple" multiple id="sincstream"
+                                  data-val="stream">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
                               <div class="form-group">
                                 <label class="form-label">Course Type</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sinccoursetype"  data-val="courseType">
+                                <select class="form-select js-example-basic-multiple" multiple id="sinccoursetype"
+                                  data-val="courseType">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
 
                               </div>
                               <div class="form-group">
                                 <label class="form-label">Course Category</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sinccoursecategory"  data-val="courseCategory">
+                                <select class="form-select js-example-basic-multiple" multiple id="sinccoursecategory"
+                                  data-val="courseCategory">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
                               <div class="form-group">
                                 <label class="form-label">Course</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sinccourse"  data-val="course">
+                                <select class="form-select js-example-basic-multiple" multiple id="sinccourse"
+                                  data-val="course">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
                               <div class="form-group">
                                 <label class="form-label">Course Branch</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sinccoursebranch"  data-val="courseBranch">
+                                <select class="form-select js-example-basic-multiple" multiple id="sinccoursebranch"
+                                  data-val="courseBranch">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
 
                               <div class="form-group">
                                 <label class="form-label">Course Year</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sinccourseyear"  data-val="courseYear">
+                                <select class="form-select js-example-basic-multiple" multiple id="sinccourseyear"
+                                  data-val="courseYear">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
@@ -1914,39 +1967,45 @@
                                 </label></h4>
                               <div class="form-group">
                                 <label class="form-label">Stream</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sexcstream"  data-val="stream">
+                                <select class="form-select js-example-basic-multiple" multiple id="sexcstream"
+                                  data-val="stream">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
                               <div class="form-group">
                                 <label class="form-label">Course Type</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sexccoursetype"  data-val="courseType">
+                                <select class="form-select js-example-basic-multiple" multiple id="sexccoursetype"
+                                  data-val="courseType">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
 
                               </div>
                               <div class="form-group">
                                 <label class="form-label">Course Category</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sexccoursecategory"  data-val="courseCategory">
+                                <select class="form-select js-example-basic-multiple" multiple id="sexccoursecategory"
+                                  data-val="courseCategory">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
                               <div class="form-group">
                                 <label class="form-label">Course</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sexccourse"  data-val="course">
+                                <select class="form-select js-example-basic-multiple" multiple id="sexccourse"
+                                  data-val="course">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
                               <div class="form-group">
                                 <label class="form-label">Course Branch</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sexccoursebranch"  data-val="courseBranch">
+                                <select class="form-select js-example-basic-multiple" multiple id="sexccoursebranch"
+                                  data-val="courseBranch">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
 
                               <div class="form-group">
                                 <label class="form-label">Course Year</label>
-                                <select class="form-select js-example-basic-multiple" multiple id="sexccourseyear"  data-val="courseYear">
+                                <select class="form-select js-example-basic-multiple" multiple id="sexccourseyear"
+                                  data-val="courseYear">
                                   <option value="-1" selected>Not Applicable</option>
                                 </select>
                               </div>
@@ -1963,7 +2022,8 @@
                       <div class="action-bar-left"><span class="draft-dot"></span> Eligibility Criteria: SC Girl
                         Students – PG</div>
                       <div class="action-bar-right">
-                        <button class="btn btn-primary" id="saveFeeRule"><i class="bi bi-plus-square"></i> Add Fee Rule</button>
+                        <button class="btn btn-primary" id="saveFeeRule"><i class="bi bi-plus-square"></i> Add Fee
+                          Rule</button>
                       </div>
                     </div>
                   </div>
@@ -2057,17 +2117,18 @@
                   <div class="col-md-4 mb-4">
                     <div class="form-group">
                       <label class="form-label">Residential Status</label>
-                      <div id="maintenanceresidential"></div>  
+                      <div id="maintenanceresidential"></div>
                     </div>
                   </div>
 
 
                   <div class="col-md-4 mb-4" id="add_field_hostel_type">
                     <div class="form-group">
-                        <label class="form-label">Hostel Type</label>
-                        <select class="form-select js-example-basic-multiple" multiple id="mhosteltype"  data-val="hostelType">
-                          <option value="-1" selected>Not Applicable</option>
-                        </select>
+                      <label class="form-label">Hostel Type</label>
+                      <select class="form-select js-example-basic-multiple" multiple id="mhosteltype"
+                        data-val="hostelType">
+                        <option value="-1" selected>Not Applicable</option>
+                      </select>
                     </div>
                     <div class="text-danger" id="hosterTypeError"></div>
                   </div>
@@ -2076,9 +2137,9 @@
                   <div class="col-md-4 mb-4">
                     <div class="form-group">
                       <label class="form-label">Maintenance Course Group</label>
-                      <select class="form-select" id="mgroupcode"  data-val="groupCode">
-                          <option value="-1" selected>--Select--</option>
-                        </select>
+                      <select class="form-select" id="mgroupcode" data-val="groupCode">
+                        <option value="-1" selected>--Select--</option>
+                      </select>
                     </div>
                     <div class="text-danger" id="maintenanceodeError"></div>
                   </div>
@@ -2093,16 +2154,19 @@
                   <div class="col-md-3 mb-4 d-none" id="add_field_disability_category">
                     <div class="instituteApproveRejectForm mainCompForm">
                       <label class="form-label">Disability Category</label>
-                        <select class="form-select js-example-basic-multiple" multiple id="mdisabilitycategory"  data-val="disabilitycategory">
-                          <option value="-1" selected>Not Applicable</option>
-                        </select>
+                      <select class="form-select js-example-basic-multiple" multiple id="mdisabilitycategory"
+                        data-val="disabilitycategory">
+                        <option value="-1" selected>Not Applicable</option>
+                      </select>
                     </div>
                   </div>
                   <div class="col-md-3 mb-4 d-none" id="add_field_disability_amount">
                     <div class="instituteApproveRejectForm mainCompForm">
-                      <label for="disability_amount" class="form-label lbl-font">Disability Amount - (In Rupees ₹)</label>
+                      <label for="disability_amount" class="form-label lbl-font">Disability Amount - (In Rupees
+                        ₹)</label>
                       <div class="input-group">
-                        <input type="text" id="disability_amount" class="form-control" aria-label="Selected income" placeholder="Eg: Enter Amount" data-val="DisabilityFee" />
+                        <input type="text" id="disability_amount" class="form-control" aria-label="Selected income"
+                          placeholder="Eg: Enter Amount" data-val="DisabilityFee" />
                       </div>
                       <div class="text-danger" id="disabilityAmountError"></div>
                     </div>
@@ -2298,21 +2362,24 @@
 
               <div class="card-title"><i class="bi bi-clipboard-check"></i> Current Registered Data</div>
               <div class="card-subtitle">Review the Gathered information and confirm to proceed the Scheme.</div>
-              
+
               <div class="preview-grid-3">
                 <h6 class="preview-title card-title"><i class="bi bi-bank2"></i> Scheme Identity</h6>
 
                 <!-- 🏛️ Scheme Identity -->
                 <div class="preview-item">
-                  <label class="preview-label">Department : <span class="preview-value">Adi Dravidar And Tribal Welfare Dept</span></label>    
+                  <label class="preview-label">Department : <span class="preview-value">Adi Dravidar And Tribal Welfare
+                      Dept</span></label>
                 </div>
 
                 <div class="preview-item">
-                  <label class="preview-label">Sub Department: <span class="preview-value">Adi Dravidar Welfare</span></label>
+                  <label class="preview-label">Sub Department: <span class="preview-value">Adi Dravidar
+                      Welfare</span></label>
                 </div>
 
                 <div class="preview-item">
-                  <label class="preview-label">Scheme Name :  <span class="preview-value">Post Matric Scholarship for SC Students</span></label>
+                  <label class="preview-label">Scheme Name : <span class="preview-value">Post Matric Scholarship for SC
+                      Students</span></label>
                 </div>
 
                 <div class="preview-item">
@@ -2332,7 +2399,8 @@
                 </div>
 
                 <div class="preview-item">
-                  <label class="preview-label">GO Reference No : <span class="preview-value">GO_Ms_42_ADW_2026</span></label>
+                  <label class="preview-label">GO Reference No : <span
+                      class="preview-value">GO_Ms_42_ADW_2026</span></label>
                 </div>
 
                 <div class="preview-item">
@@ -2349,18 +2417,20 @@
               </div>
 
               <div class="preview-grid-3">
-                <h6 class="preview-title card-title"><i class="bi bi-journal-check"></i> Eligibility Criteria(Eligibility) - Exclusive</h6>
+                <h6 class="preview-title card-title"><i class="bi bi-journal-check"></i> Eligibility
+                  Criteria(Eligibility) - Exclusive</h6>
                 <!-- 👤 Eligibility Criteria-->
                 <div class="preview-item">
-                  <label class="preview-label">Eligibility Criteria : <span class="preview-value">SC Girl Students – PG</span></label>
+                  <label class="preview-label">Eligibility Criteria : <span class="preview-value">SC Girl Students –
+                      PG</span></label>
                 </div>
 
                 <div class="preview-item">
-                  <label class="preview-label">Community :  <span class="preview-value">SC</span></label>
+                  <label class="preview-label">Community : <span class="preview-value">SC</span></label>
                 </div>
 
                 <div class="preview-item">
-                  <label class="preview-label">Gender : <span class="preview-value">Female</span></label> 
+                  <label class="preview-label">Gender : <span class="preview-value">Female</span></label>
                 </div>
 
                 <div class="preview-item">
@@ -2372,21 +2442,24 @@
                 </div>
 
                 <div class="preview-item">
-                  <label class="preview-label">Quota : <span class="preview-value">7.5% Quota</span></label> 
+                  <label class="preview-label">Quota : <span class="preview-value">7.5% Quota</span></label>
                 </div>
 
 
                 <!-- 🏫 Institution -->
                 <div class="preview-item">
-                  <label class="preview-label">Institute Ownership : <span class="preview-value">Government</span></label>
+                  <label class="preview-label">Institute Ownership : <span
+                      class="preview-value">Government</span></label>
                 </div>
 
                 <div class="preview-item">
-                  <label class="preview-label">University Type : <span class="preview-value">State University</span></label>
+                  <label class="preview-label">University Type : <span class="preview-value">State
+                      University</span></label>
                 </div>
 
                 <div class="preview-item">
-                  <label class="preview-label">Institute Category : <span class="preview-value">Arts & Science</span></label>
+                  <label class="preview-label">Institute Category : <span class="preview-value">Arts &
+                      Science</span></label>
                 </div>
 
 
@@ -2401,18 +2474,20 @@
               </div>
 
               <div class="preview-grid-3">
-                <h6 class="preview-title card-title"><i class="bi bi-journal-check"></i> Eligibility Criteria(Eligibility) - Inclusive</h6>
+                <h6 class="preview-title card-title"><i class="bi bi-journal-check"></i> Eligibility
+                  Criteria(Eligibility) - Inclusive</h6>
                 <!-- 👤 Eligibility Criteria-->
                 <div class="preview-item">
-                  <label class="preview-label">Eligibility Criteria : <span class="preview-value">SC Girl Students – PG</span></label>
+                  <label class="preview-label">Eligibility Criteria : <span class="preview-value">SC Girl Students –
+                      PG</span></label>
                 </div>
 
                 <div class="preview-item">
-                  <label class="preview-label">Community :  <span class="preview-value">SC</span></label>
+                  <label class="preview-label">Community : <span class="preview-value">SC</span></label>
                 </div>
 
                 <div class="preview-item">
-                  <label class="preview-label">Gender : <span class="preview-value">Female</span></label> 
+                  <label class="preview-label">Gender : <span class="preview-value">Female</span></label>
                 </div>
 
                 <div class="preview-item">
@@ -2424,21 +2499,24 @@
                 </div>
 
                 <div class="preview-item">
-                  <label class="preview-label">Quota : <span class="preview-value">7.5% Quota</span></label> 
+                  <label class="preview-label">Quota : <span class="preview-value">7.5% Quota</span></label>
                 </div>
 
 
                 <!-- 🏫 Institution -->
                 <div class="preview-item">
-                  <label class="preview-label">Institute Ownership : <span class="preview-value">Government</span></label>
+                  <label class="preview-label">Institute Ownership : <span
+                      class="preview-value">Government</span></label>
                 </div>
 
                 <div class="preview-item">
-                  <label class="preview-label">University Type : <span class="preview-value">State University</span></label>
+                  <label class="preview-label">University Type : <span class="preview-value">State
+                      University</span></label>
                 </div>
 
                 <div class="preview-item">
-                  <label class="preview-label">Institute Category : <span class="preview-value">Arts & Science</span></label>
+                  <label class="preview-label">Institute Category : <span class="preview-value">Arts &
+                      Science</span></label>
                 </div>
 
 
@@ -2453,11 +2531,13 @@
               </div>
 
               <div class="preview-grid-3">
-                <h6 class="preview-title card-title"><i class="bi bi-card-list"></i> Scholarship Fee (Fee Rule) - Exclusive</h6>
+                <h6 class="preview-title card-title"><i class="bi bi-card-list"></i> Scholarship Fee (Fee Rule) -
+                  Exclusive</h6>
                 <!-- 💰 Fee Rule -->
                 <div class="preview-item">
-                  <label class="preview-label">Fee Rule Name : <span class="preview-value">Private Un-aided Colleges</span></label>
-                  
+                  <label class="preview-label">Fee Rule Name : <span class="preview-value">Private Un-aided
+                      Colleges</span></label>
+
                 </div>
 
                 <div class="preview-item">
@@ -2465,7 +2545,8 @@
                 </div>
 
                 <div class="preview-item">
-                  <label class="preview-label">Fee Table : <span class="preview-value">BC-MBC Private Fees</span></label>
+                  <label class="preview-label">Fee Table : <span class="preview-value">BC-MBC Private
+                      Fees</span></label>
                 </div>
 
                 <div class="preview-item">
@@ -2474,11 +2555,13 @@
               </div>
 
               <div class="preview-grid-3">
-                <h6 class="preview-title card-title"><i class="bi bi-card-list"></i> Scholarship Fee (Fee Rule) - Inclusive</h6>
+                <h6 class="preview-title card-title"><i class="bi bi-card-list"></i> Scholarship Fee (Fee Rule) -
+                  Inclusive</h6>
                 <!-- 💰 Fee Rule -->
                 <div class="preview-item">
-                  <label class="preview-label">Fee Rule Name : <span class="preview-value">Private Un-aided Colleges</span></label>
-                  
+                  <label class="preview-label">Fee Rule Name : <span class="preview-value">Private Un-aided
+                      Colleges</span></label>
+
                 </div>
 
                 <div class="preview-item">
@@ -2486,7 +2569,8 @@
                 </div>
 
                 <div class="preview-item">
-                  <label class="preview-label">Fee Table : <span class="preview-value">BC-MBC Private Fees</span></label>
+                  <label class="preview-label">Fee Table : <span class="preview-value">BC-MBC Private
+                      Fees</span></label>
                 </div>
 
                 <div class="preview-item">
@@ -2513,42 +2597,42 @@
                 <!-- 💳 Instalment 1 -->
                 <div class="preview-item ins">
                   <label class="preview-label">Instalment 1 % : <span class="preview-value">33.3%</span></label>
-                  
+
                   <hr>
                   <label class="preview-label">Payment Mode : <span class="preview-value">DBT</span></label>
-                  
+
                   <hr>
-                  <label class="preview-label">Bank :  <span class="preview-value">State Bank of India</span></label>
-                 
+                  <label class="preview-label">Bank : <span class="preview-value">State Bank of India</span></label>
+
                   <hr>
-                  <label class="preview-label">Transfer Mode :  <span class="preview-value">API Gateway</span></label>
+                  <label class="preview-label">Transfer Mode : <span class="preview-value">API Gateway</span></label>
                 </div>
                 <div class="preview-item ins">
                   <label class="preview-label">Instalment 2 % : <span class="preview-value">33.3%</span></label>
-                  
+
                   <hr>
                   <label class="preview-label">Payment Mode : <span class="preview-value">DBT</span></label>
-                  
+
                   <hr>
                   <label class="preview-label">Bank : <span class="preview-value">State Bank of India</span></label>
-                  
+
                   <hr>
                   <label class="preview-label">Transfer Mode : <span class="preview-value">API Gateway</span></label>
-                  
+
                 </div>
                 <div class="preview-item ins">
 
                   <label class="preview-label">Instalment 2 % : <span class="preview-value">33.3%</span></label>
-                  
+
                   <hr>
                   <label class="preview-label">Payment Mode : <span class="preview-value">DBT</span></label>
-                  
+
                   <hr>
                   <label class="preview-label">Bank : <span class="preview-value">State Bank of India</span></label>
-                  
+
                   <hr>
                   <label class="preview-label">Transfer Mode : <span class="preview-value">API Gateway</span></label>
-                  
+
                 </div>
               </div>
             </div>
@@ -2621,7 +2705,7 @@
   </div>
 
 
-                            <!-- Modal cust-fee-rule -->
+  <!-- Modal cust-fee-rule -->
   <div class="modal fade" id="custom-table-fee-rule" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
       <div class="modal-content">
@@ -2631,109 +2715,124 @@
           <button class="btn btn-danger" data-bs-dismiss="modal">close</button>
         </div>
         <div class="modal-body">
-        <div id="govt_aidedviewTable_wrapper" class="dataTables_wrapper no-footer">
-    
-   
-    <table id="govt_aidedviewTable" class="table display nowrap dataTable no-footer" style="width: 100%;"
-        aria-describedby="govt_aidedviewTable_info">
-        <thead>
-            <tr>
-                <th class="sorting sorting_asc" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
-                    style="width: 36px;" aria-sort="ascending" aria-label="S.No.: activate to sort column descending">
+          <div id="govt_aidedviewTable_wrapper" class="dataTables_wrapper no-footer">
+
+
+            <table id="govt_aidedviewTable" class="table display nowrap dataTable no-footer" style="width: 100%;"
+              aria-describedby="govt_aidedviewTable_info">
+              <thead>
+                <tr>
+                  <th class="sorting sorting_asc" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1"
+                    colspan="1" style="width: 36px;" aria-sort="ascending"
+                    aria-label="S.No.: activate to sort column descending">
                     S.No.</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 302px;" aria-label="HOD: activate to sort column ascending">HOD</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 108px;" aria-label="Ownership: activate to sort column ascending">Ownership</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 110px;" aria-label="District: activate to sort column ascending">District</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 236px;" aria-label="University Type: activate to sort column ascending">University
                     Type</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 589px;" aria-label="University: activate to sort column ascending">University</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 141px;" aria-label="Institution Catgeory: activate to sort column ascending">
                     Institution Catgeory</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 414px;" aria-label="Institution: activate to sort column ascending">Institution</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 60px;" aria-label="AISHE ID: activate to sort column ascending">AISHE ID</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 169px;" aria-label="Stream Name: activate to sort column ascending">Stream Name</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 49px;" aria-label="Course: activate to sort column ascending">Course</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 102px;" aria-label="Course Branch: activate to sort column ascending">Course Branch
-                </th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  </th>
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 414px;" aria-label="Regular Institution: activate to sort column ascending">Regular
                     Institution</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 106px;" aria-label="Regular Course: activate to sort column ascending">Regular Course
-                </th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  </th>
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 290px;" aria-label="Regular Course Branch: activate to sort column ascending">Regular
                     Course Branch</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 134px;" aria-label="Regular Course Fee: activate to sort column ascending">Regular
                     Course Fee</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 151px;" aria-label="Regular Year of Study: activate to sort column ascending">Regular
                     Year of Study</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 110px;" aria-label="Regular District: activate to sort column ascending">Regular
                     District</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 343px;" aria-label="Match Priority: activate to sort column ascending">Match Priority
-                </th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  </th>
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 82px;" aria-label="Verification: activate to sort column ascending">Status</th>
-                <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="govt_aidedviewTable" rowspan="1" colspan="1"
                     style="width: 82px;" aria-label="Verification: activate to sort column ascending">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-          <tr class="odd">
-            <td class="sorting_1">1</td>
-            <td>DIRECTORATE OF COLLEGIATE EDUCATION (DCE)</td>
-            <td>Government Aided</td>
-            <td>COIMBATORE</td><td>State Public University</td><td>BHARATHIAR UNIVERSITY</td>
-            <td>Arts and Science</td><td>PSG COLLEGE OF ARTS &amp; SCIENCE, COIMBATORE</td>
-            <td>C-41124</td><td>ARTS &amp; SCIENCE</td><td>PhD</td><td>Self Finance</td>
-            <td>ANNAMALAI UNIVERSITY,  ANNAMALAI NAGAR, CUDDALORE</td>
-            <td>PhD</td>
-            <td>Department of Legal Studies</td>
-            <td>0</td>
-            <td>1</td><td>CUDDALORE</td><td>Matched with different district and same course</td>
-            <td><span class="badge bg-success">Verified</span></td>
-            <td><span class="d-flex justify-flex-start gap-2"><button class="btn btn-sm badge bg-primary">Edit</button><button class="btn btn-sm badge bg-danger">Del</button></span></td>
-          </tr>
-          <tr class="even">
-            <td class="sorting_1">2</td>
-            <td>DIRECTORATE OF COLLEGIATE EDUCATION (DCE)</td>
-            <td>Government Aided</td><td>COIMBATORE</td>
-            <td>State Public University</td>
-            <td>BHARATHIAR UNIVERSITY</td>
-            <td>Arts and Science</td>
-            <td>PSG COLLEGE OF ARTS &amp; SCIENCE, COIMBATORE</td>
-            <td>C-41124</td>
-            <td>ARTS &amp; SCIENCE</td>
-            <td>PhD</td>
-            <td>Self Finance</td>
-            <td>ANNAMALAI UNIVERSITY,  ANNAMALAI NAGAR, CUDDALORE</td>
-            <td>PhD</td><td>Department of Legal Studies</td>
-            <td>0</td>
-            <td>2</td>
-            <td>CUDDALORE</td>
-            <td>Matched with different district and same course</td>
-            <td><span class="badge bg-success">Verified</span></td>
-            <td><span class="d-flex justify-flex-start gap-2"><button class="btn btn-sm badge bg-primary">Edit</button><button class="btn btn-sm badge bg-danger">Del</button></span></td>
-          </tr>
-        </tbody>
-    </table>
-    
-</div>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="odd">
+                  <td class="sorting_1">1</td>
+                  <td>DIRECTORATE OF COLLEGIATE EDUCATION (DCE)</td>
+                  <td>Government Aided</td>
+                  <td>COIMBATORE</td>
+                  <td>State Public University</td>
+                  <td>BHARATHIAR UNIVERSITY</td>
+                  <td>Arts and Science</td>
+                  <td>PSG COLLEGE OF ARTS &amp; SCIENCE, COIMBATORE</td>
+                  <td>C-41124</td>
+                  <td>ARTS &amp; SCIENCE</td>
+                  <td>PhD</td>
+                  <td>Self Finance</td>
+                  <td>ANNAMALAI UNIVERSITY, ANNAMALAI NAGAR, CUDDALORE</td>
+                  <td>PhD</td>
+                  <td>Department of Legal Studies</td>
+                  <td>0</td>
+                  <td>1</td>
+                  <td>CUDDALORE</td>
+                  <td>Matched with different district and same course</td>
+                  <td><span class="badge bg-success">Verified</span></td>
+                  <td><span class="d-flex justify-flex-start gap-2"><button
+                        class="btn btn-sm badge bg-primary">Edit</button><button
+                        class="btn btn-sm badge bg-danger">Del</button></span></td>
+                </tr>
+                <tr class="even">
+                  <td class="sorting_1">2</td>
+                  <td>DIRECTORATE OF COLLEGIATE EDUCATION (DCE)</td>
+                  <td>Government Aided</td>
+                  <td>COIMBATORE</td>
+                  <td>State Public University</td>
+                  <td>BHARATHIAR UNIVERSITY</td>
+                  <td>Arts and Science</td>
+                  <td>PSG COLLEGE OF ARTS &amp; SCIENCE, COIMBATORE</td>
+                  <td>C-41124</td>
+                  <td>ARTS &amp; SCIENCE</td>
+                  <td>PhD</td>
+                  <td>Self Finance</td>
+                  <td>ANNAMALAI UNIVERSITY, ANNAMALAI NAGAR, CUDDALORE</td>
+                  <td>PhD</td>
+                  <td>Department of Legal Studies</td>
+                  <td>0</td>
+                  <td>2</td>
+                  <td>CUDDALORE</td>
+                  <td>Matched with different district and same course</td>
+                  <td><span class="badge bg-success">Verified</span></td>
+                  <td><span class="d-flex justify-flex-start gap-2"><button
+                        class="btn btn-sm badge bg-primary">Edit</button><button
+                        class="btn btn-sm badge bg-danger">Del</button></span></td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
         </div>
         <div class="modal-footer">
           <div style="margin-top:16px;display:flex;gap:10px;">
@@ -2768,6 +2867,9 @@
   <script src="assets/js/helper.js"></script>
   <script src="assets/js/utility.js"></script>
   <script src="assets/js/dropdown.js"></script>
+  <script src="assets/js/crypto-js.js"></script>
+  <script src="assets/js/page-script/api.js"></script>
+  <script src="assets/js/dropdown-api.js"></script>
 
 
   <script>
@@ -2782,21 +2884,21 @@
     }
 
 
-$(document).ready(function () {
+    $(document).ready(function () {
 
       applyInputValidation('inincomeValue', [1]);
       applyInputValidation('exincomeValue', [1]);
       dropdowns.forEach(handleChange);
-    
-    
-    
-    
-$('#componentBasedFeeCard').on('click', function (e) {
-    e.preventDefault();
-    // Usage:
-     
-    const params = {
-        components: [
+
+
+
+
+      $('#componentBasedFeeCard').on('click', function (e) {
+        e.preventDefault();
+        // Usage:
+
+        const params = {
+          components: [
             { id: 1, component_name: 'Tuition Fee' },
             { id: 2, component_name: 'Computer Fee' },
             { id: 3, component_name: 'Library Fee' },
@@ -2806,76 +2908,76 @@ $('#componentBasedFeeCard').on('click', function (e) {
             { id: 7, component_name: 'Sports Fee' },
             { id: 8, component_name: 'Enrollment Fee' },
             { id: 9, component_name: 'Examination Fee' }
-        ]
-    };
-    componentBasedFeeEnter(params);
-    $('#componentBasedFeeInput').removeClass("d-none");
-    
-});
+          ]
+        };
+        componentBasedFeeEnter(params);
+        $('#componentBasedFeeInput').removeClass("d-none");
 
-$('#saveFeeRule').on('click', function (e) {
-    e.preventDefault();
-   const data = collectComponentBasedFeeData();
-    console.log(data);
-});
+      });
+
+      $('#saveFeeRule').on('click', function (e) {
+        e.preventDefault();
+        const data = collectComponentBasedFeeData();
+        console.log(data);
+      });
 
 
 
-$('#save_scheme_setup').on('click', function (e) {
-    e.preventDefault();
+      $('#save_scheme_setup').on('click', function (e) {
+        e.preventDefault();
 
-    const gv = getValueSchemeSetUpTab();
+        const gv = getValueSchemeSetUpTab();
 
-    if (!gv.schemecategory) {
-        showToast('Please select scheme category', 'error');
-        $('#scheme_category').focus();
-        return;
-    }
+        if (!gv.schemecategory) {
+          showToast('Please select scheme category', 'error');
+          $('#scheme_category').focus();
+          return;
+        }
 
-    if (!gv.schemetype) {
-        showToast('Please select scheme type', 'error');
-        $('#scheme_type').focus();
-        return;
-    }
+        if (!gv.schemetype) {
+          showToast('Please select scheme type', 'error');
+          $('#scheme_type').focus();
+          return;
+        }
 
-    if (!gv.schemename) {
-        showToast('Please enter Scheme Name', 'error');
-        $('#scheme_name').focus();
-        return;
-    }
+        if (!gv.schemename) {
+          showToast('Please enter Scheme Name', 'error');
+          $('#scheme_name').focus();
+          return;
+        }
 
-    if (!gv.schemecode) {
-        showToast('Please enter Scheme Code', 'error');
-        $('#scheme_code').focus();
-        return;
-    }
+        if (!gv.schemecode) {
+          showToast('Please enter Scheme Code', 'error');
+          $('#scheme_code').focus();
+          return;
+        }
 
-    if (!gv.academicyear) {
-        showToast('Please select Academic Year', 'error');
-        $('#accademic_year').focus();
-        return;
-    }
-    if (!gv.pfmsschemeid && !gv.dbtschemeid && !gv.gbmid) {
-        showToast('Enter pfms/dbt/gbm id', 'error');
-        return;
-    }
-    if (!gv.headaccount) {
-        showToast('Enter the Head Account', 'error');
-        $('#head_account').focus();
-        return;
-    }
-    if (!gv.budgetcode) {
-        showToast('Enter the Budget Code', 'error');
-        $('#budget_code').focus();
-        return;
-    }
-    try {
-        showToast('Saved locally', 'success');
-    } catch (err) {
-        console.error(err);
-        showToast('Failed to save data', 'error');
-    }
-});
+        if (!gv.academicyear) {
+          showToast('Please select Academic Year', 'error');
+          $('#accademic_year').focus();
+          return;
+        }
+        if (!gv.pfmsschemeid && !gv.dbtschemeid && !gv.gbmid) {
+          showToast('Enter pfms/dbt/gbm id', 'error');
+          return;
+        }
+        if (!gv.headaccount) {
+          showToast('Enter the Head Account', 'error');
+          $('#head_account').focus();
+          return;
+        }
+        if (!gv.budgetcode) {
+          showToast('Enter the Budget Code', 'error');
+          $('#budget_code').focus();
+          return;
+        }
+        try {
+          showToast('Saved locally', 'success');
+        } catch (err) {
+          console.error(err);
+          showToast('Failed to save data', 'error');
+        }
+      });
 
       getReligion($('#eincreligion'));
       getIncomeRange($('#eligibleincincomeRange'));
@@ -2885,16 +2987,16 @@ $('#save_scheme_setup').on('click', function (e) {
 
       getReligion($('#sincreligion'));
       getReligion($('#sexcreligion'));
-      
-     
+
+
       // Initialize Community chips
 
-        $('#eligibleincincomeRange').on('change', function() {
-            inputShowHide($(this), $('#inincomeValue'));
-        });
-        $('#eligibleexcincomeRange').on('change', function() {
-            inputShowHide($(this), $('#exincomeValue'));
-        });
+      $('#eligibleincincomeRange').on('change', function () {
+        inputShowHide($(this), $('#inincomeValue'));
+      });
+      $('#eligibleexcincomeRange').on('change', function () {
+        inputShowHide($(this), $('#exincomeValue'));
+      });
 
       renderChipDropdown({
         field: 'community',
@@ -2967,7 +3069,7 @@ $('#save_scheme_setup').on('click', function (e) {
       // 
       // =============================
 
-       renderChipDropdown({
+      renderChipDropdown({
         field: 'community',
         selector: '#scholarshipinclusivecommunity',
         constraint: 'inclusive'
@@ -3013,7 +3115,7 @@ $('#save_scheme_setup').on('click', function (e) {
         selector: '#scholarshipexclusiveresidential',
         constraint: 'exclusive'
       });
-      
+
 
       // Initialize Special Category chips
       renderChipDropdown({
@@ -3055,8 +3157,8 @@ $('#save_scheme_setup').on('click', function (e) {
       e.preventDefault();
 
       let eligibleCriteriaName = $('#eligibleCriteriaName').val();
-      if(!eligibleCriteriaName){
-        alert('Enter the Eligibility Criteria Name')  
+      if (!eligibleCriteriaName) {
+        alert('Enter the Eligibility Criteria Name')
         return;
       }
 
@@ -3066,21 +3168,88 @@ $('#save_scheme_setup').on('click', function (e) {
       console.log('Student Exclusive Enabled:', allValues.student.exclusive.enabled);
       console.log('Institute Inclusive Ownership:', allValues.institute.inclusive.institute_ownership);
       return allValues;
-      
-      
-
 
     });
+
+    function normalizeUserDetailsPayload(payload) {
+      if (!payload) return null;
+
+      try {
+        let parsed = typeof payload === 'string' ? JSON.parse(payload) : payload;
+        // Some responses store object JSON as a stringified string.
+        if (typeof parsed === 'string') {
+          parsed = JSON.parse(parsed);
+        }
+        if (parsed && typeof parsed === 'object' && parsed.user && typeof parsed.user === 'object') {
+          return parsed.user;
+        }
+        return parsed && typeof parsed === 'object' ? parsed : null;
+      } catch (err) {
+        return null;
+      }
+    }
+
+    function getUserDetailsFromDeptDetailsQuery() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const encoded = params.get('dept_details');
+        if (!encoded) return null;
+
+        const decoded = atob(encoded);
+        const parsed = JSON.parse(decoded);
+        if (!parsed || typeof parsed !== 'object') return null;
+
+        // Keep sessionStorage in sync when arriving from landing page links.
+        if (parsed.encryptionKey && !sessionStorage.getItem('encryption_key')) {
+          sessionStorage.setItem('encryption_key', parsed.encryptionKey);
+        }
+        if (parsed.user_details && !sessionStorage.getItem('user_details')) {
+          sessionStorage.setItem('user_details', parsed.user_details);
+        }
+        if (parsed.access_token && !localStorage.getItem('access_token')) {
+          localStorage.setItem('access_token', parsed.access_token);
+        }
+        if (parsed.refresh_token && !localStorage.getItem('refresh_token')) {
+          localStorage.setItem('refresh_token', parsed.refresh_token);
+        }
+
+        // Support plain details object if provided directly.
+        const directUser =
+          parsed.userDetails ||
+          parsed.user_details_obj ||
+          parsed.user ||
+          null;
+
+        return normalizeUserDetailsPayload(directUser);
+      } catch (err) {
+        return null;
+      }
+    }
+
     function getLoggedInUserDetails() {
-      const userDetailsEncrypted = sessionStorage.getItem('user_details');
+      // Landing page passes encrypted info via ?dept_details=...
+      const queryUserDetails = getUserDetailsFromDeptDetailsQuery();
+      if (queryUserDetails) return queryUserDetails;
+
+      // Preferred key requested by app flow: userDetails
+      const plainUserDetails = sessionStorage.getItem('userDetails');
+      const parsedPlain = normalizeUserDetailsPayload(plainUserDetails);
+      if (parsedPlain) return parsedPlain;
+
+      // Fallback key used in current login flow.
+      const userDetailsValue = sessionStorage.getItem('user_details');
+      const parsedUserDetailsValue = normalizeUserDetailsPayload(userDetailsValue);
+      if (parsedUserDetailsValue) return parsedUserDetailsValue;
+
+      // Backward-compatible encrypted fallback: user_details + encryption_key
       const encryptionKey = sessionStorage.getItem('encryption_key');
-      if (!userDetailsEncrypted || !encryptionKey || typeof SecureAPI === 'undefined') {
+      if (!userDetailsValue || !encryptionKey || typeof SecureAPI === 'undefined') {
         return null;
       }
 
       try {
-        const decrypted = SecureAPI.decrypt(userDetailsEncrypted, encryptionKey);
-        return JSON.parse(decrypted);
+        const decrypted = SecureAPI.decrypt(userDetailsValue, encryptionKey);
+        return normalizeUserDetailsPayload(decrypted);
       } catch (err) {
         console.warn('Unable to parse user details from session storage.', err);
         return null;
@@ -3089,21 +3258,168 @@ $('#save_scheme_setup').on('click', function (e) {
 
     function getDepartmentFromUserDetails(userDetails) {
       if (!userDetails || typeof userDetails !== 'object') return '';
-      return (
+
+      // direct keys
+      const direct =
         userDetails.department_name ||
         userDetails.department ||
         userDetails.dept_name ||
         userDetails.dept ||
-        ''
-      );
+        userDetails.departmentName ||
+        '';
+
+      if (direct) return String(direct).trim();
+
+      // common nested shapes
+      const nested =
+        userDetails.department_details?.department_name ||
+        userDetails.department_details?.department ||
+        userDetails.department_info?.department_name ||
+        userDetails.department_info?.department ||
+        userDetails.department_obj?.name ||
+        userDetails.department_data?.department_name ||
+        userDetails.department_data?.name ||
+        userDetails.dept_details?.department_name ||
+        userDetails.dept_details?.department ||
+        userDetails.dept_info?.department_name ||
+        userDetails.dept_info?.department ||
+        userDetails.current_department ||
+        userDetails.current_department_name ||
+        userDetails.department?.department_name ||
+        userDetails.department?.name ||
+        '';
+
+      if (nested) return String(nested).trim();
+
+      // Final fallback: look for any string-like "department" key in nested objects.
+      const queue = [userDetails];
+      while (queue.length) {
+        const node = queue.shift();
+        if (!node || typeof node !== 'object') continue;
+
+        for (const [key, value] of Object.entries(node)) {
+          if (value && typeof value === 'object') {
+            queue.push(value);
+            continue;
+          }
+          if (typeof value === 'string' && /department|dept/i.test(key) && value.trim()) {
+            return value.trim();
+          }
+        }
+      }
+
+      return '';
     }
 
-    const defaultDepartmentName = "Adi Dravidar And Tribal Welfare Dept";
     const loggedInUserDetails = getLoggedInUserDetails();
-    const loggedInDepartmentName = getDepartmentFromUserDetails(loggedInUserDetails) || defaultDepartmentName;
+    let loggedInDepartmentName = getDepartmentFromUserDetails(loggedInUserDetails);
+    let loggedInDepartmentId = '';
 
-    $('#department').val(loggedInDepartmentName);
-    $('#departmentMetaValue').html(`<b>Department:</b> ${loggedInDepartmentName}`);
+    function extractDepartmentFromApiResponse(response) {
+      if (!response) return { id: '', name: '' };
+
+      const candidateLists = [
+        response.data,
+        response.data?.data,
+        response.result,
+        response.result?.data,
+        response.departments,
+        response.department,
+        response
+      ];
+
+      for (const list of candidateLists) {
+        const rows = Array.isArray(list) ? list : (list ? [list] : []);
+        for (const row of rows) {
+          if (!row || typeof row !== 'object') continue;
+          const name =
+            row.department_name ||
+            row.department ||
+            row.dept_name ||
+            row.name ||
+            '';
+          const id =
+            row.department_id ||
+            row.id ||
+            row.dept_id ||
+            '';
+          if (typeof name === 'string' && name.trim()) {
+            return { id: String(id || '').trim(), name: name.trim() };
+          }
+        }
+      }
+
+      return { id: '', name: '' };
+    }
+
+    async function loadDepartmentFromApiIfMissing() {
+      // We need department id for subdepartment-filter payload even if name already exists.
+      if ((loggedInDepartmentName && loggedInDepartmentId) || typeof SecureAPI === 'undefined' || !SecureAPI.request) {
+        return;
+      }
+
+      try {
+        const response = await DropdownAPI.post('department-filter', {});
+        console.log('department-filter decrypted response:', response);
+        const rows = DropdownAPI.extractRows(response);
+
+        // Prefer exact name match to resolve id for the logged-in department.
+        let matched = null;
+        if (loggedInDepartmentName) {
+          matched = rows.find((row) => {
+            const rowName = String(
+              row?.department_name || row?.department || row?.dept_name || row?.name || ''
+            ).trim().toLowerCase();
+            return rowName && rowName === String(loggedInDepartmentName).trim().toLowerCase();
+          }) || null;
+        }
+
+        const departmentData = matched
+          ? {
+            id: String(matched.department_id || matched.id || matched.dept_id || '').trim(),
+            name: String(
+              matched.department_name || matched.department || matched.dept_name || matched.name || ''
+            ).trim()
+          }
+          : extractDepartmentFromApiResponse(response);
+
+        if (departmentData.name) {
+          loggedInDepartmentName = departmentData.name;
+          loggedInDepartmentId = departmentData.id || '';
+          bindDepartmentValue();
+          saveParams.department = departmentData.name;
+          getSchemeIdentityRegisterReference(saveParams);
+          loadSubDepartmentDropdown();
+        }
+      } catch (err) {
+        console.warn('Unable to fetch department name from department-filter API.', err);
+      }
+    }
+
+    async function loadSubDepartmentDropdown() {
+      try {
+        const subDeptPayload = {
+          department_id: loggedInDepartmentId || '',
+          department: loggedInDepartmentId || ''
+        };
+        console.log('subdepartment-filter payload:', subDeptPayload);
+        await DropdownAPI.loadSubDepartments('#sub_department', subDeptPayload);
+      } catch (err) {
+        console.warn('Unable to load subdepartment dropdown.', err);
+      }
+    }
+
+    function bindDepartmentValue() {
+      const safeDepartmentName = loggedInDepartmentName || '';
+      $('#department').val(safeDepartmentName);
+      $('#departmentMetaValue').html(`<b>Department:</b> ${safeDepartmentName || '-'}`);
+    }
+
+    // Initial bind + one delayed bind to survive late UI re-renders.
+    bindDepartmentValue();
+    setTimeout(bindDepartmentValue, 50);
+    loadDepartmentFromApiIfMissing();
+    loadSubDepartmentDropdown();
 
     const saveParams = {
       'department': loggedInDepartmentName,
@@ -3111,6 +3427,9 @@ $('#save_scheme_setup').on('click', function (e) {
       'schemename': "Post Matric Scholarship for SC Students",
       'schemecode': "ADW-PMS-2026"
     }
+    $('#sub_department').on('change', function () {
+      saveParams.subdepartment = $(this).find('option:selected').text() || '-';
+    });
     function getSchemeIdentityRegisterReference(saveParams) {
 
       let savedSchemeRef = `
@@ -3130,7 +3449,7 @@ $('#save_scheme_setup').on('click', function (e) {
       }
     }
 
-   
+
 
     $(document).ready(function () {
 
