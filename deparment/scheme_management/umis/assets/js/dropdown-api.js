@@ -47,6 +47,50 @@ const DropdownAPI = {
     return SecureAPI.request(`${this.getApiBase()}/${endpoint}`, 'POST', data);
   },
 
+  async postToUrl(url, data = {}) {
+    if (typeof SecureAPI === 'undefined' || !SecureAPI.request) {
+      throw new Error('SecureAPI.request is unavailable');
+    }
+
+    await this.ensureCsrfToken();
+    return SecureAPI.request(url, 'POST', data);
+  },
+
+  async getWithEncryptedPayload(url, data = {}) {
+    if (typeof SecureAPI === 'undefined' || !SecureAPI.encrypt || !SecureAPI.decrypt) {
+      throw new Error('SecureAPI encrypt/decrypt is unavailable');
+    }
+
+    await this.ensureCsrfToken();
+
+    const token = localStorage.getItem('access_token');
+    const encryptionKey = sessionStorage.getItem('encryption_key');
+    const csrfToken = sessionStorage.getItem('csrf_token');
+
+    if (!encryptionKey) {
+      throw new Error('encryption_key is missing in sessionStorage');
+    }
+
+    const encryptedPayload = SecureAPI.encrypt(JSON.stringify(data), encryptionKey);
+    const urlWithPayload = `${url}?${new URLSearchParams({ payload: encryptedPayload })}`;
+
+    const response = await fetch(urlWithPayload, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'X-CSRF-Token': csrfToken
+      }
+    });
+
+    const result = await response.json();
+    if (result?.payload) {
+      const decrypted = SecureAPI.decrypt(result.payload, encryptionKey);
+      return JSON.parse(decrypted);
+    }
+
+    return result;
+  },
+
   extractRows(response) {
     if (!response) return [];
     if (Array.isArray(response)) return response;
@@ -62,6 +106,8 @@ const DropdownAPI = {
     if (Array.isArray(response.list)) return response.list;
     if (Array.isArray(response.records)) return response.records;
     if (Array.isArray(response.scheme_types)) return response.scheme_types;
+    if (Array.isArray(response.exclusive_to)) return response.exclusive_to;
+    if (Array.isArray(response.scheme_categories)) return response.scheme_categories;
     if (Array.isArray(response.dropdownData)) return response.dropdownData;
     return [];
   },
@@ -121,6 +167,48 @@ const DropdownAPI = {
     this.bindSelectOptions(selector, rows, {
       valueKeys: ['id', 'value', 'scheme_type_id', 'type_id', 'lookup_id'],
       textKeys: ['display_text', 'displayText', 'name', 'text', 'label', 'scheme_type_name', 'type_name', 'description']
+    });
+
+    return rows;
+  },
+
+  async loadSchemeRegistrationGenericDropdown(selector, typeParam, bindConfig = {}) {
+    if (typeof SecureAPI === 'undefined' || !SecureAPI.request) {
+      throw new Error('SecureAPI.request is unavailable');
+    }
+
+    await this.ensureCsrfToken();
+
+    const endpoint = bindConfig.endpoint || 'dropdown';
+    const payload = {
+      type: typeParam,
+      ...(bindConfig.payload || {})
+    };
+    const base = this.getSchemeRegistrationBase().replace(/\/$/, '');
+    const url = `${base}/${endpoint}`;
+    console.log(`scheme-registration GET encrypted payload [url=${url}]`, payload);
+
+    let response = await this.getWithEncryptedPayload(url, payload);
+
+    const responseError = String(response?.error || '');
+    const isBrokenCategoryFilter =
+      /internal server error/i.test(responseError) ||
+      /undefined method/i.test(responseError) ||
+      /getschemecategory/i.test(responseError);
+
+    if (isBrokenCategoryFilter) {
+      console.warn(`Backend ${url} is failing.`, responseError);
+    }
+
+    console.log(`scheme-registration dropdown [type=${typeParam}] response:`, response);
+
+    const rows = this.extractRows(response);
+    console.log(`scheme-registration dropdown [type=${typeParam}] rows:`, rows);
+
+    this.bindSelectOptions(selector, rows, {
+      valueKeys: bindConfig.valueKeys || ['id', 'value', 'lookup_id', 'type_id'],
+      textKeys: bindConfig.textKeys || ['display_text', 'displayText', 'name', 'text', 'label', 'description'],
+      placeholderText: bindConfig.placeholderText || '--Select--'
     });
 
     return rows;

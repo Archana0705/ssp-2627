@@ -1085,9 +1085,7 @@
                   <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
                     <label class="form-label">Scheme Category <span class="req">*</span></label>
                     <select class="form-select" id="scheme_category" name="scheme_category">
-                      <option value="1">Inclusive</option>
-                      <option value="2">Exclusive</option>
-                      <option value="3">Exclusive with Exceptions</option>
+                      <option value="0">--Select--</option>
                     </select>
                   </div>
 
@@ -3414,6 +3412,28 @@
       }
     }
 
+    async function loadSchemeCategoryDropdown() {
+      try {
+        const loggedInUserId =
+          loggedInUserDetails?.user_id ||
+          loggedInUserDetails?.id ||
+          '';
+
+        await DropdownAPI.loadSchemeRegistrationGenericDropdown('#scheme_category', 'ExclusiveTo', {
+          endpoint: 'dropdown',
+          payload: {
+            type: 'ExclusiveTo',
+            // userid: loggedInUserId,
+            // user_id: loggedInUserId
+          },
+          valueKeys: ['id', 'value', 'lookup_id', 'category_id'],
+          textKeys: ['display_text', 'name', 'text', 'label', 'category_name', 'description']
+        });
+      } catch (err) {
+        console.warn('Unable to load scheme category dropdown.', err);
+      }
+    }
+
     function bindDepartmentValue() {
       const safeDepartmentName = loggedInDepartmentName || '';
       $('#department').val(safeDepartmentName);
@@ -3426,6 +3446,7 @@
     loadDepartmentFromApiIfMissing();
     loadSubDepartmentDropdown();
     loadSchemeTypeDropdown();
+    loadSchemeCategoryDropdown();
 
     const saveParams = {
       'department': loggedInDepartmentName,
