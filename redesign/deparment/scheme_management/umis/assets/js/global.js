@@ -2,6 +2,6 @@
 
 
 var config = {
-    dropdownAPI: 'https://tngis.tnega.local/ssp-2627/deparment/scheme_management/umis/api/scheme_register/',
+    dropdownAPI: 'http://192.168.4.251/ssp-2627/deparment/scheme_management/umis/api/scheme_register/',
     
 }

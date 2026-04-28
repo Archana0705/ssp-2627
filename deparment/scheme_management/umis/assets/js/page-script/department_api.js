@@ -62,7 +62,7 @@ const SecureAPI = {
                 if (refreshToken) {
                     console.log("Access token expired, attempting to refresh...");
                     //  const refreshRes = await fetch(`http://localhost/ssp/ssp_3/department/ssp_backend_1/public/api/refresh`, {
-                    const refreshRes = await fetch(`https://tngis.tnega.local/state_scholarship_portal_api/ssp_3/public/api/refresh`, {
+                    const refreshRes = await fetch(`http://192.168.4.251/state_scholarship_portal_api/ssp_3/public/api/refresh`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ refresh_token: refreshToken })

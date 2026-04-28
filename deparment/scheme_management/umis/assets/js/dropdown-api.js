@@ -2,7 +2,14 @@ const DropdownAPI = {
   getApiBase() {
     return (
       (window.config && config.secureApiBase) ||
-      'https://tngis.tnega.local/state_scholarship_portal_api/ssp_3/public/api'
+      'http://192.168.4.251/state_scholarship_portal_api/ssp_3/public/api'
+    );
+  },
+
+  getSchemeRegistrationBase() {
+    return (
+      (window.config && config.schemeRegistrationApiBase) ||
+      'http://192.168.4.251/state_scholarship_portal_api/ssp_3/public/SchemeRegistration/api'
     );
   },
 
@@ -49,7 +56,13 @@ const DropdownAPI = {
     if (response.result && Array.isArray(response.result.data)) return response.result.data;
     if (Array.isArray(response.departments)) return response.departments;
     if (Array.isArray(response.subDepartments)) return response.subDepartments;
+    if (Array.isArray(response.sub_departments)) return response.sub_departments;
     if (response.payload && Array.isArray(response.payload.data)) return response.payload.data;
+    if (Array.isArray(response.items)) return response.items;
+    if (Array.isArray(response.list)) return response.list;
+    if (Array.isArray(response.records)) return response.records;
+    if (Array.isArray(response.schemeTypes)) return response.schemeTypes;
+    if (Array.isArray(response.dropdownData)) return response.dropdownData;
     return [];
   },
 
@@ -63,7 +76,8 @@ const DropdownAPI = {
     rows.forEach((row) => {
       if (!row || typeof row !== 'object') return;
       const value = valueKeys.map((k) => row[k]).find((v) => v !== undefined && v !== null && String(v).trim() !== '');
-      const text = textKeys.map((k) => row[k]).find((v) => typeof v === 'string' && v.trim());
+      const rawLabel = textKeys.map((k) => row[k]).find((v) => v !== undefined && v !== null && String(v).trim() !== '');
+      const text = rawLabel !== undefined ? String(rawLabel).trim() : '';
       if (value !== undefined && value !== null && text) {
         $select.append(new Option(text, String(value)));
       }
@@ -79,6 +93,33 @@ const DropdownAPI = {
     this.bindSelectOptions(selector, rows, {
       valueKeys: ['subdepartment_id', 'id', 'sub_department_id'],
       textKeys: ['subdepartment_name', 'sub_department_name', 'name']
+    });
+
+    return rows;
+  },
+
+  /**
+   * Scheme Registration dropdown API — GET with query ?type=...
+   * Example type: "SchemeType"
+   */
+  async loadSchemeRegistrationDropdown(selector, typeParam = 'SchemeType') {
+    if (typeof SecureAPI === 'undefined' || !SecureAPI.request) {
+      throw new Error('SecureAPI.request is unavailable');
+    }
+
+    await this.ensureCsrfToken();
+
+    const base = this.getSchemeRegistrationBase().replace(/\/$/, '');
+    const url = `${base}/dropdown?${new URLSearchParams({ type: typeParam })}`;
+    const response = await SecureAPI.request(url, 'GET');
+    console.log(`scheme-registration dropdown [type=${typeParam}] response:`, response);
+
+    const rows = this.extractRows(response);
+    console.log(`scheme-registration dropdown [type=${typeParam}] rows:`, rows);
+
+    this.bindSelectOptions(selector, rows, {
+      valueKeys: ['id', 'value', 'scheme_type_id', 'type_id', 'lookup_id'],
+      textKeys: ['name', 'text', 'label', 'scheme_type_name', 'type_name', 'description']
     });
 
     return rows;

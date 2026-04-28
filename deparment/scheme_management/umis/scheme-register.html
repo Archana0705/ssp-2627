@@ -1079,10 +1079,7 @@
                   <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
                     <label class="form-label">Scheme Type <span class="req">*</span></label>
                     <select class="form-select" id="scheme_type" name="scheme_type">
-                      <option value="5">Scholarships</option>
-                      <option value="6">Incentive</option>
-                      <option value="7">Benefits</option>
-                      <option value="8">Other</option>
+                      <option value="0">--Select--</option>
                     </select>
                   </div>
                   <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
@@ -2868,7 +2865,7 @@
   <script src="assets/js/utility.js"></script>
   <script src="assets/js/dropdown.js"></script>
   <script src="assets/js/crypto-js.js"></script>
-  <script src="assets/js/page-script/api.js"></script>
+  <script src="assets/js/page-script/department_api.js"></script>
   <script src="assets/js/dropdown-api.js"></script>
 
 
@@ -2979,14 +2976,14 @@
         }
       });
 
-      getReligion($('#eincreligion'));
-      getIncomeRange($('#eligibleincincomeRange'));
+      // getReligion($('#eincreligion'));
+      // getIncomeRange($('#eligibleincincomeRange'));
 
-      getReligion($('#eexcreligion'));
-      getIncomeRange($('#eligibleexcincomeRange'));
+      // getReligion($('#eexcreligion'));
+      // getIncomeRange($('#eligibleexcincomeRange'));
 
-      getReligion($('#sincreligion'));
-      getReligion($('#sexcreligion'));
+      // getReligion($('#sincreligion'));
+      // getReligion($('#sexcreligion'));
 
 
       // Initialize Community chips
@@ -2998,158 +2995,158 @@
         inputShowHide($(this), $('#exincomeValue'));
       });
 
-      renderChipDropdown({
-        field: 'community',
-        selector: '#eligibleinclusivecommunity',
-        constraint: 'inclusive'
-      });
-      renderChipDropdown({
-        field: 'community',
-        selector: '#eligibleexclusivecommuntiy',
-        constraint: 'exclusive'
-      });
+      // renderChipDropdown({
+      //   field: 'community',
+      //   selector: '#eligibleinclusivecommunity',
+      //   constraint: 'inclusive'
+      // });
+      // renderChipDropdown({
+      //   field: 'community',
+      //   selector: '#eligibleexclusivecommuntiy',
+      //   constraint: 'exclusive'
+      // });
 
-      renderChipDropdown({
-        field: 'gender',
-        selector: '#eligibleinclusivegender',
-        constraint: 'inclusive'
-      });
-      renderChipDropdown({
-        field: 'gender',
-        selector: '#eligibleexclusivegender',
-        constraint: 'exclusive'
-      });
+      // renderChipDropdown({
+      //   field: 'gender',
+      //   selector: '#eligibleinclusivegender',
+      //   constraint: 'inclusive'
+      // });
+      // renderChipDropdown({
+      //   field: 'gender',
+      //   selector: '#eligibleexclusivegender',
+      //   constraint: 'exclusive'
+      // });
 
-      renderChipDropdown({
-        field: 'quota',
-        selector: '#eligibleinclusivequota',
-        constraint: 'inclusive'
-      });
-      renderChipDropdown({
-        field: 'quota',
-        selector: '#eligibleexclusivequota',
-        constraint: 'exclusive'
-      });
+      // renderChipDropdown({
+      //   field: 'quota',
+      //   selector: '#eligibleinclusivequota',
+      //   constraint: 'inclusive'
+      // });
+      // renderChipDropdown({
+      //   field: 'quota',
+      //   selector: '#eligibleexclusivequota',
+      //   constraint: 'exclusive'
+      // });
 
-      renderChipDropdown({
-        field: 'residential_status',
-        selector: '#eligibleinclusiveresidential',
-        constraint: 'inclusive'
-      });
-      renderChipDropdown({
-        field: 'residential_status',
-        selector: '#eligibleexclusiveresidential',
-        constraint: 'exclusive'
-      });
+      // renderChipDropdown({
+      //   field: 'residential_status',
+      //   selector: '#eligibleinclusiveresidential',
+      //   constraint: 'inclusive'
+      // });
+      // renderChipDropdown({
+      //   field: 'residential_status',
+      //   selector: '#eligibleexclusiveresidential',
+      //   constraint: 'exclusive'
+      // });
 
-      renderChipDropdown({
-        field: 'special_category',
-        selector: '#eligibleinclusivespecialcategory',
-        constraint: 'inclusive'
-      });
-      renderChipDropdown({
-        field: 'special_category',
-        selector: '#eligibleexclusivespecialcategory',
-        constraint: 'exclusive'
-      });
+      // renderChipDropdown({
+      //   field: 'special_category',
+      //   selector: '#eligibleinclusivespecialcategory',
+      //   constraint: 'inclusive'
+      // });
+      // renderChipDropdown({
+      //   field: 'special_category',
+      //   selector: '#eligibleexclusivespecialcategory',
+      //   constraint: 'exclusive'
+      // });
 
-      renderChipDropdown({
-        field: 'first_graduate',
-        selector: '#eligibleinclusivefirstgraduate',
-        constraint: 'inclusive'
-      });
-      renderChipDropdown({
-        field: 'first_graduate',
-        selector: '#eligibleexclusivefirstgraduate',
-        constraint: 'exclusive'
-      });
-
-
-      // =============================
-      // 
-      // =============================
-
-      renderChipDropdown({
-        field: 'community',
-        selector: '#scholarshipinclusivecommunity',
-        constraint: 'inclusive'
-      });
-      renderChipDropdown({
-        field: 'community',
-        selector: '#scholarshipexclusivecommunity',
-        constraint: 'exclusive'
-      });
-
-      // Initialize Gender chips
-      renderChipDropdown({
-        field: 'gender',
-        selector: '#scholarshipinclusivegender',
-        constraint: 'inclusive'
-      });
-      renderChipDropdown({
-        field: 'gender',
-        selector: '#scholarshipexclusivegender',
-        constraint: 'exclusive'
-      });
-
-      // Initialize Quota chips
-      renderChipDropdown({
-        field: 'quota',
-        selector: '#scholarshipinclusivequota',
-        constraint: 'inclusive'
-      });
-      renderChipDropdown({
-        field: 'quota',
-        selector: '#scholarshipexclusivequota',
-        constraint: 'exclusive'
-      });
-
-      // Initialize Residential Status chips
-      renderChipDropdown({
-        field: 'residential_status',
-        selector: '#scholarshipinclusiveresidential',
-        constraint: 'inclusive'
-      });
-      renderChipDropdown({
-        field: 'residential_status',
-        selector: '#scholarshipexclusiveresidential',
-        constraint: 'exclusive'
-      });
+      // renderChipDropdown({
+      //   field: 'first_graduate',
+      //   selector: '#eligibleinclusivefirstgraduate',
+      //   constraint: 'inclusive'
+      // });
+      // renderChipDropdown({
+      //   field: 'first_graduate',
+      //   selector: '#eligibleexclusivefirstgraduate',
+      //   constraint: 'exclusive'
+      // });
 
 
-      // Initialize Special Category chips
-      renderChipDropdown({
-        field: 'special_category',
-        selector: '#scholarshipinclusivespecialcategory',
-        constraint: 'inclusive'
-      });
-      renderChipDropdown({
-        field: 'special_category',
-        selector: '#scholarshipexclusivespecialcategory',
-        constraint: 'exclusive'
-      });
+      // // =============================
+      // // 
+      // // =============================
 
-      // Initialize First Graduate chips
-      renderChipDropdown({
-        field: 'first_graduate',
-        selector: '#scholarshipinclusivefirstgraduate',
-        constraint: 'inclusive'
-      });
-      renderChipDropdown({
-        field: 'first_graduate',
-        selector: '#scholarshipexclusivefirstgraduate',
-        constraint: 'exclusive'
-      });
-      renderChipDropdown({
-        field: 'residential_status',
-        selector: '#maintenanceresidential',
-        constraint: 'inclusive'
-      })
-      renderChipDropdown({
-        field: 'special_category',
-        selector: '#mdisabilitystatus',
-        constraint: 'inclusive'
-      })
+      // renderChipDropdown({
+      //   field: 'community',
+      //   selector: '#scholarshipinclusivecommunity',
+      //   constraint: 'inclusive'
+      // });
+      // renderChipDropdown({
+      //   field: 'community',
+      //   selector: '#scholarshipexclusivecommunity',
+      //   constraint: 'exclusive'
+      // });
+
+      // // Initialize Gender chips
+      // renderChipDropdown({
+      //   field: 'gender',
+      //   selector: '#scholarshipinclusivegender',
+      //   constraint: 'inclusive'
+      // });
+      // renderChipDropdown({
+      //   field: 'gender',
+      //   selector: '#scholarshipexclusivegender',
+      //   constraint: 'exclusive'
+      // });
+
+      // // Initialize Quota chips
+      // renderChipDropdown({
+      //   field: 'quota',
+      //   selector: '#scholarshipinclusivequota',
+      //   constraint: 'inclusive'
+      // });
+      // renderChipDropdown({
+      //   field: 'quota',
+      //   selector: '#scholarshipexclusivequota',
+      //   constraint: 'exclusive'
+      // });
+
+      // // Initialize Residential Status chips
+      // renderChipDropdown({
+      //   field: 'residential_status',
+      //   selector: '#scholarshipinclusiveresidential',
+      //   constraint: 'inclusive'
+      // });
+      // renderChipDropdown({
+      //   field: 'residential_status',
+      //   selector: '#scholarshipexclusiveresidential',
+      //   constraint: 'exclusive'
+      // });
+
+
+      // // Initialize Special Category chips
+      // renderChipDropdown({
+      //   field: 'special_category',
+      //   selector: '#scholarshipinclusivespecialcategory',
+      //   constraint: 'inclusive'
+      // });
+      // renderChipDropdown({
+      //   field: 'special_category',
+      //   selector: '#scholarshipexclusivespecialcategory',
+      //   constraint: 'exclusive'
+      // });
+
+      // // Initialize First Graduate chips
+      // renderChipDropdown({
+      //   field: 'first_graduate',
+      //   selector: '#scholarshipinclusivefirstgraduate',
+      //   constraint: 'inclusive'
+      // });
+      // renderChipDropdown({
+      //   field: 'first_graduate',
+      //   selector: '#scholarshipexclusivefirstgraduate',
+      //   constraint: 'exclusive'
+      // });
+      // renderChipDropdown({
+      //   field: 'residential_status',
+      //   selector: '#maintenanceresidential',
+      //   constraint: 'inclusive'
+      // })
+      // renderChipDropdown({
+      //   field: 'special_category',
+      //   selector: '#mdisabilitystatus',
+      //   constraint: 'inclusive'
+      // })
     });
 
 
@@ -3409,6 +3406,14 @@
       }
     }
 
+    async function loadSchemeTypeDropdown() {
+      try {
+        await DropdownAPI.loadSchemeRegistrationDropdown('#scheme_type', 'SchemeType');
+      } catch (err) {
+        console.warn('Unable to load scheme type dropdown.', err);
+      }
+    }
+
     function bindDepartmentValue() {
       const safeDepartmentName = loggedInDepartmentName || '';
       $('#department').val(safeDepartmentName);
@@ -3420,6 +3425,7 @@
     setTimeout(bindDepartmentValue, 50);
     loadDepartmentFromApiIfMissing();
     loadSubDepartmentDropdown();
+    loadSchemeTypeDropdown();
 
     const saveParams = {
       'department': loggedInDepartmentName,
