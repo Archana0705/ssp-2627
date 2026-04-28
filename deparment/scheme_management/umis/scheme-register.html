@@ -1216,11 +1216,11 @@
 
                           <div class="form-group mt-2">
                             <label class="form-label">Community</label>
-                            <div id="eligibleexclusivecommuntiy"></div>
+                            <div id="eligibleexclusivecommunity"></div>
                           </div>
                           <div class="form-group">
                             <label class="form-label">Caste</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="eexccast"
+                            <select class="form-select js-example-basic-multiple" multiple id="eexccaste"
                               data-val="caste">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
@@ -1777,7 +1777,7 @@
                               </div>
                             </div>
                             <div class="incl-excl form-grid-2" data-tab="scholarship" data-step="institute">
-                              <h4 class="excl d-flex justify-content-center align-items-center">Exclusive <label
+                                <h4 class="excl d-flex justify-content-center align-items-center">Exclusive <label
                                   class="mini-switch ms-1">
                                   <input type="checkbox" class="exclusive-toggle">
                                   <span class="mini-slider"></span>
@@ -1872,7 +1872,7 @@
                                 </select>
                               </div>
                             </div>
-                            <div class="incl-excl form-grid-2">
+                            <div class="incl-excl form-grid-2 " data-tab="scholarship" data-step="course">
 
                               <h4 class="excl d-flex justify-content-center align-items-center">Exclusive <label
                                   class="mini-switch ms-1">
@@ -3062,8 +3062,9 @@
       // })
     });
 
-  let isEligibilityLoaded = false;
-
+    let isEligibilityLoaded = false;
+    const exclusiveLoadTracker = {};
+    const casteRequestTracker = {};
     $('#add_eligibility').on('click', function (e) {
       e.preventDefault();
 
@@ -3392,17 +3393,6 @@
       }
     }
 
-
-
-
-// DropdownAPI.loadDropdown({
-//   endpoint: 'community-filter',
-//   selector: '#eligibleinclusivecommuntiy',
-//   payload: { field: 'community', department_id: loggedInDepartmentId, sub_department_id: $('#sub_department').val()},
-//   valueKeys: ['id'],
-//   textKeys: ['name']
-// })
-
 function tabToggle() {
 
   const buttons = document.querySelectorAll(".tab-btn");
@@ -3513,38 +3503,307 @@ function getChipValues(containerId, includeNotApplicable = true) {
 
     return values;
 }
+async function handleCommunityToCaste(containerId, casteSelector) {
 
-$(document).on('change', '#eligibleinclusivecommunity .chip-select input[type="checkbox"]', async function () {
-
-    const containerId = '#eligibleinclusivecommunity';
-
-    // 👉 get selected chip values (objects)
     let selected = getChipValues(containerId, true);
-
-    // 👉 extract only values (IDs)
     let selectedValues = selected.map(item => item.value);
 
-    // 👉 fallback (optional)
+    const isNASelected = selectedValues.includes('-1');
+
+    // ============================================
+    // ✅ CASE 1: NOT APPLICABLE → RESET
+    // ============================================
+    if (isNASelected) {
+
+        // 🚫 Cancel any pending request effect
+        casteRequestTracker[casteSelector] = null;
+
+        resetSelectToNA(casteSelector);
+        return;
+    }
+
+    // fallback
     if (!selectedValues.length) {
         selectedValues = ['-1'];
     }
 
-    await DropdownAPI.loadDropdown({
+    // ============================================
+    // ✅ CASE 2: LOAD CASTE (WITH REQUEST GUARD)
+    // ============================================
+
+    const requestId = Date.now();
+    casteRequestTracker[casteSelector] = requestId;
+
+    const rows = await DropdownAPI.loadDropdown({
         endpoint: 'caste-filter',
-        selector: '#einccaste',
+        selector: casteSelector,
         payload: {
-          community_id: selectedValues,
-          department_id: loggedInDepartmentId,
-          sub_department_id: $('#sub_department').val()
+            community_id: selectedValues,
+            department_id: loggedInDepartmentId,
+            sub_department_id: $('#sub_department').val()
         },
         renderType: 'select',
-        useSelect2: true, // 🔥 enable Select2
+        useSelect2: true,
         extraOptions: [
-          { label: 'Select All', value: 'select_all' },
-          { label: 'Deselect All', value: 'deselect_all' }
+            { label: 'Select All', value: 'select_all' },
+            { label: 'Deselect All', value: 'deselect_all' }
         ]
-      });
+    });
+
+    // 🚫 Ignore stale response
+    if (casteRequestTracker[casteSelector] !== requestId) {
+        return;
+    }
+
+    return rows;
+}
+// Inclusive
+$(document).on(
+    'change',
+    '#eligibleinclusivecommunity .chip-select input[type="checkbox"]',
+    function () {
+        handleCommunityToCaste(
+            '#eligibleinclusivecommunity',
+            '#einccaste'
+        );
+    }
+);
+
+// Exclusive
+$(document).on(
+    'change',
+    '#eligibleexclusivecommunity .chip-select input[type="checkbox"]',
+    function () {
+        handleCommunityToCaste(
+            '#eligibleexclusivecommunity',
+            '#eexccaste'
+        );
+    }
+);
+
+async function loadExclusiveData(tab, step, $section) {
+    const key = `${tab}_${step}`;
+    if (exclusiveLoadTracker[key]) return;
+    exclusiveLoadTracker[key] = true;
+
+    console.log("Loading Exclusive:", key);
+    if (tab === 'eligibility') {
+
+        if (step === 'student') {
+
+          DropdownAPI.loadDropdown({
+            endpoint: 'community-filter',
+            selector: $section.find('#eligibleexclusivecommunity'),
+            payload: { field: 'community', department_id: loggedInDepartmentId, sub_department_id: $('#sub_department').val()},
+            renderType: 'chip',
+            constraint: 'exclusion',
+            valueKeys: ['id'],
+            textKeys: ['name']
+          });
+          DropdownAPI.loadDropdown({
+            endpoint: 'dropdown',
+            selector: $section.find('#eexcreligion'),
+            payload: { type: 'Religion'},
+            method:'get',
+            renderType: 'select',
+            useSelect2: true,
+            extraOptions: [
+              { label: 'Select All', value: 'select_all' },
+              { label: 'Deselect All', value: 'deselect_all' }
+            ]
+          });
+          DropdownAPI.loadDropdown({
+            endpoint: 'dropdown',
+            selector: $section.find('#eligibleexclusivegender'),
+            payload: { type: 'Gender'},
+            method:'get',
+            renderType: 'chip',
+            constraint: 'inclusion',
+            valueKeys: ['id'],
+            textKeys: ['name']
+          });
+          DropdownAPI.loadDropdown({
+            endpoint: 'dropdown',
+            selector: $section.find('#eligibleexclusiveresidential'),
+            payload: { type: 'ResidentialStatus'},
+            method:'get',
+            renderType: 'chip',
+            constraint: 'inclusion',
+            valueKeys: ['id'],
+            textKeys: ['name']
+          });
+          DropdownAPI.loadDropdown({
+            endpoint: 'dropdown',
+            selector: $section.find('#eligibleexclusivequota'),
+            payload: { type: 'Quota'},
+            method: 'get',
+            renderType: 'chip',
+            constraint: 'inclusion',
+            valueKeys: ['id'],
+            textKeys: ['name']
+          });
+        }
+
+        if (step === 'institute') {
+            console.log("Call institute APIs");
+        }
+
+        if (step === 'course') {
+            console.log("Call course APIs");
+        }
+    }
+
+    // ===============================
+    // SCHOLARSHIP TAB
+    // ===============================
+    if (tab === 'scholarship') {
+
+        if (step === 'student') {
+            console.log("Scholarship student APIs");
+        }
+
+        if (step === 'institute') {
+            console.log("Scholarship institute APIs");
+        }
+
+        if (step === 'course') {
+            console.log("Scholarship course APIs");
+        }
+    }
+}
+
+$(document).on('change', '.exclusive-toggle', async function () {
+
+    const isEnabled = $(this).is(':checked');
+    const $section = $(this).closest('.incl-excl');
+
+    const tab = $section.data('tab');     // eligibility / scholarship
+    const step = $section.data('step');   // student / institute / course
+
+    const activeMainTab = getActiveMainTab(); // 🔥 IMPORTANT
+
+    const $allInputs = $section.find('input, select, .chip');
+    const $inputsToControl = $allInputs.not(this);
+
+    if (isEnabled) {
+
+        // ✅ Enable UI
+        $section.removeClass('disabled-section');
+        $inputsToControl.prop('disabled', false);
+        $section.find('.chip').removeClass('disabled-chip');
+
+        // ✅ Reset to NA
+        $section.find('.chip-select').each(function () {
+            const $na = $(this).find('input[value="-1"]');
+            $(this).find('input').prop('checked', false).closest('.chip').removeClass('active');
+            $na.prop('checked', true).closest('.chip').addClass('active');
+        });
+
+        // ============================================
+        // ✅ 🔥 CALL API ONLY IF TAB IS scheme-tab2
+        // ============================================
+        if (activeMainTab === 'scheme-tab2') {
+            await loadExclusiveData(tab, step, $section);
+        }
+
+    } else {
+
+        // Reset first
+        $section.find('.chip-select').each(function () {
+            const $na = $(this).find('input[value="-1"]');
+            $(this).find('input').prop('checked', false).closest('.chip').removeClass('active');
+            $na.prop('checked', true).closest('.chip').addClass('active');
+        });
+
+        // Disable UI
+        $section.addClass('disabled-section');
+        $inputsToControl.prop('disabled', true);
+        $section.find('.chip').addClass('disabled-chip');
+    }
 });
+
+// $(document).on('change', '#eligibleexclusivecommunity .chip-select input[type="checkbox"]', async function () {
+
+//     const containerId = '#eligibleexclusivecommunity'; // ✅ FIXED
+
+//     // 👉 get selected chip values
+//     let selected = getChipValues(containerId, true);
+//     let selectedValues = selected.map(item => item.value);
+
+//     // 👉 detect NA
+//     const isNASelected = selectedValues.includes('-1');
+
+//     // ============================================
+//     // ✅ CASE 1: NOT APPLICABLE → RESET CASTE
+//     // ============================================
+//     if (isNASelected) {
+
+//         const $caste = $('#eexccaste');
+
+//         // destroy select2 safely
+//         try {
+//             if ($caste.data('select2')) {
+//                 $caste.select2('destroy');
+//             }
+//         } catch (e) {}
+
+//         $caste.empty();
+
+//         // set only NA
+//         $caste.append(new Option('Not Applicable', '-1', true, true));
+
+//         $caste.prop('multiple', true);
+
+//         $caste.select2({
+//             width: '100%',
+//             placeholder: '--Select--'
+//         });
+
+//         return; // 🚀 STOP API CALL
+//     }
+
+//     // ============================================
+//     // ✅ CASE 2: NORMAL → LOAD CASTE
+//     // ============================================
+
+//     if (!selectedValues.length) {
+//         selectedValues = ['-1'];
+//     }
+
+//     await DropdownAPI.loadDropdown({
+//         endpoint: 'caste-filter',
+//         selector: '#eexccaste',
+//         payload: {
+//             community_id: selectedValues,
+//             department_id: loggedInDepartmentId,
+//             sub_department_id: $('#sub_department').val()
+//         },
+//         renderType: 'select',
+//         useSelect2: true,
+//         extraOptions: [
+//             { label: 'Select All', value: 'select_all' },
+//             { label: 'Deselect All', value: 'deselect_all' }
+//         ]
+//     });
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

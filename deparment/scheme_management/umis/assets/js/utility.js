@@ -1,4 +1,28 @@
-
+const ExclusiveAPIMap = {
+  eligibility: {
+    student: async ($section) => {
+      console.log('Call Eligibility → Student API');
+      // 👉 your API call here
+    },
+    institute: async ($section) => {
+      console.log('Call Eligibility → Institute API');
+    },
+    course: async ($section) => {
+      console.log('Call Eligibility → Course API');
+    }
+  },
+  scholarship: {
+    student: async ($section) => {
+      console.log('Call Scholarship → Student API');
+    },
+    institute: async ($section) => {
+      console.log('Call Scholarship → Institute API');
+    },
+    course: async ($section) => {
+      console.log('Call Scholarship → Course API');
+    }
+  }
+};
 $(document).ready(function() {
     $('.exclusive-toggle').each(function() {
         const isEnabled = $(this).is(':checked');
@@ -50,69 +74,33 @@ $(document).ready(function() {
     });
 });
 
-// $(document).on('click', '.chip', function () {
-//     // Check if the chip is inside a disabled section
-//     const $section = $(this).closest('.incl-excl');
-//     if ($section.hasClass('disabled-section')) {
-//         return; // Prevent selection when section is disabled
-//     }
+function resetSelectToNA(selector) {
+    const $el = $(selector);
 
-//     const $chip = $(this);
-//     const $container = $chip.closest('.chip-select');
+    try {
+        if ($el.data('select2')) {
+            $el.select2('destroy');
+        }
+    } catch (e) {}
 
-//     const group = $container.data('group');
-//     const type  = $container.data('type');
+    // FULL RESET
+    $el.empty();
 
-//     const NOT_APPLICABLE = '-1';
+    // Add only NA
+    $el.append(new Option('Not Applicable', '-1', true, true));
 
-//     const $checkbox = $chip.find('input');
-//     const value = $checkbox.val();
+    // Force value
+    $el.val(['-1']);
 
-//     // const $currentGroup = $(`.chip-select[data-group="${group}"][data-type="${type}"]`);
-//     const isCurrentlyChecked = $checkbox.prop('checked');
+    // Reinitialize
+    $el.prop('multiple', true).select2({
+        width: '100%',
+        placeholder: '--Select--'
+    });
 
-//     if (value === NOT_APPLICABLE) {
-//         // Prevent unchecking NA
-//         if (isCurrentlyChecked) {
-//             return; // do nothing
-//         }
-
-//         // Select NA and clear others
-//         $currentGroup.find('input')
-//             .prop('checked', false)
-//             .closest('.chip').removeClass('active');
-
-//         $checkbox.prop('checked', true);
-//         $chip.addClass('active');
-
-//         return;
-//     }
-
-//     // ============================
-//     // CASE 2: OTHER OPTIONS CLICKED
-//     // ============================
-
-//     // Toggle current
-//     const newState = !isCurrentlyChecked;
-//     $checkbox.prop('checked', newState);
-//     $chip.toggleClass('active', newState);
-
-//     // If any normal option selected → remove NA
-//     if (newState) {
-//         $currentGroup.find(`input[value="${NOT_APPLICABLE}"]`)
-//             .prop('checked', false)
-//             .closest('.chip').removeClass('active');
-//     }
-
-//     // If NO options selected → fallback to NA
-//     const anySelected = $currentGroup.find('input:checked').length;
-
-//     if (!anySelected) {
-//         const $na = $currentGroup.find(`input[value="${NOT_APPLICABLE}"]`);
-//         $na.prop('checked', true)
-//            .closest('.chip').addClass('active');
-//     }
-// });
+    // Sync UI
+    $el.trigger('change');
+}
 $(document).on('click', '.chip', function () {
 
     const $chip = $(this);
@@ -164,49 +152,120 @@ $(document).on('click', '.chip', function () {
     }
 });
 
-$(document).on('change', '.exclusive-toggle', function () {
+// $(document).on('change', '.exclusive-toggle', function () {
+//     const isEnabled = $(this).is(':checked');
+//     const $section = $(this).closest('.incl-excl');
+
+//     const $allInputs = $section.find('input, select, .chip');
+//     const $inputsToControl = $allInputs.not(this);
+
+//     if (isEnabled) {
+//         // Enable section
+//         $section.removeClass('disabled-section');
+//         $inputsToControl.prop('disabled', false);
+//         $section.find('.chip').removeClass('disabled-chip');
+        
+//         // Set default "Not Applicable" for all chip groups when toggling ON
+//         $section.find('.chip-select').each(function() {
+//             const $naChip = $(this).find('input[value="-1"]').closest('.chip');
+//             const $naCheckbox = $naChip.find('input');
+            
+//             // Clear all selections in this group
+//             $(this).find('input').prop('checked', false).closest('.chip').removeClass('active');
+            
+//             // Select Not Applicable
+//             $naCheckbox.prop('checked', true);
+//             $naChip.addClass('active');
+//         });
+//     } else {
+//         // When toggling OFF: First set "Not Applicable" WITHOUT disabling
+//         $section.find('.chip-select').each(function() {
+//             const $naChip = $(this).find('input[value="-1"]').closest('.chip');
+//             const $naCheckbox = $naChip.find('input');
+            
+//             // Clear all selections in this group
+//             $(this).find('input').prop('checked', false).closest('.chip').removeClass('active');
+            
+//             // Select Not Applicable
+//             $naCheckbox.prop('checked', true);
+//             $naChip.addClass('active');
+//         });
+        
+//         // Now disable the section (but "Not Applicable" remains selected)
+//         $section.addClass('disabled-section');
+//         $inputsToControl.prop('disabled', true);
+//         $section.find('.chip').addClass('disabled-chip');
+//     }
+// });
+$(document).on('change', '.exclusive-toggle', async function () {
+
     const isEnabled = $(this).is(':checked');
     const $section = $(this).closest('.incl-excl');
+
+    const tab  = $section.data('tab');   // eligibility / scholarship
+    const step = $section.data('step');  // student / institute / course
 
     const $allInputs = $section.find('input, select, .chip');
     const $inputsToControl = $allInputs.not(this);
 
     if (isEnabled) {
-        // Enable section
+
+        // =========================
+        // ENABLE SECTION
+        // =========================
         $section.removeClass('disabled-section');
         $inputsToControl.prop('disabled', false);
         $section.find('.chip').removeClass('disabled-chip');
-        
-        // Set default "Not Applicable" for all chip groups when toggling ON
-        $section.find('.chip-select').each(function() {
-            const $naChip = $(this).find('input[value="-1"]').closest('.chip');
-            const $naCheckbox = $naChip.find('input');
-            
-            // Clear all selections in this group
-            $(this).find('input').prop('checked', false).closest('.chip').removeClass('active');
-            
-            // Select Not Applicable
-            $naCheckbox.prop('checked', true);
-            $naChip.addClass('active');
+
+        // Reset to Not Applicable
+        $section.find('.chip-select').each(function () {
+            const $na = $(this).find('input[value="-1"]');
+
+            $(this).find('input')
+                .prop('checked', false)
+                .closest('.chip').removeClass('active');
+
+            $na.prop('checked', true)
+               .closest('.chip').addClass('active');
         });
+
+        // =========================
+        // 🔥 CALL API ONLY ONCE
+        // =========================
+        if (!$section.data('apiLoaded')) {
+
+            if (ExclusiveAPIMap?.[tab]?.[step]) {
+                await ExclusiveAPIMap[tab][step]($section);
+            }
+
+            $section.data('apiLoaded', true); // ✅ prevent duplicate
+        }
+
     } else {
-        // When toggling OFF: First set "Not Applicable" WITHOUT disabling
-        $section.find('.chip-select').each(function() {
-            const $naChip = $(this).find('input[value="-1"]').closest('.chip');
-            const $naCheckbox = $naChip.find('input');
-            
-            // Clear all selections in this group
-            $(this).find('input').prop('checked', false).closest('.chip').removeClass('active');
-            
-            // Select Not Applicable
-            $naCheckbox.prop('checked', true);
-            $naChip.addClass('active');
+
+        // =========================
+        // RESET → NA FIRST
+        // =========================
+        $section.find('.chip-select').each(function () {
+            const $na = $(this).find('input[value="-1"]');
+
+            $(this).find('input')
+                .prop('checked', false)
+                .closest('.chip').removeClass('active');
+
+            $na.prop('checked', true)
+               .closest('.chip').addClass('active');
         });
-        
-        // Now disable the section (but "Not Applicable" remains selected)
+
+        // =========================
+        // DISABLE
+        // =========================
         $section.addClass('disabled-section');
         $inputsToControl.prop('disabled', true);
         $section.find('.chip').addClass('disabled-chip');
+
+        // ❗ OPTIONAL: reset API flag if you want re-fetch on next ON
+        // $section.removeData('apiLoaded');
     }
 });
 

@@ -14,7 +14,9 @@ const dropdowns = [
     '#sinccourse','#sinccoursebranch','#sinccourseyear','#sexcstream','#sexccoursetype','#sexccoursecategory',
     '#sexccourse','#sexccoursebranch','#sexccourseyear', 'mhosteltype', 'mdisabilitycategory'
 ];
-
+function getActiveMainTab() {
+    return $('.tab-btn.active').data('tab');
+}
 function applyInputValidation(inputId, rules = []) {
 // Rule	            Description
 //  1	            Allow only digits (0-9) — removes everything else.
