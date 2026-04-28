@@ -50,35 +50,89 @@ $(document).ready(function() {
     });
 });
 
+// $(document).on('click', '.chip', function () {
+//     // Check if the chip is inside a disabled section
+//     const $section = $(this).closest('.incl-excl');
+//     if ($section.hasClass('disabled-section')) {
+//         return; // Prevent selection when section is disabled
+//     }
+
+//     const $chip = $(this);
+//     const $container = $chip.closest('.chip-select');
+
+//     const group = $container.data('group');
+//     const type  = $container.data('type');
+
+//     const NOT_APPLICABLE = '-1';
+
+//     const $checkbox = $chip.find('input');
+//     const value = $checkbox.val();
+
+//     // const $currentGroup = $(`.chip-select[data-group="${group}"][data-type="${type}"]`);
+//     const isCurrentlyChecked = $checkbox.prop('checked');
+
+//     if (value === NOT_APPLICABLE) {
+//         // Prevent unchecking NA
+//         if (isCurrentlyChecked) {
+//             return; // do nothing
+//         }
+
+//         // Select NA and clear others
+//         $currentGroup.find('input')
+//             .prop('checked', false)
+//             .closest('.chip').removeClass('active');
+
+//         $checkbox.prop('checked', true);
+//         $chip.addClass('active');
+
+//         return;
+//     }
+
+//     // ============================
+//     // CASE 2: OTHER OPTIONS CLICKED
+//     // ============================
+
+//     // Toggle current
+//     const newState = !isCurrentlyChecked;
+//     $checkbox.prop('checked', newState);
+//     $chip.toggleClass('active', newState);
+
+//     // If any normal option selected → remove NA
+//     if (newState) {
+//         $currentGroup.find(`input[value="${NOT_APPLICABLE}"]`)
+//             .prop('checked', false)
+//             .closest('.chip').removeClass('active');
+//     }
+
+//     // If NO options selected → fallback to NA
+//     const anySelected = $currentGroup.find('input:checked').length;
+
+//     if (!anySelected) {
+//         const $na = $currentGroup.find(`input[value="${NOT_APPLICABLE}"]`);
+//         $na.prop('checked', true)
+//            .closest('.chip').addClass('active');
+//     }
+// });
 $(document).on('click', '.chip', function () {
-    // Check if the chip is inside a disabled section
-    const $section = $(this).closest('.incl-excl');
-    if ($section.hasClass('disabled-section')) {
-        return; // Prevent selection when section is disabled
-    }
 
     const $chip = $(this);
-    const $container = $chip.closest('.chip-select');
-
-    const group = $container.data('group');
-    const type  = $container.data('type');
+    const $container = $chip.closest('.chip-select'); // ✅ scoped container
 
     const NOT_APPLICABLE = '-1';
 
     const $checkbox = $chip.find('input');
     const value = $checkbox.val();
 
-    const $currentGroup = $(`.chip-select[data-group="${group}"][data-type="${type}"]`);
-    const isCurrentlyChecked = $checkbox.prop('checked');
+    const isChecked = $checkbox.prop('checked');
 
+    // ============================
+    // NOT APPLICABLE
+    // ============================
     if (value === NOT_APPLICABLE) {
-        // Prevent unchecking NA
-        if (isCurrentlyChecked) {
-            return; // do nothing
-        }
 
-        // Select NA and clear others
-        $currentGroup.find('input')
+        if (isChecked) return;
+
+        $container.find('input')
             .prop('checked', false)
             .closest('.chip').removeClass('active');
 
@@ -89,26 +143,22 @@ $(document).on('click', '.chip', function () {
     }
 
     // ============================
-    // CASE 2: OTHER OPTIONS CLICKED
+    // NORMAL OPTIONS
     // ============================
-
-    // Toggle current
-    const newState = !isCurrentlyChecked;
+    const newState = !isChecked;
     $checkbox.prop('checked', newState);
     $chip.toggleClass('active', newState);
 
-    // If any normal option selected → remove NA
     if (newState) {
-        $currentGroup.find(`input[value="${NOT_APPLICABLE}"]`)
+        $container.find(`input[value="${NOT_APPLICABLE}"]`)
             .prop('checked', false)
             .closest('.chip').removeClass('active');
     }
 
-    // If NO options selected → fallback to NA
-    const anySelected = $currentGroup.find('input:checked').length;
+    const anySelected = $container.find('input:checked').length;
 
     if (!anySelected) {
-        const $na = $currentGroup.find(`input[value="${NOT_APPLICABLE}"]`);
+        const $na = $container.find(`input[value="${NOT_APPLICABLE}"]`);
         $na.prop('checked', true)
            .closest('.chip').addClass('active');
     }
@@ -172,6 +222,7 @@ function getStudentParameters() {
     return {
         inclusive: {
             community: getChipValues('#eligibleinclusivecommunity'),
+            caste: getSelectValues('#eligibleinclusivecaste'),
             religion: getSelectValues('#eincreligion'),
             gender: getChipValues('#eligibleinclusivegender'),
             income: getIncomeValues('.incl-excl.active .form-group'),
@@ -183,6 +234,7 @@ function getStudentParameters() {
         exclusive: {
             enabled: isExclusiveEnabled('student'),
             community: getChipValues('#eligibleexclusivecommuntiy'),
+            caste: getSelectValues('#eligibleexclusivecaste'),
             religion: getSelectValues('#eexcreligion'),
             gender: getChipValues('#eligibleexclusivegender'),
             income: getIncomeValues('.incl-excl[data-step="student"]:not(.active) .form-group'),

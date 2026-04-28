@@ -38,7 +38,17 @@
       pointer-events: none;
       transition: all .3s ease;
     }
+    .select2-container--default .select2-selection--multiple {
+    max-height: 160px;           /* adjust as needed */
+    overflow-y: auto;
+}
 
+/* Prevent tags from wrapping infinitely */
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    max-height: 160px;
+    overflow-y: auto;
+    display: block;
+}
     .chip {
       cursor: pointer;
     }
@@ -1149,7 +1159,7 @@
                           </div>
                           <div class="form-group">
                             <label class="form-label">Caste</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="einccast"
+                            <select class="form-select js-example-basic-multiple" multiple id="einccaste"
                               data-val="caste">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
@@ -2756,7 +2766,7 @@
 
   <script src="assets/js/add.js"></script>
   <script>
-    tabToggle();
+    
     innerTabToggle();
     renderInstalments();
   </script>
@@ -2902,11 +2912,7 @@
         inputShowHide($(this), $('#exincomeValue'));
       });
 
-      // renderChipDropdown({
-      //   field: 'community',
-      //   selector: '#eligibleinclusivecommunity',
-      //   constraint: 'inclusive'
-      // });
+;
       // renderChipDropdown({
       //   field: 'community',
       //   selector: '#eligibleexclusivecommuntiy',
@@ -3056,6 +3062,7 @@
       // })
     });
 
+  let isEligibilityLoaded = false;
 
     $('#add_eligibility').on('click', function (e) {
       e.preventDefault();
@@ -3387,6 +3394,161 @@
 
 
 
+
+// DropdownAPI.loadDropdown({
+//   endpoint: 'community-filter',
+//   selector: '#eligibleinclusivecommuntiy',
+//   payload: { field: 'community', department_id: loggedInDepartmentId, sub_department_id: $('#sub_department').val()},
+//   valueKeys: ['id'],
+//   textKeys: ['name']
+// })
+
+function tabToggle() {
+
+  const buttons = document.querySelectorAll(".tab-btn");
+  const tabs = document.querySelectorAll(".tab-section");
+
+  buttons.forEach((btn, index) => {
+
+    btn.addEventListener("click", async function () {
+
+      // reset
+      buttons.forEach(b => {
+        b.classList.remove("active", "completed");
+      });
+
+      // set active
+      this.classList.add("active");
+
+      // mark previous steps completed
+      buttons.forEach((b, i) => {
+        if (i < index) {
+          b.classList.add("completed");
+        }
+      });
+
+      // hide tabs
+      tabs.forEach(tab => tab.classList.add("d-none"));
+
+      // show selected
+      const id = this.getAttribute("data-tab");
+      document.getElementById(id).classList.remove("d-none");
+
+      // existing call
+      getSchemeIdentityRegisterReference(saveParams);
+
+      // ✅ NEW: Trigger only for Eligibility tab (Tab 2)
+      if (id === 'scheme-tab2' && !isEligibilityLoaded) {
+        isEligibilityLoaded = true;
+        DropdownAPI.loadDropdown({
+          endpoint: 'community-filter',
+          selector: '#eligibleinclusivecommunity',
+          payload: { field: 'community', department_id: loggedInDepartmentId, sub_department_id: $('#sub_department').val()},
+          renderType: 'chip',
+          constraint: 'inclusion',
+          valueKeys: ['id'],
+          textKeys: ['name']
+        });
+        DropdownAPI.loadDropdown({
+          endpoint: 'dropdown',
+          selector: '#eincreligion',
+          payload: { type: 'Religion'},
+          method:'get',
+          renderType: 'select',
+          useSelect2: true,
+          extraOptions: [
+            { label: 'Select All', value: 'select_all' },
+            { label: 'Deselect All', value: 'deselect_all' }
+          ]
+        });
+        DropdownAPI.loadDropdown({
+          endpoint: 'dropdown',
+          selector: '#eligibleinclusivegender',
+          payload: { type: 'Gender'},
+          method:'get',
+          renderType: 'chip',
+          constraint: 'inclusion',
+          valueKeys: ['id'],
+          textKeys: ['name']
+        });
+        DropdownAPI.loadDropdown({
+          endpoint: 'dropdown',
+          selector: '#eligibleinclusiveresidential',
+          payload: { type: 'ResidentialStatus'},
+          method:'get',
+          renderType: 'chip',
+          constraint: 'inclusion',
+          valueKeys: ['id'],
+          textKeys: ['name']
+        });
+        DropdownAPI.loadDropdown({
+          endpoint: 'dropdown',
+          selector: '#eligibleinclusivequota',
+          payload: { type: 'Quota'},
+          method: 'get',
+          renderType: 'chip',
+          constraint: 'inclusion',
+          valueKeys: ['id'],
+          textKeys: ['name']
+        });
+      }
+
+    });
+
+  });
+
+}
+
+function getChipValues(containerId, includeNotApplicable = true) {
+    const values = [];
+
+    $(`${containerId} .chip.active input:checked`).each(function () {
+        const value = $(this).val();
+        const text = $(this).closest('.chip').text().trim();
+
+        if (includeNotApplicable || value !== '-1') {
+            values.push({ value, text });
+        }
+    });
+
+    return values;
+}
+
+$(document).on('change', '#eligibleinclusivecommunity .chip-select input[type="checkbox"]', async function () {
+
+    const containerId = '#eligibleinclusivecommunity';
+
+    // 👉 get selected chip values (objects)
+    let selected = getChipValues(containerId, true);
+
+    // 👉 extract only values (IDs)
+    let selectedValues = selected.map(item => item.value);
+
+    // 👉 fallback (optional)
+    if (!selectedValues.length) {
+        selectedValues = ['-1'];
+    }
+
+    await DropdownAPI.loadDropdown({
+        endpoint: 'caste-filter',
+        selector: '#einccaste',
+        payload: {
+          community_id: selectedValues,
+          department_id: loggedInDepartmentId,
+          sub_department_id: $('#sub_department').val()
+        },
+        renderType: 'select',
+        useSelect2: true, // 🔥 enable Select2
+        extraOptions: [
+          { label: 'Select All', value: 'select_all' },
+          { label: 'Deselect All', value: 'deselect_all' }
+        ]
+      });
+});
+
+
+
+
     $(document).ready(function () {
 
       const $wrapper = $('.step-divider');
@@ -3424,7 +3586,7 @@
       });
 
     });
-
+tabToggle();
   </script>
 </body>
 

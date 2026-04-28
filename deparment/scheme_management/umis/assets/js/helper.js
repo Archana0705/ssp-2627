@@ -3,7 +3,7 @@ const SELECT_ALL = 'select_all';
 const DESELECT_ALL = 'deselect_all';
 let mode = 'add';
 const dropdowns = [
-    '#eincreligion', '#eexcreligion', '#einccast', '#eexccast', '#eligibilityCriteriaList',
+    '#eincreligion', '#eexcreligion', '#einccaste', '#eexccaste', '#eligibilityCriteriaList',
     '#sincreligion', '#sexcreligion','#eincinstituteownership','#eincuniversitytype','#eincuniversity',
     '#eincinstitutecategory','#eincinstitutename','#eexcinstituteownership','#eexcuniversitytype','#eexcuniversity',
     '#eexcinstitutecategory','#eexcinstitutename','#eincstream','#einccoursetype','#einccoursecategory',

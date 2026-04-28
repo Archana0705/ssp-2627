@@ -1,39 +1,39 @@
-function tabToggle(){
+// function tabToggle(){
 
-  const buttons = document.querySelectorAll(".tab-btn");
-  const tabs = document.querySelectorAll(".tab-section");
+//   const buttons = document.querySelectorAll(".tab-btn");
+//   const tabs = document.querySelectorAll(".tab-section");
 
-  buttons.forEach((btn,index) => {
+//   buttons.forEach((btn,index) => {
 
-    btn.addEventListener("click", function(){
+//     btn.addEventListener("click", function(){
 
-      // reset
-      buttons.forEach(b=>{
-        b.classList.remove("active","completed");
-      });
+//       // reset
+//       buttons.forEach(b=>{
+//         b.classList.remove("active","completed");
+//       });
 
-      // set active
-      this.classList.add("active");
+//       // set active
+//       this.classList.add("active");
 
-      // mark previous steps completed
-      buttons.forEach((b,i)=>{
-        if(i < index){
-          b.classList.add("completed");
-        }
-      });
+//       // mark previous steps completed
+//       buttons.forEach((b,i)=>{
+//         if(i < index){
+//           b.classList.add("completed");
+//         }
+//       });
 
-      // hide tabs
-      tabs.forEach(tab => tab.classList.add("d-none"));
+//       // hide tabs
+//       tabs.forEach(tab => tab.classList.add("d-none"));
 
-      // show selected
-      const id = this.getAttribute("data-tab");
-      document.getElementById(id).classList.remove("d-none");
-      getSchemeIdentityRegisterReference(saveParams)
-    });
+//       // show selected
+//       const id = this.getAttribute("data-tab");
+//       document.getElementById(id).classList.remove("d-none");
+//       getSchemeIdentityRegisterReference(saveParams)
+//     });
 
-  });
+//   });
 
-}
+// }
 
 function innerTabToggle(){
 

@@ -61,50 +61,46 @@ function getIncomeRange(bindElement) {
 }
 
 
-function renderChipDropdown({ field, selector, constraint }) {
+async function renderChipDropdown({ api, field, selector, constraint }) {
+    try {
+        const result = await SecureAPI.request(
+            `${API_BASE_URL}/${api}`, // ✅ dynamic endpoint
+            'POST',
+            { field }
+        );
 
-    $.ajax({
-        url: config.dropdownAPI + 'dropdown/dropdown.php',
-        type: 'POST',
-        dataType: 'json',
-        data: { field },
+        if (!result) return;
 
-        success: function (response) {
+        const results = result?.data || [];
 
-            const results = response?.data;
+        let html = `
+            <div class="chip-select multi-select" 
+                 data-group="${constraint}" 
+                 data-type="${field}">
+        `;
 
-            let html = `
-                <div class="chip-select multi-select" 
-                     data-group="${constraint}" 
-                     data-type="${field}">
-            `;
+        if (Array.isArray(results)) {
+            results.forEach(item => {
+                const isNA = item.id === '-1';
 
-            if (Array.isArray(results)) {
-
-                results.forEach(item => {
-
-                    const isNA = item.id === '-1';
-
-                    html += `
-                        <label class="chip ${isNA ? 'active' : ''}">
-                            <input type="checkbox" 
-                                   value="${item.id}" 
-                                   ${isNA ? 'checked' : ''} 
-                                   hidden>
-                            <span>${item.text}</span>
-                        </label>
-                    `;
-                });
-            }
-
-            html += `</div>`;
-
-            $(selector).html(html);
-        },
-
-        error: function () {
-            console.error(`Dropdown API failed for ${field}`);
+                html += `
+                    <label class="chip ${isNA ? 'active' : ''}">
+                        <input type="checkbox" 
+                               value="${item.id}" 
+                               ${isNA ? 'checked' : ''} 
+                               hidden>
+                        <span>${item.name}</span>
+                    </label>
+                `;
+            });
         }
-    });
+
+        html += `</div>`;
+
+        $(selector).html(html);
+
+    } catch (error) {
+        console.error(`Error loading ${api}:`, error);
+    }
 }
 
