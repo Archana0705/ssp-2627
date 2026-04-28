@@ -61,7 +61,7 @@ const DropdownAPI = {
     if (Array.isArray(response.items)) return response.items;
     if (Array.isArray(response.list)) return response.list;
     if (Array.isArray(response.records)) return response.records;
-    if (Array.isArray(response.schemeTypes)) return response.schemeTypes;
+    if (Array.isArray(response.scheme_types)) return response.scheme_types;
     if (Array.isArray(response.dropdownData)) return response.dropdownData;
     return [];
   },
@@ -99,8 +99,8 @@ const DropdownAPI = {
   },
 
   /**
-   * Scheme Registration dropdown API — GET with query ?type=...
-   * Example type: "SchemeType"
+   * Scheme type dropdown from staging_api.php:
+   * POST /api/scheme-type-filter (Auth + CSRF + encrypted payload)
    */
   async loadSchemeRegistrationDropdown(selector, typeParam = 'SchemeType') {
     if (typeof SecureAPI === 'undefined' || !SecureAPI.request) {
@@ -109,9 +109,10 @@ const DropdownAPI = {
 
     await this.ensureCsrfToken();
 
-    const base = this.getSchemeRegistrationBase().replace(/\/$/, '');
-    const url = `${base}/dropdown?${new URLSearchParams({ type: typeParam })}`;
-    const response = await SecureAPI.request(url, 'GET');
+    const payload = { type: typeParam };
+    console.log('scheme-type-filter payload:', payload);
+    const response = await this.post('scheme-type-filter', payload);
+
     console.log(`scheme-registration dropdown [type=${typeParam}] response:`, response);
 
     const rows = this.extractRows(response);
@@ -119,7 +120,7 @@ const DropdownAPI = {
 
     this.bindSelectOptions(selector, rows, {
       valueKeys: ['id', 'value', 'scheme_type_id', 'type_id', 'lookup_id'],
-      textKeys: ['name', 'text', 'label', 'scheme_type_name', 'type_name', 'description']
+      textKeys: ['display_text', 'displayText', 'name', 'text', 'label', 'scheme_type_name', 'type_name', 'description']
     });
 
     return rows;

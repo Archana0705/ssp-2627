@@ -14,7 +14,7 @@ if (file_exists($envFile)) {
 
 function getPublicIP() {
     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-        // multiple IPs → first is real client
+        // multiple IPs â†’ first is real client
         $ipList = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
         return trim($ipList[0]);
     } elseif (!empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -27,11 +27,18 @@ function getPublicIP() {
 // echo getPublicIP();
 use App\Core\Router;
 use App\Core\Request;
+
+// Controllers
 use App\Controllers\AuthController;
 use App\Controllers\CaptchaController;
 use App\Controllers\SecureController;
 use App\Controllers\UmisController;
-use App\Controllers\FiltersController;
+use App\Controllers\SchemeRegistration\Filters\UMISFilters\UMISFiltersController;
+use App\Controllers\SchemeRegistration\Filters\SSPFilters\SSPFiltersController;
+use App\Controllers\SchemeRegistration\Filters\SSPFilters\DropdownFiltersController;
+
+
+//Middleware
 use App\Middleware\AuthMiddleware;
 use App\Middleware\CSRFMiddleware;
 use App\Middleware\RoleMiddleware;
@@ -83,7 +90,6 @@ $router->add('POST', '/api/get-card', [UmisController::class, 'getCard'], [
 ]);
 
 
-
 // 3. Logout (Auth only)
 $router->add('POST', '/api/logout', [AuthController::class, 'logout'], [
     new RateLimitMiddleware(10, 60),
@@ -93,21 +99,60 @@ $router->add('POST', '/api/logout', [AuthController::class, 'logout'], [
 
 //----------- Filters API  ---------------------- 
 
-$router->add('POST', '/api/department-filter', [FiltersController::class, 'getDepartmentFilter'], [
+$router->add('POST', '/api/department-filter', [UMISFiltersController::class, 'getDepartmentFilter'], [
     new RateLimitMiddleware(30, 60),
     new AuthMiddleware(),
     new CSRFMiddleware()
 ]);
 
-$router->add('POST', '/api/subdepartment-filter', [FiltersController::class, 'getSubDepartmentFilter'], [
+$router->add('POST', '/api/subdepartment-filter', [UMISFiltersController::class, 'getSubDepartmentFilter'], [
     new RateLimitMiddleware(30, 60),
     new AuthMiddleware(),
     new CSRFMiddleware()
 ]);
 
+$router->add('POST', '/api/scheme-type-filter', [UMISFiltersController::class, 'getSchemeTypeFilter'], [
+    new RateLimitMiddleware(30, 60),
+    new AuthMiddleware(),
+    new CSRFMiddleware()
+]);
 
+$router->add('POST', '/api/community-filter', [SSPFiltersController::class, 'getCommunityFilter'], [
+    new RateLimitMiddleware(30, 60),
+    new AuthMiddleware(),
+    new CSRFMiddleware()
+]);
 
+$router->add('POST', '/api/caste-filter', [SSPFiltersController::class, 'getCasteFilter'], [
+    new RateLimitMiddleware(30, 60),
+    new AuthMiddleware(),
+    new CSRFMiddleware()
+]);
 
+$router->add('POST', '/api/religion-filter', [DropdownFiltersController::class, 'getReligion'], [
+    new RateLimitMiddleware(30, 60),
+    new AuthMiddleware(),
+    new CSRFMiddleware()
+]);
+
+$router->add('POST', '/api/scheme-category-filter', [SSPFiltersController::class, 'getSchemeCategoryFilter'], [
+    new RateLimitMiddleware(30, 60),
+    new AuthMiddleware(),
+    new CSRFMiddleware()
+]);
+
+// test get route
+
+$router->add('GET', '/SchemeRegistration/api/dropdown', [SSPFiltersController::class, 'getDropdownValues'], [
+    new RateLimitMiddleware(30, 60),
+    new AuthMiddleware(),
+    new CSRFMiddleware()
+]);
+$router->add('GET', '/SchemeRegistration/api/getQuota', [SSPFiltersController::class, 'getQuota'], [
+    new RateLimitMiddleware(30, 60),
+    new AuthMiddleware(),
+    new CSRFMiddleware()
+]);
 
 
 
