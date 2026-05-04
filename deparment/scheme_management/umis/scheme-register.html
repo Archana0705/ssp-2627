@@ -1464,8 +1464,7 @@
                     <div class="action-bar-left"><span class="draft-dot"></span> Scheme: Post Matric Scholarship for SC
                       Students</div>
                     <div class="action-bar-right">
-                      <button class="btn btn-primary" id="add_eligibility"><i class="bi bi-plus-square"></i> Add
-                        Eligibility Criterias</button>
+                      <button class="btn btn-primary" id="add_eligibility"><i class="bi bi-plus-square"></i> Commit</button>
                     </div>
                   </div>
                 </div>
@@ -1473,14 +1472,15 @@
                 <!-- inner tab buttons -->
 
                 <div class="inner-tab-bar">
-
+                  
                   <div class="section-label">📋Added Eligibility Criteria <span class="count-notification">2</span>
+                    <div id="dynamicCardsWrapper"></div>
                   </div>
-                  <a class="sub-scheme-card" data-tab="fee-tab1">
+                  <!-- <a class="sub-scheme-card" data-tab="fee-tab1">
                     <div class="sub-scheme-card-name">
                       SC Girl Students – PG <span> ADW-PMS-2026-EC001 </span>
                     </div>
-                    <!-- Action buttons -->
+                   
                     <div class="card-actions">
                       <button class="preview-btn" data-bs-toggle="modal" data-bs-target="#add_fee">
                         <i class="bi bi-eye"></i>
@@ -1489,12 +1489,12 @@
                         <i class="bi bi-trash"></i>
                       </button>
                     </div>
-                  </a>
-                  <a class="sub-scheme-card" data-tab="fee-tab1">
+                  </a> -->
+                  <!-- <a class="sub-scheme-card" data-tab="fee-tab1">
                     <div class="sub-scheme-card-name">
                       SC Boy Students – PG <span> ADW-PMS-2026-EC002 </span>
                     </div>
-                    <!-- Action buttons -->
+                   
                     <div class="card-actions">
                       <button class="preview-btn" data-bs-toggle="modal" data-bs-target="#add_fee">
                         <i class="bi bi-eye"></i>
@@ -1503,7 +1503,7 @@
                         <i class="bi bi-trash"></i>
                       </button>
                     </div>
-                  </a>
+                  </a> -->
                   <button class="btn btn-primary d-flex flex-row justify-content-center"
                     onclick="saveEligibility()">Continue <i class="bi bi-arrow-right-circle"></i> Scholarship
                     Fee</button>
@@ -3065,24 +3065,6 @@
     let isEligibilityLoaded = false;
     const exclusiveLoadTracker = {};
     const casteRequestTracker = {};
-    $('#add_eligibility').on('click', function (e) {
-      e.preventDefault();
-
-      let eligibleCriteriaName = $('#eligibleCriteriaName').val();
-      if (!eligibleCriteriaName) {
-        alert('Enter the Eligibility Criteria Name')
-        return;
-      }
-
-      const allValues = getAllParameterValues();
-      console.log('Detailed Values:', allValues);
-      console.log('Student Inclusive religion:', allValues.student.inclusive.religion);
-      console.log('Student Exclusive Enabled:', allValues.student.exclusive.enabled);
-      console.log('Institute Inclusive Ownership:', allValues.institute.inclusive.institute_ownership);
-      return allValues;
-
-    });
-
     function normalizeUserDetailsPayload(payload) {
       if (!payload) return null;
 
@@ -3722,73 +3704,35 @@ $(document).on('change', '.exclusive-toggle', async function () {
     }
 });
 
-// $(document).on('change', '#eligibleexclusivecommunity .chip-select input[type="checkbox"]', async function () {
-
-//     const containerId = '#eligibleexclusivecommunity'; // ✅ FIXED
-
-//     // 👉 get selected chip values
-//     let selected = getChipValues(containerId, true);
-//     let selectedValues = selected.map(item => item.value);
-
-//     // 👉 detect NA
-//     const isNASelected = selectedValues.includes('-1');
-
-//     // ============================================
-//     // ✅ CASE 1: NOT APPLICABLE → RESET CASTE
-//     // ============================================
-//     if (isNASelected) {
-
-//         const $caste = $('#eexccaste');
-
-//         // destroy select2 safely
-//         try {
-//             if ($caste.data('select2')) {
-//                 $caste.select2('destroy');
-//             }
-//         } catch (e) {}
-
-//         $caste.empty();
-
-//         // set only NA
-//         $caste.append(new Option('Not Applicable', '-1', true, true));
-
-//         $caste.prop('multiple', true);
-
-//         $caste.select2({
-//             width: '100%',
-//             placeholder: '--Select--'
-//         });
-
-//         return; // 🚀 STOP API CALL
-//     }
-
-//     // ============================================
-//     // ✅ CASE 2: NORMAL → LOAD CASTE
-//     // ============================================
-
-//     if (!selectedValues.length) {
-//         selectedValues = ['-1'];
-//     }
-
-//     await DropdownAPI.loadDropdown({
-//         endpoint: 'caste-filter',
-//         selector: '#eexccaste',
-//         payload: {
-//             community_id: selectedValues,
-//             department_id: loggedInDepartmentId,
-//             sub_department_id: $('#sub_department').val()
-//         },
-//         renderType: 'select',
-//         useSelect2: true,
-//         extraOptions: [
-//             { label: 'Select All', value: 'select_all' },
-//             { label: 'Deselect All', value: 'deselect_all' }
-//         ]
-//     });
-// });
-
-
-
+$('#add_eligibility').on('click', function(e) {
+        e.preventDefault();
+        
+        // Get current form data
+        
+        
+        const criteriaName = $('#eligibleCriteriaName').val();
+         if (!criteriaName) {
+        alert('Enter the Eligibility Criteria Name')
+        return;
+      }
+      const formData = getEligibilityFormData();
+        // Create new criteria object
+        const newCriteria = {
+            id: Date.now(),
+            name: criteriaName,
+            formData: formData,
+            createdAt: new Date()
+        };
+        
+        // Add to list
+        criteriaList.push(newCriteria);
+        
+        // Re-render cards
+        renderCriteriaCards();
+        
+        // Optional: Scroll to show the new card
+        $('.inner-tab-bar')[0]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
 
 
 
