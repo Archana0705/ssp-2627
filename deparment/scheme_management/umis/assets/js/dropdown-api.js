@@ -136,156 +136,167 @@ const DropdownAPI = {
     return rows;
   },
 
+  async loadSchemeRegistrationGenericDropdown(selector, typeParam, bindConfig = {}) {
+    const endpoint = bindConfig.endpoint || 'dropdown';
+    const payload = {
+      type: typeParam,
+      ...(bindConfig.payload || {})
+    };
+
+    return this.loadDropdown({
+      endpoint,
+      selector,
+      payload,
+      method: 'get',
+      valueKeys: bindConfig.valueKeys || ['id', 'value', 'lookup_id', 'type_id'],
+      textKeys: bindConfig.textKeys || ['display_text', 'displayText', 'name', 'text', 'label', 'description'],
+      placeholderText: bindConfig.placeholderText || '--Select--',
+      renderType: bindConfig.renderType || 'select',
+      includeNA: bindConfig.includeNA ?? false,
+      useSelect2: bindConfig.useSelect2 ?? false,
+      extraOptions: bindConfig.extraOptions || []
+    });
+  },
 
 
+  // ========================================================================================================================
+  // ************************************************************************************************************************
+  //                                          ELIGIBILITY TAP API
+  // ************************************************************************************************************************
+  // ========================================================================================================================
 
 
-
-
-
-
-
-
-  
-
-// ========================================================================================================================
-// ************************************************************************************************************************
-//                                          ELIGIBILITY TAP API
-// ************************************************************************************************************************
-// ========================================================================================================================
-
-
-async loadDropdown({
-  endpoint,
-  selector,
-  payload = {},
-  method,
-  valueKeys = ['id'],
-  textKeys = ['name'],
-  placeholderText = '--Select--',
-  renderType = 'select',
-  constraint = '',
-  field = '',
-  includeNA = true,
-  useSelect2 = false,            
-  extraOptions = [] 
-}) {
-  let response;
-  if(method === 'get'){
-    response = await this.get(endpoint, payload);
-  }else{
-    response = await this.post(endpoint, payload);
-  }
-  // const response = await this.post(endpoint, payload);
-  const rows = this.extractRows(response) || [];
-
-  // ✅ Inject NA
-  let finalRows = rows;
-  if (includeNA) {
-    const hasNA = rows.some(item =>
-      valueKeys.some(k => String(item[k]) === '-1')
-    );
-
-    if (!hasNA) {
-      const naObj = {};
-      valueKeys.forEach(k => naObj[k] = '-1');
-      textKeys.forEach(k => naObj[k] = 'Not Applicable');
-
-      finalRows = [naObj, ...rows];
-    }
-  }
-
-  // ============================
-  // 👉 SELECT (WITH SELECT2)
-  // ============================
-  if (renderType === 'select') {
-
-    const $el = $(selector);
-
-    if (useSelect2) {
-
-      // 👉 destroy safely
-      try {
-        if ($el.data('select2')) $el.select2('destroy');
-      } catch (e) {}
-
-      $el.empty();
-
-      // 👉 Add extra options first
-      extraOptions.forEach(opt => {
-        $el.append(new Option(opt.label, opt.value, false, false));
-      });
-
-      // 👉 Add actual data
-      finalRows.forEach(item => {
-        const value = valueKeys.map(k => item[k]).find(v => v !== undefined);
-        const text = textKeys.map(k => item[k]).find(v => v !== undefined);
-
-        $el.append(new Option(text, value, value === '-1', value === '-1'));
-      });
-
-      $el.prop('multiple', true);
-
-      $el.select2({
-        width: '100%',
-        placeholder: placeholderText
-      });
-
-      // 👉 Special handling
-      $el.off('change.control').on('change.control', function () {
-
-        let values = $(this).val() || [];
-
-        // Select All
-        if (values.includes('select_all')) {
-          const all = [];
-          $(this).find('option').each(function () {
-            const v = $(this).val();
-            if (!['select_all', 'deselect_all'].includes(v)) {
-              all.push(v);
-            }
-          });
-          $(this).val(all).trigger('change.select2');
-        }
-
-        // Deselect All
-        if (values.includes('deselect_all')) {
-          $(this).val(['-1']).trigger('change.select2');
-        }
-
-        // NA logic
-        if (values.includes('-1') && values.length > 1) {
-          $(this).val(['-1']).trigger('change.select2');
-        }
-      });
-
+  async loadDropdown({
+    endpoint,
+    selector,
+    payload = {},
+    method,
+    valueKeys = ['id'],
+    textKeys = ['name'],
+    placeholderText = '--Select--',
+    renderType = 'select',
+    constraint = '',
+    field = '',
+    includeNA = true,
+    useSelect2 = false,
+    extraOptions = []
+  }) {
+    let response;
+    if (method === 'get') {
+      response = await this.get(endpoint, payload);
     } else {
-      // 👉 fallback (your existing)
-      this.bindSelectOptions(selector, finalRows, {
-        valueKeys,
-        textKeys,
-        placeholderText
-      });
+      response = await this.post(endpoint, payload);
     }
-  }
+    // const response = await this.post(endpoint, payload);
+    const rows = this.extractRows(response) || [];
 
-  // ============================
-  // 👉 CHIP (UNCHANGED)
-  // ============================
-  if (renderType === 'chip') {
-    let html = `
+    // ✅ Inject NA
+    let finalRows = rows;
+    if (includeNA) {
+      const hasNA = rows.some(item =>
+        valueKeys.some(k => String(item[k]) === '-1')
+      );
+
+      if (!hasNA) {
+        const naObj = {};
+        valueKeys.forEach(k => naObj[k] = '-1');
+        textKeys.forEach(k => naObj[k] = 'Not Applicable');
+
+        finalRows = [naObj, ...rows];
+      }
+    }
+
+    // ============================
+    // 👉 SELECT (WITH SELECT2)
+    // ============================
+    if (renderType === 'select') {
+
+      const $el = $(selector);
+
+      if (useSelect2) {
+
+        // 👉 destroy safely
+        try {
+          if ($el.data('select2')) $el.select2('destroy');
+        } catch (e) { }
+
+        $el.empty();
+
+        // 👉 Add extra options first
+        extraOptions.forEach(opt => {
+          $el.append(new Option(opt.label, opt.value, false, false));
+        });
+
+        // 👉 Add actual data
+        finalRows.forEach(item => {
+          const value = valueKeys.map(k => item[k]).find(v => v !== undefined);
+          const text = textKeys.map(k => item[k]).find(v => v !== undefined);
+
+          $el.append(new Option(text, value, value === '-1', value === '-1'));
+        });
+
+        $el.prop('multiple', true);
+
+        $el.select2({
+          width: '100%',
+          placeholder: placeholderText
+        });
+
+        // 👉 Special handling
+        $el.off('change.control').on('change.control', function () {
+
+          let values = $(this).val() || [];
+
+          // Select All
+          if (values.includes('select_all')) {
+            const all = [];
+            $(this).find('option').each(function () {
+              const v = $(this).val();
+              if (!['select_all', 'deselect_all'].includes(v)) {
+                all.push(v);
+              }
+            });
+            $(this).val(all).trigger('change.select2');
+          }
+
+          // Deselect All
+          if (values.includes('deselect_all')) {
+            $(this).val(['-1']).trigger('change.select2');
+          }
+
+          // NA logic
+          if (values.includes('-1') && values.length > 1) {
+            $(this).val(['-1']).trigger('change.select2');
+          }
+        });
+
+      } else {
+        // 👉 fallback (your existing)
+        this.bindSelectOptions(selector, finalRows, {
+          valueKeys,
+          textKeys,
+          placeholderText
+        });
+      }
+    }
+
+    // ============================
+    // 👉 CHIP (UNCHANGED)
+    // ============================
+    if (renderType === 'chip') {
+      let html = `
       <div class="chip-select multi-select" 
            data-group="${constraint}" 
            data-type="${field}">
     `;
 
-    finalRows.forEach(item => {
-      const value = valueKeys.map(k => item[k]).find(v => v !== undefined);
-      const text = textKeys.map(k => item[k]).find(v => v !== undefined);
+      finalRows.forEach(item => {
+        const value = valueKeys.map(k => item[k]).find(v => v !== undefined);
+        const text = textKeys.map(k => item[k]).find(v => v !== undefined);
 
-      const isNA = String(value) === '-1';
+        const isNA = String(value) === '-1';
 
-      html += `
+        html += `
         <label class="chip ${isNA ? 'active' : ''}">
           <input type="checkbox" 
                  value="${value}" 
@@ -294,13 +305,13 @@ async loadDropdown({
           <span>${text}</span>
         </label>
       `;
-    });
+      });
 
-    html += `</div>`;
-    $(selector).html(html);
+      html += `</div>`;
+      $(selector).html(html);
+    }
+
+    return finalRows;
   }
-
-  return finalRows;
-}
 };
 

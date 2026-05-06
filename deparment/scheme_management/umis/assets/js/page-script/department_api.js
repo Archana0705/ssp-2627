@@ -42,6 +42,14 @@ const SecureAPI = {
             payload = SecureAPI.encrypt(JSON.stringify(data), encryptionKey);
         }
 
+        // Debug logs for saveScheme request payload tracing
+        if (typeof url === 'string' && url.includes('/saveScheme')) {
+            console.log('[SecureAPI] saveScheme url:', url);
+            console.log('[SecureAPI] saveScheme method:', method);
+            console.log('[SecureAPI] saveScheme plain payload:', data);
+            console.log('[SecureAPI] saveScheme encrypted payload:', payload);
+        }
+
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
@@ -100,13 +108,11 @@ const SecureAPI = {
                         console.error("Refresh failed, session expired.");
                         localStorage.removeItem('access_token');
                         localStorage.removeItem('refresh_token');
-                        window.location.reload();
-                        return;
+                        return { error: "Session expired. Please login again.", status: 401 };
                     }
                 }
                 else {
-                    window.location.href = 'http://localhost/ssp/ssp_3/department/frontend/login.html';
-
+                    return { error: "No refresh token found. Please login again.", status: 401 };
                 }
 
             }
@@ -115,13 +121,11 @@ const SecureAPI = {
                 alert("An error occurred while refreshing the session. Please log in again.");
                 // localStorage.removeItem('access_token');
                 // localStorage.removeItem('refresh_token');
-                window.location.reload();
-                return;
+                return { error: "Token refresh failed. Please login again.", status: 401 };
             }
         } else if (response.status === 403) {
             alert("You don't have permission to perform this action.");
-            window.location.href = 'http://localhost/ssp/ssp_3/department/frontend/login.html';
-            return;
+            return { error: "You don't have permission to perform this action.", status: 403 };
         }
 
         const result = await response.json();

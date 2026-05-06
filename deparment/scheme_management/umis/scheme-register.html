@@ -38,17 +38,20 @@
       pointer-events: none;
       transition: all .3s ease;
     }
-    .select2-container--default .select2-selection--multiple {
-    max-height: 160px;           /* adjust as needed */
-    overflow-y: auto;
-}
 
-/* Prevent tags from wrapping infinitely */
-.select2-container--default .select2-selection--multiple .select2-selection__rendered {
-    max-height: 160px;
-    overflow-y: auto;
-    display: block;
-}
+    .select2-container--default .select2-selection--multiple {
+      max-height: 160px;
+      /* adjust as needed */
+      overflow-y: auto;
+    }
+
+    /* Prevent tags from wrapping infinitely */
+    .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+      max-height: 160px;
+      overflow-y: auto;
+      display: block;
+    }
+
     .chip {
       cursor: pointer;
     }
@@ -1011,15 +1014,14 @@
                   <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
                     <label class="form-label">Academic Year <span class="req">*</span></label>
                     <select class="form-select" id="accademic_year" name="accademic_year">
-                      <option value="0">2026 - 2027</option>
-                      <option value="1">2025 - 2026</option>
-                      <option value="2">2024 - 2025</option>
+                      <option value="2026 - 2027">2026 - 2027</option>
+                      <!-- <option value="1">2025 - 2026</option>
+                      <option value="2">2024 - 2025</option> -->
                     </select>
                   </div>
                   <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
                     <label class="form-label">GO Reference Number <span class="req">*</span></label>
-                    <input class="form-select" id="go_reference_no" placeholder="e.g. G.O.(Ms) No.42"
-                      value="G.O.(Ms) No.42">
+                    <input class="form-select" id="go_reference_no" placeholder="e.g. G.O.(Ms) No.42" value="">
 
                   </div>
                   <div class="col-sm-4 my-2" data-aos="zoom-out" data-aos-duration="1500">
@@ -1465,7 +1467,8 @@
                     <div class="action-bar-left"><span class="draft-dot"></span> Scheme: Post Matric Scholarship for SC
                       Students</div>
                     <div class="action-bar-right">
-                      <button class="btn btn-primary" id="add_eligibility"><i class="bi bi-plus-square"></i> Commit</button>
+                      <button class="btn btn-primary" id="add_eligibility"><i class="bi bi-plus-square"></i>
+                        Commit</button>
                     </div>
                   </div>
                 </div>
@@ -1473,7 +1476,7 @@
                 <!-- inner tab buttons -->
 
                 <div class="inner-tab-bar">
-                  
+
                   <div class="section-label">📋Added Eligibility Criteria <span class="count-notification">2</span>
                     <div id="dynamicCardsWrapper"></div>
                   </div>
@@ -1778,7 +1781,7 @@
                               </div>
                             </div>
                             <div class="incl-excl form-grid-2" data-tab="scholarship" data-step="institute">
-                                <h4 class="excl d-flex justify-content-center align-items-center">Exclusive <label
+                              <h4 class="excl d-flex justify-content-center align-items-center">Exclusive <label
                                   class="mini-switch ms-1">
                                   <input type="checkbox" class="exclusive-toggle">
                                   <span class="mini-slider"></span>
@@ -2767,7 +2770,7 @@
 
   <script src="assets/js/add.js"></script>
   <script>
-    
+
     innerTabToggle();
     renderInstalments();
   </script>
@@ -2783,11 +2786,103 @@
   <script src="assets/js/utility.js"></script>
   <script src="assets/js/dropdown.js"></script>
   <script src="assets/js/crypto-js.js"></script>
-  <script src="assets/js/page-script/department_api.js"></script>
-  <script src="assets/js/dropdown-api.js"></script>
+  <script src="assets/js/page-script/department_api.js?v=20260506"></script>
+  <script src="assets/js/dropdown-api.js?v=20260506"></script>
   <script src="../../assets/js/components/nav-bar-component.js"></script>
 
   <script>
+    window.__blockAutoRefreshAfterSaveFailure = false;
+    const __nativeReload = window.location.reload.bind(window.location);
+    const __nativeAssign = window.location.assign.bind(window.location);
+    const __nativeReplace = window.location.replace.bind(window.location);
+    const __testingSnapshotKey = 'scheme_register_testing_snapshot';
+
+    function __captureSchemeSetupSnapshot() {
+      const ids = [
+        'department', 'sub_department', 'scheme_name', 'scheme_code', 'benefits',
+        'scheme_type', 'scheme_category', 'accademic_year', 'go_reference_no',
+        'pfms_schemeid', 'pfms_center_authorityid', 'dbt_schemeid', 'gbm_id',
+        'fto_id', 'head_account', 'budget_code'
+      ];
+      const snapshot = {};
+      ids.forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        snapshot[id] = el.value ?? '';
+      });
+      const goNameEl = document.getElementById('go_file_name_display');
+      snapshot.go_file_name_display = goNameEl ? goNameEl.textContent : '';
+      sessionStorage.setItem(__testingSnapshotKey, JSON.stringify(snapshot));
+    }
+
+    function __restoreSchemeSetupSnapshot() {
+      try {
+        const raw = sessionStorage.getItem(__testingSnapshotKey);
+        if (!raw) return;
+        const snapshot = JSON.parse(raw);
+        Object.entries(snapshot).forEach(([id, value]) => {
+          if (id === 'go_file_name_display') {
+            const goNameEl = document.getElementById('go_file_name_display');
+            if (goNameEl && value) goNameEl.textContent = value;
+            return;
+          }
+          const el = document.getElementById(id);
+          if (!el) return;
+          if ((el.tagName || '').toLowerCase() === 'select') {
+            $(el).val(String(value)).trigger('change');
+          } else {
+            el.value = value ?? '';
+          }
+        });
+
+        // Retry select restoration because dropdown options may load asynchronously.
+        const selectIds = ['sub_department', 'scheme_type', 'scheme_category', 'accademic_year'];
+        let retryCount = 0;
+        const maxRetries = 12; // ~6 seconds total
+        const timer = setInterval(() => {
+          retryCount += 1;
+          selectIds.forEach((id) => {
+            const el = document.getElementById(id);
+            const desired = snapshot[id];
+            if (!el || desired === undefined || desired === null || desired === '') return;
+            const hasOption = Array.from(el.options || []).some((opt) => String(opt.value) === String(desired));
+            if (!hasOption) return;
+            if (String(el.value) !== String(desired)) {
+              $(el).val(String(desired)).trigger('change');
+            }
+          });
+          if (retryCount >= maxRetries) {
+            clearInterval(timer);
+          }
+        }, 500);
+      } catch (e) {
+        console.warn('Unable to restore testing snapshot.', e);
+      }
+    }
+
+    window.location.reload = function (...args) {
+      if (window.__blockAutoRefreshAfterSaveFailure) {
+        console.warn('[save_scheme_setup] Blocked page reload after save failure.');
+        return;
+      }
+      return __nativeReload(...args);
+    };
+    window.location.assign = function (...args) {
+      if (window.__blockAutoRefreshAfterSaveFailure) {
+        console.warn('[save_scheme_setup] Blocked location.assign after save failure.', args[0] || '');
+        return;
+      }
+      return __nativeAssign(...args);
+    };
+    window.location.replace = function (...args) {
+      if (window.__blockAutoRefreshAfterSaveFailure) {
+        console.warn('[save_scheme_setup] Blocked location.replace after save failure.', args[0] || '');
+        return;
+      }
+      return __nativeReplace(...args);
+    };
+    window.addEventListener('DOMContentLoaded', __restoreSchemeSetupSnapshot);
+
     function updateFileName(input) {
       const file = input.files[0];
 
@@ -2838,59 +2933,165 @@
 
 
 
-      $('#save_scheme_setup').on('click', function (e) {
+      console.log('[save_scheme_setup] API handler initialized from scheme-register.html');
+      // Testing isolation: remove any previously attached legacy click handlers
+      // by replacing the button node with a clean clone.
+      const $originalSaveBtn = $('#save_scheme_setup');
+      const $isolatedSaveBtn = $originalSaveBtn.clone(false);
+      $originalSaveBtn.replaceWith($isolatedSaveBtn);
+
+      $isolatedSaveBtn.off('click.saveSchemeApi').on('click.saveSchemeApi', async function (e) {
         e.preventDefault();
+        e.stopImmediatePropagation();
+        console.group('[save_scheme_setup] click');
+        __captureSchemeSetupSnapshot();
 
         const gv = getValueSchemeSetUpTab();
+        console.log('form values snapshot:', gv);
 
         if (!gv.schemecategory) {
+          console.warn('validation failed: scheme category missing');
           showToast('Please select scheme category', 'error');
           $('#scheme_category').focus();
+          console.groupEnd();
           return;
         }
 
         if (!gv.schemetype) {
+          console.warn('validation failed: scheme type missing');
           showToast('Please select scheme type', 'error');
           $('#scheme_type').focus();
+          console.groupEnd();
           return;
         }
 
         if (!gv.schemename) {
+          console.warn('validation failed: scheme name missing');
           showToast('Please enter Scheme Name', 'error');
           $('#scheme_name').focus();
+          console.groupEnd();
           return;
         }
 
         if (!gv.schemecode) {
+          console.warn('validation failed: scheme code missing');
           showToast('Please enter Scheme Code', 'error');
           $('#scheme_code').focus();
+          console.groupEnd();
           return;
         }
 
         if (!gv.academicyear) {
+          console.warn('validation failed: academic year missing');
           showToast('Please select Academic Year', 'error');
           $('#accademic_year').focus();
+          console.groupEnd();
           return;
         }
         if (!gv.pfmsschemeid && !gv.dbtschemeid && !gv.gbmid) {
+          console.warn('validation failed: pfms/dbt/gbm all missing');
           showToast('Enter pfms/dbt/gbm id', 'error');
+          console.groupEnd();
           return;
         }
         if (!gv.headaccount) {
+          console.warn('validation failed: head account missing');
           showToast('Enter the Head Account', 'error');
           $('#head_account').focus();
+          console.groupEnd();
           return;
         }
         if (!gv.budgetcode) {
+          console.warn('validation failed: budget code missing');
           showToast('Enter the Budget Code', 'error');
           $('#budget_code').focus();
+          console.groupEnd();
           return;
         }
+        const resolvedDepartmentId =
+          loggedInDepartmentId ||
+          sessionStorage.getItem('current_department_id') ||
+          '';
+
+        if (!resolvedDepartmentId) {
+          console.warn('validation failed: department id not resolved');
+          showToast('Unable to identify department. Please refresh and try again.', 'error');
+          console.groupEnd();
+          return;
+        }
+
+        const createdBy =
+          loggedInUserDetails?.user_id ||
+          loggedInUserDetails?.id ||
+          '';
+
+        if (!createdBy) {
+          console.warn('validation failed: created_by not resolved from user details');
+          showToast('Unable to identify user. Please login again.', 'error');
+          console.groupEnd();
+          return;
+        }
+
+        const selectedAcademicYearText = $('#accademic_year option:selected').text() || '';
+        const academicYearMatch = selectedAcademicYearText.match(/\d{4}/);
+        const resolvedAcademicYear = academicYearMatch ? parseInt(academicYearMatch[0], 10) : gv.academicyear;
+
+        const goFileName = (gv.gofilename && gv.gofilename !== 'No file chosen') ? gv.gofilename : '';
+        const saveSchemePayload = {
+          department_id: Number(resolvedDepartmentId) || resolvedDepartmentId,
+          sub_department_id: Number(gv.subdepartment) || gv.subdepartment,
+          scheme_category: Number(gv.schemecategory) || gv.schemecategory,
+          scheme_code: gv.schemecode,
+          scheme_name: gv.schemename,
+          scheme_type_id: Number(gv.schemetype) || gv.schemetype,
+          benefits_remarks: gv.benifits || '',
+          academic_year: resolvedAcademicYear,
+          go_number: gv.goreferenceno || '',
+          go_upload: goFileName ? `uploads/go_files/${goFileName}` : '',
+          go_file_name: goFileName,
+          pfms: gv.pfmsschemeid || '',
+          pfms_center_code: gv.pfmscenterauthid || '',
+          dbt: gv.dbtschemeid || '',
+          gbm: gv.gbmid || '',
+          fto: gv.ftoid || '',
+          head_of_account: gv.headaccount || '',
+          budget_code: gv.budgetcode || '',
+          created_by: Number(createdBy) || createdBy
+        };
+        window.__lastSaveSchemePayload = saveSchemePayload;
+        sessionStorage.setItem('last_save_scheme_payload', JSON.stringify(saveSchemePayload));
+
+        const saveSchemeUrl = 'http://localhost/ssp-2627/backend/public/SchemeRegistration/api/saveScheme';
+
         try {
-          showToast('Saved locally', 'success');
+          if (typeof SecureAPI === 'undefined' || !SecureAPI.request) {
+            console.error('SecureAPI.request unavailable in current runtime');
+            throw new Error('SecureAPI.request is unavailable');
+          }
+
+          // Testing mode: never allow refresh/navigation after save API call.
+          window.__blockAutoRefreshAfterSaveFailure = true;
+          console.log('saveScheme URL:', saveSchemeUrl);
+          console.log('saveScheme payload:', saveSchemePayload);
+          const saveSchemeResponse = await SecureAPI.request(saveSchemeUrl, 'POST', saveSchemePayload);
+          console.log('saveScheme response:', saveSchemeResponse);
+
+          if (saveSchemeResponse?.error) {
+            showToast(saveSchemeResponse.error, 'error');
+            console.groupEnd();
+            return;
+          }
+
+          showToast('Scheme setup saved successfully', 'success');
+          console.groupEnd();
+          return;
         } catch (err) {
           console.error(err);
-          showToast('Failed to save data', 'error');
+          console.error('saveScheme payload at failure:', saveSchemePayload);
+          console.log('window.__lastSaveSchemePayload:', window.__lastSaveSchemePayload);
+          showToast('Failed to save scheme setup', 'error');
+          console.groupEnd();
+          return;
         }
       });
 
@@ -2913,7 +3114,7 @@
         inputShowHide($(this), $('#exincomeValue'));
       });
 
-;
+      ;
       // renderChipDropdown({
       //   field: 'community',
       //   selector: '#eligibleexclusivecommuntiy',
@@ -3281,6 +3482,9 @@
         if (departmentData.name) {
           loggedInDepartmentName = departmentData.name;
           loggedInDepartmentId = departmentData.id || '';
+          if (loggedInDepartmentId) {
+            sessionStorage.setItem('current_department_id', String(loggedInDepartmentId));
+          }
           bindDepartmentValue();
           saveParams.department = departmentData.name;
           getSchemeIdentityRegisterReference(saveParams);
@@ -3376,208 +3580,208 @@
       }
     }
 
-function tabToggle() {
+    function tabToggle() {
 
-  const buttons = document.querySelectorAll(".tab-btn");
-  const tabs = document.querySelectorAll(".tab-section");
+      const buttons = document.querySelectorAll(".tab-btn");
+      const tabs = document.querySelectorAll(".tab-section");
 
-  buttons.forEach((btn, index) => {
+      buttons.forEach((btn, index) => {
 
-    btn.addEventListener("click", async function () {
+        btn.addEventListener("click", async function () {
 
-      // reset
-      buttons.forEach(b => {
-        b.classList.remove("active", "completed");
+          // reset
+          buttons.forEach(b => {
+            b.classList.remove("active", "completed");
+          });
+
+          // set active
+          this.classList.add("active");
+
+          // mark previous steps completed
+          buttons.forEach((b, i) => {
+            if (i < index) {
+              b.classList.add("completed");
+            }
+          });
+
+          // hide tabs
+          tabs.forEach(tab => tab.classList.add("d-none"));
+
+          // show selected
+          const id = this.getAttribute("data-tab");
+          document.getElementById(id).classList.remove("d-none");
+
+          // existing call
+          getSchemeIdentityRegisterReference(saveParams);
+
+          // ✅ NEW: Trigger only for Eligibility tab (Tab 2)
+          if (id === 'scheme-tab2' && !isEligibilityLoaded) {
+            isEligibilityLoaded = true;
+            DropdownAPI.loadDropdown({
+              endpoint: 'community-filter',
+              selector: '#eligibleinclusivecommunity',
+              payload: { field: 'community', department_id: loggedInDepartmentId, sub_department_id: $('#sub_department').val() },
+              renderType: 'chip',
+              constraint: 'inclusion',
+              valueKeys: ['id'],
+              textKeys: ['name']
+            });
+            DropdownAPI.loadDropdown({
+              endpoint: 'dropdown',
+              selector: '#eincreligion',
+              payload: { type: 'Religion' },
+              method: 'get',
+              renderType: 'select',
+              useSelect2: true,
+              extraOptions: [
+                { label: 'Select All', value: 'select_all' },
+                { label: 'Deselect All', value: 'deselect_all' }
+              ]
+            });
+            DropdownAPI.loadDropdown({
+              endpoint: 'dropdown',
+              selector: '#eligibleinclusivegender',
+              payload: { type: 'Gender' },
+              method: 'get',
+              renderType: 'chip',
+              constraint: 'inclusion',
+              valueKeys: ['id'],
+              textKeys: ['name']
+            });
+            DropdownAPI.loadDropdown({
+              endpoint: 'dropdown',
+              selector: '#eligibleinclusiveresidential',
+              payload: { type: 'ResidentialStatus' },
+              method: 'get',
+              renderType: 'chip',
+              constraint: 'inclusion',
+              valueKeys: ['id'],
+              textKeys: ['name']
+            });
+            DropdownAPI.loadDropdown({
+              endpoint: 'dropdown',
+              selector: '#eligibleinclusivequota',
+              payload: { type: 'Quota' },
+              method: 'get',
+              renderType: 'chip',
+              constraint: 'inclusion',
+              valueKeys: ['id'],
+              textKeys: ['name']
+            });
+          }
+
+        });
+
       });
 
-      // set active
-      this.classList.add("active");
+    }
 
-      // mark previous steps completed
-      buttons.forEach((b, i) => {
-        if (i < index) {
-          b.classList.add("completed");
-        }
-      });
+    function getChipValues(containerId, includeNotApplicable = true) {
+      const values = [];
 
-      // hide tabs
-      tabs.forEach(tab => tab.classList.add("d-none"));
-
-      // show selected
-      const id = this.getAttribute("data-tab");
-      document.getElementById(id).classList.remove("d-none");
-
-      // existing call
-      getSchemeIdentityRegisterReference(saveParams);
-
-      // ✅ NEW: Trigger only for Eligibility tab (Tab 2)
-      if (id === 'scheme-tab2' && !isEligibilityLoaded) {
-        isEligibilityLoaded = true;
-        DropdownAPI.loadDropdown({
-          endpoint: 'community-filter',
-          selector: '#eligibleinclusivecommunity',
-          payload: { field: 'community', department_id: loggedInDepartmentId, sub_department_id: $('#sub_department').val()},
-          renderType: 'chip',
-          constraint: 'inclusion',
-          valueKeys: ['id'],
-          textKeys: ['name']
-        });
-        DropdownAPI.loadDropdown({
-          endpoint: 'dropdown',
-          selector: '#eincreligion',
-          payload: { type: 'Religion'},
-          method:'get',
-          renderType: 'select',
-          useSelect2: true,
-          extraOptions: [
-            { label: 'Select All', value: 'select_all' },
-            { label: 'Deselect All', value: 'deselect_all' }
-          ]
-        });
-        DropdownAPI.loadDropdown({
-          endpoint: 'dropdown',
-          selector: '#eligibleinclusivegender',
-          payload: { type: 'Gender'},
-          method:'get',
-          renderType: 'chip',
-          constraint: 'inclusion',
-          valueKeys: ['id'],
-          textKeys: ['name']
-        });
-        DropdownAPI.loadDropdown({
-          endpoint: 'dropdown',
-          selector: '#eligibleinclusiveresidential',
-          payload: { type: 'ResidentialStatus'},
-          method:'get',
-          renderType: 'chip',
-          constraint: 'inclusion',
-          valueKeys: ['id'],
-          textKeys: ['name']
-        });
-        DropdownAPI.loadDropdown({
-          endpoint: 'dropdown',
-          selector: '#eligibleinclusivequota',
-          payload: { type: 'Quota'},
-          method: 'get',
-          renderType: 'chip',
-          constraint: 'inclusion',
-          valueKeys: ['id'],
-          textKeys: ['name']
-        });
-      }
-
-    });
-
-  });
-
-}
-
-function getChipValues(containerId, includeNotApplicable = true) {
-    const values = [];
-
-    $(`${containerId} .chip.active input:checked`).each(function () {
+      $(`${containerId} .chip.active input:checked`).each(function () {
         const value = $(this).val();
         const text = $(this).closest('.chip').text().trim();
 
         if (includeNotApplicable || value !== '-1') {
-            values.push({ value, text });
+          values.push({ value, text });
         }
-    });
+      });
 
-    return values;
-}
-async function handleCommunityToCaste(containerId, casteSelector) {
+      return values;
+    }
+    async function handleCommunityToCaste(containerId, casteSelector) {
 
-    let selected = getChipValues(containerId, true);
-    let selectedValues = selected.map(item => item.value);
+      let selected = getChipValues(containerId, true);
+      let selectedValues = selected.map(item => item.value);
 
-    const isNASelected = selectedValues.includes('-1');
+      const isNASelected = selectedValues.includes('-1');
 
-    // ============================================
-    // ✅ CASE 1: NOT APPLICABLE → RESET
-    // ============================================
-    if (isNASelected) {
+      // ============================================
+      // ✅ CASE 1: NOT APPLICABLE → RESET
+      // ============================================
+      if (isNASelected) {
 
         // 🚫 Cancel any pending request effect
         casteRequestTracker[casteSelector] = null;
 
         resetSelectToNA(casteSelector);
         return;
-    }
+      }
 
-    // fallback
-    if (!selectedValues.length) {
+      // fallback
+      if (!selectedValues.length) {
         selectedValues = ['-1'];
-    }
+      }
 
-    // ============================================
-    // ✅ CASE 2: LOAD CASTE (WITH REQUEST GUARD)
-    // ============================================
+      // ============================================
+      // ✅ CASE 2: LOAD CASTE (WITH REQUEST GUARD)
+      // ============================================
 
-    const requestId = Date.now();
-    casteRequestTracker[casteSelector] = requestId;
+      const requestId = Date.now();
+      casteRequestTracker[casteSelector] = requestId;
 
-    const rows = await DropdownAPI.loadDropdown({
+      const rows = await DropdownAPI.loadDropdown({
         endpoint: 'caste-filter',
         selector: casteSelector,
         payload: {
-            community_id: selectedValues,
-            department_id: loggedInDepartmentId,
-            sub_department_id: $('#sub_department').val()
+          community_id: selectedValues,
+          department_id: loggedInDepartmentId,
+          sub_department_id: $('#sub_department').val()
         },
         renderType: 'select',
         useSelect2: true,
         extraOptions: [
-            { label: 'Select All', value: 'select_all' },
-            { label: 'Deselect All', value: 'deselect_all' }
+          { label: 'Select All', value: 'select_all' },
+          { label: 'Deselect All', value: 'deselect_all' }
         ]
-    });
+      });
 
-    // 🚫 Ignore stale response
-    if (casteRequestTracker[casteSelector] !== requestId) {
+      // 🚫 Ignore stale response
+      if (casteRequestTracker[casteSelector] !== requestId) {
         return;
-    }
+      }
 
-    return rows;
-}
-// Inclusive
-$(document).on(
-    'change',
-    '#eligibleinclusivecommunity .chip-select input[type="checkbox"]',
-    function () {
+      return rows;
+    }
+    // Inclusive
+    $(document).on(
+      'change',
+      '#eligibleinclusivecommunity .chip-select input[type="checkbox"]',
+      function () {
         handleCommunityToCaste(
-            '#eligibleinclusivecommunity',
-            '#einccaste'
+          '#eligibleinclusivecommunity',
+          '#einccaste'
         );
-    }
-);
+      }
+    );
 
-// Exclusive
-$(document).on(
-    'change',
-    '#eligibleexclusivecommunity .chip-select input[type="checkbox"]',
-    function () {
+    // Exclusive
+    $(document).on(
+      'change',
+      '#eligibleexclusivecommunity .chip-select input[type="checkbox"]',
+      function () {
         handleCommunityToCaste(
-            '#eligibleexclusivecommunity',
-            '#eexccaste'
+          '#eligibleexclusivecommunity',
+          '#eexccaste'
         );
-    }
-);
+      }
+    );
 
-async function loadExclusiveData(tab, step, $section) {
-    const key = `${tab}_${step}`;
-    if (exclusiveLoadTracker[key]) return;
-    exclusiveLoadTracker[key] = true;
+    async function loadExclusiveData(tab, step, $section) {
+      const key = `${tab}_${step}`;
+      if (exclusiveLoadTracker[key]) return;
+      exclusiveLoadTracker[key] = true;
 
-    console.log("Loading Exclusive:", key);
-    if (tab === 'eligibility') {
+      console.log("Loading Exclusive:", key);
+      if (tab === 'eligibility') {
 
         if (step === 'student') {
 
           DropdownAPI.loadDropdown({
             endpoint: 'community-filter',
             selector: $section.find('#eligibleexclusivecommunity'),
-            payload: { field: 'community', department_id: loggedInDepartmentId, sub_department_id: $('#sub_department').val()},
+            payload: { field: 'community', department_id: loggedInDepartmentId, sub_department_id: $('#sub_department').val() },
             renderType: 'chip',
             constraint: 'exclusion',
             valueKeys: ['id'],
@@ -3586,8 +3790,8 @@ async function loadExclusiveData(tab, step, $section) {
           DropdownAPI.loadDropdown({
             endpoint: 'dropdown',
             selector: $section.find('#eexcreligion'),
-            payload: { type: 'Religion'},
-            method:'get',
+            payload: { type: 'Religion' },
+            method: 'get',
             renderType: 'select',
             useSelect2: true,
             extraOptions: [
@@ -3598,8 +3802,8 @@ async function loadExclusiveData(tab, step, $section) {
           DropdownAPI.loadDropdown({
             endpoint: 'dropdown',
             selector: $section.find('#eligibleexclusivegender'),
-            payload: { type: 'Gender'},
-            method:'get',
+            payload: { type: 'Gender' },
+            method: 'get',
             renderType: 'chip',
             constraint: 'inclusion',
             valueKeys: ['id'],
@@ -3608,8 +3812,8 @@ async function loadExclusiveData(tab, step, $section) {
           DropdownAPI.loadDropdown({
             endpoint: 'dropdown',
             selector: $section.find('#eligibleexclusiveresidential'),
-            payload: { type: 'ResidentialStatus'},
-            method:'get',
+            payload: { type: 'ResidentialStatus' },
+            method: 'get',
             renderType: 'chip',
             constraint: 'inclusion',
             valueKeys: ['id'],
@@ -3618,7 +3822,7 @@ async function loadExclusiveData(tab, step, $section) {
           DropdownAPI.loadDropdown({
             endpoint: 'dropdown',
             selector: $section.find('#eligibleexclusivequota'),
-            payload: { type: 'Quota'},
+            payload: { type: 'Quota' },
             method: 'get',
             renderType: 'chip',
             constraint: 'inclusion',
@@ -3628,47 +3832,47 @@ async function loadExclusiveData(tab, step, $section) {
         }
 
         if (step === 'institute') {
-            console.log("Call institute APIs");
+          console.log("Call institute APIs");
         }
 
         if (step === 'course') {
-            console.log("Call course APIs");
+          console.log("Call course APIs");
         }
-    }
+      }
 
-    // ===============================
-    // SCHOLARSHIP TAB
-    // ===============================
-    if (tab === 'scholarship') {
+      // ===============================
+      // SCHOLARSHIP TAB
+      // ===============================
+      if (tab === 'scholarship') {
 
         if (step === 'student') {
-            console.log("Scholarship student APIs");
+          console.log("Scholarship student APIs");
         }
 
         if (step === 'institute') {
-            console.log("Scholarship institute APIs");
+          console.log("Scholarship institute APIs");
         }
 
         if (step === 'course') {
-            console.log("Scholarship course APIs");
+          console.log("Scholarship course APIs");
         }
+      }
     }
-}
 
-$(document).on('change', '.exclusive-toggle', async function () {
+    $(document).on('change', '.exclusive-toggle', async function () {
 
-    const isEnabled = $(this).is(':checked');
-    const $section = $(this).closest('.incl-excl');
+      const isEnabled = $(this).is(':checked');
+      const $section = $(this).closest('.incl-excl');
 
-    const tab = $section.data('tab');     // eligibility / scholarship
-    const step = $section.data('step');   // student / institute / course
+      const tab = $section.data('tab');     // eligibility / scholarship
+      const step = $section.data('step');   // student / institute / course
 
-    const activeMainTab = getActiveMainTab(); // 🔥 IMPORTANT
+      const activeMainTab = getActiveMainTab(); // 🔥 IMPORTANT
 
-    const $allInputs = $section.find('input, select, .chip');
-    const $inputsToControl = $allInputs.not(this);
+      const $allInputs = $section.find('input, select, .chip');
+      const $inputsToControl = $allInputs.not(this);
 
-    if (isEnabled) {
+      if (isEnabled) {
 
         // ✅ Enable UI
         $section.removeClass('disabled-section');
@@ -3677,62 +3881,62 @@ $(document).on('change', '.exclusive-toggle', async function () {
 
         // ✅ Reset to NA
         $section.find('.chip-select').each(function () {
-            const $na = $(this).find('input[value="-1"]');
-            $(this).find('input').prop('checked', false).closest('.chip').removeClass('active');
-            $na.prop('checked', true).closest('.chip').addClass('active');
+          const $na = $(this).find('input[value="-1"]');
+          $(this).find('input').prop('checked', false).closest('.chip').removeClass('active');
+          $na.prop('checked', true).closest('.chip').addClass('active');
         });
 
         // ============================================
         // ✅ 🔥 CALL API ONLY IF TAB IS scheme-tab2
         // ============================================
         if (activeMainTab === 'scheme-tab2') {
-            await loadExclusiveData(tab, step, $section);
+          await loadExclusiveData(tab, step, $section);
         }
 
-    } else {
+      } else {
 
         // Reset first
         $section.find('.chip-select').each(function () {
-            const $na = $(this).find('input[value="-1"]');
-            $(this).find('input').prop('checked', false).closest('.chip').removeClass('active');
-            $na.prop('checked', true).closest('.chip').addClass('active');
+          const $na = $(this).find('input[value="-1"]');
+          $(this).find('input').prop('checked', false).closest('.chip').removeClass('active');
+          $na.prop('checked', true).closest('.chip').addClass('active');
         });
 
         // Disable UI
         $section.addClass('disabled-section');
         $inputsToControl.prop('disabled', true);
         $section.find('.chip').addClass('disabled-chip');
-    }
-});
+      }
+    });
 
-$('#add_eligibility').on('click', function(e) {
-        e.preventDefault();
-        
-        // Get current form data
-        
-        
-        const criteriaName = $('#eligibleCriteriaName').val();
-         if (!criteriaName) {
+    $('#add_eligibility').on('click', function (e) {
+      e.preventDefault();
+
+      // Get current form data
+
+
+      const criteriaName = $('#eligibleCriteriaName').val();
+      if (!criteriaName) {
         alert('Enter the Eligibility Criteria Name')
         return;
       }
       const formData = getEligibilityFormData();
-        // Create new criteria object
-        const newCriteria = {
-            id: Date.now(),
-            name: criteriaName,
-            formData: formData,
-            createdAt: new Date()
-        };
-        
-        // Add to list
-        criteriaList.push(newCriteria);
-        
-        // Re-render cards
-        renderCriteriaCards();
-        
-        // Optional: Scroll to show the new card
-        $('.inner-tab-bar')[0]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      // Create new criteria object
+      const newCriteria = {
+        id: Date.now(),
+        name: criteriaName,
+        formData: formData,
+        createdAt: new Date()
+      };
+
+      // Add to list
+      criteriaList.push(newCriteria);
+
+      // Re-render cards
+      renderCriteriaCards();
+
+      // Optional: Scroll to show the new card
+      $('.inner-tab-bar')[0]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
 
 
@@ -3790,7 +3994,7 @@ $('#add_eligibility').on('click', function(e) {
       });
 
     });
-tabToggle();
+    tabToggle();
   </script>
 </body>
 
