@@ -1106,10 +1106,22 @@
 
                 <div class="subscheme-main">
                   <div class="card" style="margin-bottom:12px;">
-                    <div class="form-grid-3" style="margin-bottom:12px;">
+                    <div class="form-grid-4" style="margin-bottom:12px;">
                       <div class="form-group">
                         <label class="form-label">Eligibility Criteria Name <span class="req">*</span></label>
                         <input class="form-input" id="eligibleCriteriaName" placeholder='Enter the Criteria Name' />
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Sub Department</label>
+                        <select class="form-select" id="eli_sub_department" name="eli_sub_department" required>
+                          <option value="0">--Select--</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Scheme List</label>
+                        <select class="form-select" id="eli_schemelist" name="eli_schemelist" required>
+                          <option value="0">--Select--</option>
+                        </select>
                       </div>
                       <div class="form-group">
                         <label class="form-label">📑 Copy Eligibility From</label>
@@ -1532,16 +1544,26 @@
                 <div class="subscheme-main">
                   <div class="card">
                     <div class="step-divider">
-                      <div class="section-label p-ab" style="margin-bottom:8px;">Step <i class="bi bi-1-circle"></i> —
-                        Give a name to this fee rule</div>
-                      <div class="d-flex justify-content-between g-5">
-                        <div class="form-group" style="min-width: 400px;margin-bottom:16px;">
+                      <div class="section-label p-ab" style="margin-bottom:8px;">Step <i class="bi bi-1-circle"></i> — Give a name to this fee rule</div>
+                      <div class="form-grid-4">
+                        <div class="form-group">
                           <label class="form-label">Fee Rule Name <span class="req">*</span></label>
                           <input id="scholarshipFeeName" class="form-input" placeholder="e.g. Private College Students"
                             value="">
                         </div>
-
-                        <div class="form-group" style="min-width: 400px;margin-bottom:16px;">
+                        <div class="form-group">
+                          <label class="form-label">Sub Department</label>
+                          <select class="form-select" id="sch_sub_department" name="sch_sub_department" required>
+                            <option value="0">--Select--</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label class="form-label">Scheme List</label>
+                          <select class="form-select" id="sch_schemelist" name="sch_schemelist" required>
+                            <option value="0">--Select--</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
                           <label class="form-label">Eligibility Rules<span class="req">*</span></label>
                           <select class="form-select js-example-basic-multiple" multiple id="eligibilityCriteriaList"
                             style="max-width:300px;" aria-placeholder="Select Eligibility Rules">
@@ -2011,25 +2033,39 @@
               <div class="meta-bar info-box navy referenceSchemeDetails"></div>
               <div class="TabFieldsStyles MaintanenceFeeRow padBtm-10 MaintanenceFeeFields">
                 <div class="separateComp mainComp row pb-1 px-2 bg-wrap-blue">
-                  <div class="col-md-6 my-4">
-                    <label for="maintenanceSave" class="form-label lbl-font"> Enter Maintanence
-                      Reference Fee Name <span style="color: red;">*</span>
-                    </label>
-                    <input type="text" class="form-control" id="MaintenanceSaveName"
-                      placeholder="Enter Maintanence Reference Fee">
-                    <input type="hidden" id="parentSchemeId" value="" />
-                    <div class="text-danger" id="maintenanceSaveError"></div>
-                  </div>
-                  <div class="col-md-6 my-4">
-                    <div class="instituteApproveRejectForm mainCompForm">
-                      <label for="maintenance_amount" class="form-label lbl-font">Maintenance
-                        Amount - (In Rupees
-                        ₹)</label>
-                      <div class="input-group">
-                        <input type="text" id="maintenance_amount" class="form-control" placeholder="Enter Amount"
-                          inputmode="numeric" pattern="[0-9]*" data-val="MaintanenceAmount" />
+                  <div class="form-grid-4">
+                    <div class="form-group">
+                        <label class="form-label">Sub Department</label>
+                        <select class="form-select" id="maintenance_sub_department" name="maintenance_sub_department" required>
+                          <option value="0">--Select--</option>
+                        </select>
                       </div>
-                      <div class="text-danger" id="maintenanceAmountError"></div>
+                      <div class="form-group">
+                        <label class="form-label">Scheme List</label>
+                        <select class="form-select" id="eli_schemelist" name="eli_schemelist" required>
+                          <option value="0">--Select--</option>
+                        </select>
+                      </div>
+                    <div class="form-group">
+                      <label for="maintenanceSave" class="form-label lbl-font"> Enter Maintanence
+                        Reference Fee Name <span style="color: red;">*</span>
+                      </label>
+                      <input type="text" class="form-control" id="MaintenanceSaveName"
+                        placeholder="Enter Maintanence Reference Fee">
+                      <input type="hidden" id="parentSchemeId" value="" />
+                      <div class="text-danger" id="maintenanceSaveError"></div>
+                    </div>
+                    <div class="form-group">
+                      <div class="instituteApproveRejectForm mainCompForm">
+                        <label for="maintenance_amount" class="form-label lbl-font">Maintenance
+                          Amount - (In Rupees
+                          ₹)</label>
+                        <div class="input-group">
+                          <input type="text" id="maintenance_amount" class="form-control" placeholder="Enter Amount"
+                            inputmode="numeric" pattern="[0-9]*" data-val="MaintanenceAmount" />
+                        </div>
+                        <div class="text-danger" id="maintenanceAmountError"></div>
+                      </div>
                     </div>
                   </div>
                   <div class="col-md-4 mb-4">
@@ -2040,7 +2076,7 @@
                   </div>
 
 
-                  <div class="col-md-4 mb-4" id="add_field_hostel_type">
+                  <div class="col-md-4 mb-4  d-none" id="add_field_hostel_type">
                     <div class="form-group">
                       <label class="form-label">Hostel Type</label>
                       <select class="form-select js-example-basic-multiple" multiple id="mhosteltype"
@@ -2095,6 +2131,20 @@
 
             <div class="tab-pane tab-section d-none" id="scheme-tab5">
               <div class="card-title">⚙️ Payment setup</div>
+               <div class="form-grid-4" style="margin-bottom:12px;">
+                  <div class="form-group">
+                    <label class="form-label">Sub Department</label>
+                    <select class="form-select" id="paysetup_sub_department" name="paysetup_sub_department" required>
+                      <option value="0">--Select--</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Scheme List</label>
+                    <select class="form-select" id="eli_schemelist" name="eli_schemelist" required>
+                      <option value="0">--Select--</option>
+                    </select>
+                  </div>
+                </div>
               <div class="card-subtitle">Setting up payment transactions. Installment wise payment setup.</div>
               <div class="meta-bar info-box navy referenceSchemeDetails"></div>
 
@@ -2213,7 +2263,21 @@
               <div class="card-title">🛂Work Flow Configurations</div>
               <div class="card-subtitle">Setting up Stage wise approval - select your approvals required in the flow
                 process of this scheme.</div>
-              <div class="meta-bar info-box amber justify-content-center">
+                <div class="form-grid-3 mb-2">
+                  <div class="form-group">
+                        <label class="form-label">Sub Department</label>
+                        <select class="form-select" id="stage_sub_department" name="stage_sub_department" required>
+                          <option value="0">--Select--</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Scheme List</label>
+                        <select class="form-select" id="eli_schemelist" name="eli_schemelist" required>
+                          <option value="0">--Select--</option>
+                        </select>
+                      </div>
+                </div>
+              <div class="meta-bar info-box amber justify-content-center mt-2">
                 <span><b>Select the stages required for approval of an application for this scheme</b></span>
               </div>
 
@@ -2280,7 +2344,38 @@
 
               <div class="card-title"><i class="bi bi-clipboard-check"></i> Current Registered Data</div>
               <div class="card-subtitle">Review the Gathered information and confirm to proceed the Scheme.</div>
-
+              <div class="d-flex gap-2">
+                <div class="col">
+                        <label class="form-label">Sub Department</label>
+                        <select class="form-select" id="review_sub_department" name="review_sub_department" required>
+                          <option value="0">--Select--</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <label class="form-label">Scheme List</label>
+                        <select class="form-select" id="eli_schemelist" name="eli_schemelist" required>
+                          <option value="0">--Select--</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <label class="form-label">Eligibility criteria</label>
+                        <select class="form-select" id="eli_schemelist" name="eli_schemelist" required>
+                          <option value="0">--Select--</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <label class="form-label">Scholarship Name</label>
+                        <select class="form-select" id="eli_schemelist" name="eli_schemelist" required>
+                          <option value="0">--Select--</option>
+                        </select>
+                      </div>
+                      <div class="col">
+                        <label class="form-label">Maintenance Name</label>
+                        <select class="form-select" id="eli_schemelist" name="eli_schemelist" required>
+                          <option value="0">--Select--</option>
+                        </select>
+                      </div>
+              </div>
               <div class="preview-grid-3">
                 <h6 class="preview-title card-title"><i class="bi bi-bank2"></i> Scheme Identity</h6>
 
@@ -2552,7 +2647,11 @@
                   <label class="preview-label">Transfer Mode : <span class="preview-value">API Gateway</span></label>
 
                 </div>
+                
               </div>
+                <div class="d-flex justify-content-center">
+                  <button class="btn btn-success ">Approve</button>
+                </div>
             </div>
 
 
@@ -3095,17 +3194,7 @@
         }
       });
 
-      // getReligion($('#eincreligion'));
-      // getIncomeRange($('#eligibleincincomeRange'));
-
-      // getReligion($('#eexcreligion'));
-      // getIncomeRange($('#eligibleexcincomeRange'));
-
-      // getReligion($('#sincreligion'));
-      // getReligion($('#sexcreligion'));
-
-
-      // Initialize Community chips
+      
 
       $('#eligibleincincomeRange').on('change', function () {
         inputShowHide($(this), $('#inincomeValue'));
@@ -3265,6 +3354,11 @@
     });
 
     let isEligibilityLoaded = false;
+    let isScholarshipLoaded = false;
+    let isMaintenanceLoaded = false;
+    let isPaymentStructureLoaded = false;
+    let isWrokFlowLoaded = false;
+    let isReviewApproveLoaded = false;
     const exclusiveLoadTracker = {};
     const casteRequestTracker = {};
     function normalizeUserDetailsPayload(payload) {
@@ -3823,6 +3917,16 @@
             endpoint: 'dropdown',
             selector: $section.find('#eligibleexclusivequota'),
             payload: { type: 'Quota' },
+            method: 'get',
+            renderType: 'chip',
+            constraint: 'inclusion',
+            valueKeys: ['id'],
+            textKeys: ['name']
+          });
+          DropdownAPI.loadDropdown({
+            endpoint: 'dropdown',
+            selector: $section.find('#eligibleexclusivefirstgraduate'),
+            payload: { type: 'IsFirstGraduate'},
             method: 'get',
             renderType: 'chip',
             constraint: 'inclusion',
