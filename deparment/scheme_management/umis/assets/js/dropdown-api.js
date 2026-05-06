@@ -168,7 +168,7 @@ async loadDropdown({
   field = '',
   includeNA = true,
   useSelect2 = false,            
-  extraOptions = [] 
+  extraOptions = []
 }) {
   let response;
   if(method === 'get'){
@@ -301,6 +301,47 @@ async loadDropdown({
   }
 
   return finalRows;
-}
+},
+async selectDropdown({
+    endpoint,
+    selector,
+    payload = {},
+    method = 'GET',
+    valueKey = 'id',
+    textKey = 'name',
+    placeholderText = '--Select--'
+  }) {
+    const $el = $(selector);
+    $el.empty();
+    
+    // Add placeholder option
+    if (placeholderText) {
+      $el.append(`<option value="">${placeholderText}</option>`);
+    }
+    
+    // Fetch data
+    let response;
+    if (method.toLowerCase() === 'get') {
+      response = await this.get(endpoint, payload);
+    } else {
+      response = await this.post(endpoint, payload);
+    }
+    
+    // Extract rows using existing extractRows method
+    const rows = this.extractRows(response) || [];
+    
+    // Add options
+    rows.forEach(item => {
+      const value = item[valueKey];
+      const text = item[textKey];
+      if (value && text) {
+        $el.append(`<option value="${value}">${text}</option>`);
+      }
+    });
+    
+    return $el;
+  }
+
 };
 
+ 
