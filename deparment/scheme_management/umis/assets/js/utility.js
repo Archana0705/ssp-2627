@@ -1,4 +1,29 @@
-
+let criteriaList = [];let activeCardId = null; 
+const ExclusiveAPIMap = {
+  eligibility: {
+    student: async ($section) => {
+      console.log('Call Eligibility → Student API');
+      // 👉 your API call here
+    },
+    institute: async ($section) => {
+      console.log('Call Eligibility → Institute API');
+    },
+    course: async ($section) => {
+      console.log('Call Eligibility → Course API');
+    }
+  },
+  scholarship: {
+    student: async ($section) => {
+      console.log('Call Scholarship → Student API');
+    },
+    institute: async ($section) => {
+      console.log('Call Scholarship → Institute API');
+    },
+    course: async ($section) => {
+      console.log('Call Scholarship → Course API');
+    }
+  }
+};
 $(document).ready(function() {
     $('.exclusive-toggle').each(function() {
         const isEnabled = $(this).is(':checked');
@@ -50,35 +75,53 @@ $(document).ready(function() {
     });
 });
 
+function resetSelectToNA(selector) {
+    const $el = $(selector);
+
+    try {
+        if ($el.data('select2')) {
+            $el.select2('destroy');
+        }
+    } catch (e) {}
+
+    // FULL RESET
+    $el.empty();
+
+    // Add only NA
+    $el.append(new Option('Not Applicable', '-1', true, true));
+
+    // Force value
+    $el.val(['-1']);
+
+    // Reinitialize
+    $el.prop('multiple', true).select2({
+        width: '100%',
+        placeholder: '--Select--'
+    });
+
+    // Sync UI
+    $el.trigger('change');
+}
 $(document).on('click', '.chip', function () {
-    // Check if the chip is inside a disabled section
-    const $section = $(this).closest('.incl-excl');
-    if ($section.hasClass('disabled-section')) {
-        return; // Prevent selection when section is disabled
-    }
 
     const $chip = $(this);
-    const $container = $chip.closest('.chip-select');
-
-    const group = $container.data('group');
-    const type  = $container.data('type');
+    const $container = $chip.closest('.chip-select'); // ✅ scoped container
 
     const NOT_APPLICABLE = '-1';
 
     const $checkbox = $chip.find('input');
     const value = $checkbox.val();
 
-    const $currentGroup = $(`.chip-select[data-group="${group}"][data-type="${type}"]`);
-    const isCurrentlyChecked = $checkbox.prop('checked');
+    const isChecked = $checkbox.prop('checked');
 
+    // ============================
+    // NOT APPLICABLE
+    // ============================
     if (value === NOT_APPLICABLE) {
-        // Prevent unchecking NA
-        if (isCurrentlyChecked) {
-            return; // do nothing
-        }
 
-        // Select NA and clear others
-        $currentGroup.find('input')
+        if (isChecked) return;
+
+        $container.find('input')
             .prop('checked', false)
             .closest('.chip').removeClass('active');
 
@@ -89,156 +132,394 @@ $(document).on('click', '.chip', function () {
     }
 
     // ============================
-    // CASE 2: OTHER OPTIONS CLICKED
+    // NORMAL OPTIONS
     // ============================
-
-    // Toggle current
-    const newState = !isCurrentlyChecked;
+    const newState = !isChecked;
     $checkbox.prop('checked', newState);
     $chip.toggleClass('active', newState);
 
-    // If any normal option selected → remove NA
     if (newState) {
-        $currentGroup.find(`input[value="${NOT_APPLICABLE}"]`)
+        $container.find(`input[value="${NOT_APPLICABLE}"]`)
             .prop('checked', false)
             .closest('.chip').removeClass('active');
     }
 
-    // If NO options selected → fallback to NA
-    const anySelected = $currentGroup.find('input:checked').length;
+    const anySelected = $container.find('input:checked').length;
 
     if (!anySelected) {
-        const $na = $currentGroup.find(`input[value="${NOT_APPLICABLE}"]`);
+        const $na = $container.find(`input[value="${NOT_APPLICABLE}"]`);
         $na.prop('checked', true)
            .closest('.chip').addClass('active');
     }
 });
 
-$(document).on('change', '.exclusive-toggle', function () {
+$(document).on('change', '.exclusive-toggle', async function () {
+
     const isEnabled = $(this).is(':checked');
     const $section = $(this).closest('.incl-excl');
+
+    const tab  = $section.data('tab');   // eligibility / scholarship
+    const step = $section.data('step');  // student / institute / course
 
     const $allInputs = $section.find('input, select, .chip');
     const $inputsToControl = $allInputs.not(this);
 
     if (isEnabled) {
-        // Enable section
+
+        // =========================
+        // ENABLE SECTION
+        // =========================
         $section.removeClass('disabled-section');
         $inputsToControl.prop('disabled', false);
         $section.find('.chip').removeClass('disabled-chip');
-        
-        // Set default "Not Applicable" for all chip groups when toggling ON
-        $section.find('.chip-select').each(function() {
-            const $naChip = $(this).find('input[value="-1"]').closest('.chip');
-            const $naCheckbox = $naChip.find('input');
-            
-            // Clear all selections in this group
-            $(this).find('input').prop('checked', false).closest('.chip').removeClass('active');
-            
-            // Select Not Applicable
-            $naCheckbox.prop('checked', true);
-            $naChip.addClass('active');
+
+        // Reset to Not Applicable
+        $section.find('.chip-select').each(function () {
+            const $na = $(this).find('input[value="-1"]');
+
+            $(this).find('input')
+                .prop('checked', false)
+                .closest('.chip').removeClass('active');
+
+            $na.prop('checked', true)
+               .closest('.chip').addClass('active');
         });
+
+        // =========================
+        // 🔥 CALL API ONLY ONCE
+        // =========================
+        if (!$section.data('apiLoaded')) {
+
+            if (ExclusiveAPIMap?.[tab]?.[step]) {
+                await ExclusiveAPIMap[tab][step]($section);
+            }
+
+            $section.data('apiLoaded', true); // ✅ prevent duplicate
+        }
+
     } else {
-        // When toggling OFF: First set "Not Applicable" WITHOUT disabling
-        $section.find('.chip-select').each(function() {
-            const $naChip = $(this).find('input[value="-1"]').closest('.chip');
-            const $naCheckbox = $naChip.find('input');
-            
-            // Clear all selections in this group
-            $(this).find('input').prop('checked', false).closest('.chip').removeClass('active');
-            
-            // Select Not Applicable
-            $naCheckbox.prop('checked', true);
-            $naChip.addClass('active');
+
+        // =========================
+        // RESET → NA FIRST
+        // =========================
+        $section.find('.chip-select').each(function () {
+            const $na = $(this).find('input[value="-1"]');
+
+            $(this).find('input')
+                .prop('checked', false)
+                .closest('.chip').removeClass('active');
+
+            $na.prop('checked', true)
+               .closest('.chip').addClass('active');
         });
-        
-        // Now disable the section (but "Not Applicable" remains selected)
+
+        // =========================
+        // DISABLE
+        // =========================
         $section.addClass('disabled-section');
         $inputsToControl.prop('disabled', true);
         $section.find('.chip').addClass('disabled-chip');
+
+        // ❗ OPTIONAL: reset API flag if you want re-fetch on next ON
+        // $section.removeData('apiLoaded');
     }
 });
 
-function getAllParameterValues() {
-    return {
-        student: getStudentParameters(),
-        institute: getInstituteParameters(),
-        course: getCourseParameters()
+
+function getEligibilityFormData(){
+    // CORRECTED: Added proper brackets and quotes
+    const $inclusiveinstitute = $('.incl-excl.active[data-tab="eligibility"][data-step="institute"]');
+    const $exclusiveinstitute = $('.incl-excl[data-tab="eligibility"][data-step="institute"]:not(.active)');
+    const $inclusivecourse = $('.incl-excl.active[data-tab="eligibility"][data-step="course"]');
+    const $exclusivecourse = $('.incl-excl[data-tab="eligibility"][data-step="course"]:not(.active)');
+    
+    const eligibleFormData = {
+        student:{
+            inclusive:{
+                community: getChipValues('#eligibleinclusivecommunity'),
+                caste: getSelectValues('#eligibleinclusivecaste'),
+                religion: getSelectValues('#eincreligion'),
+                gender: getChipValues('#eligibleinclusivegender'),
+                income: getIncomeValues('.incl-excl.active .form-group'),
+                quota: getChipValues('#eligibleinclusivequota'),
+                residential_status: getChipValues('#eligibleinclusiveresidential'),
+                special_category: getChipValues('#eligibleinclusivespecialcategory'),
+                is_first_graduate: getChipValues('#eligibleinclusivefirstgraduate')
+            },
+            exclusive:{
+                enabled: isExclusiveEnabled('student'),
+                community: getChipValues('#eligibleexclusivecommunity'), // FIXED: changed from 'communtiy' to 'community'
+                caste: getSelectValues('#eligibleexclusivecaste'),
+                religion: getSelectValues('#eexcreligion'),
+                gender: getChipValues('#eligibleexclusivegender'),
+                income: getIncomeValues('.incl-excl[data-tab="eligibility"][data-step="student"]:not(.active) .form-group'), // FIXED: added brackets
+                quota: getChipValues('#eligibleexclusivequota'),
+                residential_status: getChipValues('#eligibleexclusiveresidential'),
+                special_category: getChipValues('#eligibleexclusivespecialcategory'),
+                is_first_graduate: getChipValues('#eligibleexclusivefirstgraduate')
+            }
+        },
+        institute:{
+            inclusive:{
+                institute_ownership: getChipValuesFromSection($inclusiveinstitute, 'Institute Ownership'),
+                university_type: getSelectValueFromSection($inclusiveinstitute, 'University Type'),
+                university: getSelectValueFromSection($inclusiveinstitute, 'University'),
+                institute_category: getSelectValueFromSection($inclusiveinstitute, 'Institute Category'),
+                institute_name: getSelectValueFromSection($inclusiveinstitute, 'Institute name')
+            },
+            exclusive:{
+                enabled: isExclusiveEnabled('institute'),
+                institute_ownership: getChipValuesFromSection($exclusiveinstitute, 'Institute Ownership'),
+                university_type: getSelectValueFromSection($exclusiveinstitute, 'University Type'),
+                university: getSelectValueFromSection($exclusiveinstitute, 'University'),
+                institute_category: getSelectValueFromSection($exclusiveinstitute, 'Institute Category'),
+                institute_name: getSelectValueFromSection($exclusiveinstitute, 'Institute name')
+            }
+        },
+        course:{
+            inclusive:{
+                stream: getSelectValueFromSection($inclusivecourse, 'Stream'),
+                course_type: getChipValuesFromSection($inclusivecourse, 'Course Type'),
+                course_category: getSelectValueFromSection($inclusivecourse, 'Course Category'),
+                course: getSelectValueFromSection($inclusivecourse, 'Course'),
+                course_branch: getSelectValueFromSection($inclusivecourse, 'Course Branch'),
+                course_year: getSelectValueFromSection($inclusivecourse, 'Course Year')
+            },
+            exclusive:{
+                enabled: isExclusiveEnabled('course'),
+                stream: getSelectValueFromSection($exclusivecourse, 'Stream'),
+                course_type: getChipValuesFromSection($exclusivecourse, 'Course Type'),
+                course_category: getSelectValueFromSection($exclusivecourse, 'Course Category'),
+                course: getSelectValueFromSection($exclusivecourse, 'Course'),
+                course_branch: getSelectValueFromSection($exclusivecourse, 'Course Branch'),
+                course_year: getSelectValueFromSection($exclusivecourse, 'Course Year')
+            }
+        }
     };
+    return eligibleFormData;
 }
 
-function getStudentParameters() {
-    return {
-        inclusive: {
-            community: getChipValues('#eligibleinclusivecommunity'),
-            religion: getSelectValues('#eincreligion'),
-            gender: getChipValues('#eligibleinclusivegender'),
-            income: getIncomeValues('.incl-excl.active .form-group'),
-            quota: getChipValues('#eligibleinclusivequota'),
-            residential_status: getChipValues('#eligibleinclusiveresidential'),
-            special_category: getChipValues('#eligibleinclusivespecialcategory'),
-            is_first_graduate: getChipValues('#eligibleinclusivefirstgraduate')
-        },
-        exclusive: {
-            enabled: isExclusiveEnabled('student'),
-            community: getChipValues('#eligibleexclusivecommuntiy'),
-            religion: getSelectValues('#eexcreligion'),
-            gender: getChipValues('#eligibleexclusivegender'),
-            income: getIncomeValues('.incl-excl[data-step="student"]:not(.active) .form-group'),
-            quota: getChipValues('#eligibleexclusivequota'),
-            residential_status: getChipValues('#eligibleexclusiveresidential'),
-            special_category: getChipValues('#eligibleexclusivespecialcategory'),
-            is_first_graduate: getChipValues('#eligibleexclusivefirstgraduate')
-        }
-    };
-}
-function getInstituteParameters() {
-    const $inclusiveSection = $('.incl-excl.active[data-step="institute"]');
-    const $exclusiveSection = $('.incl-excl[data-step="institute"]:not(.active)');
+// ADD THIS MISSING FUNCTION
+function getSelectValueFromSection($section, labelText, includeNotApplicable = true) {
+    const values = [];
+    const $formGroup = $section.find('.form-group').filter(function() {
+        return $(this).find('.form-label').text().trim() === labelText;
+    });
     
-    return {
-        inclusive: {
-            institute_ownership: getChipValuesFromSection($inclusiveSection, 'Institute Ownership'),
-            university_type: getSelectValueFromSection($inclusiveSection, 'University Type'),
-            university: getSelectValueFromSection($inclusiveSection, 'University'),
-            institute_category: getSelectValueFromSection($inclusiveSection, 'Institute Category'),
-            institute_name: getSelectValueFromSection($inclusiveSection, 'Institute name')
-        },
-        exclusive: {
-            enabled: isExclusiveEnabled('institute'),
-            institute_ownership: getChipValuesFromSection($exclusiveSection, 'Institute Ownership'),
-            university_type: getSelectValueFromSection($exclusiveSection, 'University Type'),
-            university: getSelectValueFromSection($exclusiveSection, 'University'),
-            institute_category: getSelectValueFromSection($exclusiveSection, 'Institute Category'),
-            institute_name: getSelectValueFromSection($exclusiveSection, 'Institute name')
+    $formGroup.find('select option:selected').each(function() {
+        const value = $(this).val();
+        const text = $(this).text().trim();
+        
+        if (includeNotApplicable) {
+            values.push({ value: value, text: text });
+        } else {
+            if (value && value !== '-1' && value !== 'Not Applicable') {
+                values.push({ value: value, text: text });
+            }
         }
-    };
-}
-function getCourseParameters() {
-    const $inclusiveSection = $('.incl-excl.active[data-step="course"]');
-    const $exclusiveSection = $('.incl-excl[data-step="course"]:not(.active)');
+    });
     
-    return {
-        inclusive: {
-            stream: getSelectValueFromSection($inclusiveSection, 'Stream'),
-            course_type: getChipValuesFromSection($inclusiveSection, 'Course Type'),
-            course_category: getSelectValueFromSection($inclusiveSection, 'Course Category'),
-            course: getSelectValueFromSection($inclusiveSection, 'Course'),
-            course_branch: getSelectValueFromSection($inclusiveSection, 'Course Branch'),
-            course_year: getSelectValueFromSection($inclusiveSection, 'Course Year')
-        },
-        exclusive: {
-            enabled: isExclusiveEnabled('course'),
-            stream: getSelectValueFromSection($exclusiveSection, 'Stream'),
-            course_type: getChipValuesFromSection($exclusiveSection, 'Course Type'),
-            course_category: getSelectValueFromSection($exclusiveSection, 'Course Category'),
-            course: getSelectValueFromSection($exclusiveSection, 'Course'),
-            course_branch: getSelectValueFromSection($exclusiveSection, 'Course Branch'),
-            course_year: getSelectValueFromSection($exclusiveSection, 'Course Year')
-        }
-    };
+    // If no values found, return array with Not Applicable
+    if (values.length === 0 && includeNotApplicable) {
+        values.push({ value: '-1', text: 'Not Applicable' });
+    }
+    
+    return values;
 }
+
+// Helper function to check if exclusive is enabled
+function isExclusiveEnabled(section) {
+    // Adjust this selector based on your actual HTML structure
+    return $(`.incl-excl[data-step="${section}"] .exclusive-toggle`).is(':checked');
+}
+
+// Fix getIncomeValues - update the selector names
+function getIncomeValues(container, includeEmpty = true) {
+    const $container = $(container);
+    // Changed from #incomeRange and #incomeValue to match your actual IDs
+    const $incomeRange = $container.find('.cond-select.op');
+    const $incomeValue = $container.find('.form-input');
+    
+    if (includeEmpty) {
+        return {
+            operator: $incomeRange.val() || null,
+            value: $incomeValue.val() || null
+        };
+    } else {
+        if ($incomeValue.val() && $incomeValue.val().trim() !== '') {
+            return {
+                operator: $incomeRange.val(),
+                value: $incomeValue.val()
+            };
+        }
+        return null;
+    }
+}
+ function renderCriteriaCards() {
+    const container = $('#dynamicCardsWrapper');
+    if (!container.length) return;
+    
+    if (criteriaList.length === 0) {
+        container.html('<div class="text-muted text-center py-3">No eligibility criteria added yet</div>');
+        $('#criteriaCount').text('0');
+        activeCardId = null; // Reset active card when no criteria
+        return;
+    }
+    
+    let html = '';
+    criteriaList.forEach((criteria, index) => {
+        const showIcons = (activeCardId === criteria.id);
+        html += `
+            <div class="sub-scheme-card" data-criteria-id="${criteria.id}" data-tab="fee-tab${index}">
+                <div class="sub-scheme-card-name text-left">${escapeHtml(criteria.name)}
+                </div>
+                <div class="card-actions" style="display: ${showIcons ? 'flex' : 'none'}">
+                    <button class="preview-btn" data-id="${criteria.id}" data-bs-toggle="modal" data-bs-target="#add_fee">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    <button class="delete-btn" data-id="${criteria.id}">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+    
+    container.html(html);
+    $('#criteriaCount').text(criteriaList.length);
+    
+    // Re-attach all event handlers after HTML is updated
+    attachCardEvents();
+}
+
+// Separate function to attach all card events
+function attachCardEvents() {
+    // Card click event to show/hide icons
+    $('.sub-scheme-card').off('click.card').on('click.card', function(e) {
+        // Don't trigger if clicking on buttons
+        if ($(e.target).closest('.preview-btn, .delete-btn').length) {
+            return;
+        }
+        
+        const cardId = $(this).data('criteria-id');
+        
+        // If clicking the same card that's active, hide icons
+        if (activeCardId === cardId) {
+            activeCardId = null;
+        } else {
+            // Otherwise, show icons for this card and hide others
+            activeCardId = cardId;
+        }
+        
+        // Re-render to update icon visibility
+        renderCriteriaCards();
+    });
+    
+    // Delete button event handlers
+    $('.delete-btn').off('click.delete').on('click.delete', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const id = $(this).data('id');
+        deleteCriteria(id);
+    });
+    
+    // Preview button event handlers
+    $('.preview-btn').off('click.preview').on('click.preview', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const id = $(this).data('id');
+        const criteria = criteriaList.find(c => c.id === id);
+        if (criteria) {
+            showPreviewModal(criteria);
+        }
+    });
+}
+
+// Add escapeHtml function to prevent XSS
+function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+// Update deleteCriteria function
+function deleteCriteria(id) {
+    criteriaList = criteriaList.filter(c => c.id !== id);
+    if (activeCardId === id) {
+        activeCardId = null;
+    }
+    renderCriteriaCards();
+}
+
+function showPreviewModal(criteria) {
+        const data = criteria.formData;
+        
+        // Build preview HTML
+        let previewHtml = '<div class="preview-grid">';
+        
+        // Student Section - Inclusive
+        previewHtml += `<div class="preview-section full-width"><strong>🎓 Student Parameters (Inclusive)</strong></div>`;
+        previewHtml += `<div class="preview-item"><label>Community:</label><span>${data.student.inclusive.community || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Caste:</label><span>${data.student.inclusive.caste.filter(c => c !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Religion:</label><span>${data.student.inclusive.religion.filter(r => r !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Gender:</label><span>${data.student.inclusive.gender}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Income:</label><span>${data.student.inclusive.income}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Quota:</label><span>${data.student.inclusive.quota}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Residential Status:</label><span>${data.student.inclusive.residential}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Special Category:</label><span>${data.student.inclusive.specialCategory}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>First Graduate:</label><span>${data.student.inclusive.firstGraduate}</span></div>`;
+        
+        // Student Section - Exclusive
+        previewHtml += `<div class="preview-section full-width mt-3"><strong>🎓 Student Parameters (Exclusive)</strong></div>`;
+        previewHtml += `<div class="preview-item"><label>Community:</label><span>${data.student.exclusive.community || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Caste:</label><span>${data.student.exclusive.caste.filter(c => c !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Religion:</label><span>${data.student.exclusive.religion.filter(r => r !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Gender:</label><span>${data.student.exclusive.gender}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Income:</label><span>${data.student.exclusive.income}</span></div>`;
+        
+        // Institute Section - Inclusive
+        previewHtml += `<div class="preview-section full-width mt-3"><strong>🏛️ Institute Parameters (Inclusive)</strong></div>`;
+        previewHtml += `<div class="preview-item"><label>Ownership:</label><span>${data.institute.inclusive.ownership.filter(o => o !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>University Type:</label><span>${data.institute.inclusive.universityType.filter(u => u !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>University:</label><span>${data.institute.inclusive.university.filter(u => u !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Institute Category:</label><span>${data.institute.inclusive.instituteCategory.filter(c => c !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Institute Name:</label><span>${data.institute.inclusive.instituteName.filter(n => n !== '-1').join(', ') || 'N/A'}</span></div>`;
+        
+        // Institute Section - Exclusive
+        previewHtml += `<div class="preview-section full-width mt-3"><strong>🏛️ Institute Parameters (Exclusive)</strong></div>`;
+        previewHtml += `<div class="preview-item"><label>Ownership:</label><span>${data.institute.exclusive.ownership.filter(o => o !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>University Type:</label><span>${data.institute.exclusive.universityType.filter(u => u !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>University:</label><span>${data.institute.exclusive.university.filter(u => u !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Institute Category:</label><span>${data.institute.exclusive.instituteCategory.filter(c => c !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Institute Name:</label><span>${data.institute.exclusive.instituteName.filter(n => n !== '-1').join(', ') || 'N/A'}</span></div>`;
+        
+        // Course Section - Inclusive
+        previewHtml += `<div class="preview-section full-width mt-3"><strong>📘 Course Parameters (Inclusive)</strong></div>`;
+        previewHtml += `<div class="preview-item"><label>Stream:</label><span>${data.course.inclusive.stream.filter(s => s !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Course Type:</label><span>${data.course.inclusive.courseType.filter(c => c !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Course Category:</label><span>${data.course.inclusive.courseCategory.filter(c => c !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Course:</label><span>${data.course.inclusive.course.filter(c => c !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Course Branch:</label><span>${data.course.inclusive.courseBranch.filter(b => b !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Course Year:</label><span>${data.course.inclusive.courseYear.filter(y => y !== '-1').join(', ') || 'N/A'}</span></div>`;
+        
+        // Course Section - Exclusive
+        previewHtml += `<div class="preview-section full-width mt-3"><strong>📘 Course Parameters (Exclusive)</strong></div>`;
+        previewHtml += `<div class="preview-item"><label>Stream:</label><span>${data.course.exclusive.stream.filter(s => s !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Course Type:</label><span>${data.course.exclusive.courseType.filter(c => c !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Course Category:</label><span>${data.course.exclusive.courseCategory.filter(c => c !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Course:</label><span>${data.course.exclusive.course.filter(c => c !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Course Branch:</label><span>${data.course.exclusive.courseBranch.filter(b => b !== '-1').join(', ') || 'N/A'}</span></div>`;
+        previewHtml += `<div class="preview-item"><label>Course Year:</label><span>${data.course.exclusive.courseYear.filter(y => y !== '-1').join(', ') || 'N/A'}</span></div>`;
+        
+        previewHtml += '</div>';
+        
+        $('#dynamicPreviewGrid').html(previewHtml);
+        $('#add_fee_modalLabel').text(`Eligibility Criteria: ${criteria.name}`);
+    }
 
 function getChipValues(containerId, includeNotApplicable = true) {
     const values = [];
@@ -301,142 +582,6 @@ function getSelectValues(selectId, includeNotApplicable = true) {
     return values;
 }
 
-function getSelectValueFromSection($section, labelText, includeNotApplicable = true) {
-    const $formGroup = $section.find('.form-group').filter(function() {
-        return $(this).find('.form-label').text().trim() === labelText;
-    });
-    
-    const $select = $formGroup.find('select');
-    const selectedValue = $select.val();
-    const selectedText = $select.find('option:selected').text();
-    
-    if (includeNotApplicable) {
-        // Include all values including Not Applicable
-        if (selectedValue && selectedValue !== 'All University' && selectedValue !== 'All Institutes') {
-            return {
-                value: selectedValue,
-                text: selectedText
-            };
-        }
-        return null;
-    } else {
-        // Exclude Not Applicable and default options
-        if (selectedValue && selectedValue !== '-1' && selectedValue !== 'Not Applicable' && selectedValue !== 'All University' && selectedValue !== 'All Institutes') {
-            return {
-                value: selectedValue,
-                text: selectedText
-            };
-        }
-        return null;
-    }
-}
-
-function getIncomeValues(container, includeEmpty = true) {
-    const $container = $(container);
-    const $incomeRange = $container.find('#incomeRange');
-    const $incomeValue = $container.find('#incomeValue');
-    
-    if (includeEmpty) {
-        // Return even if empty (will return null values)
-        return {
-            operator: $incomeRange.val() || null,
-            value: $incomeValue.val() || null
-        };
-    } else {
-        // Return only if has value
-        if ($incomeValue.val() && $incomeValue.val().trim() !== '') {
-            return {
-                operator: $incomeRange.val(),
-                value: $incomeValue.val()
-            };
-        }
-        return null;
-    }
-}
-
-// Updated main functions to include Not Applicable
-function getStudentParameters(includeNotApplicable = true) {
-    return {
-        inclusive: {
-            community: getChipValues('#eligibleinclusivecommunity', includeNotApplicable),
-            religion: getSelectValues('#eincreligion', includeNotApplicable),
-            gender: getChipValues('#eligibleinclusivegender', includeNotApplicable),
-            income: getIncomeValues('.incl-excl.active .form-group', includeNotApplicable),
-            quota: getChipValues('#eligibleinclusivequota', includeNotApplicable),
-            residential_status: getChipValues('#eligibleinclusiveresidential', includeNotApplicable),
-            special_category: getChipValues('#eligibleinclusivespecialcategory', includeNotApplicable),
-            is_first_graduate: getChipValues('#eligibleinclusivefirstgraduate', includeNotApplicable)
-        },
-        exclusive: {
-            enabled: isExclusiveEnabled('student'),
-            community: getChipValues('#eligibleexclusivecommuntiy', includeNotApplicable),
-            religion: getSelectValues('#eexcreligion', includeNotApplicable),
-            gender: getChipValues('#eligibleexclusivegender', includeNotApplicable),
-            income: getIncomeValues('.incl-excl[data-step="student"]:not(.active) .form-group', includeNotApplicable),
-            quota: getChipValues('#eligibleexclusivequota', includeNotApplicable),
-            residential_status: getChipValues('#eligibleexclusiveresidential', includeNotApplicable),
-            special_category: getChipValues('#eligibleexclusivespecialcategory', includeNotApplicable),
-            is_first_graduate: getChipValues('#eligibleexclusivefirstgraduate', includeNotApplicable)
-        }
-    };
-}
-
-function getInstituteParameters(includeNotApplicable = true) {
-    const $inclusiveSection = $('.incl-excl.active[data-step="institute"]');
-    const $exclusiveSection = $('.incl-excl[data-step="institute"]:not(.active)');
-    
-    return {
-        inclusive: {
-            institute_ownership: getChipValuesFromSection($inclusiveSection, 'Institute Ownership', includeNotApplicable),
-            university_type: getSelectValueFromSection($inclusiveSection, 'University Type', includeNotApplicable),
-            university: getSelectValueFromSection($inclusiveSection, 'University', includeNotApplicable),
-            institute_category: getSelectValueFromSection($inclusiveSection, 'Institute Category', includeNotApplicable),
-            institute_name: getSelectValueFromSection($inclusiveSection, 'Institute name', includeNotApplicable)
-        },
-        exclusive: {
-            enabled: isExclusiveEnabled('institute'),
-            institute_ownership: getChipValuesFromSection($exclusiveSection, 'Institute Ownership', includeNotApplicable),
-            university_type: getSelectValueFromSection($exclusiveSection, 'University Type', includeNotApplicable),
-            university: getSelectValueFromSection($exclusiveSection, 'University', includeNotApplicable),
-            institute_category: getSelectValueFromSection($exclusiveSection, 'Institute Category', includeNotApplicable),
-            institute_name: getSelectValueFromSection($exclusiveSection, 'Institute name', includeNotApplicable)
-        }
-    };
-}
-
-function getCourseParameters(includeNotApplicable = true) {
-    const $inclusiveSection = $('.incl-excl.active[data-step="course"]');
-    const $exclusiveSection = $('.incl-excl[data-step="course"]:not(.active)');
-    
-    return {
-        inclusive: {
-            stream: getSelectValueFromSection($inclusiveSection, 'Stream', includeNotApplicable),
-            course_type: getChipValuesFromSection($inclusiveSection, 'Course Type', includeNotApplicable),
-            course_category: getSelectValueFromSection($inclusiveSection, 'Course Category', includeNotApplicable),
-            course: getSelectValueFromSection($inclusiveSection, 'Course', includeNotApplicable),
-            course_branch: getSelectValueFromSection($inclusiveSection, 'Course Branch', includeNotApplicable),
-            course_year: getSelectValueFromSection($inclusiveSection, 'Course Year', includeNotApplicable)
-        },
-        exclusive: {
-            enabled: isExclusiveEnabled('course'),
-            stream: getSelectValueFromSection($exclusiveSection, 'Stream', includeNotApplicable),
-            course_type: getChipValuesFromSection($exclusiveSection, 'Course Type', includeNotApplicable),
-            course_category: getSelectValueFromSection($exclusiveSection, 'Course Category', includeNotApplicable),
-            course: getSelectValueFromSection($exclusiveSection, 'Course', includeNotApplicable),
-            course_branch: getSelectValueFromSection($exclusiveSection, 'Course Branch', includeNotApplicable),
-            course_year: getSelectValueFromSection($exclusiveSection, 'Course Year', includeNotApplicable)
-        }
-    };
-}
-
-function getAllParameterValues(includeNotApplicable = true) {
-    return {
-        student: getStudentParameters(includeNotApplicable),
-        institute: getInstituteParameters(includeNotApplicable),
-        course: getCourseParameters(includeNotApplicable)
-    };
-}
-
 // Function to check if Not Applicable is selected
 function isNotApplicableSelected(containerId) {
     let isSelected = false;
@@ -475,12 +620,6 @@ function getNotApplicableFields() {
     return notApplicableFields;
 
 }
-function isExclusiveEnabled(step) {
-    const $exclusiveSection = $(`.incl-excl[data-step="${step}"]:not(.active)`);
-    const $toggle = $exclusiveSection.find('.exclusive-toggle');
-    return $toggle.is(':checked');
-}
-
 
 
 
@@ -565,246 +704,4 @@ function getFieldValueAs(fieldId, fieldType, returnType = 'string', includeNotAp
         return getSelectValuesAs(fieldId, returnType, includeNotApplicable);
     }
     return returnType === 'string' ? '' : [];
-}
-
-
-function getEligibilityTabStudentParametersAsCommaSeparated(includeNotApplicable = false) {
-    return {
-        inclusive: {
-            community: getChipValuesAs('#eligibleinclusivecommunity', 'string', includeNotApplicable),
-            religion: getSelectValuesAs('#eincreligion', 'string', includeNotApplicable),
-            gender: getChipValuesAs('#eligibleinclusivegender', 'string', includeNotApplicable),
-            income: getIncomeValueAsString('.incl-excl.active .form-group', includeNotApplicable),
-            quota: getChipValuesAs('#eligibleinclusivequota', 'string', includeNotApplicable),
-            residential_status: getChipValuesAs('#eligibleinclusiveresidential', 'string', includeNotApplicable),
-            special_category: getChipValuesAs('#eligibleinclusivespecialcategory', 'string', includeNotApplicable),
-            is_first_graduate: getChipValuesAs('#eligibleinclusivefirstgraduate', 'string', includeNotApplicable)
-        },
-        exclusive: {
-            enabled: isExclusiveEnabled('student'),
-            community: getChipValuesAs('#eligibleexclusivecommuntiy', 'string', includeNotApplicable),
-            religion: getSelectValuesAs('#eexcreligion', 'string', includeNotApplicable),
-            gender: getChipValuesAs('#eligibleexclusivegender', 'string', includeNotApplicable),
-            income: getIncomeValueAsString('.incl-excl[data-step="student"]:not(.active) .form-group', includeNotApplicable),
-            quota: getChipValuesAs('#eligibleexclusivequota', 'string', includeNotApplicable),
-            residential_status: getChipValuesAs('#eligibleexclusiveresidential', 'string', includeNotApplicable),
-            special_category: getChipValuesAs('#eligibleexclusivespecialcategory', 'string', includeNotApplicable),
-            is_first_graduate: getChipValuesAs('#eligibleexclusivefirstgraduate', 'string', includeNotApplicable)
-        }
-    };
-}
-
-
-function getAllEligibilityParametersAsFlatObject(includeNotApplicable = false) {
-    const student = getEligibilityTabStudentParametersAsCommaSeparated(includeNotApplicable);
-    const institute = getEligibilityTabInstituteParametersAsCommaSeparated(includeNotApplicable);
-    const course = getEligiblityTabCourseParametersAsCommaSeparated(includeNotApplicable);
-    
-    return {
-        // Student Inclusive
-        'student_inclusive_community': student.inclusive.community,
-        'student_inclusive_religion': student.inclusive.religion,
-        'student_inclusive_gender': student.inclusive.gender,
-        'student_inclusive_income': student.inclusive.income,
-        'student_inclusive_quota': student.inclusive.quota,
-        'student_inclusive_residential_status': student.inclusive.residential_status,
-        'student_inclusive_special_category': student.inclusive.special_category,
-        'student_inclusive_is_first_graduate': student.inclusive.is_first_graduate,
-        
-        // Student Exclusive
-        'student_exclusive_enabled': student.exclusive.enabled,
-        'student_exclusive_community': student.exclusive.community,
-        'student_exclusive_religion': student.exclusive.religion,
-        'student_exclusive_gender': student.exclusive.gender,
-        'student_exclusive_income': student.exclusive.income,
-        'student_exclusive_quota': student.exclusive.quota,
-        'student_exclusive_residential_status': student.exclusive.residential_status,
-        'student_exclusive_special_category': student.exclusive.special_category,
-        'student_exclusive_is_first_graduate': student.exclusive.is_first_graduate,
-        
-        // Institute Inclusive
-        'institute_inclusive_ownership': institute.inclusive.institute_ownership,
-        'institute_inclusive_university_type': institute.inclusive.university_type,
-        'institute_inclusive_university': institute.inclusive.university,
-        'institute_inclusive_category': institute.inclusive.institute_category,
-        'institute_inclusive_name': institute.inclusive.institute_name,
-        
-        // Institute Exclusive
-        'institute_exclusive_enabled': institute.exclusive.enabled,
-        'institute_exclusive_ownership': institute.exclusive.institute_ownership,
-        'institute_exclusive_university_type': institute.exclusive.university_type,
-        'institute_exclusive_university': institute.exclusive.university,
-        'institute_exclusive_category': institute.exclusive.institute_category,
-        'institute_exclusive_name': institute.exclusive.institute_name,
-        
-        // Course Inclusive
-        'course_inclusive_stream': course.inclusive.stream,
-        'course_inclusive_type': course.inclusive.course_type,
-        'course_inclusive_category': course.inclusive.course_category,
-        'course_inclusive_course': course.inclusive.course,
-        'course_inclusive_branch': course.inclusive.course_branch,
-        'course_inclusive_year': course.inclusive.course_year,
-        
-        // Course Exclusive
-        'course_exclusive_enabled': course.exclusive.enabled,
-        'course_exclusive_stream': course.exclusive.stream,
-        'course_exclusive_type': course.exclusive.course_type,
-        'course_exclusive_category': course.exclusive.course_category,
-        'course_exclusive_course': course.exclusive.course,
-        'course_exclusive_branch': course.exclusive.course_branch,
-        'course_exclusive_year': course.exclusive.course_year
-    };
-}
-
-/**
- * Get institute parameters as comma-separated values
- */
-function getEligibilityTabInstituteParametersAsCommaSeparated(includeNotApplicable = false) {
-    const $inclusiveSection = $('.incl-excl.active[data-step="institute"]');
-    const $exclusiveSection = $('.incl-excl[data-step="institute"]:not(.active)');
-    
-    return {
-        inclusive: {
-            institute_ownership: getChipValuesFromSectionAs($inclusiveSection, 'Institute Ownership', 'string', includeNotApplicable),
-            university_type: getSelectValueFromSectionAs($inclusiveSection, 'University Type', 'string', includeNotApplicable),
-            university: getSelectValueFromSectionAs($inclusiveSection, 'University', 'string', includeNotApplicable),
-            institute_category: getSelectValueFromSectionAs($inclusiveSection, 'Institute Category', 'string', includeNotApplicable),
-            institute_name: getSelectValueFromSectionAs($inclusiveSection, 'Institute name', 'string', includeNotApplicable)
-        },
-        exclusive: {
-            enabled: isExclusiveEnabled('institute'),
-            institute_ownership: getChipValuesFromSectionAs($exclusiveSection, 'Institute Ownership', 'string', includeNotApplicable),
-            university_type: getSelectValueFromSectionAs($exclusiveSection, 'University Type', 'string', includeNotApplicable),
-            university: getSelectValueFromSectionAs($exclusiveSection, 'University', 'string', includeNotApplicable),
-            institute_category: getSelectValueFromSectionAs($exclusiveSection, 'Institute Category', 'string', includeNotApplicable),
-            institute_name: getSelectValueFromSectionAs($exclusiveSection, 'Institute name', 'string', includeNotApplicable)
-        }
-    };
-}
-
-/**
- * Get course parameters as comma-separated values
- */
-function getEligiblityTabCourseParametersAsCommaSeparated(includeNotApplicable = false) {
-    const $inclusiveSection = $('.incl-excl.active[data-step="course"]');
-    const $exclusiveSection = $('.incl-excl[data-step="course"]:not(.active)');
-    
-    return {
-        inclusive: {
-            stream: getSelectValueFromSectionAs($inclusiveSection, 'Stream', 'string', includeNotApplicable),
-            course_type: getChipValuesFromSectionAs($inclusiveSection, 'Course Type', 'string', includeNotApplicable),
-            course_category: getSelectValueFromSectionAs($inclusiveSection, 'Course Category', 'string', includeNotApplicable),
-            course: getSelectValueFromSectionAs($inclusiveSection, 'Course', 'string', includeNotApplicable),
-            course_branch: getSelectValueFromSectionAs($inclusiveSection, 'Course Branch', 'string', includeNotApplicable),
-            course_year: getSelectValueFromSectionAs($inclusiveSection, 'Course Year', 'string', includeNotApplicable)
-        },
-        exclusive: {
-            enabled: isExclusiveEnabled('course'),
-            stream: getSelectValueFromSectionAs($exclusiveSection, 'Stream', 'string', includeNotApplicable),
-            course_type: getChipValuesFromSectionAs($exclusiveSection, 'Course Type', 'string', includeNotApplicable),
-            course_category: getSelectValueFromSectionAs($exclusiveSection, 'Course Category', 'string', includeNotApplicable),
-            course: getSelectValueFromSectionAs($exclusiveSection, 'Course', 'string', includeNotApplicable),
-            course_branch: getSelectValueFromSectionAs($exclusiveSection, 'Course Branch', 'string', includeNotApplicable),
-            course_year: getSelectValueFromSectionAs($exclusiveSection, 'Course Year', 'string', includeNotApplicable)
-        }
-    };
-}
-
-/**
- * Get chip values from section as comma-separated or array
- */
-function getChipValuesFromSectionAs($section, labelText, returnType = 'string', includeNotApplicable = false) {
-    const values = [];
-    const $formGroup = $section.find('.form-group').filter(function() {
-        return $(this).find('.form-label').text().trim() === labelText;
-    });
-    
-    $formGroup.find('.chip.active input:checked').each(function() {
-        const value = $(this).val();
-        if (includeNotApplicable) {
-            values.push(value);
-        } else {
-            if (value && value !== '-1') {
-                values.push(value);
-            }
-        }
-    });
-    
-    if (returnType === 'string') {
-        return values.join(',');
-    }
-    return values;
-}
-
-/**
- * Get select value from section as comma-separated or array
- */
-function getSelectValueFromSectionAs($section, labelText, returnType = 'string', includeNotApplicable = false) {
-    const $formGroup = $section.find('.form-group').filter(function() {
-        return $(this).find('.form-label').text().trim() === labelText;
-    });
-    
-    const $select = $formGroup.find('select');
-    const selectedValue = $select.val();
-    
-    if (includeNotApplicable) {
-        if (returnType === 'string') {
-            return selectedValue || '';
-        }
-        return selectedValue || [];
-    } else {
-        if (selectedValue && selectedValue !== '-1' && selectedValue !== 'Not Applicable' && selectedValue !== 'All University' && selectedValue !== 'All Institutes') {
-            if (returnType === 'string') {
-                return selectedValue;
-            }
-            return [selectedValue];
-        }
-        return returnType === 'string' ? '' : [];
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function shcemeRegister(){
-  return {
-    department: $('#department').val() || '',
-    sub_department: $('#sub_department').val() || '',
-    scheme_name: $('#scheme_name').val() || '',
-    scheme_code: $('#scheme_code').val() || '',
-    benefits: $('#benefits').val() || '',
-    scheme_type: $('#scheme_type').val() || '',
-    scheme_category: $('#scheme_category').val() || '',
-    accademic_year: $('#accademic_year').val() || '',
-    go_reference_no: $('#go_reference_no').val() || '',
-    go_file_name: $('#go_file_name').val() || '',
-    pfms_schemeid: $('#pfms_schemeid').val() || '',
-    pfms_center_authorityid: $('#pfms_center_authorityid').val() || '',
-    dbt_schemeid: $('#dbt_schemeid').val() || '',
-    gbm_id: $('#gbm_id').val() || '',
-    fto_id: $('#fto_id').val() || '',
-    head_account: $('#head_account').val() || '',
-    budget_code: $('#budget_code').val() || '',
-  };
-}
- 
-
-function schemeEligible(){
-  return {
-    eligibleCriteriaName: $('#eligibleCriteriaName').val() || '',
-    eligibleRefCopy: $('#eligibleRefCopy').val() || '',
-  }
 }

@@ -46,49 +46,13 @@ const DropdownAPI = {
     await this.ensureCsrfToken();
     return SecureAPI.request(`${this.getApiBase()}/${endpoint}`, 'POST', data);
   },
-
-  async postToUrl(url, data = {}) {
+  async get(endpoint, data = {}) {
     if (typeof SecureAPI === 'undefined' || !SecureAPI.request) {
       throw new Error('SecureAPI.request is unavailable');
     }
 
     await this.ensureCsrfToken();
-    return SecureAPI.request(url, 'POST', data);
-  },
-
-  async getWithEncryptedPayload(url, data = {}) {
-    if (typeof SecureAPI === 'undefined' || !SecureAPI.encrypt || !SecureAPI.decrypt) {
-      throw new Error('SecureAPI encrypt/decrypt is unavailable');
-    }
-
-    await this.ensureCsrfToken();
-
-    const token = localStorage.getItem('access_token');
-    const encryptionKey = sessionStorage.getItem('encryption_key');
-    const csrfToken = sessionStorage.getItem('csrf_token');
-
-    if (!encryptionKey) {
-      throw new Error('encryption_key is missing in sessionStorage');
-    }
-
-    const encryptedPayload = SecureAPI.encrypt(JSON.stringify(data), encryptionKey);
-    const urlWithPayload = `${url}?${new URLSearchParams({ payload: encryptedPayload })}`;
-
-    const response = await fetch(urlWithPayload, {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'X-CSRF-Token': csrfToken
-      }
-    });
-
-    const result = await response.json();
-    if (result?.payload) {
-      const decrypted = SecureAPI.decrypt(result.payload, encryptionKey);
-      return JSON.parse(decrypted);
-    }
-
-    return result;
+    return SecureAPI.request(`${this.getSchemeRegistrationBase()}/${endpoint}`, 'GET', data);
   },
 
   extractRows(response) {
@@ -172,45 +136,171 @@ const DropdownAPI = {
     return rows;
   },
 
-  async loadSchemeRegistrationGenericDropdown(selector, typeParam, bindConfig = {}) {
-    if (typeof SecureAPI === 'undefined' || !SecureAPI.request) {
-      throw new Error('SecureAPI.request is unavailable');
+
+
+
+
+
+
+
+
+
+
+  
+
+// ========================================================================================================================
+// ************************************************************************************************************************
+//                                          ELIGIBILITY TAP API
+// ************************************************************************************************************************
+// ========================================================================================================================
+
+
+async loadDropdown({
+  endpoint,
+  selector,
+  payload = {},
+  method,
+  valueKeys = ['id'],
+  textKeys = ['name'],
+  placeholderText = '--Select--',
+  renderType = 'select',
+  constraint = '',
+  field = '',
+  includeNA = true,
+  useSelect2 = false,            
+  extraOptions = [] 
+}) {
+  let response;
+  if(method === 'get'){
+    response = await this.get(endpoint, payload);
+  }else{
+    response = await this.post(endpoint, payload);
+  }
+  // const response = await this.post(endpoint, payload);
+  const rows = this.extractRows(response) || [];
+
+  // ✅ Inject NA
+  let finalRows = rows;
+  if (includeNA) {
+    const hasNA = rows.some(item =>
+      valueKeys.some(k => String(item[k]) === '-1')
+    );
+
+    if (!hasNA) {
+      const naObj = {};
+      valueKeys.forEach(k => naObj[k] = '-1');
+      textKeys.forEach(k => naObj[k] = 'Not Applicable');
+
+      finalRows = [naObj, ...rows];
     }
+  }
 
-    await this.ensureCsrfToken();
+  // ============================
+  // 👉 SELECT (WITH SELECT2)
+  // ============================
+  if (renderType === 'select') {
 
-    const endpoint = bindConfig.endpoint || 'dropdown';
-    const payload = {
-      type: typeParam,
-      ...(bindConfig.payload || {})
-    };
-    const base = this.getSchemeRegistrationBase().replace(/\/$/, '');
-    const url = `${base}/${endpoint}`;
-    console.log(`scheme-registration GET encrypted payload [url=${url}]`, payload);
+    const $el = $(selector);
 
-    let response = await this.getWithEncryptedPayload(url, payload);
+    if (useSelect2) {
 
-    const responseError = String(response?.error || '');
-    const isBrokenCategoryFilter =
-      /internal server error/i.test(responseError) ||
-      /undefined method/i.test(responseError) ||
-      /getschemecategory/i.test(responseError);
+      // 👉 destroy safely
+      try {
+        if ($el.data('select2')) $el.select2('destroy');
+      } catch (e) {}
 
-    if (isBrokenCategoryFilter) {
-      console.warn(`Backend ${url} is failing.`, responseError);
+      $el.empty();
+
+      // 👉 Add extra options first
+      extraOptions.forEach(opt => {
+        $el.append(new Option(opt.label, opt.value, false, false));
+      });
+
+      // 👉 Add actual data
+      finalRows.forEach(item => {
+        const value = valueKeys.map(k => item[k]).find(v => v !== undefined);
+        const text = textKeys.map(k => item[k]).find(v => v !== undefined);
+
+        $el.append(new Option(text, value, value === '-1', value === '-1'));
+      });
+
+      $el.prop('multiple', true);
+
+      $el.select2({
+        width: '100%',
+        placeholder: placeholderText
+      });
+
+      // 👉 Special handling
+      $el.off('change.control').on('change.control', function () {
+
+        let values = $(this).val() || [];
+
+        // Select All
+        if (values.includes('select_all')) {
+          const all = [];
+          $(this).find('option').each(function () {
+            const v = $(this).val();
+            if (!['select_all', 'deselect_all'].includes(v)) {
+              all.push(v);
+            }
+          });
+          $(this).val(all).trigger('change.select2');
+        }
+
+        // Deselect All
+        if (values.includes('deselect_all')) {
+          $(this).val(['-1']).trigger('change.select2');
+        }
+
+        // NA logic
+        if (values.includes('-1') && values.length > 1) {
+          $(this).val(['-1']).trigger('change.select2');
+        }
+      });
+
+    } else {
+      // 👉 fallback (your existing)
+      this.bindSelectOptions(selector, finalRows, {
+        valueKeys,
+        textKeys,
+        placeholderText
+      });
     }
+  }
 
-    console.log(`scheme-registration dropdown [type=${typeParam}] response:`, response);
+  // ============================
+  // 👉 CHIP (UNCHANGED)
+  // ============================
+  if (renderType === 'chip') {
+    let html = `
+      <div class="chip-select multi-select" 
+           data-group="${constraint}" 
+           data-type="${field}">
+    `;
 
-    const rows = this.extractRows(response);
-    console.log(`scheme-registration dropdown [type=${typeParam}] rows:`, rows);
+    finalRows.forEach(item => {
+      const value = valueKeys.map(k => item[k]).find(v => v !== undefined);
+      const text = textKeys.map(k => item[k]).find(v => v !== undefined);
 
-    this.bindSelectOptions(selector, rows, {
-      valueKeys: bindConfig.valueKeys || ['id', 'value', 'lookup_id', 'type_id'],
-      textKeys: bindConfig.textKeys || ['display_text', 'displayText', 'name', 'text', 'label', 'description'],
-      placeholderText: bindConfig.placeholderText || '--Select--'
+      const isNA = String(value) === '-1';
+
+      html += `
+        <label class="chip ${isNA ? 'active' : ''}">
+          <input type="checkbox" 
+                 value="${value}" 
+                 ${isNA ? 'checked' : ''} 
+                 hidden>
+          <span>${text}</span>
+        </label>
+      `;
     });
 
-    return rows;
+    html += `</div>`;
+    $(selector).html(html);
   }
+
+  return finalRows;
+}
 };
+

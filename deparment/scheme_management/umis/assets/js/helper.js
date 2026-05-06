@@ -3,7 +3,7 @@ const SELECT_ALL = 'select_all';
 const DESELECT_ALL = 'deselect_all';
 let mode = 'add';
 const dropdowns = [
-    '#eincreligion', '#eexcreligion', '#einccast', '#eexccast', '#eligibilityCriteriaList',
+    '#eincreligion', '#eexcreligion', '#einccaste', '#eexccaste', '#eligibilityCriteriaList',
     '#sincreligion', '#sexcreligion','#eincinstituteownership','#eincuniversitytype','#eincuniversity',
     '#eincinstitutecategory','#eincinstitutename','#eexcinstituteownership','#eexcuniversitytype','#eexcuniversity',
     '#eexcinstitutecategory','#eexcinstitutename','#eincstream','#einccoursetype','#einccoursecategory',
@@ -14,7 +14,9 @@ const dropdowns = [
     '#sinccourse','#sinccoursebranch','#sinccourseyear','#sexcstream','#sexccoursetype','#sexccoursecategory',
     '#sexccourse','#sexccoursebranch','#sexccourseyear', 'mhosteltype', 'mdisabilitycategory'
 ];
-
+function getActiveMainTab() {
+    return $('.tab-btn.active').data('tab');
+}
 function applyInputValidation(inputId, rules = []) {
 // Rule	            Description
 //  1	            Allow only digits (0-9) — removes everything else.

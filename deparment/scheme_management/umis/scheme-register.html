@@ -38,7 +38,17 @@
       pointer-events: none;
       transition: all .3s ease;
     }
+    .select2-container--default .select2-selection--multiple {
+    max-height: 160px;           /* adjust as needed */
+    overflow-y: auto;
+}
 
+/* Prevent tags from wrapping infinitely */
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    max-height: 160px;
+    overflow-y: auto;
+    display: block;
+}
     .chip {
       cursor: pointer;
     }
@@ -1150,7 +1160,7 @@
                           </div>
                           <div class="form-group">
                             <label class="form-label">Caste</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="einccast"
+                            <select class="form-select js-example-basic-multiple" multiple id="einccaste"
                               data-val="caste">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
@@ -1207,11 +1217,11 @@
 
                           <div class="form-group mt-2">
                             <label class="form-label">Community</label>
-                            <div id="eligibleexclusivecommuntiy"></div>
+                            <div id="eligibleexclusivecommunity"></div>
                           </div>
                           <div class="form-group">
                             <label class="form-label">Caste</label>
-                            <select class="form-select js-example-basic-multiple" multiple id="eexccast"
+                            <select class="form-select js-example-basic-multiple" multiple id="eexccaste"
                               data-val="caste">
                               <option value="-1" selected>Not Applicable</option>
                             </select>
@@ -1455,8 +1465,7 @@
                     <div class="action-bar-left"><span class="draft-dot"></span> Scheme: Post Matric Scholarship for SC
                       Students</div>
                     <div class="action-bar-right">
-                      <button class="btn btn-primary" id="add_eligibility"><i class="bi bi-plus-square"></i> Add
-                        Eligibility Criterias</button>
+                      <button class="btn btn-primary" id="add_eligibility"><i class="bi bi-plus-square"></i> Commit</button>
                     </div>
                   </div>
                 </div>
@@ -1464,14 +1473,15 @@
                 <!-- inner tab buttons -->
 
                 <div class="inner-tab-bar">
-
+                  
                   <div class="section-label">📋Added Eligibility Criteria <span class="count-notification">2</span>
+                    <div id="dynamicCardsWrapper"></div>
                   </div>
-                  <a class="sub-scheme-card" data-tab="fee-tab1">
+                  <!-- <a class="sub-scheme-card" data-tab="fee-tab1">
                     <div class="sub-scheme-card-name">
                       SC Girl Students – PG <span> ADW-PMS-2026-EC001 </span>
                     </div>
-                    <!-- Action buttons -->
+                   
                     <div class="card-actions">
                       <button class="preview-btn" data-bs-toggle="modal" data-bs-target="#add_fee">
                         <i class="bi bi-eye"></i>
@@ -1480,12 +1490,12 @@
                         <i class="bi bi-trash"></i>
                       </button>
                     </div>
-                  </a>
-                  <a class="sub-scheme-card" data-tab="fee-tab1">
+                  </a> -->
+                  <!-- <a class="sub-scheme-card" data-tab="fee-tab1">
                     <div class="sub-scheme-card-name">
                       SC Boy Students – PG <span> ADW-PMS-2026-EC002 </span>
                     </div>
-                    <!-- Action buttons -->
+                   
                     <div class="card-actions">
                       <button class="preview-btn" data-bs-toggle="modal" data-bs-target="#add_fee">
                         <i class="bi bi-eye"></i>
@@ -1494,7 +1504,7 @@
                         <i class="bi bi-trash"></i>
                       </button>
                     </div>
-                  </a>
+                  </a> -->
                   <button class="btn btn-primary d-flex flex-row justify-content-center"
                     onclick="saveEligibility()">Continue <i class="bi bi-arrow-right-circle"></i> Scholarship
                     Fee</button>
@@ -1768,7 +1778,7 @@
                               </div>
                             </div>
                             <div class="incl-excl form-grid-2" data-tab="scholarship" data-step="institute">
-                              <h4 class="excl d-flex justify-content-center align-items-center">Exclusive <label
+                                <h4 class="excl d-flex justify-content-center align-items-center">Exclusive <label
                                   class="mini-switch ms-1">
                                   <input type="checkbox" class="exclusive-toggle">
                                   <span class="mini-slider"></span>
@@ -1863,7 +1873,7 @@
                                 </select>
                               </div>
                             </div>
-                            <div class="incl-excl form-grid-2">
+                            <div class="incl-excl form-grid-2 " data-tab="scholarship" data-step="course">
 
                               <h4 class="excl d-flex justify-content-center align-items-center">Exclusive <label
                                   class="mini-switch ms-1">
@@ -2757,7 +2767,7 @@
 
   <script src="assets/js/add.js"></script>
   <script>
-    tabToggle();
+    
     innerTabToggle();
     renderInstalments();
   </script>
@@ -2903,11 +2913,7 @@
         inputShowHide($(this), $('#exincomeValue'));
       });
 
-      // renderChipDropdown({
-      //   field: 'community',
-      //   selector: '#eligibleinclusivecommunity',
-      //   constraint: 'inclusive'
-      // });
+;
       // renderChipDropdown({
       //   field: 'community',
       //   selector: '#eligibleexclusivecommuntiy',
@@ -3057,25 +3063,9 @@
       // })
     });
 
-
-    $('#add_eligibility').on('click', function (e) {
-      e.preventDefault();
-
-      let eligibleCriteriaName = $('#eligibleCriteriaName').val();
-      if (!eligibleCriteriaName) {
-        alert('Enter the Eligibility Criteria Name')
-        return;
-      }
-
-      const allValues = getAllParameterValues();
-      console.log('Detailed Values:', allValues);
-      console.log('Student Inclusive religion:', allValues.student.inclusive.religion);
-      console.log('Student Exclusive Enabled:', allValues.student.exclusive.enabled);
-      console.log('Institute Inclusive Ownership:', allValues.institute.inclusive.institute_ownership);
-      return allValues;
-
-    });
-
+    let isEligibilityLoaded = false;
+    const exclusiveLoadTracker = {};
+    const casteRequestTracker = {};
     function normalizeUserDetailsPayload(payload) {
       if (!payload) return null;
 
@@ -3386,6 +3376,381 @@
       }
     }
 
+function tabToggle() {
+
+  const buttons = document.querySelectorAll(".tab-btn");
+  const tabs = document.querySelectorAll(".tab-section");
+
+  buttons.forEach((btn, index) => {
+
+    btn.addEventListener("click", async function () {
+
+      // reset
+      buttons.forEach(b => {
+        b.classList.remove("active", "completed");
+      });
+
+      // set active
+      this.classList.add("active");
+
+      // mark previous steps completed
+      buttons.forEach((b, i) => {
+        if (i < index) {
+          b.classList.add("completed");
+        }
+      });
+
+      // hide tabs
+      tabs.forEach(tab => tab.classList.add("d-none"));
+
+      // show selected
+      const id = this.getAttribute("data-tab");
+      document.getElementById(id).classList.remove("d-none");
+
+      // existing call
+      getSchemeIdentityRegisterReference(saveParams);
+
+      // ✅ NEW: Trigger only for Eligibility tab (Tab 2)
+      if (id === 'scheme-tab2' && !isEligibilityLoaded) {
+        isEligibilityLoaded = true;
+        DropdownAPI.loadDropdown({
+          endpoint: 'community-filter',
+          selector: '#eligibleinclusivecommunity',
+          payload: { field: 'community', department_id: loggedInDepartmentId, sub_department_id: $('#sub_department').val()},
+          renderType: 'chip',
+          constraint: 'inclusion',
+          valueKeys: ['id'],
+          textKeys: ['name']
+        });
+        DropdownAPI.loadDropdown({
+          endpoint: 'dropdown',
+          selector: '#eincreligion',
+          payload: { type: 'Religion'},
+          method:'get',
+          renderType: 'select',
+          useSelect2: true,
+          extraOptions: [
+            { label: 'Select All', value: 'select_all' },
+            { label: 'Deselect All', value: 'deselect_all' }
+          ]
+        });
+        DropdownAPI.loadDropdown({
+          endpoint: 'dropdown',
+          selector: '#eligibleinclusivegender',
+          payload: { type: 'Gender'},
+          method:'get',
+          renderType: 'chip',
+          constraint: 'inclusion',
+          valueKeys: ['id'],
+          textKeys: ['name']
+        });
+        DropdownAPI.loadDropdown({
+          endpoint: 'dropdown',
+          selector: '#eligibleinclusiveresidential',
+          payload: { type: 'ResidentialStatus'},
+          method:'get',
+          renderType: 'chip',
+          constraint: 'inclusion',
+          valueKeys: ['id'],
+          textKeys: ['name']
+        });
+        DropdownAPI.loadDropdown({
+          endpoint: 'dropdown',
+          selector: '#eligibleinclusivequota',
+          payload: { type: 'Quota'},
+          method: 'get',
+          renderType: 'chip',
+          constraint: 'inclusion',
+          valueKeys: ['id'],
+          textKeys: ['name']
+        });
+      }
+
+    });
+
+  });
+
+}
+
+function getChipValues(containerId, includeNotApplicable = true) {
+    const values = [];
+
+    $(`${containerId} .chip.active input:checked`).each(function () {
+        const value = $(this).val();
+        const text = $(this).closest('.chip').text().trim();
+
+        if (includeNotApplicable || value !== '-1') {
+            values.push({ value, text });
+        }
+    });
+
+    return values;
+}
+async function handleCommunityToCaste(containerId, casteSelector) {
+
+    let selected = getChipValues(containerId, true);
+    let selectedValues = selected.map(item => item.value);
+
+    const isNASelected = selectedValues.includes('-1');
+
+    // ============================================
+    // ✅ CASE 1: NOT APPLICABLE → RESET
+    // ============================================
+    if (isNASelected) {
+
+        // 🚫 Cancel any pending request effect
+        casteRequestTracker[casteSelector] = null;
+
+        resetSelectToNA(casteSelector);
+        return;
+    }
+
+    // fallback
+    if (!selectedValues.length) {
+        selectedValues = ['-1'];
+    }
+
+    // ============================================
+    // ✅ CASE 2: LOAD CASTE (WITH REQUEST GUARD)
+    // ============================================
+
+    const requestId = Date.now();
+    casteRequestTracker[casteSelector] = requestId;
+
+    const rows = await DropdownAPI.loadDropdown({
+        endpoint: 'caste-filter',
+        selector: casteSelector,
+        payload: {
+            community_id: selectedValues,
+            department_id: loggedInDepartmentId,
+            sub_department_id: $('#sub_department').val()
+        },
+        renderType: 'select',
+        useSelect2: true,
+        extraOptions: [
+            { label: 'Select All', value: 'select_all' },
+            { label: 'Deselect All', value: 'deselect_all' }
+        ]
+    });
+
+    // 🚫 Ignore stale response
+    if (casteRequestTracker[casteSelector] !== requestId) {
+        return;
+    }
+
+    return rows;
+}
+// Inclusive
+$(document).on(
+    'change',
+    '#eligibleinclusivecommunity .chip-select input[type="checkbox"]',
+    function () {
+        handleCommunityToCaste(
+            '#eligibleinclusivecommunity',
+            '#einccaste'
+        );
+    }
+);
+
+// Exclusive
+$(document).on(
+    'change',
+    '#eligibleexclusivecommunity .chip-select input[type="checkbox"]',
+    function () {
+        handleCommunityToCaste(
+            '#eligibleexclusivecommunity',
+            '#eexccaste'
+        );
+    }
+);
+
+async function loadExclusiveData(tab, step, $section) {
+    const key = `${tab}_${step}`;
+    if (exclusiveLoadTracker[key]) return;
+    exclusiveLoadTracker[key] = true;
+
+    console.log("Loading Exclusive:", key);
+    if (tab === 'eligibility') {
+
+        if (step === 'student') {
+
+          DropdownAPI.loadDropdown({
+            endpoint: 'community-filter',
+            selector: $section.find('#eligibleexclusivecommunity'),
+            payload: { field: 'community', department_id: loggedInDepartmentId, sub_department_id: $('#sub_department').val()},
+            renderType: 'chip',
+            constraint: 'exclusion',
+            valueKeys: ['id'],
+            textKeys: ['name']
+          });
+          DropdownAPI.loadDropdown({
+            endpoint: 'dropdown',
+            selector: $section.find('#eexcreligion'),
+            payload: { type: 'Religion'},
+            method:'get',
+            renderType: 'select',
+            useSelect2: true,
+            extraOptions: [
+              { label: 'Select All', value: 'select_all' },
+              { label: 'Deselect All', value: 'deselect_all' }
+            ]
+          });
+          DropdownAPI.loadDropdown({
+            endpoint: 'dropdown',
+            selector: $section.find('#eligibleexclusivegender'),
+            payload: { type: 'Gender'},
+            method:'get',
+            renderType: 'chip',
+            constraint: 'inclusion',
+            valueKeys: ['id'],
+            textKeys: ['name']
+          });
+          DropdownAPI.loadDropdown({
+            endpoint: 'dropdown',
+            selector: $section.find('#eligibleexclusiveresidential'),
+            payload: { type: 'ResidentialStatus'},
+            method:'get',
+            renderType: 'chip',
+            constraint: 'inclusion',
+            valueKeys: ['id'],
+            textKeys: ['name']
+          });
+          DropdownAPI.loadDropdown({
+            endpoint: 'dropdown',
+            selector: $section.find('#eligibleexclusivequota'),
+            payload: { type: 'Quota'},
+            method: 'get',
+            renderType: 'chip',
+            constraint: 'inclusion',
+            valueKeys: ['id'],
+            textKeys: ['name']
+          });
+        }
+
+        if (step === 'institute') {
+            console.log("Call institute APIs");
+        }
+
+        if (step === 'course') {
+            console.log("Call course APIs");
+        }
+    }
+
+    // ===============================
+    // SCHOLARSHIP TAB
+    // ===============================
+    if (tab === 'scholarship') {
+
+        if (step === 'student') {
+            console.log("Scholarship student APIs");
+        }
+
+        if (step === 'institute') {
+            console.log("Scholarship institute APIs");
+        }
+
+        if (step === 'course') {
+            console.log("Scholarship course APIs");
+        }
+    }
+}
+
+$(document).on('change', '.exclusive-toggle', async function () {
+
+    const isEnabled = $(this).is(':checked');
+    const $section = $(this).closest('.incl-excl');
+
+    const tab = $section.data('tab');     // eligibility / scholarship
+    const step = $section.data('step');   // student / institute / course
+
+    const activeMainTab = getActiveMainTab(); // 🔥 IMPORTANT
+
+    const $allInputs = $section.find('input, select, .chip');
+    const $inputsToControl = $allInputs.not(this);
+
+    if (isEnabled) {
+
+        // ✅ Enable UI
+        $section.removeClass('disabled-section');
+        $inputsToControl.prop('disabled', false);
+        $section.find('.chip').removeClass('disabled-chip');
+
+        // ✅ Reset to NA
+        $section.find('.chip-select').each(function () {
+            const $na = $(this).find('input[value="-1"]');
+            $(this).find('input').prop('checked', false).closest('.chip').removeClass('active');
+            $na.prop('checked', true).closest('.chip').addClass('active');
+        });
+
+        // ============================================
+        // ✅ 🔥 CALL API ONLY IF TAB IS scheme-tab2
+        // ============================================
+        if (activeMainTab === 'scheme-tab2') {
+            await loadExclusiveData(tab, step, $section);
+        }
+
+    } else {
+
+        // Reset first
+        $section.find('.chip-select').each(function () {
+            const $na = $(this).find('input[value="-1"]');
+            $(this).find('input').prop('checked', false).closest('.chip').removeClass('active');
+            $na.prop('checked', true).closest('.chip').addClass('active');
+        });
+
+        // Disable UI
+        $section.addClass('disabled-section');
+        $inputsToControl.prop('disabled', true);
+        $section.find('.chip').addClass('disabled-chip');
+    }
+});
+
+$('#add_eligibility').on('click', function(e) {
+        e.preventDefault();
+        
+        // Get current form data
+        
+        
+        const criteriaName = $('#eligibleCriteriaName').val();
+         if (!criteriaName) {
+        alert('Enter the Eligibility Criteria Name')
+        return;
+      }
+      const formData = getEligibilityFormData();
+        // Create new criteria object
+        const newCriteria = {
+            id: Date.now(),
+            name: criteriaName,
+            formData: formData,
+            createdAt: new Date()
+        };
+        
+        // Add to list
+        criteriaList.push(newCriteria);
+        
+        // Re-render cards
+        renderCriteriaCards();
+        
+        // Optional: Scroll to show the new card
+        $('.inner-tab-bar')[0]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     $(document).ready(function () {
@@ -3425,7 +3790,7 @@
       });
 
     });
-
+tabToggle();
   </script>
 </body>
 

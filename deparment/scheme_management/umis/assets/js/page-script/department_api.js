@@ -48,10 +48,23 @@ const SecureAPI = {
             'X-CSRF-Token': csrfToken
         };
 
+        // let response = await fetch(url, {
+        //     method: method,
+        //     headers: headers,
+        //     body: payload ? JSON.stringify({ payload: payload }) : null
+        // });
+         if (method === 'GET' && payload) {
+            url += `?payload=${encodeURIComponent(payload)}`;
+        }
+
+
         let response = await fetch(url, {
             method: method,
             headers: headers,
-            body: payload ? JSON.stringify({ payload: payload }) : null
+            body: method !== 'GET' && payload
+            ? JSON.stringify({ payload })
+            : null
+            // body: payload ? JSON.stringify({ payload: payload }) : null
         });
 
         // Handle Token Expiry (401)
