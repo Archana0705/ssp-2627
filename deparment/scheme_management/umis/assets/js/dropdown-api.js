@@ -110,7 +110,7 @@ const DropdownAPI = {
 
   /**
    * Scheme type dropdown from staging_api.php:
-   * POST /api/scheme-type-filter (Auth + CSRF + encrypted payload)
+   * POST /api/scheme_type-filter (Auth + CSRF + encrypted payload)
    */
   async loadSchemeRegistrationDropdown(selector, typeParam = 'SchemeType') {
     if (typeof SecureAPI === 'undefined' || !SecureAPI.request) {
@@ -120,8 +120,8 @@ const DropdownAPI = {
     await this.ensureCsrfToken();
 
     const payload = { type: typeParam };
-    console.log('scheme-type-filter payload:', payload);
-    const response = await this.post('scheme-type-filter', payload);
+    console.log('scheme_type-filter payload:', payload);
+    const response = await this.post('scheme_type-filter', payload);
 
     console.log(`scheme-registration dropdown [type=${typeParam}] response:`, response);
 
@@ -166,7 +166,6 @@ const DropdownAPI = {
   // ========================================================================================================================
 
 
-<<<<<<< HEAD
   async loadDropdown({
     endpoint,
     selector,
@@ -185,127 +184,6 @@ const DropdownAPI = {
     let response;
     if (method === 'get') {
       response = await this.get(endpoint, payload);
-=======
-
-
-
-
-
-
-  
-
-// ========================================================================================================================
-// ************************************************************************************************************************
-//                                          ELIGIBILITY TAP API
-// ************************************************************************************************************************
-// ========================================================================================================================
-
-
-async loadDropdown({
-  endpoint,
-  selector,
-  payload = {},
-  method,
-  valueKeys = ['id'],
-  textKeys = ['name'],
-  placeholderText = '--Select--',
-  renderType = 'select',
-  constraint = '',
-  field = '',
-  includeNA = true,
-  useSelect2 = false,            
-  extraOptions = []
-}) {
-  let response;
-  if(method === 'get'){
-    response = await this.get(endpoint, payload);
-  }else{
-    response = await this.post(endpoint, payload);
-  }
-  // const response = await this.post(endpoint, payload);
-  const rows = this.extractRows(response) || [];
-
-  // ✅ Inject NA
-  let finalRows = rows;
-  if (includeNA) {
-    const hasNA = rows.some(item =>
-      valueKeys.some(k => String(item[k]) === '-1')
-    );
-
-    if (!hasNA) {
-      const naObj = {};
-      valueKeys.forEach(k => naObj[k] = '-1');
-      textKeys.forEach(k => naObj[k] = 'Not Applicable');
-
-      finalRows = [naObj, ...rows];
-    }
-  }
-
-  // ============================
-  // 👉 SELECT (WITH SELECT2)
-  // ============================
-  if (renderType === 'select') {
-
-    const $el = $(selector);
-
-    if (useSelect2) {
-
-      // 👉 destroy safely
-      try {
-        if ($el.data('select2')) $el.select2('destroy');
-      } catch (e) {}
-
-      $el.empty();
-
-      // 👉 Add extra options first
-      extraOptions.forEach(opt => {
-        $el.append(new Option(opt.label, opt.value, false, false));
-      });
-
-      // 👉 Add actual data
-      finalRows.forEach(item => {
-        const value = valueKeys.map(k => item[k]).find(v => v !== undefined);
-        const text = textKeys.map(k => item[k]).find(v => v !== undefined);
-
-        $el.append(new Option(text, value, value === '-1', value === '-1'));
-      });
-
-      $el.prop('multiple', true);
-
-      $el.select2({
-        width: '100%',
-        placeholder: placeholderText
-      });
-
-      // 👉 Special handling
-      $el.off('change.control').on('change.control', function () {
-
-        let values = $(this).val() || [];
-
-        // Select All
-        if (values.includes('select_all')) {
-          const all = [];
-          $(this).find('option').each(function () {
-            const v = $(this).val();
-            if (!['select_all', 'deselect_all'].includes(v)) {
-              all.push(v);
-            }
-          });
-          $(this).val(all).trigger('change.select2');
-        }
-
-        // Deselect All
-        if (values.includes('deselect_all')) {
-          $(this).val(['-1']).trigger('change.select2');
-        }
-
-        // NA logic
-        if (values.includes('-1') && values.length > 1) {
-          $(this).val(['-1']).trigger('change.select2');
-        }
-      });
-
->>>>>>> 08b50c693bb27071dc588f40ec50256dfc0a140b
     } else {
       response = await this.post(endpoint, payload);
     }
@@ -435,52 +313,5 @@ async loadDropdown({
 
     return finalRows;
   }
-<<<<<<< HEAD
-=======
-
-  return finalRows;
-},
-async selectDropdown({
-    endpoint,
-    selector,
-    payload = {},
-    method = 'GET',
-    valueKey = 'id',
-    textKey = 'name',
-    placeholderText = '--Select--'
-  }) {
-    const $el = $(selector);
-    $el.empty();
-    
-    // Add placeholder option
-    if (placeholderText) {
-      $el.append(`<option value="">${placeholderText}</option>`);
-    }
-    
-    // Fetch data
-    let response;
-    if (method.toLowerCase() === 'get') {
-      response = await this.get(endpoint, payload);
-    } else {
-      response = await this.post(endpoint, payload);
-    }
-    
-    // Extract rows using existing extractRows method
-    const rows = this.extractRows(response) || [];
-    
-    // Add options
-    rows.forEach(item => {
-      const value = item[valueKey];
-      const text = item[textKey];
-      if (value && text) {
-        $el.append(`<option value="${value}">${text}</option>`);
-      }
-    });
-    
-    return $el;
-  }
-
->>>>>>> 08b50c693bb27071dc588f40ec50256dfc0a140b
 };
 
- 
